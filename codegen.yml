@@ -1,0 +1,15 @@
+overwrite: true
+schema: 'https://right-goldfish-91.hasura.app/v1/graphql'
+documents: 'src/graphql/**/*.ts'
+generates:
+  src/types/graphql.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+    config:
+      enumsAsTypes: true
+      withMutationFn: true
+  ./graphql.schema.json:
+    plugins:
+      - 'introspection'
