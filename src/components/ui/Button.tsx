@@ -8,8 +8,8 @@ type Button = ColorProps &
   Readonly<{ children?: ReactNode }>;
 
 export const Button = styled.Button<Button>`
-    ${space}
-    ${layout}
-    ${typography}
-    ${color}
+  ${space}
+  ${layout}
+  ${typography}
+  ${color}
 `;
