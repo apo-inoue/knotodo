@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, Text } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { Container, Button } from '../components/ui';
 import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../components/theme/CustomThemeProvider';
@@ -10,11 +10,10 @@ export const Today = () => {
   const theme = useCustomTheme();
   const { loading, error, data } = useGetAllTodosQuery();
 
-  if (loading) return <div />;
+  if (loading) return <View />;
 
   return (
     <Container>
-      {console.log(data)}
       <FlatList
         data={data.todo}
         keyExtractor={item => item.id}

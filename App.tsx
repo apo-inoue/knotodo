@@ -1,8 +1,8 @@
 import React from 'react';
 import Navigation from './src/navigation/Navigation';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { ResetStyle } from './src/components/theme/ResetStyle';
 import { CustomThemeProvider } from './src/components/theme/CustomThemeProvider';
+import { AuthProvider } from './src/containers/Auth';
 
 // Create the client as outlined in the setup guide
 const client = new ApolloClient({
@@ -12,14 +12,13 @@ const client = new ApolloClient({
 
 const App = () => {
   return (
-    <>
-      <ResetStyle />
+    <AuthProvider>
       <CustomThemeProvider>
         <ApolloProvider client={client}>
           <Navigation />
         </ApolloProvider>
       </CustomThemeProvider>
-    </>
+    </AuthProvider>
   );
 };
 
