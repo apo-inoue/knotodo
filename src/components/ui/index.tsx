@@ -1,3 +1,5 @@
+// react-nativeをStyledComponentsで拡張したもの
+
 export { Container } from './Container';
 export { Box } from './Box';
 export { Button } from './Button';
