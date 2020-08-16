@@ -15,14 +15,14 @@ export const Today = () => {
   return (
     <Container>
       <FlatList
-        data={data.todo}
+        data={data?.todo}
         keyExtractor={item => item.id}
         renderItem={({ item }) => <Text key={item.id}>{item.title}</Text>}
       />
       <Button
         onPress={() => navigation.goBack()}
         title="GoHome"
-        color={theme.main}
+        color={theme.colors.main}
       />
     </Container>
   );

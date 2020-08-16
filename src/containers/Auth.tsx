@@ -8,8 +8,14 @@ const auth0 = new Auth0({
 });
 
 type useAuthContext = {
-  logIn: any;
-  logOut: any;
+  logIn: () => void;
+  logOut: () => void;
+  authState: authState;
+  isLogIn: boolean;
+};
+
+type authState = {
+  accessToken: null | string;
 };
 
 export const [useAuthContext, AuthContextProvider] = createCtx<
@@ -17,27 +23,33 @@ export const [useAuthContext, AuthContextProvider] = createCtx<
 >();
 
 export const AuthProvider: FC = ({ children }) => {
-  const [authState, setAuthState] = useState({ accessToken: null });
+  const [authState, setAuthState] = useState<authState>({
+    accessToken: null,
+  });
+  const isLogIn = authState.accessToken != null;
+  console.log(isLogIn, authState);
   const logIn = () => {
-    return auth0.webAuth
+    auth0.webAuth
       .authorize({ scope: 'openid profile email' })
-      .then(credentials =>
+      .then((credentials: { accessToken: null | string }) =>
         setAuthState({ accessToken: credentials.accessToken }),
       )
-      .catch(error => console.log(error));
+      .catch((error: any) => console.log(error));
   };
   const logOut = () => {
     auth0.webAuth
-      .clearSession({})
-      .then(success => {
-        Alert.alert('Logged out!');
-        setState({ accessToken: null });
+      .clearSession(undefined)
+      .then((success: boolean) => {
+        console.log('logout');
+        setAuthState({ accessToken: null });
       })
-      .catch(error => {
+      .catch((error: any) => {
         console.log('Log out cancelled');
       });
   };
   const value = {
+    authState,
+    isLogIn,
     logIn,
     logOut,
   };
