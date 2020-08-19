@@ -1,6 +1,6 @@
 import { FC, Dispatch, ChangeEvent, useReducer, useCallback } from 'react';
 import { createCtx } from '../utils/createCtx';
-import { useEventCallback } from './useEventCallback';
+import { useEventCallback } from '../utils/useEventCallback';
 import { validationSchema } from '../form/validationSchema';
 
 type FormAction =
