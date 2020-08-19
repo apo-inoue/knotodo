@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../components/theme/CustomThemeProvider';
 import { useGetAllTodosQuery } from '../types/graphql';
 
-export const Today = () => {
+export const ArchiveTodos = () => {
   const navigation = useNavigation();
   const theme = useCustomTheme();
   const { loading, error, data } = useGetAllTodosQuery();
