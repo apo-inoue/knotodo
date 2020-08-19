@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import Auth0 from 'react-native-auth0';
-import { createCtx } from '../helpers/hooks/createCtx';
+import { createCtx } from '../helpers/utils/createCtx';
 
 const auth0 = new Auth0({
   domain: 'dev-28i2mygc.au.auth0.com',

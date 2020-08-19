@@ -1,21 +1,24 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Today } from '../page/Today';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { LogIn } from '../page/LogIn';
+import { LogIn, TodayTodos, NotTodayTodos, ArchiveTodos } from '../page';
 import { useAuthContext } from '../containers/Auth';
+import { useCustomTheme } from '../components/theme/CustomThemeProvider';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
+  const theme = useCustomTheme();
   const { isLogIn } = useAuthContext();
   if (!isLogIn) return <LogIn />;
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Today" component={Today} />
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Today" component={TodayTodos} />
+        <Tab.Screen name="Today" component={NotTodayTodos} />
+        <Tab.Screen name="Today" component={ArchiveTodos} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
