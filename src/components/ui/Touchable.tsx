@@ -2,7 +2,7 @@
 // そのままでは使えないもの
 
 import { TouchableOpacityProps } from 'react-native';
-import styled from 'styled-components/native';
+import styled, { DefaultTheme } from 'styled-components/native';
 import {
   space,
   color,
@@ -23,7 +23,8 @@ export type TouchableType = LayoutProps &
   ColorProps &
   BorderProps &
   FlexboxProps &
-  Readonly<TouchableOpacityProps>;
+  Readonly<TouchableOpacityProps> &
+  DefaultTheme;
 
 export const Touchable = styled.TouchableOpacity<TouchableType>`
   ${layout}

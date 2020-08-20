@@ -9,7 +9,7 @@ type View = SpaceProps &
   Readonly<{ children?: ReactNode }>;
 
 export const Flex = styled.View<View>`
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   min-width: 0;
   ${flexbox}
   ${space}
