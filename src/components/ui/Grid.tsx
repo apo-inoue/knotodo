@@ -6,6 +6,7 @@ import {
   space,
   layout,
   flex,
+  grid,
   color,
   border,
   position,
@@ -13,6 +14,7 @@ import {
   ColorProps,
   SpaceProps,
   LayoutProps,
+  GridProps,
   PositionProps,
 } from 'styled-system';
 
@@ -20,17 +22,19 @@ type View = PositionProps &
   BorderProps &
   SpaceProps &
   LayoutProps &
+  GridProps &
   ColorProps &
   FlexboxProps &
   Readonly<ViewProps> &
   Readonly<{ children?: ReactNode }>;
 
-export const Box = styled.View<View>`
+export const Grid = styled.View<View>`
   /* box-sizing: border-box; */
   min-width: 0;
   ${position}
   ${space}
   ${flex}
+  ${grid}
   ${border}
   ${layout}
   ${color}
