@@ -1,56 +1,31 @@
-import { FC, ChangeEvent, useReducer, useCallback } from 'react';
-import { useEventCallback } from '../../helpers/utils/useEventCallback';
-import { validationSchema } from './utils';
-import { initialState, formReducer } from './reducer';
-import { FormCtxProvider } from './useAuthCtx';
+import Auth0 from 'react-native-auth0';
+import React, { FC, useReducer, useCallback } from 'react';
+import { loginAuth0, signUpAuth0, logoutAuth0 } from './operations';
+import { authReducer, initialState } from './reducer';
+import { AuthContextProvider } from './useCtx';
 
-export const FormProvider: FC = ({ children }) => {
-  const [state, dispatch] = useReducer(formReducer, initialState);
+export const AuthProvider: FC = ({ children }) => {
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const runValidationSchema = async (field: any, value: any) => {
-    const error = validationSchema(field, value);
-    return error;
-  };
-
-  const validateOnChange = useEventCallback(async (field: any, value: any) => {
-    try {
-      const error = await runValidationSchema(field, value);
-      if (!!error) {
-        dispatch({
-          actionType: 'SET_FIELD_ERROR',
-          payload: { field, error },
-        });
-      }
-    } catch (e) {
-      return console.warn('Warning: An unhandled error was caught');
-    }
-  });
-
-  const resetForm = useCallback(() => {
-    dispatch({
-      actionType: 'RESET_FORM',
-    });
+  const signUp = useCallback(() => {
+    signUpAuth0;
+    dispatch({ actionType: 'SIGNUP', payload: { isLoggedIn: true, userName: 'hoge' } });
   }, []);
-
-  const setFieldValue = useEventCallback((field: string, value: any) => {
-    dispatch({
-      actionType: 'SET_FIELD_VALUE',
-      payload: { field, value },
-    });
-  });
-
-  const handleChange = useEventCallback((e: ChangeEvent<any>) => {
-    const field = e.target.id;
-    const value = e.target.value;
-    setFieldValue(field, value);
-    return validateOnChange(field, value);
-  });
+  const logIn = useCallback(() => {
+    loginAuth0;
+    dispatch({ actionType: 'LOGIN', payload: { isLoggedIn: true, userName: 'hoge' } });
+  }, []);
+  const logOut = useCallback(() => {
+    logoutAuth0;
+    dispatch({ actionType: 'LOGOUT' });
+  }, []);
 
   const value = {
     state,
-    resetForm,
-    handleChange,
+    signUp,
+    logIn,
+    logOut,
   };
 
-  return <FormCtxProvider value={value}>{children}</FormCtxProvider>;
+  return <AuthContextProvider value={value}>{children}</AuthContextProvider>;
 };
