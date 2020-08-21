@@ -1,35 +1,32 @@
-import { FormState, FormAction } from './type';
+import { AuthState, AuthAction } from './types';
 
-export const initialState: FormState = {
-  values: { name: '', email: '', password: '' },
-  errors: { name: null, email: null, password: null },
+export const initialState: AuthState = {
+  isLoggedIn: false,
+  userName: '',
 };
 
-export const formReducer: (
-  state: FormState,
-  action: FormAction,
-) => FormState = (state, action) => {
+export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.actionType) {
-    case 'RESET_FORM':
+    case 'LOGIN': {
       return {
         ...state,
-        values: initialState.values,
+        isLoggedIn: action.payload.isLoggedIn,
+        userName: action.payload.userName,
       };
-    case 'SET_FIELD_VALUE':
+    }
+    case 'SIGNUP':
       return {
         ...state,
-        values: {
-          ...state.values,
-          [action.payload.field]: action.payload.value,
-        },
+        isLoggedIn: action.payload.isLoggedIn,
+        userName: action.payload.userName,
       };
-    case 'SET_FIELD_ERROR':
+    case 'LOGOUT':
       return {
         ...state,
-        errors: {
-          ...state.errors,
-          [action.payload.field]: action.payload.error,
-        },
+        isLoggedIn: false,
+        userName: '',
       };
+    default:
+      return state;
   }
 };
