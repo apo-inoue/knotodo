@@ -6,10 +6,10 @@ import { TextProps } from 'react-native';
 type Text = TypographyProps &
   ColorProps &
   Readonly<TextProps> &
-  Readonly<{ children?: ReactNode }> &
+  Readonly<{ children?: string }> &
   DefaultTheme;
 
-export const Text = styled.Text<Text>`
+export const Text = styled.Text`
   ${typography}
   ${color}
 `;
