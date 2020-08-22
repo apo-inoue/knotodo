@@ -1,18 +1,24 @@
 export type AuthAction =
-  | { actionType: 'SIGNUP'; payload: { isLoggedIn: boolean; userName: string } }
-  | { actionType: 'LOGIN'; payload: { isLoggedIn: boolean; userName: string } }
+  | {
+      actionType: 'LOGIN';
+      payload: { token: string; userInfo: { id: string; name: string; isNewUser: boolean } };
+    }
   | { actionType: 'LOGOUT' };
 
 export type AuthState = {
   isLoggedIn: boolean;
-  userName: string;
+  userInfo: {
+    id: string;
+    name: string;
+    isNewUser: boolean;
+  };
+  token: string;
 };
 
 export type useAuthContextType = {
   state: AuthState;
-  logIn: () => void;
-  logOut: () => void;
-  signUp: () => void;
+  handleLogIn: () => Promise<void>;
+  handleLogOut: () => void;
 };
 
 // LOGIN_SUCCEED: 'LOGIN_SUCCEED',
