@@ -5,8 +5,7 @@ import { ImageBackgroundProps } from 'react-native';
 
 type ImageBackground = ColorProps &
   Readonly<{ children?: ReactNode }> &
-  Readonly<ImageBackgroundProps> &
-  DefaultTheme;
+  Readonly<ImageBackgroundProps>;
 
 export const ImageBackground = styled.ImageBackground<ImageBackground>`
   background-color: ${props => props.theme.colors.whites[0]};

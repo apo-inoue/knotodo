@@ -6,8 +6,7 @@ import { ViewProps } from 'react-native';
 type TextInput = { variant: 'outlined' | 'underlined' } & BorderProps &
   LayoutProps &
   Readonly<ViewProps> &
-  Readonly<{ children?: ReactNode }> &
-  DefaultTheme;
+  Readonly<{ children?: ReactNode }>;
 
 export const TextInput = styled.TextInput<TextInput>`
   height: 40px;
