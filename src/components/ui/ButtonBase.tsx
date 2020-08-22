@@ -4,6 +4,6 @@ import { ButtonProps } from 'react-native';
 
 export type ButtonType = SpaceProps & Readonly<ButtonProps>;
 
-export const Button = styled.Button<ButtonType>`
+export const ButtonBase = styled.Button<ButtonType>`
   ${space}
 `;

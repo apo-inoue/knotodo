@@ -1,25 +1,17 @@
 import React, { FC } from 'react';
 import { TouchableOpacityProps, TouchableOpacity } from 'react-native';
-import { Touchable } from '../ui/Touchable';
-import { Text, Box } from '../ui';
+import { Text, Box, Touchable } from '../ui';
+import { ButtonBase } from '../ui/ButtonBase';
 
 // type RoundButtonProps = {
-//   toucheableProps;
+//   touchableProps;
 // }; Readonly<TouchableOpacityProps>
 
 export const RoundButton: FC = ({ children }) => {
   return (
-    <Touchable
-      borderRadius={500}
-      width={250}
-      height={250}
-      backgroundColor="pink"
-      alignItems="center"
-      justifyContent="center">
-      <Text color="black" textAlign="center" fontSize={26}>
-        {children}
-      </Text>
-    </Touchable>
+    <Text color="black" fontSize={26}>
+      {children}
+    </Text>
   );
 };
 

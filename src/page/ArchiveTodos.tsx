@@ -1,9 +1,10 @@
 import React from 'react';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
-import { Container, Button } from '../components/ui';
+import { Container } from '../components/ui';
 import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../components/theme/CustomThemeProvider';
 import { useGetAllTodosQuery } from '../types/graphql';
+import { PrimaryButton } from '../components/ui-group';
 
 export const ArchiveTodos = () => {
   const navigation = useNavigation();
@@ -19,11 +20,7 @@ export const ArchiveTodos = () => {
         keyExtractor={item => item.id}
         renderItem={({ item }) => <Text key={item.id}>{item.title}</Text>}
       />
-      <Button
-        onPress={() => navigation.goBack()}
-        title="GoHome"
-        color={theme.colors.main}
-      />
+      <PrimaryButton onPress={() => navigation.goBack()} title="GoHome" color={theme.colors.main} />
     </Container>
   );
 };

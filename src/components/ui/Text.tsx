@@ -3,13 +3,9 @@ import { typography, color, ColorProps, TypographyProps } from 'styled-system';
 import { ReactNode } from 'react';
 import { TextProps } from 'react-native';
 
-type Text = TypographyProps &
-  ColorProps &
-  Readonly<TextProps> &
-  Readonly<{ children?: string }> &
-  DefaultTheme;
+type Text = TypographyProps & ColorProps & Readonly<TextProps> & Readonly<{ children?: ReactNode }>;
 
-export const Text = styled.Text`
+export const Text = styled.Text<Text>`
   ${typography}
   ${color}
 `;

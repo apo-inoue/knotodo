@@ -2,7 +2,7 @@ import React from 'react';
 import Navigation from './src/navigation/Navigation';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { CustomThemeProvider } from './src/components/theme/CustomThemeProvider';
-import { AuthProvider } from './src/containers/Auth';
+import { AuthProvider } from './src/containers/auth/provider';
 
 // Create the client as outlined in the setup guide
 const client = new ApolloClient({

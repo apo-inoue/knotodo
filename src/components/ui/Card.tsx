@@ -24,7 +24,9 @@ type View = BorderProps &
 
 export const Card = styled.View<View>`
   border-radius: 4;
-  box-shadow: '0 2px 4px rgba(0, 0, 0, 0.125)';
+  shadow-opacity: 0.75;
+  shadow-radius: 5;
+  shadow-color: ${props => props.theme.colors.black[6]};
   ${border}
   ${shadow}
   ${space}
