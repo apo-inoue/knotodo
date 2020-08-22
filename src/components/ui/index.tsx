@@ -10,6 +10,3 @@ export { Image } from './Image';
 export { TextInput } from './TextInput';
 export { Loader } from './Loader';
 export { ImageBackground } from './ImageBackground';
-export { FlatList } from './FlatList';
-export { ScrollView } from './ScrollView';
-export { StatusBar } from './StatusBar';
