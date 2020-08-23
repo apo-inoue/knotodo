@@ -2,29 +2,37 @@ import { AuthState, AuthAction } from './types';
 
 export const initialState: AuthState = {
   isLoggedIn: false,
-  userName: '',
+  token: '',
+  userInfo: {
+    id: '',
+    name: '',
+    isNewUser: false,
+  },
 };
 
 export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
+  console.log(action);
   switch (action.actionType) {
     case 'LOGIN': {
       return {
         ...state,
-        isLoggedIn: action.payload.isLoggedIn,
-        userName: action.payload.userName,
+        token: action.payload.token,
+        userInfo: {
+          id: action.payload.userInfo.id,
+          name: action.payload.userInfo.name,
+          isNewUser: action.payload.userInfo.isNewUser,
+        },
       };
     }
-    case 'SIGNUP':
-      return {
-        ...state,
-        isLoggedIn: action.payload.isLoggedIn,
-        userName: action.payload.userName,
-      };
     case 'LOGOUT':
       return {
         ...state,
-        isLoggedIn: false,
-        userName: '',
+        token: '',
+        userInfo: {
+          id: '',
+          name: '',
+          isNewUser: false,
+        },
       };
     default:
       return state;

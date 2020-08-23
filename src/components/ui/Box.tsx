@@ -20,7 +20,6 @@ type View = PositionProps &
   BorderProps &
   SpaceProps &
   LayoutProps &
-  ColorProps &
   FlexboxProps &
   Readonly<ViewProps> &
   Readonly<{ children?: ReactNode }>;
@@ -33,5 +32,4 @@ export const Box = styled.View<View>`
   ${flex}
   ${border}
   ${layout}
-  ${color}
 `;

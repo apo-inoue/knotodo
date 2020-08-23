@@ -2,8 +2,9 @@
 export { Container } from './Container';
 export { Box } from './Box';
 export { Grid } from './Grid';
-export { Button } from './Button';
+export { ButtonBase } from './ButtonBase';
 export { Text } from './Text';
+export { Touchable } from './Touchable';
 export { Flex } from './Flex';
 export { Card } from './Card';
 export { Image } from './Image';
