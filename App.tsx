@@ -1,8 +1,10 @@
 import React from 'react';
 import Navigation from './src/navigation/Navigation';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { CustomThemeProvider } from './src/components/theme/CustomThemeProvider';
-import { AuthProvider } from './src/containers/auth/provider';
+import { CustomThemeProvider } from './src/containers/theme/provider';
+import { ComposedProviders } from './src/containers/ComposedProviders';
+import { useAuthContext } from './src/containers/auth/useCtx';
+import { LogIn } from './src/page';
 
 // Create the client as outlined in the setup guide
 const client = new ApolloClient({
@@ -10,15 +12,28 @@ const client = new ApolloClient({
   uri: 'https://right-goldfish-91.hasura.app/v1/graphql',
 });
 
+const ApolloHandler = () => {
+  const {
+    state: { token },
+  } = useAuthContext();
+
+  if (!token) {
+    <LogIn />;
+  }
+  return (
+    <ApolloProvider client={client}>
+      <Navigation />
+    </ApolloProvider>
+  );
+};
+
 const App = () => {
   return (
-    <AuthProvider>
+    <ComposedProviders>
       <CustomThemeProvider>
-        <ApolloProvider client={client}>
-          <Navigation />
-        </ApolloProvider>
+        <ApolloHandler />
       </CustomThemeProvider>
-    </AuthProvider>
+    </ComposedProviders>
   );
 };
 

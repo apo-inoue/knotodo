@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useCustomTheme } from '../components/theme/CustomThemeProvider';
+import { useCustomTheme } from '../containers/theme/provider';
 import { useGetAllTodosQuery } from '../types/graphql';
 import { PrimaryButton } from '../components/ui-group/StyledButtons';
 import {

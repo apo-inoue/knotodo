@@ -13,6 +13,7 @@ import {
   NONCE_KEY,
 } from '../../../config';
 import * as AuthSession from 'expo-auth-session';
+import { decodedToken } from './types';
 
 export const AuthProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -22,6 +23,7 @@ export const AuthProvider: FC = ({ children }) => {
     const randomNum: Uint8Array = await Random.getRandomBytesAsync(16);
     const randomNumArray = Array.from(randomNum);
     const nonce = String.fromCharCode.apply(null, randomNumArray);
+    console.log(nonce, 'nonce');
     await SecureStore.setItemAsync(NONCE_KEY, nonce);
     return nonce;
   };
@@ -38,21 +40,26 @@ export const AuthProvider: FC = ({ children }) => {
           redirect_uri: AuthSession.getRedirectUrl(),
           nonce,
         }),
-    }).then((result: any) => {
-      if (result.type === 'success') {
-        decodeToken(result.params.id_token);
-      } else if (result.params && result.params.error) {
-        console.log(result.params.error_description || 'Something went wrong while logging in.');
-      }
-    });
+    })
+      .then((result: any) => {
+        if (result.type === 'success') {
+          console.log('result', result);
+          decodeToken(result.params.id_token);
+        } else if (result.params && result.params.error) {
+          console.log(result.params.error_description || 'Something went wrong while logging in.');
+        }
+      })
+      .catch(e => console.log('error', e));
   };
 
   const decodeToken = (token: string) => {
-    const decodedToken: any = jwtDecoder(token);
+    const decodedToken: decodedToken = jwtDecoder(token);
+    console.log(decodedToken);
     const { nonce, sub, name, exp } = decodedToken;
 
     SecureStore.getItemAsync(NONCE_KEY).then(storedNonce => {
       if (nonce == storedNonce) {
+        console.log('corresponding nonce!!');
         SecureStore.setItemAsync(
           ID_TOKEN_KEY,
           JSON.stringify({
@@ -61,7 +68,8 @@ export const AuthProvider: FC = ({ children }) => {
             exp,
             token,
           }),
-        ).then(() => handleSession(decodedToken[AUTH_NAMESPACE].isNewUser));
+        ).then(() => handleSession(false));
+        // ).then(() => handleSession(decodedToken[AUTH_NAMESPACE].isNewUser));
       } else {
         console.log('error');
         return;
@@ -71,13 +79,19 @@ export const AuthProvider: FC = ({ children }) => {
 
   const handleSession = (isNewUser = false) => {
     SecureStore.getItemAsync(ID_TOKEN_KEY).then(session => {
+      console.log('session', session);
       if (session) {
         const sessionObj = JSON.parse(session);
         const { exp, token, id, name } = sessionObj;
 
         if (exp > Math.floor(new Date().getTime() / 1000)) {
+          console.log('exp ok', token);
+          console.log('exp ok', id);
+          console.log('exp ok', name);
+          console.log('exp ok', isNewUser);
           dispatch({ actionType: 'LOGIN', payload: { token, userInfo: { id, name, isNewUser } } });
         } else {
+          console.log('exp ng');
           dispatch({ actionType: 'LOGOUT' });
         }
       }

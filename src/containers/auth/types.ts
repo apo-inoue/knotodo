@@ -10,7 +10,7 @@ export type AuthState = {
   userInfo: {
     id: string;
     name: string;
-    isNewUser: boolean;
+    isNewUser: boolean | undefined;
   };
   token: string;
 };
@@ -26,3 +26,19 @@ export type useAuthContextType = {
 // LOGOUT: 'LOGOUT',
 // SIGNUP_FAILED: 'SIGNUP_FAILED',
 // CLEAN_AUTH_STATE: 'CLEAN_AUTH_STATE',
+
+export type decodedToken = {
+  aud: string;
+  email: string;
+  email_verified: boolean;
+  exp: number;
+  https: any;
+  iat: number;
+  iss: string;
+  name: string;
+  nickname: string;
+  nonce: string;
+  picture: string;
+  sub: string;
+  updated_at: string;
+};

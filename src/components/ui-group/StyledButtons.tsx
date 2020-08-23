@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { useCustomTheme } from '../theme/CustomThemeProvider';
+import { useCustomTheme } from '../../containers/theme/provider';
 import { ButtonType } from '../ui/ButtonBase';
 
 export const PrimaryButton = (props: ButtonType) => {
