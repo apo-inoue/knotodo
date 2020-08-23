@@ -6,8 +6,6 @@ import { ComposedProviders } from './src/containers/ComposedProviders';
 import { useAuthContext } from './src/containers/auth/useCtx';
 import { LogIn } from './src/page';
 
-// Create the client as outlined in the setup guide
-
 const ApolloHandler = () => {
   const {
     state: { token },
@@ -15,7 +13,7 @@ const ApolloHandler = () => {
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
-      uri: 'https://hasura.io/learn/graphql',
+      uri: 'https://right-goldfish-91.hasura.app/v1/graphql',
       headers: {
         Authorization: `Bearer ${token}`,
       },
