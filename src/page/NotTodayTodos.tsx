@@ -3,18 +3,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../containers/theme/provider';
 import { useGetAllTodosQuery } from '../types/graphql';
 import { PrimaryButton } from '../components/ui-group/StyledButtons';
-import {
-  Container,
-  Box,
-  Grid,
-  Text,
-  Flex,
-  Card,
-  Image,
-  TextInput,
-  Loader,
-  ImageBackground,
-} from '../components/ui';
+import { Container, Box, Grid, Text, Flex, Card, Loader } from '../components/ui';
+import { FlatList } from 'react-native';
 
 export const NotTodayTodos = () => {
   const navigation = useNavigation();
@@ -22,14 +12,16 @@ export const NotTodayTodos = () => {
   const { loading, error, data } = useGetAllTodosQuery();
 
   if (loading) return <Loader />;
+  if (error) return <Text>エラー</Text>;
+  if (!data) return <Text>Todoはまだ登録されていません。</Text>;
 
   return (
     <Container>
-      {/* <FlatList
-        data={data?.todo}
+      <FlatList
+        data={data.todo}
         keyExtractor={item => item.id}
         renderItem={({ item }) => <Text key={item.id}>{item.title}</Text>}
-      /> */}
+      />
       <PrimaryButton
         onPress={() => navigation.navigate('Today')}
         title="GoHome"

@@ -1,4 +1,3 @@
-import React, { FC } from 'react';
 import { composeWrappers } from '../helpers/utils/composeWrapper';
 import { AuthProvider } from './auth/provider';
 import { FormProvider } from './form/provider';
