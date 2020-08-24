@@ -12,7 +12,7 @@ export type AuthState = {
     name: string;
     isNewUser: boolean | undefined;
   };
-  token: string;
+  token: string | null;
 };
 
 export type useAuthContextType = {

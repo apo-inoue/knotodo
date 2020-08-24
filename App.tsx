@@ -5,6 +5,7 @@ import { CustomThemeProvider } from './src/containers/theme/provider';
 import { ComposedProviders } from './src/containers/ComposedProviders';
 import { useAuthContext } from './src/containers/auth/useCtx';
 import { LogIn } from './src/page';
+import { Text } from './src/components/ui/Text';
 
 const ApolloHandler = () => {
   const {
@@ -21,11 +22,12 @@ const ApolloHandler = () => {
   });
 
   if (!token) {
-    <LogIn />;
+    return <LogIn />;
   }
   return (
     <ApolloProvider client={client}>
       <Navigation />
+      <Text>hello</Text>
     </ApolloProvider>
   );
 };

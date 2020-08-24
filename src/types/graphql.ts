@@ -9,7 +9,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  uuid: any;
 };
 
 /** expression to compare columns of type Boolean. All fields are combined with logical 'AND'. */
@@ -82,7 +81,7 @@ export type Mutation_RootDelete_TodoArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Todo_By_PkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars['String'];
 };
 
 
@@ -154,33 +153,30 @@ export type Mutation_RootUpdate_Urgency_By_PkArgs = {
 };
 
 /** column ordering options */
-export type Order_By = 
+export enum Order_By {
   /** in the ascending order, nulls last */
-  | 'asc'
+  Asc = 'asc',
   /** in the ascending order, nulls first */
-  | 'asc_nulls_first'
+  AscNullsFirst = 'asc_nulls_first',
   /** in the ascending order, nulls last */
-  | 'asc_nulls_last'
+  AscNullsLast = 'asc_nulls_last',
   /** in the descending order, nulls first */
-  | 'desc'
+  Desc = 'desc',
   /** in the descending order, nulls first */
-  | 'desc_nulls_first'
+  DescNullsFirst = 'desc_nulls_first',
   /** in the descending order, nulls last */
-  | 'desc_nulls_last';
+  DescNullsLast = 'desc_nulls_last'
+}
 
 /** query root */
 export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "todo" */
   todo: Array<Todo>;
-  /** fetch aggregated fields from the table: "todo" */
-  todo_aggregate: Todo_Aggregate;
   /** fetch data from the table: "todo" using primary key columns */
   todo_by_pk?: Maybe<Todo>;
   /** fetch data from the table: "urgency" */
   urgency: Array<Urgency>;
-  /** fetch aggregated fields from the table: "urgency" */
-  urgency_aggregate: Urgency_Aggregate;
   /** fetch data from the table: "urgency" using primary key columns */
   urgency_by_pk?: Maybe<Urgency>;
 };
@@ -197,33 +193,13 @@ export type Query_RootTodoArgs = {
 
 
 /** query root */
-export type Query_RootTodo_AggregateArgs = {
-  distinct_on?: Maybe<Array<Todo_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Todo_Order_By>>;
-  where?: Maybe<Todo_Bool_Exp>;
-};
-
-
-/** query root */
 export type Query_RootTodo_By_PkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars['String'];
 };
 
 
 /** query root */
 export type Query_RootUrgencyArgs = {
-  distinct_on?: Maybe<Array<Urgency_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Urgency_Order_By>>;
-  where?: Maybe<Urgency_Bool_Exp>;
-};
-
-
-/** query root */
-export type Query_RootUrgency_AggregateArgs = {
   distinct_on?: Maybe<Array<Urgency_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
@@ -242,14 +218,10 @@ export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "todo" */
   todo: Array<Todo>;
-  /** fetch aggregated fields from the table: "todo" */
-  todo_aggregate: Todo_Aggregate;
   /** fetch data from the table: "todo" using primary key columns */
   todo_by_pk?: Maybe<Todo>;
   /** fetch data from the table: "urgency" */
   urgency: Array<Urgency>;
-  /** fetch aggregated fields from the table: "urgency" */
-  urgency_aggregate: Urgency_Aggregate;
   /** fetch data from the table: "urgency" using primary key columns */
   urgency_by_pk?: Maybe<Urgency>;
 };
@@ -266,33 +238,13 @@ export type Subscription_RootTodoArgs = {
 
 
 /** subscription root */
-export type Subscription_RootTodo_AggregateArgs = {
-  distinct_on?: Maybe<Array<Todo_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Todo_Order_By>>;
-  where?: Maybe<Todo_Bool_Exp>;
-};
-
-
-/** subscription root */
 export type Subscription_RootTodo_By_PkArgs = {
-  id: Scalars['uuid'];
+  id: Scalars['String'];
 };
 
 
 /** subscription root */
 export type Subscription_RootUrgencyArgs = {
-  distinct_on?: Maybe<Array<Urgency_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<Urgency_Order_By>>;
-  where?: Maybe<Urgency_Bool_Exp>;
-};
-
-
-/** subscription root */
-export type Subscription_RootUrgency_AggregateArgs = {
   distinct_on?: Maybe<Array<Urgency_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
   offset?: Maybe<Scalars['Int']>;
@@ -314,39 +266,13 @@ export type Subscription_RootUrgency_By_PkArgs = {
  */
 export type Todo = {
   __typename?: 'todo';
-  id: Scalars['uuid'];
+  id: Scalars['String'];
   isToday: Scalars['Boolean'];
   title: Scalars['String'];
-  urgency?: Maybe<Urgency_Enum>;
-};
-
-/** aggregated selection of "todo" */
-export type Todo_Aggregate = {
-  __typename?: 'todo_aggregate';
-  aggregate?: Maybe<Todo_Aggregate_Fields>;
-  nodes: Array<Todo>;
-};
-
-/** aggregate fields of "todo" */
-export type Todo_Aggregate_Fields = {
-  __typename?: 'todo_aggregate_fields';
-  count?: Maybe<Scalars['Int']>;
-  max?: Maybe<Todo_Max_Fields>;
-  min?: Maybe<Todo_Min_Fields>;
-};
-
-
-/** aggregate fields of "todo" */
-export type Todo_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Todo_Select_Column>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "todo" */
-export type Todo_Aggregate_Order_By = {
-  count?: Maybe<Order_By>;
-  max?: Maybe<Todo_Max_Order_By>;
-  min?: Maybe<Todo_Min_Order_By>;
+  urgency: Urgency_Enum;
+  /** An object relationship */
+  urgencyByUrgency: Urgency;
+  user_id: Scalars['String'];
 };
 
 /** input type for inserting array relation for remote table "todo" */
@@ -360,49 +286,29 @@ export type Todo_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Todo_Bool_Exp>>>;
   _not?: Maybe<Todo_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Todo_Bool_Exp>>>;
-  id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<String_Comparison_Exp>;
   isToday?: Maybe<Boolean_Comparison_Exp>;
   title?: Maybe<String_Comparison_Exp>;
   urgency?: Maybe<Urgency_Enum_Comparison_Exp>;
+  urgencyByUrgency?: Maybe<Urgency_Bool_Exp>;
+  user_id?: Maybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "todo" */
-export type Todo_Constraint = 
+export enum Todo_Constraint {
   /** unique or primary key constraint */
-  | 'todo_pkey';
+  TodoPkey = 'todo_pkey',
+  /** unique or primary key constraint */
+  TodoUserIdKey = 'todo_user_id_key'
+}
 
 /** input type for inserting data into table "todo" */
 export type Todo_Insert_Input = {
-  id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['String']>;
   isToday?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
   urgency?: Maybe<Urgency_Enum>;
-};
-
-/** aggregate max on columns */
-export type Todo_Max_Fields = {
-  __typename?: 'todo_max_fields';
-  id?: Maybe<Scalars['uuid']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-/** order by max() on columns of table "todo" */
-export type Todo_Max_Order_By = {
-  id?: Maybe<Order_By>;
-  title?: Maybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Todo_Min_Fields = {
-  __typename?: 'todo_min_fields';
-  id?: Maybe<Scalars['uuid']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-/** order by min() on columns of table "todo" */
-export type Todo_Min_Order_By = {
-  id?: Maybe<Order_By>;
-  title?: Maybe<Order_By>;
+  urgencyByUrgency?: Maybe<Urgency_Obj_Rel_Insert_Input>;
 };
 
 /** response of any mutation on the table "todo" */
@@ -433,76 +339,56 @@ export type Todo_Order_By = {
   isToday?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
   urgency?: Maybe<Order_By>;
+  urgencyByUrgency?: Maybe<Urgency_Order_By>;
+  user_id?: Maybe<Order_By>;
 };
 
 /** primary key columns input for table: "todo" */
 export type Todo_Pk_Columns_Input = {
-  id: Scalars['uuid'];
+  id: Scalars['String'];
 };
 
 /** select columns of table "todo" */
-export type Todo_Select_Column = 
+export enum Todo_Select_Column {
   /** column name */
-  | 'id'
+  Id = 'id',
   /** column name */
-  | 'isToday'
+  IsToday = 'isToday',
   /** column name */
-  | 'title'
+  Title = 'title',
   /** column name */
-  | 'urgency';
+  Urgency = 'urgency',
+  /** column name */
+  UserId = 'user_id'
+}
 
 /** input type for updating data in table "todo" */
 export type Todo_Set_Input = {
-  id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['String']>;
   isToday?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
   urgency?: Maybe<Urgency_Enum>;
+  user_id?: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "todo" */
-export type Todo_Update_Column = 
+export enum Todo_Update_Column {
   /** column name */
-  | 'id'
+  Id = 'id',
   /** column name */
-  | 'isToday'
+  IsToday = 'isToday',
   /** column name */
-  | 'title'
+  Title = 'title',
   /** column name */
-  | 'urgency';
+  Urgency = 'urgency',
+  /** column name */
+  UserId = 'user_id'
+}
 
 /** columns and relationships of "urgency" */
 export type Urgency = {
   __typename?: 'urgency';
   urgency_type: Scalars['String'];
-};
-
-/** aggregated selection of "urgency" */
-export type Urgency_Aggregate = {
-  __typename?: 'urgency_aggregate';
-  aggregate?: Maybe<Urgency_Aggregate_Fields>;
-  nodes: Array<Urgency>;
-};
-
-/** aggregate fields of "urgency" */
-export type Urgency_Aggregate_Fields = {
-  __typename?: 'urgency_aggregate_fields';
-  count?: Maybe<Scalars['Int']>;
-  max?: Maybe<Urgency_Max_Fields>;
-  min?: Maybe<Urgency_Min_Fields>;
-};
-
-
-/** aggregate fields of "urgency" */
-export type Urgency_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Urgency_Select_Column>>;
-  distinct?: Maybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "urgency" */
-export type Urgency_Aggregate_Order_By = {
-  count?: Maybe<Order_By>;
-  max?: Maybe<Urgency_Max_Order_By>;
-  min?: Maybe<Urgency_Min_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "urgency" */
@@ -520,14 +406,21 @@ export type Urgency_Bool_Exp = {
 };
 
 /** unique or primary key constraints on table "urgency" */
-export type Urgency_Constraint = 
+export enum Urgency_Constraint {
   /** unique or primary key constraint */
-  | 'urgency_pkey';
+  UrgencyIdKey = 'urgency_id_key',
+  /** unique or primary key constraint */
+  UrgencyPkey = 'urgency_pkey'
+}
 
-export type Urgency_Enum = 
-  | 'month'
-  | 'week'
-  | 'year';
+export enum Urgency_Enum {
+  /** 2 */
+  Month = 'month',
+  /** 1 */
+  Week = 'week',
+  /** 3 */
+  Year = 'year'
+}
 
 /** expression to compare columns of type urgency_enum. All fields are combined with logical 'AND'. */
 export type Urgency_Enum_Comparison_Exp = {
@@ -541,28 +434,6 @@ export type Urgency_Enum_Comparison_Exp = {
 /** input type for inserting data into table "urgency" */
 export type Urgency_Insert_Input = {
   urgency_type?: Maybe<Scalars['String']>;
-};
-
-/** aggregate max on columns */
-export type Urgency_Max_Fields = {
-  __typename?: 'urgency_max_fields';
-  urgency_type?: Maybe<Scalars['String']>;
-};
-
-/** order by max() on columns of table "urgency" */
-export type Urgency_Max_Order_By = {
-  urgency_type?: Maybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type Urgency_Min_Fields = {
-  __typename?: 'urgency_min_fields';
-  urgency_type?: Maybe<Scalars['String']>;
-};
-
-/** order by min() on columns of table "urgency" */
-export type Urgency_Min_Order_By = {
-  urgency_type?: Maybe<Order_By>;
 };
 
 /** response of any mutation on the table "urgency" */
@@ -598,9 +469,10 @@ export type Urgency_Pk_Columns_Input = {
 };
 
 /** select columns of table "urgency" */
-export type Urgency_Select_Column = 
+export enum Urgency_Select_Column {
   /** column name */
-  | 'urgency_type';
+  UrgencyType = 'urgency_type'
+}
 
 /** input type for updating data in table "urgency" */
 export type Urgency_Set_Input = {
@@ -608,23 +480,10 @@ export type Urgency_Set_Input = {
 };
 
 /** update columns of table "urgency" */
-export type Urgency_Update_Column = 
+export enum Urgency_Update_Column {
   /** column name */
-  | 'urgency_type';
-
-
-/** expression to compare columns of type uuid. All fields are combined with logical 'AND'. */
-export type Uuid_Comparison_Exp = {
-  _eq?: Maybe<Scalars['uuid']>;
-  _gt?: Maybe<Scalars['uuid']>;
-  _gte?: Maybe<Scalars['uuid']>;
-  _in?: Maybe<Array<Scalars['uuid']>>;
-  _is_null?: Maybe<Scalars['Boolean']>;
-  _lt?: Maybe<Scalars['uuid']>;
-  _lte?: Maybe<Scalars['uuid']>;
-  _neq?: Maybe<Scalars['uuid']>;
-  _nin?: Maybe<Array<Scalars['uuid']>>;
-};
+  UrgencyType = 'urgency_type'
+}
 
 export type GetTodosQueryVariables = Exact<{
   isToday?: Maybe<Scalars['Boolean']>;
