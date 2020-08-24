@@ -1,4 +1,4 @@
-import React, { FC, createElement } from 'react';
+import { FC, createElement } from 'react';
 
 export const composeWrappers = (wrappers: FC[]): FC => {
   return wrappers.reduceRight(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import { Container } from '../components/ui';
 import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../containers/theme/provider';
@@ -13,13 +13,15 @@ export const TodayTodos = () => {
   const { loading, error, data } = useGetAllTodosQuery();
 
   if (loading) return <Loader />;
+  if (error) return <Loader />;
+  if (!data) return <Text>Todoはまだ登録されていません。</Text>;
 
   console.log(data);
 
   return (
     <Container>
       <FlatList
-        data={data?.todo}
+        data={data.todo}
         keyExtractor={item => item.id}
         renderItem={({ item }) => <Text key={item.id}>{item.title}</Text>}
       />
