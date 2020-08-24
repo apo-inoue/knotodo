@@ -1,12 +1,12 @@
 import React from 'react';
-import { FlatList, Text } from 'react-native';
-import { Container, Loader } from '../components/ui';
 import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../containers/theme/provider';
 import { useGetAllTodosQuery } from '../types/graphql';
-import { PrimaryButton } from '../components/ui-group';
+import { PrimaryButton } from '../ui/button/StyledButtons';
+import { Container, Box, Grid, Text, Flex, Card, Loader } from '../ui';
+import { FlatList } from 'react-native';
 
-export const ArchiveTodos = () => {
+export const NotTodayTodos = () => {
   const navigation = useNavigation();
   const theme = useCustomTheme();
   const { loading, error, data } = useGetAllTodosQuery();
@@ -22,7 +22,22 @@ export const ArchiveTodos = () => {
         keyExtractor={item => item.id}
         renderItem={({ item }) => <Text key={item.id}>{item.title}</Text>}
       />
-      <PrimaryButton onPress={() => navigation.goBack()} title="GoHome" color={theme.colors.main} />
+      <PrimaryButton
+        onPress={() => navigation.navigate('Today')}
+        title="GoHome"
+        color={theme.colors.main}
+      />
+      <Box />
+      <Grid />
+      <Text>hello</Text>
+      <Flex />
+      <Card />
+      {/* <Image />
+      <TextInput />
+      <Loader />
+      <ImageBackground />
+      <ScrollView />
+      <StatusBar /> */}
     </Container>
   );
 };

@@ -1,19 +1,22 @@
 import React from 'react';
+import { FlatList, Text } from 'react-native';
+import { Container } from '../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../containers/theme/provider';
 import { useGetAllTodosQuery } from '../types/graphql';
-import { PrimaryButton } from '../components/ui-group/StyledButtons';
-import { Container, Box, Grid, Text, Flex, Card, Loader } from '../components/ui';
-import { FlatList } from 'react-native';
+import { PrimaryButton } from '../ui/button/StyledButtons';
+import { Loader } from '../ui/utils/Loader';
 
-export const NotTodayTodos = () => {
+export const TodayTodos = () => {
   const navigation = useNavigation();
   const theme = useCustomTheme();
   const { loading, error, data } = useGetAllTodosQuery();
 
   if (loading) return <Loader />;
-  if (error) return <Text>エラー</Text>;
+  if (error) return <Loader />;
   if (!data) return <Text>Todoはまだ登録されていません。</Text>;
+
+  console.log(data);
 
   return (
     <Container>
@@ -22,22 +25,7 @@ export const NotTodayTodos = () => {
         keyExtractor={item => item.id}
         renderItem={({ item }) => <Text key={item.id}>{item.title}</Text>}
       />
-      <PrimaryButton
-        onPress={() => navigation.navigate('Today')}
-        title="GoHome"
-        color={theme.colors.main}
-      />
-      <Box />
-      <Grid />
-      <Text>hello</Text>
-      <Flex />
-      <Card />
-      {/* <Image />
-      <TextInput />
-      <Loader />
-      <ImageBackground />
-      <ScrollView />
-      <StatusBar /> */}
+      <PrimaryButton onPress={() => navigation.goBack()} title="GoHome" color={theme.colors.main} />
     </Container>
   );
 };

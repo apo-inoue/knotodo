@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../page';
+import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../components';
 
 const Tab = createBottomTabNavigator();
 

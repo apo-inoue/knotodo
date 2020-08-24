@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 import { Modal } from 'react-native';
-import { Container } from '../ui/Container';
-import { Box } from '../ui/Box';
-import { Card } from '../ui/Card';
+import { Container } from './Container';
+import { Box } from './Box';
+import { Card } from './Card';
 
 const StyledModal: FC = ({ children }) => {
   const [modalVisible, setModalVisible] = useState(false);

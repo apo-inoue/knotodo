@@ -1,22 +1,19 @@
 import React from 'react';
 import { FlatList, Text } from 'react-native';
-import { Container } from '../components/ui';
+import { Container, Loader } from '../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../containers/theme/provider';
 import { useGetAllTodosQuery } from '../types/graphql';
-import { PrimaryButton } from '../components/ui-group/StyledButtons';
-import { Loader } from '../components/ui/Loader';
+import { PrimaryButton } from '../ui';
 
-export const TodayTodos = () => {
+export const ArchiveTodos = () => {
   const navigation = useNavigation();
   const theme = useCustomTheme();
   const { loading, error, data } = useGetAllTodosQuery();
 
   if (loading) return <Loader />;
-  if (error) return <Loader />;
+  if (error) return <Text>エラー</Text>;
   if (!data) return <Text>Todoはまだ登録されていません。</Text>;
-
-  console.log(data);
 
   return (
     <Container>

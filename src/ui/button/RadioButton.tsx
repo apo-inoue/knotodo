@@ -1,7 +1,7 @@
 import { FontAwesome } from '@expo/vector-icons';
 
 import React, { FC } from 'react';
-import { Box } from '../ui';
+import { Box } from '..';
 
 type RadioButton = {
   checked: boolean;

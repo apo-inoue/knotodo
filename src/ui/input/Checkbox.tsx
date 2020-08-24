@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { CheckBoxProps } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import React, { FC } from 'react';
-import { Box } from '../ui';
+import { Box } from '..';
 
 type CheckBox = {
   checked: boolean;
