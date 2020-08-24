@@ -297,9 +297,7 @@ export type Todo_Bool_Exp = {
 /** unique or primary key constraints on table "todo" */
 export enum Todo_Constraint {
   /** unique or primary key constraint */
-  TodoPkey = 'todo_pkey',
-  /** unique or primary key constraint */
-  TodoUserIdKey = 'todo_user_id_key'
+  TodoPkey = 'todo_pkey'
 }
 
 /** input type for inserting data into table "todo" */
@@ -485,12 +483,21 @@ export enum Urgency_Update_Column {
   UrgencyType = 'urgency_type'
 }
 
-export type GetTodosQueryVariables = Exact<{
-  isToday?: Maybe<Scalars['Boolean']>;
-}>;
+export type GetTodayTodosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTodosQuery = (
+export type GetTodayTodosQuery = (
+  { __typename?: 'query_root' }
+  & { todo: Array<(
+    { __typename?: 'todo' }
+    & Pick<Todo, 'id' | 'isToday' | 'title'>
+  )> }
+);
+
+export type GetNotTodayTodosQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetNotTodayTodosQuery = (
   { __typename?: 'query_root' }
   & { todo: Array<(
     { __typename?: 'todo' }
@@ -510,9 +517,9 @@ export type GetAllTodosQuery = (
 );
 
 
-export const GetTodosDocument = gql`
-    query getTodos($isToday: Boolean) {
-  todo(where: {isToday: {_eq: $isToday}}) {
+export const GetTodayTodosDocument = gql`
+    query getTodayTodos {
+  todo(where: {isToday: {_eq: true}}) {
     id
     isToday
     title
@@ -521,30 +528,63 @@ export const GetTodosDocument = gql`
     `;
 
 /**
- * __useGetTodosQuery__
+ * __useGetTodayTodosQuery__
  *
- * To run a query within a React component, call `useGetTodosQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTodosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetTodayTodosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTodayTodosQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetTodosQuery({
+ * const { data, loading, error } = useGetTodayTodosQuery({
  *   variables: {
- *      isToday: // value for 'isToday'
  *   },
  * });
  */
-export function useGetTodosQuery(baseOptions?: Apollo.QueryHookOptions<GetTodosQuery, GetTodosQueryVariables>) {
-        return Apollo.useQuery<GetTodosQuery, GetTodosQueryVariables>(GetTodosDocument, baseOptions);
+export function useGetTodayTodosQuery(baseOptions?: Apollo.QueryHookOptions<GetTodayTodosQuery, GetTodayTodosQueryVariables>) {
+        return Apollo.useQuery<GetTodayTodosQuery, GetTodayTodosQueryVariables>(GetTodayTodosDocument, baseOptions);
       }
-export function useGetTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTodosQuery, GetTodosQueryVariables>) {
-          return Apollo.useLazyQuery<GetTodosQuery, GetTodosQueryVariables>(GetTodosDocument, baseOptions);
+export function useGetTodayTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTodayTodosQuery, GetTodayTodosQueryVariables>) {
+          return Apollo.useLazyQuery<GetTodayTodosQuery, GetTodayTodosQueryVariables>(GetTodayTodosDocument, baseOptions);
         }
-export type GetTodosQueryHookResult = ReturnType<typeof useGetTodosQuery>;
-export type GetTodosLazyQueryHookResult = ReturnType<typeof useGetTodosLazyQuery>;
-export type GetTodosQueryResult = Apollo.QueryResult<GetTodosQuery, GetTodosQueryVariables>;
+export type GetTodayTodosQueryHookResult = ReturnType<typeof useGetTodayTodosQuery>;
+export type GetTodayTodosLazyQueryHookResult = ReturnType<typeof useGetTodayTodosLazyQuery>;
+export type GetTodayTodosQueryResult = Apollo.QueryResult<GetTodayTodosQuery, GetTodayTodosQueryVariables>;
+export const GetNotTodayTodosDocument = gql`
+    query getNotTodayTodos {
+  todo(where: {isToday: {_eq: false}}) {
+    id
+    isToday
+    title
+  }
+}
+    `;
+
+/**
+ * __useGetNotTodayTodosQuery__
+ *
+ * To run a query within a React component, call `useGetNotTodayTodosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNotTodayTodosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNotTodayTodosQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetNotTodayTodosQuery(baseOptions?: Apollo.QueryHookOptions<GetNotTodayTodosQuery, GetNotTodayTodosQueryVariables>) {
+        return Apollo.useQuery<GetNotTodayTodosQuery, GetNotTodayTodosQueryVariables>(GetNotTodayTodosDocument, baseOptions);
+      }
+export function useGetNotTodayTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNotTodayTodosQuery, GetNotTodayTodosQueryVariables>) {
+          return Apollo.useLazyQuery<GetNotTodayTodosQuery, GetNotTodayTodosQueryVariables>(GetNotTodayTodosDocument, baseOptions);
+        }
+export type GetNotTodayTodosQueryHookResult = ReturnType<typeof useGetNotTodayTodosQuery>;
+export type GetNotTodayTodosLazyQueryHookResult = ReturnType<typeof useGetNotTodayTodosLazyQuery>;
+export type GetNotTodayTodosQueryResult = Apollo.QueryResult<GetNotTodayTodosQuery, GetNotTodayTodosQueryVariables>;
 export const GetAllTodosDocument = gql`
     query getAllTodos {
   todo {

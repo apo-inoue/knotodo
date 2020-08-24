@@ -4,8 +4,8 @@ import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/c
 import { CustomThemeProvider } from './src/containers/theme/provider';
 import { ComposedProviders } from './src/containers/ComposedProviders';
 import { useAuthContext } from './src/containers/auth/useCtx';
-import { LogIn } from './src/page';
-import { Text } from './src/components/ui/Text';
+import { LogIn } from './src/components';
+import { Text } from './src/ui/typography/Text';
 
 const ApolloHandler = () => {
   const {

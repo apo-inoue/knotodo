@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { TouchableOpacityProps, TouchableOpacity } from 'react-native';
-import { Text, Box, Touchable } from '../ui';
-import { ButtonBase } from '../ui/ButtonBase';
+import { Text, Box, Touchable } from '..';
+import { ButtonBase } from './ButtonBase';
 
 // type RoundButtonProps = {
 //   touchableProps;
