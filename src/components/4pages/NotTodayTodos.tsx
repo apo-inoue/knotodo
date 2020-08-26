@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useCustomTheme } from '../containers/theme/provider';
-import { useGetAllTodosQuery } from '../types/graphql';
-import { PrimaryButton } from '../ui/button/StyledButtons';
-import { Container, Box, Grid, Text, Flex, Card, Loader } from '../ui';
+import { useCustomTheme } from '../../containers/theme/provider';
+import { useGetAllTodosQuery } from '../../types/graphql';
+import { PrimaryButton } from '../../ui/button/StyledButtons';
+import { Container, Box, Grid, Text, Flex, Card, Loader } from '../../ui';
 import { FlatList } from 'react-native';
 
 export const NotTodayTodos = () => {

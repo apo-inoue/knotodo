@@ -4,7 +4,7 @@ import { Container, PrimaryButton, Loader } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../../containers/theme/provider';
 import { useGetAllTodosQuery, Todo } from '../../types/graphql';
-import { TodaySingle } from './Single';
+import { TodaySingle } from '../2single/Todo';
 
 type TodayCollectionType = {
   todos: ({ __typename?: 'todo' | undefined } & Pick<Todo, 'title' | 'id' | 'isToday'>)[];

@@ -4,8 +4,18 @@ import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/c
 import { CustomThemeProvider } from './src/containers/theme/provider';
 import { ComposedProviders } from './src/containers/ComposedProviders';
 import { useAuthContext } from './src/containers/auth/useCtx';
-import { LogIn } from './src/components';
+import { LogIn } from './src/components/4pages';
 import { Text } from './src/ui/typography/Text';
+import {
+  useFonts,
+  NotoSansJP_100Thin,
+  NotoSansJP_300Light,
+  NotoSansJP_400Regular,
+  NotoSansJP_500Medium,
+  NotoSansJP_700Bold,
+  NotoSansJP_900Black,
+} from '@expo-google-fonts/noto-sans-jp';
+import { AppLoading } from 'expo';
 
 const ApolloHandler = () => {
   const {
@@ -21,8 +31,20 @@ const ApolloHandler = () => {
     }),
   });
 
+  const [fontsLoaded] = useFonts({
+    NotoSansJP_100Thin,
+    NotoSansJP_300Light,
+    NotoSansJP_400Regular,
+    NotoSansJP_500Medium,
+    NotoSansJP_700Bold,
+    NotoSansJP_900Black,
+  });
+
   if (!token) {
     return <LogIn />;
+  }
+  if (!fontsLoaded) {
+    return <AppLoading />;
   }
   return (
     <ApolloProvider client={client}>

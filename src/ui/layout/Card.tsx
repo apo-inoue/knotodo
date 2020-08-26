@@ -23,7 +23,6 @@ type View = BorderProps &
   Readonly<{ children?: ReactNode }>;
 
 export const Card = styled.View<View>`
-  border-radius: 4;
   ${border}
   ${shadow}
   ${space}
@@ -33,6 +32,7 @@ export const Card = styled.View<View>`
 
 Card.defaultProps = {
   bg: 'white',
+  borderRadius: 4,
 };
 
 /* shadow-opacity: 0.75;
