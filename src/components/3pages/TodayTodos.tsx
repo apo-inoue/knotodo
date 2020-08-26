@@ -4,7 +4,7 @@ import { Container, PrimaryButton, Loader } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../../containers/theme/provider';
 import { useGetAllTodosQuery } from '../../types/graphql';
-import { TodayCollection } from '../3collection/Todos';
+import { TodayCollection } from '../2templates/Todos';
 
 export const TodayTodos: FC = () => {
   const { loading, error, data } = useGetAllTodosQuery();

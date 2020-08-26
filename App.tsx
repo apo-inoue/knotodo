@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/c
 import { CustomThemeProvider } from './src/containers/theme/provider';
 import { ComposedProviders } from './src/containers/ComposedProviders';
 import { useAuthContext } from './src/containers/auth/useCtx';
-import { LogIn } from './src/components/4pages';
+import { LogIn } from './src/components/3pages';
 import { Text } from './src/ui/typography/Text';
 import {
   useFonts,

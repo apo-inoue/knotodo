@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
 import { FlatList, Text } from 'react-native';
-import { Container, PrimaryButton, Loader } from '../../ui';
+import { PrimaryButton } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useCustomTheme } from '../../containers/theme/provider';
-import { useGetAllTodosQuery, Todo } from '../../types/graphql';
-import { TodaySingle } from '../2single/Todo';
+import { Todo } from '../../types/graphql';
 
 type TodayCollectionType = {
   todos: ({ __typename?: 'todo' | undefined } & Pick<Todo, 'title' | 'id' | 'isToday'>)[];
 };
 
-export const TodayCollection: FC<TodayCollectionType> = ({ todos }) => {
+export const Todos: FC<TodayCollectionType> = ({ todos }) => {
   const navigation = useNavigation();
   const theme = useCustomTheme();
   return (
@@ -18,9 +17,17 @@ export const TodayCollection: FC<TodayCollectionType> = ({ todos }) => {
       <FlatList
         data={todos}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <TodaySingle todo={item} />}
+        renderItem={({ item }) => <TodoSingle todo={item} />}
       />
       <PrimaryButton onPress={() => navigation.goBack()} title="GoHome" color={theme.colors.main} />
     </>
   );
+};
+
+type TodoSingleType = {
+  todo: { __typename?: 'todo' | undefined } & Pick<Todo, 'title' | 'id' | 'isToday'>;
+};
+
+const TodoSingle: FC<TodoSingleType> = ({ todo }) => {
+  return <Text key={todo.id}>{todo.title}</Text>;
 };

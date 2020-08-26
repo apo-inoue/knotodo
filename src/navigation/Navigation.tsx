@@ -3,27 +3,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../components/4pages';
-import { Notification } from '../components/4pages/Notification';
+import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../components/3pages';
+import { Notification } from '../components/3pages/Notification';
 import { useTheme } from 'styled-components';
-import { Text } from '../ui';
-
-// ------stack------
-const Stack = createStackNavigator();
-
-const TodayStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Today"
-        component={TodayTodos}
-        options={{
-          title: '今日のTODO',
-        }}
-      />
-    </Stack.Navigator>
-  );
-};
+import NewTodo from '../components/3pages/NewTodo';
+import { TodoDetails } from '../components/3pages/TodoDetails';
 
 // ------tab------
 const Tab = createBottomTabNavigator();
@@ -31,7 +15,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Today" component={TodayStack} />
+      <Tab.Screen name="Today" component={TodayTodos} />
       <Tab.Screen name="NotToday" component={NotTodayTodos} />
       <Tab.Screen name="Archive" component={ArchiveTodos} />
     </Tab.Navigator>
@@ -76,6 +60,8 @@ const Navigation = () => {
           },
         }}>
         <Modal.Screen name="root" component={DrawerNavigation} />
+        <Modal.Screen name="root" component={NewTodo} />
+        <Modal.Screen name="root" component={TodoDetails} />
       </Modal.Navigator>
     </NavigationContainer>
   );

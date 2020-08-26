@@ -18,7 +18,7 @@ The unique aspect of this application is that it makes keep your eyes on today u
 In the world of zen, one have to live on today, because there is nothing but the day in our hands.
 However, our minds tend to ceaselessly chase after tomorrow, or run away to yesterday.
 Does anyone can easily grab the today, day by day?
-The modern age Hamlet could be say that "today or not today, this is a problem" XD.
+The modern age Hamlet could be say that "today or not today, this is a problem".
 So, that's the motivation to design this application.
 I hope it will helps you keep focus on today.
 
