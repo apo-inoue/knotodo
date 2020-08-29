@@ -1,11 +1,6 @@
 import React from 'react';
-import Navigation from './src/navigation/Navigation';
-import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
 import { CustomThemeProvider } from './src/containers/theme/provider';
 import { ComposedProviders } from './src/containers/ComposedProviders';
-import { useAuthContext } from './src/containers/auth/useCtx';
-import { LogIn } from './src/components/3pages';
-import { Text } from './src/ui/typography/Text';
 import {
   useFonts,
   NotoSansJP_100Thin,
@@ -16,21 +11,9 @@ import {
   NotoSansJP_900Black,
 } from '@expo-google-fonts/noto-sans-jp';
 import { AppLoading } from 'expo';
+import { AuthNavigation } from './src/components/4navigation/AuthNavigation';
 
-const ApolloHandler = () => {
-  const {
-    state: { token },
-  } = useAuthContext();
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: new HttpLink({
-      uri: 'https://right-goldfish-91.hasura.app/v1/graphql',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }),
-  });
-
+const App = () => {
   const [fontsLoaded] = useFonts({
     NotoSansJP_100Thin,
     NotoSansJP_300Light,
@@ -40,25 +23,14 @@ const ApolloHandler = () => {
     NotoSansJP_900Black,
   });
 
-  if (!token) {
-    return <LogIn />;
-  }
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-  return (
-    <ApolloProvider client={client}>
-      <Navigation />
-      <Text>hello</Text>
-    </ApolloProvider>
-  );
-};
 
-const App = () => {
   return (
     <ComposedProviders>
       <CustomThemeProvider>
-        <ApolloHandler />
+        <AuthNavigation />
       </CustomThemeProvider>
     </ComposedProviders>
   );

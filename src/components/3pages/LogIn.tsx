@@ -12,7 +12,6 @@ export const LogIn = () => {
       <Text fontSize={20} color="danger">
         こんにちは
       </Text>
-      <RoundButton>hello</RoundButton>
       <Box mt={20} />
       <PrimaryButton onPress={handleLogIn} title="logIn" mt={120} />
       <PrimaryButton onPress={handleLogOut} title="logIn" mt={120} />

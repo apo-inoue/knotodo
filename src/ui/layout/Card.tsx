@@ -32,7 +32,7 @@ export const Card = styled.View<View>`
 
 Card.defaultProps = {
   bg: 'white',
-  borderRadius: 4,
+  borderRadius: 1,
 };
 
 /* shadow-opacity: 0.75;

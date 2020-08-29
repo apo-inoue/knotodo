@@ -2,13 +2,13 @@ import React from 'react';
 import { FlatList, Text } from 'react-native';
 import { Container, Loader } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
-import { useCustomTheme } from '../../containers/theme/provider';
 import { useGetAllTodosQuery } from '../../types/graphql';
 import { PrimaryButton } from '../../ui';
+import { useTheme } from 'styled-components';
 
 export const ArchiveTodos = () => {
   const navigation = useNavigation();
-  const theme = useCustomTheme();
+  const theme = useTheme();
   const { loading, error, data } = useGetAllTodosQuery();
 
   if (loading) return <Loader />;

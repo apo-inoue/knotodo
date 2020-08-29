@@ -1,2 +1,2 @@
-export { TodoDetails } from './TodoDetails';
-export { Todos } from './Todos';
+export { TodoDetailsCollection } from './TodoDetailsCollection';
+export { TodosCollection } from './TodosCollection';

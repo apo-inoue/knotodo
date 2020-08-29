@@ -16,12 +16,14 @@ import {
   PositionProps,
 } from 'styled-system';
 
-type View = PositionProps &
+type View = {
+  textAlign?: 'center' | 'left';
+} & PositionProps &
   BorderProps &
   SpaceProps &
   LayoutProps &
   FlexboxProps &
-  Readonly<ViewProps> &
+  ViewProps &
   Readonly<{ children?: ReactNode }>;
 
 export const Box = styled.View<View>`
@@ -32,4 +34,9 @@ export const Box = styled.View<View>`
   ${flex}
   ${border}
   ${layout}
+
+  ${props =>
+    props.textAlign === 'center' && {
+      textAlign: 'center',
+    }}
 `;

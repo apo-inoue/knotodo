@@ -1,12 +1,11 @@
-import React from 'react';
-import { Container, Text } from '../../ui';
+import React, { useState } from 'react';
+import { Container } from '../../ui';
+import { NewTodoCollection } from '../2templates/NewTodoCollection';
 
-const NewTodo = () => {
+export const NewTodo = () => {
   return (
     <Container>
-      <Text>hello from New Todo</Text>
+      <NewTodoCollection />
     </Container>
   );
 };
-
-export default NewTodo;

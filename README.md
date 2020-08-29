@@ -11,16 +11,17 @@
 
 ## Short Description
 
-"knoToDo" is Todo Management Application.
-The word of KnoTodo means knot and todo. Knot is a symbol of the connection between today and tomorrow.
-There is already tons of todo application. You might wonder, "what's new?".
-The unique aspect of this application is that it makes keep your eyes on today under the theory of orient.
-In the world of zen, one have to live on today, because there is nothing but the day in our hands.
+"knoToDo" is a simple todo management application.
+The word "knoTodo" combines knot and todo.
+The Former is a symbol of the connection between today and tomorrow.
+You might wonder what's new, because there is already tons of todo application.
+The unique aspect of this application is that it makes keep your eyes on today under "zen" philosophy.
+In this theory, one has to live on today, because there is nothing but the day in his hands.
 However, our minds tend to ceaselessly chase after tomorrow, or run away to yesterday.
-Does anyone can easily grab the today, day by day?
+Does anyone can easily grab the today?
 The modern age Hamlet could be say that "today or not today, this is a problem".
-So, that's the motivation to design this application.
-I hope it will helps you keep focus on today.
+That's a motivation to design this application.
+I hope it will help you keep focus on today.
 
 ## Advantages
 

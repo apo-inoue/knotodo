@@ -1,23 +1,35 @@
-import React, { FC } from 'react';
-import { FlatList, Text } from 'react-native';
-import { Container, PrimaryButton, Loader } from '../../ui';
-import { useNavigation } from '@react-navigation/native';
-import { useCustomTheme } from '../../containers/theme/provider';
+import React from 'react';
+import { Text, View } from 'react-native';
+import { Container, Loader } from '../../ui';
 import { useGetAllTodosQuery } from '../../types/graphql';
-import { TodayCollection } from '../2templates/Todos';
+import { TodosCollection } from '../2templates/TodosCollection';
+import { FAB } from '../../ui';
+import { Box } from '../../ui/layout/Box';
+import { Touchable } from '../../ui/button/Touchable';
+import { AddFab } from '../1standalone/AddFab';
+import { useNavigation } from '@react-navigation/native';
+import { RoundButton } from '../../ui/button/RoundButton';
+import { ErrorMessage } from '../1standalone/ErrorMessage';
 
-export const TodayTodos: FC = () => {
+export const TodayTodos = () => {
   const { loading, error, data } = useGetAllTodosQuery();
+  const navigation = useNavigation();
 
   if (loading) return <Loader />;
-  if (error) return <Loader />;
+  if (error) return <ErrorMessage />;
   if (!data) return <Text>Todoはまだ登録されていません。</Text>;
-
-  const notNullData = data.todo;
 
   return (
     <Container>
-      <TodayCollection todos={data.todo} />
+      <TodosCollection todos={data.todo} />
+
+      <Box mb={4}>
+        <FAB onPress={() => navigation.navigate('NewTodo')}>
+          <Text>T</Text>
+        </FAB>
+      </Box>
+      <RoundButton onPress={() => navigation.navigate('NewTodo')} />
+      <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </Container>
   );
 };

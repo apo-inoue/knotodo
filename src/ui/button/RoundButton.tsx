@@ -1,17 +1,26 @@
 import React, { FC } from 'react';
-import { TouchableOpacityProps, TouchableOpacity } from 'react-native';
-import { Text, Box, Touchable } from '..';
-import { ButtonBase } from './ButtonBase';
+import { useTheme } from 'styled-components';
+import { TouchableProps, Touchable } from './Touchable';
+import { Box } from '../layout/Box';
 
 // type RoundButtonProps = {
 //   touchableProps;
 // }; Readonly<TouchableOpacityProps>
 
-export const RoundButton: FC = ({ children }) => {
+export const RoundButton: FC<TouchableProps> = props => {
+  const theme = useTheme();
+
   return (
-    <Text color="black" fontSize={26}>
-      {children}
-    </Text>
+    <Touchable
+      backgroundColor={theme.colors.main}
+      height={50}
+      width={50}
+      borderRadius={25}
+      {...props}>
+      <Box flex={1} justifyContent="center" alignItems="center" p={2}>
+        {props.children}
+      </Box>
+    </Touchable>
   );
 };
 
