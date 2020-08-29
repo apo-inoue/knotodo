@@ -1,15 +1,11 @@
-// react-nativeをStyledComponentsで拡張したもの
-// そのままでは使えないもの
-
 import { TouchableOpacityProps } from 'react-native';
-import styled, { DefaultTheme } from 'styled-components/native';
+import styled from 'styled-components/native';
 import {
   space,
   color,
   border,
   layout,
   flexbox,
-  flex,
   SpaceProps,
   ColorProps,
   BorderProps,
@@ -17,7 +13,7 @@ import {
   FlexboxProps,
 } from 'styled-system';
 
-export type TouchableType = LayoutProps &
+export type TouchableProps = LayoutProps &
   FlexboxProps &
   SpaceProps &
   ColorProps &
@@ -25,7 +21,7 @@ export type TouchableType = LayoutProps &
   FlexboxProps &
   Readonly<TouchableOpacityProps>;
 
-export const Touchable = styled.TouchableOpacity<TouchableType>`
+export const Touchable = styled.TouchableOpacity<TouchableProps>`
   ${layout}
   ${flexbox}
   ${space}

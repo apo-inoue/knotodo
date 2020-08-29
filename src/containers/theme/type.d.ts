@@ -37,8 +37,18 @@ declare module 'styled-components/native' {
     };
     borders: ReactText[];
     radii: ReactText[];
-    width: number[];
+    widths: number[];
     heights: number[];
     maxWidths: number[];
+    shadows: {
+      shadowColor: string;
+      shadowOffset: {
+        width: number;
+        height: number;
+      };
+      shadowOpacity: number;
+      shadowRadius: number;
+      elevation: number;
+    }[];
   }
 }

@@ -1,29 +1,28 @@
-import styled, { DefaultTheme, css } from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { border, layout, BorderProps, LayoutProps } from 'styled-system';
 import { ReactNode } from 'react';
-import { ViewProps } from 'react-native';
+import { TextInputProps } from 'react-native';
 
-type TextInput = { variant: 'outlined' | 'underlined' } & BorderProps &
+export type CustomTextInputProps = { variant?: 'outlined' | 'underlined' } & BorderProps &
   LayoutProps &
-  Readonly<ViewProps> &
-  Readonly<{ children?: ReactNode }>;
+  TextInputProps;
 
-export const TextInput = styled.TextInput<TextInput>`
+export const TextInput = styled.TextInput<CustomTextInputProps>`
   height: 40px;
   width: 100%;
-  caret-color: ${props => props.theme.colors.primary};
   border-color: ${props => props.theme.colors.primary};
+  padding-left: 4px;
 
   ${props =>
-    props.variant === 'outlined' &&
+    (props.variant === 'outlined' || !props.variant) &&
     css`
-      border-width: 1;
+      border-width: 1px;
     `}
 
   ${props =>
     props.variant === 'underlined' &&
     css`
-      border-bottoms-width: 1;
+      border-bottoms-width: 1px;
     `}
 
   ${border};

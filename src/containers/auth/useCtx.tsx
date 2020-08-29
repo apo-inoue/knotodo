@@ -1,4 +1,4 @@
-import { createCtx } from '../../helpers/utils/createCtx';
+import { createCtx } from '../../helpers/createCtx';
 import { useAuthContextType } from './types';
 
 export const [useAuthContext, AuthContextProvider] = createCtx<useAuthContextType>();

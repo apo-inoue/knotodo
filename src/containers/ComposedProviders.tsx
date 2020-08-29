@@ -1,4 +1,4 @@
-import { composeWrappers } from '../helpers/utils/composeWrapper';
+import { composeWrappers } from '../helpers/composeWrapper';
 import { AuthProvider } from './auth/provider';
 import { FormProvider } from './form/provider';
 import { TodoProvider } from './todo/provider';

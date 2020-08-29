@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAuthContext } from '../containers/auth/useCtx';
-import { Box, Text, Container, PrimaryButton } from '../ui';
-import { DisabledButton } from '../ui/button/StyledButtons';
-import { RoundButton } from '../ui/button/RoundButton';
+import { useAuthContext } from '../../containers/auth/useCtx';
+import { Box, Text, Container, PrimaryButton } from '../../ui';
+import { DisabledButton } from '../../ui/button/StyledButtons';
+import { RoundButton } from '../../ui/button/RoundButton';
 
 export const LogIn = () => {
   const { handleLogIn, handleLogOut } = useAuthContext();
@@ -12,7 +12,6 @@ export const LogIn = () => {
       <Text fontSize={20} color="danger">
         こんにちは
       </Text>
-      <RoundButton>hello</RoundButton>
       <Box mt={20} />
       <PrimaryButton onPress={handleLogIn} title="logIn" mt={120} />
       <PrimaryButton onPress={handleLogOut} title="logIn" mt={120} />

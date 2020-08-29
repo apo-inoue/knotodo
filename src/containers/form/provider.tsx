@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent, useReducer, useCallback } from 'react';
-import { useEventCallback } from '../../helpers/utils/useEventCallback';
+import { useEventCallback } from '../../helpers/useEventCallback';
 import { validationSchema } from './utils';
 import { initialState, formReducer } from './reducer';
 import { FormCtxProvider } from './useCtx';
