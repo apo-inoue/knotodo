@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TodoDetails, Notification, NewTodo } from '../3pages';
+import { TodoDetails, Setting, NewTodo } from '../4pages';
 import { useTheme } from 'styled-components';
 import { HeaderIcon } from '../1standalone';
 import { TabNavigation } from './TabNavigation';
@@ -25,7 +25,7 @@ export const StackNavigation = () => {
       <Stack.Screen name="Root" component={TabNavigation} />
       <Stack.Screen name="NewTodo" component={NewTodo} />
       <Stack.Screen name="TodoDetails" component={TodoDetails} />
-      <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen name="Setting" component={Setting} />
     </Stack.Navigator>
   );
 };

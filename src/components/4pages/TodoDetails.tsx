@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '../../ui/layout/Container';
 import { Text } from '../../ui/typography/Text';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { TodoDetailsCollection } from '../2templates/TodoDetailsCollection';
+import { TodoDetailsCollection } from '../3collection/TodoDetailsCollection';
 import { useTheme } from 'styled-components';
 import { PrimaryButton } from '../../ui/button/StyledButtons';
 

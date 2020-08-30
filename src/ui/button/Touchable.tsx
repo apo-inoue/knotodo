@@ -19,7 +19,7 @@ export type TouchableProps = LayoutProps &
   ColorProps &
   BorderProps &
   FlexboxProps &
-  Readonly<TouchableOpacityProps>;
+  TouchableOpacityProps;
 
 export const Touchable = styled.TouchableOpacity<TouchableProps>`
   ${layout}

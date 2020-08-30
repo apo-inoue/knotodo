@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../3pages';
+import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../4pages';
 import { useTheme } from 'styled-components';
 import { TabIcon } from '../1standalone/TabIcon';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { PrimaryButton } from '../../ui/button/StyledButtons';
 
 export const TabNavigation = () => {
   const theme = useTheme();
   const Tab = createBottomTabNavigator();
+  const navigation = useNavigation();
+  const route = useRoute();
 
   return (
     <Tab.Navigator

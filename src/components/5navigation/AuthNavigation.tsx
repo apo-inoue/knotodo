@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigation } from './Navigation';
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
 import { useAuthContext } from '../../containers/auth/useCtx';
-import { LogIn } from '../3pages';
+import { LogIn } from '../4pages';
 
 export const AuthNavigation = () => {
   const {

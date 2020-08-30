@@ -4,7 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 import { Linking } from 'react-native';
 
-export const Notification = () => {
+export const Setting = () => {
   const theme = useTheme();
   const githubURL = 'https://github.com/apo-inoue/knotodo';
   const handlePress = useCallback(async () => {
