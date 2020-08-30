@@ -4,25 +4,28 @@ import { Box } from '../layout/Box';
 import { useTheme } from 'styled-components';
 import { Text } from '../typography/Text';
 import { Spacing } from '../layout/Spacing';
+import { Touchable, TouchableProps } from '../button/Touchable';
 
 type RadioButton = {
   checked: boolean;
   text: string;
-};
+} & TouchableProps;
 
-export const RadioButton: FC<RadioButton> = ({ checked, text }) => {
+export const RadioButton: FC<RadioButton> = props => {
   const theme = useTheme();
 
   return (
-    <Box my={1} alignItems="center" flexDirection="row">
-      <Box mr={2}>
-        {checked ? (
-          <FontAwesome name="dot-circle-o" size={24} color={theme.colors.main} />
-        ) : (
-          <FontAwesome name="circle-o" size={24} color={theme.colors.blacks[5]} />
-        )}
+    <Touchable {...props}>
+      <Box my={1} alignItems="center" flexDirection="row">
+        <Box mr={2}>
+          {props.checked ? (
+            <FontAwesome name="dot-circle-o" size={24} color={theme.colors.main} />
+          ) : (
+            <FontAwesome name="circle-o" size={24} color={theme.colors.blacks[5]} />
+          )}
+        </Box>
+        <Text>{props.text}</Text>
       </Box>
-      <Text>{text}</Text>
-    </Box>
+    </Touchable>
   );
 };

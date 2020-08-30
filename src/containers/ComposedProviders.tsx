@@ -1,6 +1,6 @@
 import { composeWrappers } from '../helpers/composeWrapper';
 import { AuthProvider } from './auth/provider';
-import { FormProvider } from './form/provider';
+import { FormProvider } from './category/provider';
 import { TodoProvider } from './todo/provider';
 import { CustomThemeProvider } from './theme/provider';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container } from '../../ui';
-import { NewTodoCollection } from '../2templates/NewTodoCollection';
+import { NewTodoCollection } from '../3collection/NewTodoCollection';
 
 export const NewTodo = () => {
   return (

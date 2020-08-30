@@ -3,7 +3,7 @@ import { FlatList } from 'react-native';
 import { PrimaryButton } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { Todo } from '../../types/graphql';
-import { TodoSingle } from './TodosSingle';
+import { TodoSingle } from '../2single/TodosSingle';
 import { useTheme } from 'styled-components';
 
 type TodayCollectionType = {

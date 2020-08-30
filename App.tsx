@@ -11,7 +11,7 @@ import {
   NotoSansJP_900Black,
 } from '@expo-google-fonts/noto-sans-jp';
 import { AppLoading } from 'expo';
-import { AuthNavigation } from './src/components/4navigation/AuthNavigation';
+import { AuthNavigation } from './src/components/5navigation/AuthNavigation';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
