@@ -7,14 +7,16 @@ import { NotTodayTodosCollection } from '../3collection';
 import { AddFab } from '../1standalone/AddFab';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { ScreenLoader } from '../../ui/utils/Loader';
+import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
 
 export const NotTodayTodos = () => {
   const navigation = useNavigation();
   const { loading, error, data, refetch } = useNotTodayTodosQuery();
-  const [setToday, { loading: mutationLoading, error: mutationError }] = useSetTodayTodoMutation();
-  const setTodayHandler = async (id: string) => {
-    await setToday({ variables: { _eq: id } });
-    refetch();
+  const [setToday, { loading: mutationLoading, error: mutationError }] = useSetTodayTodoMutation({
+    refetchQueries: [{ query: NOT_TODAY_TODOS }],
+  });
+  const setTodayHandler = (id: string) => {
+    setToday({ variables: { _eq: id } });
   };
 
   useFocusEffect(

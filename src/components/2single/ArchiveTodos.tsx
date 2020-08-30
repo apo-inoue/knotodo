@@ -4,7 +4,6 @@ import { Touchable, Text, PrimaryButton } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 import { Box } from '../../ui/layout/Box';
-import { deleteTodoType } from '../4pages/ArchiveTodos';
 
 type ArchiveTodos = {
   todo: { __typename: 'todos' } & Pick<Todos, 'title' | 'id' | 'isToday' | 'isCompleted'>;

@@ -6,6 +6,7 @@ import { AddFab } from '../1standalone/AddFab';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
+import { TODAY_TODOS } from '../../graphql/query/todos';
 
 export const TodayTodos = () => {
   const { loading, error, data, refetch } = useTodayTodosQuery();
@@ -13,10 +14,9 @@ export const TodayTodos = () => {
   const [
     completeTodo,
     { loading: mutationLoading, error: mutationError },
-  ] = useCompleteToDoMutation();
-  const completeTodoHandler = async (id: string) => {
-    await completeTodo({ variables: { _eq: id } });
-    refetch();
+  ] = useCompleteToDoMutation({ refetchQueries: [{ query: TODAY_TODOS }] });
+  const completeTodoHandler = (id: string) => {
+    completeTodo({ variables: { _eq: id } });
   };
 
   useFocusEffect(

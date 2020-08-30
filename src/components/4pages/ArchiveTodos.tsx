@@ -14,25 +14,17 @@ import { ArchiveTodosCollection } from '../3collection';
 import { MutationFunctionOptions } from '@apollo/client';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
-
-export type deleteTodoType = (
-  options?:
-    | MutationFunctionOptions<
-        DeleteToDoMutation,
-        Exact<{
-          id?: String_Comparison_Exp | null | undefined;
-        }>
-      >
-    | undefined,
-) => Promise<any>;
+import { DELETE_TODO } from '../../graphql/mutation/todo';
+import { COMPLETED_TODOS } from '../../graphql/query/todos';
 
 export const ArchiveTodos = () => {
   const navigation = useNavigation();
   const { loading, error, data, refetch } = useCompletedTodosQuery();
-  const [deleteToDo, { loading: mutationLoading, error: mutationError }] = useDeleteToDoMutation();
-  const deleteToDoHandler = async (id: string) => {
-    await deleteToDo({ variables: { _eq: id } });
-    refetch();
+  const [deleteToDo, { loading: mutationLoading, error: mutationError }] = useDeleteToDoMutation({
+    refetchQueries: [{ query: COMPLETED_TODOS }],
+  });
+  const deleteToDoHandler = (id: string) => {
+    deleteToDo({ variables: { _eq: id } });
   };
 
   useFocusEffect(
