@@ -5,7 +5,7 @@ import { RadioButton } from '../../ui/input/RadioButton';
 import { TextForm } from '../../ui/input/TextForm';
 import { Picker, Form } from 'native-base';
 
-export const NewTodoCollection = () => {
+export const NewTodo = () => {
   const [title, setTitle] = useState('');
   const titleInputHandler = (text: string) => {
     setTitle(text);

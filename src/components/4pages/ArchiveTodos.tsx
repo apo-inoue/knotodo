@@ -1,28 +1,57 @@
-import React from 'react';
-import { FlatList, Text } from 'react-native';
+import React, { useCallback } from 'react';
+import { Text } from 'react-native';
 import { Container, Loader } from '../../ui';
-import { useNavigation } from '@react-navigation/native';
-import { useGetAllTodosQuery } from '../../types/graphql';
-import { PrimaryButton } from '../../ui';
-import { useTheme } from 'styled-components';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import {
+  useCompletedTodosQuery,
+  useDeleteToDoMutation,
+  DeleteToDoMutation,
+  Exact,
+  String_Comparison_Exp,
+} from '../../types/graphql';
+import { AddFab } from '../1standalone/AddFab';
+import { ArchiveTodosCollection } from '../3collection';
+import { MutationFunctionOptions } from '@apollo/client';
+import { ErrorMessage } from '../1standalone/ErrorMessage';
+import { NoDataMessage } from '../1standalone/NoDataMessage';
+
+export type deleteTodoType = (
+  options?:
+    | MutationFunctionOptions<
+        DeleteToDoMutation,
+        Exact<{
+          id?: String_Comparison_Exp | null | undefined;
+        }>
+      >
+    | undefined,
+) => Promise<any>;
 
 export const ArchiveTodos = () => {
   const navigation = useNavigation();
-  const theme = useTheme();
-  const { loading, error, data } = useGetAllTodosQuery();
+  const { loading, error, data, refetch } = useCompletedTodosQuery();
+  const [deleteToDo, { loading: mutationLoading, error: mutationError }] = useDeleteToDoMutation();
+  const deleteToDoHandler = async (id: string) => {
+    await deleteToDo({ variables: { _eq: id } });
+    refetch();
+  };
 
-  if (loading) return <Loader />;
-  if (error) return <Text>エラー</Text>;
-  if (!data) return <Text>Todoはまだ登録されていません。</Text>;
+  useFocusEffect(
+    useCallback(() => {
+      return () => refetch();
+    }, []),
+  );
+
+  if (loading || mutationLoading) return <Loader />;
+  if (error || mutationError) return <ErrorMessage />;
+  if (!data) return <NoDataMessage />;
+
+  console.log(data, 'archive');
+  console.log(error, mutationError, 'ArchiveError');
 
   return (
     <Container>
-      <FlatList
-        data={data.todo}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <Text key={item.id}>{item.title}</Text>}
-      />
-      <PrimaryButton onPress={() => navigation.goBack()} title="GoHome" color={theme.colors.main} />
+      <ArchiveTodosCollection todos={data.todos} onPress={deleteToDoHandler} />
+      <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </Container>
   );
 };

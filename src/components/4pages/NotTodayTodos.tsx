@@ -1,27 +1,39 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { useGetAllTodosQuery } from '../../types/graphql';
-import { Container, Text, Loader } from '../../ui';
-import { FlatList } from 'react-native';
-import { useTheme } from 'styled-components';
+import React, { useCallback } from 'react';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useNotTodayTodosQuery, useSetTodayTodoMutation } from '../../types/graphql';
+import { Container } from '../../ui';
 import { ErrorMessage } from '../1standalone';
+import { NotTodayTodosCollection } from '../3collection';
+import { AddFab } from '../1standalone/AddFab';
+import { NoDataMessage } from '../1standalone/NoDataMessage';
+import { ScreenLoader } from '../../ui/utils/Loader';
 
 export const NotTodayTodos = () => {
   const navigation = useNavigation();
-  const theme = useTheme();
-  const { loading, error, data } = useGetAllTodosQuery();
+  const { loading, error, data, refetch } = useNotTodayTodosQuery();
+  const [setToday, { loading: mutationLoading, error: mutationError }] = useSetTodayTodoMutation();
+  const setTodayHandler = async (id: string) => {
+    await setToday({ variables: { _eq: id } });
+    refetch();
+  };
 
-  if (loading) return <Loader />;
-  if (error) return <ErrorMessage />;
-  if (!data) return <Text>Todoはまだ登録されていません。</Text>;
+  useFocusEffect(
+    useCallback(() => {
+      return () => refetch();
+    }, []),
+  );
+
+  if (loading || mutationLoading) return <ScreenLoader />;
+  if (error || mutationError) return <ErrorMessage />;
+  if (!data) return <NoDataMessage />;
+
+  console.log(data, 'notToday');
+  console.log(error, mutationError, 'notTodayError');
 
   return (
     <Container>
-      <FlatList
-        data={data.todo}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <Text key={item.id}>{item.title}</Text>}
-      />
+      <NotTodayTodosCollection todos={data.todos} onPress={setTodayHandler} />
+      <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </Container>
   );
 };
