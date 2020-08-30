@@ -43,7 +43,6 @@ export const ArchiveTodos = () => {
   return (
     <Container>
       <ArchiveTodosCollection todos={data.todos} onPress={deleteToDoHandler} />
-      <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </Container>
   );
 };

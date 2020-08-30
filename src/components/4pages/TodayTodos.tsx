@@ -1,16 +1,14 @@
 import React, { useCallback } from 'react';
-import { Container, ScreenLoader, Text } from '../../ui';
+import { Container, ScreenLoader } from '../../ui';
 import { useTodayTodosQuery, useCompleteToDoMutation } from '../../types/graphql';
 import { TodayTodosCollection } from '../3collection';
-import { AddFab } from '../1standalone/AddFab';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { TODAY_TODOS } from '../../graphql/query/todos';
 
 export const TodayTodos = () => {
   const { loading, error, data, refetch } = useTodayTodosQuery();
-  const navigation = useNavigation();
   const [
     completeTodo,
     { loading: mutationLoading, error: mutationError },
@@ -35,7 +33,6 @@ export const TodayTodos = () => {
   return (
     <Container>
       <TodayTodosCollection todos={data.todos} onPress={completeTodoHandler} />
-      <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </Container>
   );
 };

@@ -1,16 +1,14 @@
 import React, { useCallback } from 'react';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { useNotTodayTodosQuery, useSetTodayTodoMutation } from '../../types/graphql';
 import { Container } from '../../ui';
 import { ErrorMessage } from '../1standalone';
 import { NotTodayTodosCollection } from '../3collection';
-import { AddFab } from '../1standalone/AddFab';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { ScreenLoader } from '../../ui/utils/Loader';
 import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
 
 export const NotTodayTodos = () => {
-  const navigation = useNavigation();
   const { loading, error, data, refetch } = useNotTodayTodosQuery();
   const [setToday, { loading: mutationLoading, error: mutationError }] = useSetTodayTodoMutation({
     refetchQueries: [{ query: NOT_TODAY_TODOS }],
@@ -35,7 +33,6 @@ export const NotTodayTodos = () => {
   return (
     <Container>
       <NotTodayTodosCollection todos={data.todos} onPress={setTodayHandler} />
-      <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </Container>
   );
 };
