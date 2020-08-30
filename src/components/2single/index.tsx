@@ -1,10 +1,10 @@
 // スクリーンに依存していてhandleを受け取るコンポーネント
 
 /** today */
-export { TodayTodos as TodayTodosSingle } from './TodayTodos/TodoListItem';
+export { TodayTodos as TodayTodoListItem } from './TodayTodos/TodoListItem';
 
 /** archive */
-export { TodoListItem as ArchiveTodoListItem } from './ArchiveTodo/TodoListItem';
+export { TodoListItem as ArchiveTodoListItem } from './ArchiveTodos/TodoListItem';
 
 /** notToday */
 export { TodoListItem as NotTodayTodoListItem } from './NotTodayTodos/TodoListItem';

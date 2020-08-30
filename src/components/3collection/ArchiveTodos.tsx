@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Todos } from '../../types/graphql';
-import { ArchiveTodosSingle } from '../2single';
+import { ArchiveTodoListItem } from '../2single';
 import { useTheme } from 'styled-components';
 import { AddFab } from '../1standalone/AddFab';
 
@@ -19,7 +19,7 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({ todos, onPress }) => {
       <FlatList
         data={todos}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <ArchiveTodosSingle todo={item} onPress={onPress} />}
+        renderItem={({ item }) => <ArchiveTodoListItem todo={item} onPress={onPress} />}
       />
       <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </>
