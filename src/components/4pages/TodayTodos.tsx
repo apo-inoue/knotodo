@@ -1,32 +1,40 @@
-import React, { useLayoutEffect } from 'react';
-import { Text, View } from 'react-native';
-import { Container, Loader } from '../../ui';
-import { useGetAllTodosQuery } from '../../types/graphql';
-import { TodosCollection } from '../3collection/TodosCollection';
-import { PrimaryButton } from '../../ui';
+import React, { useCallback } from 'react';
+import { Container, ScreenLoader, Text } from '../../ui';
+import { useTodayTodosQuery, useCompleteToDoMutation } from '../../types/graphql';
+import { TodayTodosCollection } from '../3collection';
 import { AddFab } from '../1standalone/AddFab';
-import { useNavigation } from '@react-navigation/native';
-import { RoundButton } from '../../ui/button/RoundButton';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
+import { NoDataMessage } from '../1standalone/NoDataMessage';
+import { TODAY_TODOS } from '../../graphql/query/todos';
 
 export const TodayTodos = () => {
-  const { loading, error, data } = useGetAllTodosQuery();
+  const { loading, error, data, refetch } = useTodayTodosQuery();
   const navigation = useNavigation();
+  const [
+    completeTodo,
+    { loading: mutationLoading, error: mutationError },
+  ] = useCompleteToDoMutation({ refetchQueries: [{ query: TODAY_TODOS }] });
+  const completeTodoHandler = (id: string) => {
+    completeTodo({ variables: { _eq: id } });
+  };
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <PrimaryButton onPress={() => {}} title="Update count" />,
-      headerTitle: 'hoge',
-    });
-  }, [navigation]);
+  useFocusEffect(
+    useCallback(() => {
+      return () => refetch();
+    }, []),
+  );
 
-  if (loading) return <Loader />;
-  if (error) return <ErrorMessage />;
-  if (!data) return <Text>Todoはまだ登録されていません。</Text>;
+  if (loading || mutationLoading) return <ScreenLoader />;
+  if (error || mutationError) return <ErrorMessage />;
+  if (!data) return <NoDataMessage />;
+
+  console.log(data, 'today');
+  console.log(error, mutationError, 'todayError');
 
   return (
     <Container>
-      <TodosCollection todos={data.todo} />
+      <TodayTodosCollection todos={data.todos} onPress={completeTodoHandler} />
       <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </Container>
   );

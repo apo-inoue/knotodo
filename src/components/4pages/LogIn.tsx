@@ -14,8 +14,6 @@ export const LogIn = () => {
       </Text>
       <Box mt={20} />
       <PrimaryButton onPress={handleLogIn} title="logIn" mt={120} />
-      <PrimaryButton onPress={handleLogOut} title="logIn" mt={120} />
-      {/* <DisabledButton onPress={logIn} title="logIn" mt={120} /> */}
     </Container>
   );
 };

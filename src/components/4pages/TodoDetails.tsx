@@ -1,28 +1,21 @@
 import React from 'react';
 import { Container } from '../../ui/layout/Container';
-import { Text } from '../../ui/typography/Text';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { TodoDetailsCollection } from '../3collection/TodoDetailsCollection';
-import { useTheme } from 'styled-components';
+import { TodoDetailsCollection } from '../3collection';
 import { PrimaryButton } from '../../ui/button/StyledButtons';
+import { ErrorMessage } from '../1standalone';
 
 export const TodoDetails = () => {
   const navigation = useNavigation();
-  const theme = useTheme();
-
   const route = useRoute();
   const todo = route.params ?? undefined;
 
-  if (!todo) {
-    <Container>
-      <Text color={theme.colors.danger}>unhandled error occur!!</Text>
-    </Container>;
-  }
+  if (!todo) return <ErrorMessage />;
 
   return (
     <Container>
       <TodoDetailsCollection todo={todo} />
-      <PrimaryButton onPress={navigation.goBack} title="GoHome" color={theme.colors.main} />
+      <PrimaryButton onPress={navigation.goBack} title="GoHome" />
     </Container>
   );
 };

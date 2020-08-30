@@ -15,5 +15,5 @@ export { TextInput } from './input/TextInput';
 export { OutlinedTextInput } from './input/OutlinedTextInput';
 export { TextForm } from './input/TextForm';
 export { RadioButton } from './input/RadioButton';
-export { Loader } from './utils/Loader';
+export { Loader, ScreenLoader } from './utils/Loader';
 export { Divider } from './utils/Divider';

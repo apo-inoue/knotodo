@@ -1,21 +1,22 @@
 import React, { FC } from 'react';
-import { Todo } from '../../types/graphql';
-import { Touchable, Text, Card } from '../../ui';
+import { Todos } from '../../types/graphql';
+import { Touchable, Text, PrimaryButton } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 import { Box } from '../../ui/layout/Box';
 
-type TodoSingleType = {
-  todo: { __typename?: 'todo' | undefined } & Pick<Todo, 'title' | 'id' | 'isToday'>;
+type NotTodayTodos = {
+  todo: { __typename: 'todos' } & Pick<Todos, 'title' | 'id' | 'isToday' | 'isCompleted'>;
+  onPress: (id: string) => void;
 };
 
-export const TodoSingle: FC<TodoSingleType> = ({ todo }) => {
+export const NotTodayTodos: FC<NotTodayTodos> = ({ todo, onPress }) => {
   const navigation = useNavigation();
   const params = todo;
   const theme = useTheme();
 
   return (
-    <Box m={2}>
+    <Box flexDirection="column" m={2}>
       <Touchable onPress={() => navigation.navigate('TodoDetails', params)}>
         <Box
           width="100%"
@@ -26,6 +27,7 @@ export const TodoSingle: FC<TodoSingleType> = ({ todo }) => {
           <Text>{todo.title}</Text>
         </Box>
       </Touchable>
+      <PrimaryButton onPress={() => onPress(todo.id)} title="push me!!" />
     </Box>
   );
 };
