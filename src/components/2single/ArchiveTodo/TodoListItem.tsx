@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
-import { Todos, Exact, DeleteToDoMutation, String_Comparison_Exp } from '../../types/graphql';
-import { Touchable, Text, PrimaryButton } from '../../ui';
+import { Todos } from '../../../types/graphql';
+import { Touchable, Text, PrimaryButton, Box } from '../../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
-import { Box } from '../../ui/layout/Box';
 
-type ArchiveTodos = {
+type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<Todos, 'title' | 'id' | 'isToday' | 'isCompleted'>;
   onPress: (id: string) => void;
 };
 
-export const ArchiveTodos: FC<ArchiveTodos> = ({ todo, onPress }) => {
+export const TodoListItem: FC<TodoListItem> = ({ todo, onPress }) => {
   const navigation = useNavigation();
   const params = todo;
   const theme = useTheme();

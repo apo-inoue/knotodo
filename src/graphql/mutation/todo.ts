@@ -1,9 +1,16 @@
 import { gql } from '@apollo/client';
 
-export const CREATE_TODAY_TODO = gql`
-  mutation createTodayTodo {
-    insert_todos(objects: { title: "kk", urgency: month, isToday: true }) {
-      affected_rows
+export const INSERT_TODO = gql`
+  mutation InsertToDo(
+    $isCompleted: Boolean = false
+    $title: String = ""
+    $urgency: urgency_enum = month
+    $isToday: Boolean = true
+  ) {
+    insert_todos_one(
+      object: { isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency }
+    ) {
+      id
     }
   }
 `;

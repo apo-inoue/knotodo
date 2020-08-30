@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
-import { Todos } from '../../types/graphql';
-import { Touchable, Text, PrimaryButton } from '../../ui';
+import { Todos } from '../../../types/graphql';
+import { Touchable, Text, PrimaryButton, Box } from '../../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
-import { Box } from '../../ui/layout/Box';
 
-type NotTodayTodos = {
+type TodayTodos = {
   todo: { __typename: 'todos' } & Pick<Todos, 'title' | 'id' | 'isToday' | 'isCompleted'>;
   onPress: (id: string) => void;
 };
 
-export const NotTodayTodos: FC<NotTodayTodos> = ({ todo, onPress }) => {
+export const TodayTodos: FC<TodayTodos> = ({ todo, onPress }) => {
   const navigation = useNavigation();
   const params = todo;
   const theme = useTheme();
