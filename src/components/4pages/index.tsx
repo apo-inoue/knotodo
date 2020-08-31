@@ -1,3 +1,4 @@
+// コンポーネントにデータを流し込むコンポーネント
 export { ArchiveTodos } from './ArchiveTodos';
 export { LogIn } from './LogIn';
 export { NewTodo } from './NewTodo';

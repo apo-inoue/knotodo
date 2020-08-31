@@ -1,5 +1,4 @@
-import { FormState, FormCtxType } from './type';
-import { ChangeEvent } from 'react';
+import { CategoryCtxType } from './type';
 import { createCtx } from '../../helpers/createCtx';
 
-export const [useFormCtx, FormCtxProvider] = createCtx<FormCtxType>();
+export const [useFormCtx, FormCtxProvider] = createCtx<CategoryCtxType>();
