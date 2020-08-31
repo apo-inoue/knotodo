@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Box } from '../../../ui';
 import { Picker, Form } from 'native-base';
 
-export const Categories = () => {
+type CategoriesProps = {
+  categories: any;
+};
+
+export const Categories: FC<CategoriesProps> = ({ categories }) => {
   const [selectedValue, setSelectedValue] = useState('work');
   const valueChangeHandler = (text: string) => {
     setSelectedValue(text);

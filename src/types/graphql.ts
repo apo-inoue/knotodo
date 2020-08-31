@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  uuid: any;
 };
 
 /** expression to compare columns of type Boolean. All fields are combined with logical 'AND'. */
@@ -43,9 +44,132 @@ export type String_Comparison_Exp = {
   _similar: Maybe<Scalars['String']>;
 };
 
+/** columns and relationships of "categories" */
+export type Categories = {
+  __typename: 'categories';
+  category: Scalars['String'];
+  id: Scalars['uuid'];
+  /** An array relationship */
+  todos: Array<Todos>;
+  /** An aggregated array relationship */
+  todos_aggregate: Todos_Aggregate;
+  /** An object relationship */
+  user: Users;
+  user_id: Scalars['String'];
+};
+
+
+/** columns and relationships of "categories" */
+export type CategoriesTodosArgs = {
+  distinct_on: Maybe<Array<Todos_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Todos_Order_By>>;
+  where: Maybe<Todos_Bool_Exp>;
+};
+
+
+/** columns and relationships of "categories" */
+export type CategoriesTodos_AggregateArgs = {
+  distinct_on: Maybe<Array<Todos_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Todos_Order_By>>;
+  where: Maybe<Todos_Bool_Exp>;
+};
+
+/** input type for inserting array relation for remote table "categories" */
+export type Categories_Arr_Rel_Insert_Input = {
+  data: Array<Categories_Insert_Input>;
+  on_conflict: Maybe<Categories_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "categories". All fields are combined with a logical 'AND'. */
+export type Categories_Bool_Exp = {
+  _and: Maybe<Array<Maybe<Categories_Bool_Exp>>>;
+  _not: Maybe<Categories_Bool_Exp>;
+  _or: Maybe<Array<Maybe<Categories_Bool_Exp>>>;
+  category: Maybe<String_Comparison_Exp>;
+  id: Maybe<Uuid_Comparison_Exp>;
+  todos: Maybe<Todos_Bool_Exp>;
+  user: Maybe<Users_Bool_Exp>;
+  user_id: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "categories" */
+export type Categories_Constraint = 
+  /** unique or primary key constraint */
+  | 'categories_pkey';
+
+/** input type for inserting data into table "categories" */
+export type Categories_Insert_Input = {
+  category: Maybe<Scalars['String']>;
+  todos: Maybe<Todos_Arr_Rel_Insert_Input>;
+  user: Maybe<Users_Obj_Rel_Insert_Input>;
+};
+
+/** response of any mutation on the table "categories" */
+export type Categories_Mutation_Response = {
+  __typename: 'categories_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Categories>;
+};
+
+/** input type for inserting object relation for remote table "categories" */
+export type Categories_Obj_Rel_Insert_Input = {
+  data: Categories_Insert_Input;
+  on_conflict: Maybe<Categories_On_Conflict>;
+};
+
+/** on conflict condition type for table "categories" */
+export type Categories_On_Conflict = {
+  constraint: Categories_Constraint;
+  update_columns: Array<Categories_Update_Column>;
+  where: Maybe<Categories_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "categories" */
+export type Categories_Order_By = {
+  category: Maybe<Order_By>;
+  id: Maybe<Order_By>;
+  todos_aggregate: Maybe<Todos_Aggregate_Order_By>;
+  user: Maybe<Users_Order_By>;
+  user_id: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "categories" */
+export type Categories_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "categories" */
+export type Categories_Select_Column = 
+  /** column name */
+  | 'category'
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'user_id';
+
+/** input type for updating data in table "categories" */
+export type Categories_Set_Input = {
+  category: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "categories" */
+export type Categories_Update_Column = 
+  /** column name */
+  | 'category';
+
 /** mutation root */
 export type Mutation_Root = {
   __typename: 'mutation_root';
+  /** delete data from the table: "categories" */
+  delete_categories: Maybe<Categories_Mutation_Response>;
+  /** delete single row from the table: "categories" */
+  delete_categories_by_pk: Maybe<Categories>;
   /** delete data from the table: "todos" */
   delete_todos: Maybe<Todos_Mutation_Response>;
   /** delete single row from the table: "todos" */
@@ -58,6 +182,10 @@ export type Mutation_Root = {
   delete_users: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk: Maybe<Users>;
+  /** insert data into the table: "categories" */
+  insert_categories: Maybe<Categories_Mutation_Response>;
+  /** insert a single row into the table: "categories" */
+  insert_categories_one: Maybe<Categories>;
   /** insert data into the table: "todos" */
   insert_todos: Maybe<Todos_Mutation_Response>;
   /** insert a single row into the table: "todos" */
@@ -66,6 +194,10 @@ export type Mutation_Root = {
   insert_users: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one: Maybe<Users>;
+  /** update data of the table: "categories" */
+  update_categories: Maybe<Categories_Mutation_Response>;
+  /** update single row of the table: "categories" */
+  update_categories_by_pk: Maybe<Categories>;
   /** update data of the table: "todos" */
   update_todos: Maybe<Todos_Mutation_Response>;
   /** update single row of the table: "todos" */
@@ -78,6 +210,18 @@ export type Mutation_Root = {
   update_users: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
   update_users_by_pk: Maybe<Users>;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_CategoriesArgs = {
+  where: Categories_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Categories_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -118,6 +262,20 @@ export type Mutation_RootDelete_Users_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_CategoriesArgs = {
+  objects: Array<Categories_Insert_Input>;
+  on_conflict: Maybe<Categories_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Categories_OneArgs = {
+  object: Categories_Insert_Input;
+  on_conflict: Maybe<Categories_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_TodosArgs = {
   objects: Array<Todos_Insert_Input>;
   on_conflict: Maybe<Todos_On_Conflict>;
@@ -142,6 +300,20 @@ export type Mutation_RootInsert_UsersArgs = {
 export type Mutation_RootInsert_Users_OneArgs = {
   object: Users_Insert_Input;
   on_conflict: Maybe<Users_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_CategoriesArgs = {
+  _set: Maybe<Categories_Set_Input>;
+  where: Categories_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Categories_By_PkArgs = {
+  _set: Maybe<Categories_Set_Input>;
+  pk_columns: Categories_Pk_Columns_Input;
 };
 
 
@@ -204,6 +376,10 @@ export type Order_By =
 /** query root */
 export type Query_Root = {
   __typename: 'query_root';
+  /** fetch data from the table: "categories" */
+  categories: Array<Categories>;
+  /** fetch data from the table: "categories" using primary key columns */
+  categories_by_pk: Maybe<Categories>;
   /** fetch data from the table: "todos" */
   todos: Array<Todos>;
   /** fetch aggregated fields from the table: "todos" */
@@ -218,6 +394,22 @@ export type Query_Root = {
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk: Maybe<Users>;
+};
+
+
+/** query root */
+export type Query_RootCategoriesArgs = {
+  distinct_on: Maybe<Array<Categories_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Categories_Order_By>>;
+  where: Maybe<Categories_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootCategories_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -281,6 +473,10 @@ export type Query_RootUsers_By_PkArgs = {
 /** subscription root */
 export type Subscription_Root = {
   __typename: 'subscription_root';
+  /** fetch data from the table: "categories" */
+  categories: Array<Categories>;
+  /** fetch data from the table: "categories" using primary key columns */
+  categories_by_pk: Maybe<Categories>;
   /** fetch data from the table: "todos" */
   todos: Array<Todos>;
   /** fetch aggregated fields from the table: "todos" */
@@ -295,6 +491,22 @@ export type Subscription_Root = {
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk: Maybe<Users>;
+};
+
+
+/** subscription root */
+export type Subscription_RootCategoriesArgs = {
+  distinct_on: Maybe<Array<Categories_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Categories_Order_By>>;
+  where: Maybe<Categories_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootCategories_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -363,6 +575,8 @@ export type Subscription_RootUsers_By_PkArgs = {
  */
 export type Todos = {
   __typename: 'todos';
+  /** An object relationship */
+  categoryByCategory: Maybe<Categories>;
   id: Scalars['String'];
   isCompleted: Scalars['Boolean'];
   isToday: Scalars['Boolean'];
@@ -415,6 +629,7 @@ export type Todos_Bool_Exp = {
   _and: Maybe<Array<Maybe<Todos_Bool_Exp>>>;
   _not: Maybe<Todos_Bool_Exp>;
   _or: Maybe<Array<Maybe<Todos_Bool_Exp>>>;
+  categoryByCategory: Maybe<Categories_Bool_Exp>;
   id: Maybe<String_Comparison_Exp>;
   isCompleted: Maybe<Boolean_Comparison_Exp>;
   isToday: Maybe<Boolean_Comparison_Exp>;
@@ -432,6 +647,7 @@ export type Todos_Constraint =
 
 /** input type for inserting data into table "todos" */
 export type Todos_Insert_Input = {
+  categoryByCategory: Maybe<Categories_Obj_Rel_Insert_Input>;
   isCompleted: Maybe<Scalars['Boolean']>;
   isToday: Maybe<Scalars['Boolean']>;
   title: Maybe<Scalars['String']>;
@@ -493,6 +709,7 @@ export type Todos_On_Conflict = {
 
 /** ordering options when selecting data from "todos" */
 export type Todos_Order_By = {
+  categoryByCategory: Maybe<Categories_Order_By>;
   id: Maybe<Order_By>;
   isCompleted: Maybe<Order_By>;
   isToday: Maybe<Order_By>;
@@ -658,12 +875,24 @@ export type Urgency_Update_Column =
 /** columns and relationships of "users" */
 export type Users = {
   __typename: 'users';
+  /** An array relationship */
+  categories: Array<Categories>;
   id: Scalars['String'];
   nickname: Scalars['String'];
   /** An array relationship */
   tousers: Array<Todos>;
   /** An aggregated array relationship */
   tousers_aggregate: Todos_Aggregate;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersCategoriesArgs = {
+  distinct_on: Maybe<Array<Categories_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Categories_Order_By>>;
+  where: Maybe<Categories_Bool_Exp>;
 };
 
 
@@ -697,6 +926,7 @@ export type Users_Bool_Exp = {
   _and: Maybe<Array<Maybe<Users_Bool_Exp>>>;
   _not: Maybe<Users_Bool_Exp>;
   _or: Maybe<Array<Maybe<Users_Bool_Exp>>>;
+  categories: Maybe<Categories_Bool_Exp>;
   id: Maybe<String_Comparison_Exp>;
   nickname: Maybe<String_Comparison_Exp>;
   tousers: Maybe<Todos_Bool_Exp>;
@@ -709,6 +939,7 @@ export type Users_Constraint =
 
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
+  categories: Maybe<Categories_Arr_Rel_Insert_Input>;
   id: Maybe<Scalars['String']>;
   nickname: Maybe<Scalars['String']>;
   tousers: Maybe<Todos_Arr_Rel_Insert_Input>;
@@ -768,14 +999,46 @@ export type Users_Update_Column =
   /** column name */
   | 'nickname';
 
-export type CreateTodayTodoMutationVariables = Exact<{ [key: string]: never; }>;
+
+/** expression to compare columns of type uuid. All fields are combined with logical 'AND'. */
+export type Uuid_Comparison_Exp = {
+  _eq: Maybe<Scalars['uuid']>;
+  _gt: Maybe<Scalars['uuid']>;
+  _gte: Maybe<Scalars['uuid']>;
+  _in: Maybe<Array<Scalars['uuid']>>;
+  _is_null: Maybe<Scalars['Boolean']>;
+  _lt: Maybe<Scalars['uuid']>;
+  _lte: Maybe<Scalars['uuid']>;
+  _neq: Maybe<Scalars['uuid']>;
+  _nin: Maybe<Array<Scalars['uuid']>>;
+};
+
+export type InsertCategoryMutationVariables = Exact<{
+  category?: Maybe<Scalars['String']>;
+}>;
 
 
-export type CreateTodayTodoMutation = (
+export type InsertCategoryMutation = (
   { __typename: 'mutation_root' }
-  & { insert_todos: Maybe<(
-    { __typename: 'todos_mutation_response' }
-    & Pick<Todos_Mutation_Response, 'affected_rows'>
+  & { insert_categories_one: Maybe<(
+    { __typename: 'categories' }
+    & Pick<Categories, 'category'>
+  )> }
+);
+
+export type InsertToDoMutationVariables = Exact<{
+  isCompleted?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  urgency?: Maybe<Urgency_Enum>;
+  isToday?: Maybe<Scalars['Boolean']>;
+}>;
+
+
+export type InsertToDoMutation = (
+  { __typename: 'mutation_root' }
+  & { insert_todos_one: Maybe<(
+    { __typename: 'todos' }
+    & Pick<Todos, 'id'>
   )> }
 );
 
@@ -818,6 +1081,17 @@ export type SetTodayTodoMutation = (
   )> }
 );
 
+export type AllCategoryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllCategoryQuery = (
+  { __typename: 'query_root' }
+  & { categories: Array<(
+    { __typename: 'categories' }
+    & Pick<Categories, 'category' | 'id'>
+  )> }
+);
+
 export type TodayTodosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -852,37 +1126,73 @@ export type CompletedTodosQuery = (
 );
 
 
-export const CreateTodayTodoDocument = gql`
-    mutation createTodayTodo {
-  insert_todos(objects: {title: "kk", urgency: month, isToday: true}) {
-    affected_rows
+export const InsertCategoryDocument = gql`
+    mutation InsertCategory($category: String = "") {
+  insert_categories_one(object: {category: $category}) {
+    category
   }
 }
     `;
-export type CreateTodayTodoMutationFn = Apollo.MutationFunction<CreateTodayTodoMutation, CreateTodayTodoMutationVariables>;
+export type InsertCategoryMutationFn = Apollo.MutationFunction<InsertCategoryMutation, InsertCategoryMutationVariables>;
 
 /**
- * __useCreateTodayTodoMutation__
+ * __useInsertCategoryMutation__
  *
- * To run a mutation, you first call `useCreateTodayTodoMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateTodayTodoMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useInsertCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertCategoryMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createTodayTodoMutation, { data, loading, error }] = useCreateTodayTodoMutation({
+ * const [insertCategoryMutation, { data, loading, error }] = useInsertCategoryMutation({
  *   variables: {
+ *      category: // value for 'category'
  *   },
  * });
  */
-export function useCreateTodayTodoMutation(baseOptions?: Apollo.MutationHookOptions<CreateTodayTodoMutation, CreateTodayTodoMutationVariables>) {
-        return Apollo.useMutation<CreateTodayTodoMutation, CreateTodayTodoMutationVariables>(CreateTodayTodoDocument, baseOptions);
+export function useInsertCategoryMutation(baseOptions?: Apollo.MutationHookOptions<InsertCategoryMutation, InsertCategoryMutationVariables>) {
+        return Apollo.useMutation<InsertCategoryMutation, InsertCategoryMutationVariables>(InsertCategoryDocument, baseOptions);
       }
-export type CreateTodayTodoMutationHookResult = ReturnType<typeof useCreateTodayTodoMutation>;
-export type CreateTodayTodoMutationResult = Apollo.MutationResult<CreateTodayTodoMutation>;
-export type CreateTodayTodoMutationOptions = Apollo.BaseMutationOptions<CreateTodayTodoMutation, CreateTodayTodoMutationVariables>;
+export type InsertCategoryMutationHookResult = ReturnType<typeof useInsertCategoryMutation>;
+export type InsertCategoryMutationResult = Apollo.MutationResult<InsertCategoryMutation>;
+export type InsertCategoryMutationOptions = Apollo.BaseMutationOptions<InsertCategoryMutation, InsertCategoryMutationVariables>;
+export const InsertToDoDocument = gql`
+    mutation InsertToDo($isCompleted: Boolean = false, $title: String = "", $urgency: urgency_enum = month, $isToday: Boolean = true) {
+  insert_todos_one(object: {isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency}) {
+    id
+  }
+}
+    `;
+export type InsertToDoMutationFn = Apollo.MutationFunction<InsertToDoMutation, InsertToDoMutationVariables>;
+
+/**
+ * __useInsertToDoMutation__
+ *
+ * To run a mutation, you first call `useInsertToDoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertToDoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertToDoMutation, { data, loading, error }] = useInsertToDoMutation({
+ *   variables: {
+ *      isCompleted: // value for 'isCompleted'
+ *      title: // value for 'title'
+ *      urgency: // value for 'urgency'
+ *      isToday: // value for 'isToday'
+ *   },
+ * });
+ */
+export function useInsertToDoMutation(baseOptions?: Apollo.MutationHookOptions<InsertToDoMutation, InsertToDoMutationVariables>) {
+        return Apollo.useMutation<InsertToDoMutation, InsertToDoMutationVariables>(InsertToDoDocument, baseOptions);
+      }
+export type InsertToDoMutationHookResult = ReturnType<typeof useInsertToDoMutation>;
+export type InsertToDoMutationResult = Apollo.MutationResult<InsertToDoMutation>;
+export type InsertToDoMutationOptions = Apollo.BaseMutationOptions<InsertToDoMutation, InsertToDoMutationVariables>;
 export const CompleteToDoDocument = gql`
     mutation CompleteToDo($_eq: String = "") {
   update_todos(where: {id: {_eq: $_eq}}, _set: {isCompleted: true}) {
@@ -979,6 +1289,39 @@ export function useSetTodayTodoMutation(baseOptions?: Apollo.MutationHookOptions
 export type SetTodayTodoMutationHookResult = ReturnType<typeof useSetTodayTodoMutation>;
 export type SetTodayTodoMutationResult = Apollo.MutationResult<SetTodayTodoMutation>;
 export type SetTodayTodoMutationOptions = Apollo.BaseMutationOptions<SetTodayTodoMutation, SetTodayTodoMutationVariables>;
+export const AllCategoryDocument = gql`
+    query AllCategory {
+  categories {
+    category
+    id
+  }
+}
+    `;
+
+/**
+ * __useAllCategoryQuery__
+ *
+ * To run a query within a React component, call `useAllCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllCategoryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllCategoryQuery(baseOptions?: Apollo.QueryHookOptions<AllCategoryQuery, AllCategoryQueryVariables>) {
+        return Apollo.useQuery<AllCategoryQuery, AllCategoryQueryVariables>(AllCategoryDocument, baseOptions);
+      }
+export function useAllCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllCategoryQuery, AllCategoryQueryVariables>) {
+          return Apollo.useLazyQuery<AllCategoryQuery, AllCategoryQueryVariables>(AllCategoryDocument, baseOptions);
+        }
+export type AllCategoryQueryHookResult = ReturnType<typeof useAllCategoryQuery>;
+export type AllCategoryLazyQueryHookResult = ReturnType<typeof useAllCategoryLazyQuery>;
+export type AllCategoryQueryResult = Apollo.QueryResult<AllCategoryQuery, AllCategoryQueryVariables>;
 export const TodayTodosDocument = gql`
     query todayTodos {
   todos(where: {isToday: {_eq: true}, isCompleted: {_eq: false}}) {

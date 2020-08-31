@@ -5,3 +5,4 @@ export { ArchiveTodos as ArchiveTodosCollection } from './ArchiveTodos';
 export { NewTodo as NewTodoCollection } from './NewTodo';
 export { TodoDetails as TodoDetailsCollection } from './TodoDetails';
 export { LogIn as LogInCollection } from './LogIn';
+export { Setting as SettingCollection } from './Setting';

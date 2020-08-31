@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { Divider } from '../../ui';
-import { Box } from '../../ui/layout/Box';
-import { RadioButton } from '../../ui/input/RadioButton';
-import { TextForm } from '../../ui/input/TextForm';
-import { Picker, Form } from 'native-base';
+import React, { FC } from 'react';
+import { Divider, PrimaryButton } from '../../ui';
 import { NewTodoTitle, NewTodoCategories, NewTodoUrgency } from '../2single';
 
-export const NewTodo = () => {
+type NewTodoProps = {
+  categories: any;
+  onPress: () => void;
+};
+
+export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   return (
     <>
       <NewTodoTitle />
       <Divider />
-      <NewTodoCategories />
+      <NewTodoCategories categories={categories} />
       <Divider />
       <NewTodoUrgency />
+      <PrimaryButton title="追加" onPress={onPress} />
     </>
   );
 };
