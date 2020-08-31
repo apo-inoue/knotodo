@@ -16,4 +16,4 @@ export { Urgency as NewTodoUrgency } from './NewTodo/Urgency';
 export { Categories as NewTodoCategories } from './NewTodo//Categories';
 
 /** setting */
-export { CategoryListItem as SettingCategoriyListItem } from './Setting/CategoryListItem';
+export { CategoryListItem as SettingCategoryListItem } from './Setting/CategoryListItem';
