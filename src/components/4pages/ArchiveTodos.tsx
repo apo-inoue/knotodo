@@ -1,20 +1,10 @@
 import React, { useCallback } from 'react';
-import { Text } from 'react-native';
 import { Container, Loader } from '../../ui';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import {
-  useCompletedTodosQuery,
-  useDeleteToDoMutation,
-  DeleteToDoMutation,
-  Exact,
-  String_Comparison_Exp,
-} from '../../types/graphql';
-import { AddFab } from '../1standalone/AddFab';
+import { useCompletedTodosQuery, useDeleteToDoMutation } from '../../types/graphql';
 import { ArchiveTodosCollection } from '../3collection';
-import { MutationFunctionOptions } from '@apollo/client';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
-import { DELETE_TODO } from '../../graphql/mutation/todo';
 import { COMPLETED_TODOS } from '../../graphql/query/todos';
 
 export const ArchiveTodos = () => {

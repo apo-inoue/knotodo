@@ -13,7 +13,7 @@ export { TodoListItem as NotTodayTodoListItem } from './NotTodayTodos/TodoListIt
 /** newTodo */
 export { Title as NewTodoTitle } from './NewTodo/Title';
 export { Urgency as NewTodoUrgency } from './NewTodo/Urgency';
-export { Categories as NewTodoCategories } from './NewTodo//Categories';
+export { CategoriesItem as NewTodoCategories } from './NewTodo//Categories';
 
 /** setting */
 export { CategoryListItem as SettingCategoryListItem } from './Setting/CategoryListItem';

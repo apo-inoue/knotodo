@@ -4,11 +4,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { TodoDetailsCollection } from '../3collection';
 import { PrimaryButton } from '../../ui/button/StyledButtons';
 import { ErrorMessage } from '../1standalone';
+import { Todos } from '../../types/graphql';
 
 export const TodoDetails = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const todo = route.params ?? undefined;
+  const todo = (route.params as Todos) ?? undefined;
 
   if (!todo) return <ErrorMessage />;
 

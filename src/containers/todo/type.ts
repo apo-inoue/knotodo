@@ -12,6 +12,6 @@ export type TodoState = {
 
 export type TodoCtxType = {
   state: TodoState;
-  titleInputHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  titleInputHandler: (text: string) => void;
   urgencySelectHandler: (e: MouseEvent<any>) => void;
 };

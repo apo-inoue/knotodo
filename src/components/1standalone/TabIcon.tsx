@@ -6,7 +6,7 @@ import { useTheme } from 'styled-components';
 
 type TabIconProps = {
   name: string;
-  color: any;
+  color: string;
 };
 
 export const TabIcon: FC<TabIconProps> = ({ name, color }) => {

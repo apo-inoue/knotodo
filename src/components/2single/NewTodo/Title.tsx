@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, TextForm } from '../../../ui';
+import { useTodoCtx } from '../../../containers/todo/useCtx';
 
 export const Title = () => {
-  const [title, setTitle] = useState('');
-  const titleInputHandler = (text: string) => {
-    setTitle(text);
-  };
+  const {
+    state: { title },
+    titleInputHandler,
+  } = useTodoCtx();
 
   return (
     <Box width="100%">

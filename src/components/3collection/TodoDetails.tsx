@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { Text } from '../../ui';
+import { Todos } from '../../types/graphql';
 
 type TodoDetailsProps = {
-  todo: any;
+  todo: Todos;
 };
 
 export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {

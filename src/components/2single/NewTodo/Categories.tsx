@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react';
 import { Box } from '../../../ui';
 import { Picker, Form } from 'native-base';
+import { Categories } from '../../../types/graphql';
 
 type CategoriesProps = {
-  categories: any;
+  categories: ({ __typename: 'categories' } & Pick<Categories, 'category' | 'id'>)[];
 };
 
-export const Categories: FC<CategoriesProps> = ({ categories }) => {
+export const CategoriesItem: FC<CategoriesProps> = ({ categories }) => {
   const [selectedValue, setSelectedValue] = useState('work');
   const valueChangeHandler = (text: string) => {
     setSelectedValue(text);
