@@ -6,9 +6,16 @@ export const INSERT_TODO = gql`
     $title: String = ""
     $urgency: urgency_enum = month
     $isToday: Boolean = true
+    $workload: Int = 1
   ) {
     insert_todos_one(
-      object: { isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency }
+      object: {
+        isCompleted: $isCompleted
+        isToday: $isToday
+        title: $title
+        urgency: $urgency
+        workload: $workload
+      }
     ) {
       id
     }

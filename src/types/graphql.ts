@@ -25,6 +25,19 @@ export type Boolean_Comparison_Exp = {
   _nin: Maybe<Array<Scalars['Boolean']>>;
 };
 
+/** expression to compare columns of type Int. All fields are combined with logical 'AND'. */
+export type Int_Comparison_Exp = {
+  _eq: Maybe<Scalars['Int']>;
+  _gt: Maybe<Scalars['Int']>;
+  _gte: Maybe<Scalars['Int']>;
+  _in: Maybe<Array<Scalars['Int']>>;
+  _is_null: Maybe<Scalars['Boolean']>;
+  _lt: Maybe<Scalars['Int']>;
+  _lte: Maybe<Scalars['Int']>;
+  _neq: Maybe<Scalars['Int']>;
+  _nin: Maybe<Array<Scalars['Int']>>;
+};
+
 /** expression to compare columns of type String. All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq: Maybe<Scalars['String']>;
@@ -575,6 +588,7 @@ export type Subscription_RootUsers_By_PkArgs = {
  */
 export type Todos = {
   __typename: 'todos';
+  category: Maybe<Scalars['uuid']>;
   /** An object relationship */
   categoryByCategory: Maybe<Categories>;
   id: Scalars['String'];
@@ -587,6 +601,7 @@ export type Todos = {
   /** An object relationship */
   user: Users;
   user_id: Scalars['String'];
+  workload: Scalars['Int'];
 };
 
 /** aggregated selection of "todos" */
@@ -599,9 +614,17 @@ export type Todos_Aggregate = {
 /** aggregate fields of "todos" */
 export type Todos_Aggregate_Fields = {
   __typename: 'todos_aggregate_fields';
+  avg: Maybe<Todos_Avg_Fields>;
   count: Maybe<Scalars['Int']>;
   max: Maybe<Todos_Max_Fields>;
   min: Maybe<Todos_Min_Fields>;
+  stddev: Maybe<Todos_Stddev_Fields>;
+  stddev_pop: Maybe<Todos_Stddev_Pop_Fields>;
+  stddev_samp: Maybe<Todos_Stddev_Samp_Fields>;
+  sum: Maybe<Todos_Sum_Fields>;
+  var_pop: Maybe<Todos_Var_Pop_Fields>;
+  var_samp: Maybe<Todos_Var_Samp_Fields>;
+  variance: Maybe<Todos_Variance_Fields>;
 };
 
 
@@ -613,9 +636,17 @@ export type Todos_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "todos" */
 export type Todos_Aggregate_Order_By = {
+  avg: Maybe<Todos_Avg_Order_By>;
   count: Maybe<Order_By>;
   max: Maybe<Todos_Max_Order_By>;
   min: Maybe<Todos_Min_Order_By>;
+  stddev: Maybe<Todos_Stddev_Order_By>;
+  stddev_pop: Maybe<Todos_Stddev_Pop_Order_By>;
+  stddev_samp: Maybe<Todos_Stddev_Samp_Order_By>;
+  sum: Maybe<Todos_Sum_Order_By>;
+  var_pop: Maybe<Todos_Var_Pop_Order_By>;
+  var_samp: Maybe<Todos_Var_Samp_Order_By>;
+  variance: Maybe<Todos_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "todos" */
@@ -624,11 +655,23 @@ export type Todos_Arr_Rel_Insert_Input = {
   on_conflict: Maybe<Todos_On_Conflict>;
 };
 
+/** aggregate avg on columns */
+export type Todos_Avg_Fields = {
+  __typename: 'todos_avg_fields';
+  workload: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "todos" */
+export type Todos_Avg_Order_By = {
+  workload: Maybe<Order_By>;
+};
+
 /** Boolean expression to filter rows from the table "todos". All fields are combined with a logical 'AND'. */
 export type Todos_Bool_Exp = {
   _and: Maybe<Array<Maybe<Todos_Bool_Exp>>>;
   _not: Maybe<Todos_Bool_Exp>;
   _or: Maybe<Array<Maybe<Todos_Bool_Exp>>>;
+  category: Maybe<Uuid_Comparison_Exp>;
   categoryByCategory: Maybe<Categories_Bool_Exp>;
   id: Maybe<String_Comparison_Exp>;
   isCompleted: Maybe<Boolean_Comparison_Exp>;
@@ -638,6 +681,7 @@ export type Todos_Bool_Exp = {
   urgencyByUrgency: Maybe<Urgency_Bool_Exp>;
   user: Maybe<Users_Bool_Exp>;
   user_id: Maybe<String_Comparison_Exp>;
+  workload: Maybe<Int_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "todos" */
@@ -647,42 +691,52 @@ export type Todos_Constraint =
 
 /** input type for inserting data into table "todos" */
 export type Todos_Insert_Input = {
+  category: Maybe<Scalars['uuid']>;
   categoryByCategory: Maybe<Categories_Obj_Rel_Insert_Input>;
   isCompleted: Maybe<Scalars['Boolean']>;
   isToday: Maybe<Scalars['Boolean']>;
   title: Maybe<Scalars['String']>;
   urgency: Maybe<Urgency_Enum>;
   user: Maybe<Users_Obj_Rel_Insert_Input>;
+  workload: Maybe<Scalars['Int']>;
 };
 
 /** aggregate max on columns */
 export type Todos_Max_Fields = {
   __typename: 'todos_max_fields';
+  category: Maybe<Scalars['uuid']>;
   id: Maybe<Scalars['String']>;
   title: Maybe<Scalars['String']>;
   user_id: Maybe<Scalars['String']>;
+  workload: Maybe<Scalars['Int']>;
 };
 
 /** order by max() on columns of table "todos" */
 export type Todos_Max_Order_By = {
+  category: Maybe<Order_By>;
   id: Maybe<Order_By>;
   title: Maybe<Order_By>;
   user_id: Maybe<Order_By>;
+  workload: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Todos_Min_Fields = {
   __typename: 'todos_min_fields';
+  category: Maybe<Scalars['uuid']>;
   id: Maybe<Scalars['String']>;
   title: Maybe<Scalars['String']>;
   user_id: Maybe<Scalars['String']>;
+  workload: Maybe<Scalars['Int']>;
 };
 
 /** order by min() on columns of table "todos" */
 export type Todos_Min_Order_By = {
+  category: Maybe<Order_By>;
   id: Maybe<Order_By>;
   title: Maybe<Order_By>;
   user_id: Maybe<Order_By>;
+  workload: Maybe<Order_By>;
 };
 
 /** response of any mutation on the table "todos" */
@@ -709,6 +763,7 @@ export type Todos_On_Conflict = {
 
 /** ordering options when selecting data from "todos" */
 export type Todos_Order_By = {
+  category: Maybe<Order_By>;
   categoryByCategory: Maybe<Categories_Order_By>;
   id: Maybe<Order_By>;
   isCompleted: Maybe<Order_By>;
@@ -718,6 +773,7 @@ export type Todos_Order_By = {
   urgencyByUrgency: Maybe<Urgency_Order_By>;
   user: Maybe<Users_Order_By>;
   user_id: Maybe<Order_By>;
+  workload: Maybe<Order_By>;
 };
 
 /** primary key columns input for table: "todos" */
@@ -727,6 +783,8 @@ export type Todos_Pk_Columns_Input = {
 
 /** select columns of table "todos" */
 export type Todos_Select_Column = 
+  /** column name */
+  | 'category'
   /** column name */
   | 'id'
   /** column name */
@@ -738,7 +796,9 @@ export type Todos_Select_Column =
   /** column name */
   | 'urgency'
   /** column name */
-  | 'user_id';
+  | 'user_id'
+  /** column name */
+  | 'workload';
 
 /** input type for updating data in table "todos" */
 export type Todos_Set_Input = {
@@ -746,6 +806,50 @@ export type Todos_Set_Input = {
   isToday: Maybe<Scalars['Boolean']>;
   title: Maybe<Scalars['String']>;
   urgency: Maybe<Urgency_Enum>;
+};
+
+/** aggregate stddev on columns */
+export type Todos_Stddev_Fields = {
+  __typename: 'todos_stddev_fields';
+  workload: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "todos" */
+export type Todos_Stddev_Order_By = {
+  workload: Maybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Todos_Stddev_Pop_Fields = {
+  __typename: 'todos_stddev_pop_fields';
+  workload: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "todos" */
+export type Todos_Stddev_Pop_Order_By = {
+  workload: Maybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Todos_Stddev_Samp_Fields = {
+  __typename: 'todos_stddev_samp_fields';
+  workload: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "todos" */
+export type Todos_Stddev_Samp_Order_By = {
+  workload: Maybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Todos_Sum_Fields = {
+  __typename: 'todos_sum_fields';
+  workload: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "todos" */
+export type Todos_Sum_Order_By = {
+  workload: Maybe<Order_By>;
 };
 
 /** update columns of table "todos" */
@@ -758,6 +862,39 @@ export type Todos_Update_Column =
   | 'title'
   /** column name */
   | 'urgency';
+
+/** aggregate var_pop on columns */
+export type Todos_Var_Pop_Fields = {
+  __typename: 'todos_var_pop_fields';
+  workload: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "todos" */
+export type Todos_Var_Pop_Order_By = {
+  workload: Maybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Todos_Var_Samp_Fields = {
+  __typename: 'todos_var_samp_fields';
+  workload: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "todos" */
+export type Todos_Var_Samp_Order_By = {
+  workload: Maybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Todos_Variance_Fields = {
+  __typename: 'todos_variance_fields';
+  workload: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "todos" */
+export type Todos_Variance_Order_By = {
+  workload: Maybe<Order_By>;
+};
 
 /** columns and relationships of "urgency" */
 export type Urgency = {
@@ -1031,6 +1168,7 @@ export type InsertToDoMutationVariables = Exact<{
   title?: Maybe<Scalars['String']>;
   urgency?: Maybe<Urgency_Enum>;
   isToday?: Maybe<Scalars['Boolean']>;
+  workload?: Maybe<Scalars['Int']>;
 }>;
 
 
@@ -1099,7 +1237,7 @@ export type TodayTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency'>
+    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'category' | 'workload'>
   )> }
 );
 
@@ -1110,7 +1248,7 @@ export type NotTodayTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency'>
+    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'category' | 'workload'>
   )> }
 );
 
@@ -1121,7 +1259,7 @@ export type CompletedTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency'>
+    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'category' | 'workload'>
   )> }
 );
 
@@ -1159,8 +1297,8 @@ export type InsertCategoryMutationHookResult = ReturnType<typeof useInsertCatego
 export type InsertCategoryMutationResult = Apollo.MutationResult<InsertCategoryMutation>;
 export type InsertCategoryMutationOptions = Apollo.BaseMutationOptions<InsertCategoryMutation, InsertCategoryMutationVariables>;
 export const InsertToDoDocument = gql`
-    mutation InsertToDo($isCompleted: Boolean = false, $title: String = "", $urgency: urgency_enum = month, $isToday: Boolean = true) {
-  insert_todos_one(object: {isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency}) {
+    mutation InsertToDo($isCompleted: Boolean = false, $title: String = "", $urgency: urgency_enum = month, $isToday: Boolean = true, $workload: Int = 1) {
+  insert_todos_one(object: {isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency, workload: $workload}) {
     id
   }
 }
@@ -1184,6 +1322,7 @@ export type InsertToDoMutationFn = Apollo.MutationFunction<InsertToDoMutation, I
  *      title: // value for 'title'
  *      urgency: // value for 'urgency'
  *      isToday: // value for 'isToday'
+ *      workload: // value for 'workload'
  *   },
  * });
  */
@@ -1330,6 +1469,8 @@ export const TodayTodosDocument = gql`
     isToday
     title
     urgency
+    category
+    workload
   }
 }
     `;
@@ -1366,6 +1507,8 @@ export const NotTodayTodosDocument = gql`
     isToday
     title
     urgency
+    category
+    workload
   }
 }
     `;
@@ -1402,6 +1545,8 @@ export const CompletedTodosDocument = gql`
     isToday
     title
     urgency
+    category
+    workload
   }
 }
     `;

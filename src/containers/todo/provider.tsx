@@ -1,13 +1,7 @@
-import React, {
-  FC,
-  ChangeEvent,
-  useReducer,
-  useCallback,
-  MouseEvent,
-} from 'react';
-import { Urgency, TodoCtxType } from './type';
+import React, { FC, useReducer, useCallback } from 'react';
 import { todoReducer, initialState } from './reducer';
 import { TodoCtxProvider } from './useCtx';
+import { Urgency_Enum } from '../../types/graphql';
 
 export const TodoProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
@@ -19,20 +13,33 @@ export const TodoProvider: FC = ({ children }) => {
     });
   }, []);
 
-  const urgencySelectHandler = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
-      dispatch({
-        actionType: 'SET_URGENCY',
-        payload: { urgency: e.currentTarget.value as Urgency },
-      });
-    },
-    [],
-  );
+  const urgencySelectHandler = useCallback((urgency: Urgency_Enum) => {
+    dispatch({
+      actionType: 'SET_URGENCY',
+      payload: { urgency },
+    });
+  }, []);
+
+  const categorySelectHandler = useCallback((category: string) => {
+    dispatch({
+      actionType: 'SET_CATEGORY',
+      payload: { category },
+    });
+  }, []);
+
+  const workloadInputHandler = useCallback((workload: number) => {
+    dispatch({
+      actionType: 'SET_WORKLOAD',
+      payload: { workload },
+    });
+  }, []);
 
   const value = {
     state,
     titleInputHandler,
     urgencySelectHandler,
+    categorySelectHandler,
+    workloadInputHandler,
   };
 
   return <TodoCtxProvider value={value}>{children}</TodoCtxProvider>;
