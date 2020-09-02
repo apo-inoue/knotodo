@@ -17,13 +17,15 @@ export const Workload = () => {
       {workloadArray.map(num => {
         const isWorkload = num <= workload;
         return (
-          <Touchable key={num} onPress={() => workloadInputHandler(num)}>
-            <FontAwesome5
-              name="hammer"
-              size={24}
-              color={isWorkload ? 'black' : '#aaaaaa'}
-            />
-          </Touchable>
+          <Box mx={1}>
+            <Touchable key={num} onPress={() => workloadInputHandler(num)}>
+              <FontAwesome5
+                name="hammer"
+                size={24}
+                color={isWorkload ? 'black' : '#aaaaaa'}
+              />
+            </Touchable>
+          </Box>
         );
       })}
     </Box>
