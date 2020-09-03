@@ -4,9 +4,13 @@ import { Todos } from '../../types/graphql';
 import { TodayTodoListItem } from '../2single';
 import { AddFab } from '../1standalone/AddFab';
 import { useNavigation } from '@react-navigation/native';
+import { Box } from '../../ui';
 
 type TodayTodos = {
-  todos: ({ __typename: 'todos' } & Pick<Todos, 'title' | 'id' | 'isToday' | 'isCompleted'>)[];
+  todos: ({ __typename: 'todos' } & Pick<
+    Todos,
+    'title' | 'id' | 'isToday' | 'isCompleted'
+  >)[];
   onPress: (id: string) => void;
 };
 
@@ -15,11 +19,16 @@ export const TodayTodos: FC<TodayTodos> = ({ todos, onPress }) => {
 
   return (
     <>
-      <FlatList
-        data={todos}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <TodayTodoListItem todo={item} onPress={onPress} />}
-      />
+      <Box mt={4} width="100%">
+        <FlatList
+          data={todos}
+          keyExtractor={item => item.id}
+          style={{ width: '100%' }}
+          renderItem={({ item }) => (
+            <TodayTodoListItem todo={item} onPress={onPress} />
+          )}
+        />
+      </Box>
       <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </>
   );

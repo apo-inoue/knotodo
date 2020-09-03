@@ -1,6 +1,9 @@
 import React, { useCallback } from 'react';
 import { Container, ScreenLoader } from '../../ui';
-import { useTodayTodosQuery, useCompleteToDoMutation } from '../../types/graphql';
+import {
+  useTodayTodosQuery,
+  useCompleteToDoMutation,
+} from '../../types/graphql';
 import { TodayTodosCollection } from '../3collection';
 import { useFocusEffect } from '@react-navigation/native';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
@@ -19,16 +22,16 @@ export const TodayTodos = () => {
 
   useFocusEffect(
     useCallback(() => {
-      return () => refetch();
-    }, []),
+      refetch();
+    }, [refetch]),
   );
+
+  console.log(data, 'today');
+  console.log(error, mutationError, 'todayError');
 
   if (loading || mutationLoading) return <ScreenLoader />;
   if (error || mutationError) return <ErrorMessage />;
   if (!data) return <NoDataMessage />;
-
-  console.log(data, 'today');
-  console.log(error, mutationError, 'todayError');
 
   return (
     <Container>

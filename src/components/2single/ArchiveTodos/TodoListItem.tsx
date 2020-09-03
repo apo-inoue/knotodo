@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Todos } from '../../../types/graphql';
-import { Touchable, Text, PrimaryButton, Box } from '../../../ui';
+import { Touchable, PrimaryButton, Box } from '../../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
-import { Left, Right } from 'native-base';
+import { Text } from 'native-base';
 
 type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<
@@ -19,22 +19,27 @@ export const TodoListItem: FC<TodoListItem> = ({ todo, onPress }) => {
   const theme = useTheme();
 
   return (
-    <Box flexDirection="column" m={2}>
-      <Left>
+    <Box flexDirection="row" m={2}>
+      <Box flexGrow={1} flexDirection="column" border="1px solid grey">
         <Touchable onPress={() => navigation.navigate('TodoDetails', params)}>
           <Box
             width="100%"
             p={2}
             alignItems="center"
             justifyContent="center"
-            border={theme.colors.main}>
-            <Text>{todo.title}</Text>
+            border={theme.colors.main}
+            borderRightWidth={0}>
+            <Box width={200}>
+              <Text numberOfLines={1} ellipsizeMode="tail">
+                {todo.title}
+              </Text>
+            </Box>
           </Box>
         </Touchable>
-      </Left>
-      <Right>
-        <PrimaryButton onPress={() => onPress(todo.id)} title="削除" />
-      </Right>
+      </Box>
+      <Box width={100} flexDirection="column">
+        <PrimaryButton onPress={() => onPress(todo.id)} title="Delete" />
+      </Box>
     </Box>
   );
 };

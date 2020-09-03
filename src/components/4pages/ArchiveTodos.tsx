@@ -1,7 +1,10 @@
 import React, { useCallback } from 'react';
 import { Container, Loader } from '../../ui';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { useCompletedTodosQuery, useDeleteToDoMutation } from '../../types/graphql';
+import {
+  useCompletedTodosQuery,
+  useDeleteToDoMutation,
+} from '../../types/graphql';
 import { ArchiveTodosCollection } from '../3collection';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
@@ -10,7 +13,10 @@ import { COMPLETED_TODOS } from '../../graphql/query/todos';
 export const ArchiveTodos = () => {
   const navigation = useNavigation();
   const { loading, error, data, refetch } = useCompletedTodosQuery();
-  const [deleteToDo, { loading: mutationLoading, error: mutationError }] = useDeleteToDoMutation({
+  const [
+    deleteToDo,
+    { loading: mutationLoading, error: mutationError },
+  ] = useDeleteToDoMutation({
     refetchQueries: [{ query: COMPLETED_TODOS }],
   });
   const deleteToDoHandler = (id: string) => {
@@ -19,8 +25,8 @@ export const ArchiveTodos = () => {
 
   useFocusEffect(
     useCallback(() => {
-      return () => refetch();
-    }, []),
+      refetch();
+    }, [refetch]),
   );
 
   if (loading || mutationLoading) return <Loader />;
