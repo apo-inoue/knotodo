@@ -3,8 +3,7 @@ import { Todos } from '../../../types/graphql';
 import { Touchable, PrimaryButton, Box } from '../../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
-import { Left, Right, View, Button, Text } from 'native-base';
-import { TextEllipsis } from '../../../ui/typography/TextElipsis';
+import { Text } from 'native-base';
 
 type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<

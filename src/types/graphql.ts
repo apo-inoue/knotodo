@@ -1159,7 +1159,7 @@ export type InsertCategoryMutation = (
   { __typename: 'mutation_root' }
   & { insert_categories_one: Maybe<(
     { __typename: 'categories' }
-    & Pick<Categories, 'category'>
+    & Pick<Categories, 'id'>
   )> }
 );
 
@@ -1181,7 +1181,7 @@ export type InsertToDoMutation = (
 );
 
 export type CompleteToDoMutationVariables = Exact<{
-  _eq?: Maybe<Scalars['String']>;
+  _eq: Scalars['String'];
 }>;
 
 
@@ -1190,11 +1190,15 @@ export type CompleteToDoMutation = (
   & { update_todos: Maybe<(
     { __typename: 'todos_mutation_response' }
     & Pick<Todos_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename: 'todos' }
+      & Pick<Todos, 'id'>
+    )> }
   )> }
 );
 
 export type DeleteToDoMutationVariables = Exact<{
-  _eq?: Maybe<Scalars['String']>;
+  _eq: Maybe<Scalars['String']>;
 }>;
 
 
@@ -1207,15 +1211,15 @@ export type DeleteToDoMutation = (
 );
 
 export type SetTodayTodoMutationVariables = Exact<{
-  _eq?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
 }>;
 
 
 export type SetTodayTodoMutation = (
   { __typename: 'mutation_root' }
-  & { update_todos: Maybe<(
-    { __typename: 'todos_mutation_response' }
-    & Pick<Todos_Mutation_Response, 'affected_rows'>
+  & { update_todos_by_pk: Maybe<(
+    { __typename: 'todos' }
+    & Pick<Todos, 'id' | 'title'>
   )> }
 );
 
@@ -1267,7 +1271,7 @@ export type CompletedTodosQuery = (
 export const InsertCategoryDocument = gql`
     mutation InsertCategory($category: String = "") {
   insert_categories_one(object: {category: $category}) {
-    category
+    id
   }
 }
     `;
@@ -1333,9 +1337,12 @@ export type InsertToDoMutationHookResult = ReturnType<typeof useInsertToDoMutati
 export type InsertToDoMutationResult = Apollo.MutationResult<InsertToDoMutation>;
 export type InsertToDoMutationOptions = Apollo.BaseMutationOptions<InsertToDoMutation, InsertToDoMutationVariables>;
 export const CompleteToDoDocument = gql`
-    mutation CompleteToDo($_eq: String = "") {
+    mutation CompleteToDo($_eq: String!) {
   update_todos(where: {id: {_eq: $_eq}}, _set: {isCompleted: true}) {
     affected_rows
+    returning {
+      id
+    }
   }
 }
     `;
@@ -1365,7 +1372,7 @@ export type CompleteToDoMutationHookResult = ReturnType<typeof useCompleteToDoMu
 export type CompleteToDoMutationResult = Apollo.MutationResult<CompleteToDoMutation>;
 export type CompleteToDoMutationOptions = Apollo.BaseMutationOptions<CompleteToDoMutation, CompleteToDoMutationVariables>;
 export const DeleteToDoDocument = gql`
-    mutation DeleteToDo($_eq: String = "") {
+    mutation DeleteToDo($_eq: String) {
   delete_todos(where: {id: {_eq: $_eq}}) {
     affected_rows
   }
@@ -1397,9 +1404,11 @@ export type DeleteToDoMutationHookResult = ReturnType<typeof useDeleteToDoMutati
 export type DeleteToDoMutationResult = Apollo.MutationResult<DeleteToDoMutation>;
 export type DeleteToDoMutationOptions = Apollo.BaseMutationOptions<DeleteToDoMutation, DeleteToDoMutationVariables>;
 export const SetTodayTodoDocument = gql`
-    mutation SetTodayTodo($_eq: String = "") {
-  update_todos(where: {id: {_eq: $_eq}}, _set: {isToday: true}) {
-    affected_rows
+    mutation SetTodayTodo($id: String!) {
+  update_todos_by_pk(pk_columns: {id: $id}, _set: {isToday: true}) {
+    __typename
+    id
+    title
   }
 }
     `;
@@ -1418,7 +1427,7 @@ export type SetTodayTodoMutationFn = Apollo.MutationFunction<SetTodayTodoMutatio
  * @example
  * const [setTodayTodoMutation, { data, loading, error }] = useSetTodayTodoMutation({
  *   variables: {
- *      _eq: // value for '_eq'
+ *      id: // value for 'id'
  *   },
  * });
  */

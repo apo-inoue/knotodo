@@ -20,7 +20,7 @@ export const NotTodayTodos = () => {
     refetchQueries: [{ query: NOT_TODAY_TODOS }],
   });
   const setTodayHandler = (id: string) => {
-    setToday({ variables: { _eq: id } });
+    setToday({ variables: { id } });
   };
 
   useFocusEffect(

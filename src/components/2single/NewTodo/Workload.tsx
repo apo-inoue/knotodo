@@ -17,8 +17,8 @@ export const Workload = () => {
       {workloadArray.map(num => {
         const isWorkload = num <= workload;
         return (
-          <Box mx={1}>
-            <Touchable key={num} onPress={() => workloadInputHandler(num)}>
+          <Box key={num} mx={1}>
+            <Touchable onPress={() => workloadInputHandler(num)}>
               <FontAwesome5
                 name="hammer"
                 size={24}
