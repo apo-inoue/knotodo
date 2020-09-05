@@ -34,7 +34,8 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
       <NewTodoCategories categories={categories} />
       <Box mt={3}>
         <PrimaryButton
-          title="追加"
+          variant="contained"
+          text="追加"
           onPress={() => onPress({ title, urgency, workload })}
         />
       </Box>

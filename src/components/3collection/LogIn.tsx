@@ -8,11 +8,17 @@ type LogIn = {
 export const LogIn: FC<LogIn> = ({ onLogIn }) => {
   return (
     <>
-      <Text fontSize={20} color="danger">
-        こんにちは
+      <Text fontSize={40} fontWeight="bold" color="primary">
+        KnoToDo
       </Text>
-      <Box mt={20} />
-      <PrimaryButton onPress={onLogIn} title="logIn" mt={120} />
+      <Text color="grey">Tomorrow never comes, it is alway today</Text>
+      <Box mt={4}>
+        <PrimaryButton
+          variant="contained"
+          onPress={onLogIn}
+          text="ログイン/新規登録"
+        />
+      </Box>
     </>
   );
 };

@@ -6,9 +6,12 @@ export { Flex } from './layout/Flex';
 export { Card } from './layout/Card';
 export { Text } from './typography/Text';
 export { Touchable } from './button/Touchable';
-export { ButtonBase } from './button/ButtonBase';
 export { FAB } from './button/FAB';
-export { PrimaryButton, SecondaryButton, DisabledButton } from './button/StyledButtons';
+export {
+  PrimaryButton,
+  DangerButton,
+  DisabledButton,
+} from './button/StyledButtons';
 export { Image } from './image/Image';
 export { ImageBackground } from './image/ImageBackground';
 export { TextInput } from './input/TextInput';

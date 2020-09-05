@@ -15,29 +15,36 @@ export const TabNavigation = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName="Today"
       tabBarOptions={{
         activeTintColor: theme.colors.main,
         inactiveTintColor: theme.colors.blacks[4],
       }}>
       <Tab.Screen
+        name="Archive"
+        component={ArchiveTodos}
+        options={{
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabIcon name="calendar-clock" color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Today"
         component={TodayTodos}
         options={{
-          tabBarIcon: ({ color }: { color: string }) => <TabIcon name="calendar" color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabIcon name="calendar-today" color={color} />
+          ),
         }}
       />
       <Tab.Screen
         name="NotToday"
         component={NotTodayTodos}
         options={{
-          tabBarIcon: ({ color }: { color: string }) => <TabIcon name="calendar" color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="Archive"
-        component={ArchiveTodos}
-        options={{
-          tabBarIcon: ({ color }: { color: string }) => <TabIcon name="calendar" color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabIcon name="calendar-blank" color={color} />
+          ),
         }}
       />
     </Tab.Navigator>

@@ -12,8 +12,8 @@ export const Container = styled.View<Container>`
   flex: 1;
   background-color: ${props => props.theme.colors.white};
   align-items: flex-start;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 4px;
+  padding-right: 4px;
 
   ${space};
 

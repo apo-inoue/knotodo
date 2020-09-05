@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Container, Loader } from '../../ui';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   useCompletedTodosQuery,
   useDeleteToDoMutation,
@@ -11,7 +11,6 @@ import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { COMPLETED_TODOS } from '../../graphql/query/todos';
 
 export const ArchiveTodos = () => {
-  const navigation = useNavigation();
   const { loading, error, data, refetch } = useCompletedTodosQuery();
   const [
     deleteToDo,

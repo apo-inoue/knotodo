@@ -1,8 +1,5 @@
 import React, { FC } from 'react';
-import { FontAwesome } from '@expo/vector-icons';
-import { Box } from '../../ui';
-import { useNavigation } from '@react-navigation/native';
-import { useTheme } from 'styled-components';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type TabIconProps = {
   name: string;
@@ -10,7 +7,5 @@ type TabIconProps = {
 };
 
 export const TabIcon: FC<TabIconProps> = ({ name, color }) => {
-  const theme = useTheme();
-
-  return <FontAwesome name={name} size={24} color={color} />;
+  return <MaterialCommunityIcons name={name} size={24} color={color} />;
 };

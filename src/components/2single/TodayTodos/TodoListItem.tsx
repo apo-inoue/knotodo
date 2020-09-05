@@ -1,42 +1,50 @@
 import React, { FC } from 'react';
+import { useWindowDimensions } from 'react-native';
 import { Todos } from '../../../types/graphql';
-import { Touchable, PrimaryButton, Box } from '../../../ui';
+import { Touchable, PrimaryButton, Box, Divider, Text } from '../../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
-import { Left, Right, Text } from 'native-base';
 
 type TodayTodos = {
   todo: { __typename: 'todos' } & Pick<
     Todos,
     'title' | 'id' | 'isToday' | 'isCompleted'
   >;
+  index: number;
   onPress: (id: string) => void;
 };
 
-export const TodayTodos: FC<TodayTodos> = ({ todo, onPress }) => {
+export const TodayTodos: FC<TodayTodos> = ({ todo, index, onPress }) => {
   const navigation = useNavigation();
   const params = todo;
-  const theme = useTheme();
+  const vw = useWindowDimensions().width;
 
   return (
-    <Box flexDirection="row" m={2}>
-      <Box
-        flexGrow={1}
-        flexDirection="column"
-        border="1px solid grey"
-        borderRightWidth={0}>
-        <Touchable onPress={() => navigation.navigate('TodoDetails', params)}>
-          <Box width="100%" p={2} border={theme.colors.main}>
-            <Box width={200}>
-              <Text numberOfLines={1} ellipsizeMode="tail">
+    <Box>
+      {index > 0 && <Divider />}
+      <Box flexDirection="row" height={48}>
+        <Box flexDirection="column" flexGrow={1}>
+          <Touchable
+            p={0}
+            height={48}
+            onPress={() => navigation.navigate('TodoDetails', params)}>
+            <Box
+              width={0.6 * vw}
+              alignItems="flex-start"
+              justifyContent="center">
+              <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
                 {todo.title}
               </Text>
             </Box>
-          </Box>
-        </Touchable>
-      </Box>
-      <Box width={100} flexDirection="column">
-        <PrimaryButton onPress={() => onPress(todo.id)} title="Complete" />
+          </Touchable>
+        </Box>
+        <Box width={100} flexDirection="column" my="auto" alignItems="center">
+          <PrimaryButton
+            variant="outlined"
+            onPress={() => onPress(todo.id)}
+            text="Complete"
+          />
+        </Box>
       </Box>
     </Box>
   );

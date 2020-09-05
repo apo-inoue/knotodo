@@ -18,7 +18,11 @@ export const TodoDetails = () => {
     <Container centerContent>
       <TodoDetailsCollection todo={todo} />
       <Box mt={4}>
-        <PrimaryButton onPress={navigation.goBack} title="GoHome" />
+        <PrimaryButton
+          variant="outlined"
+          onPress={navigation.goBack}
+          text="GoHome"
+        />
       </Box>
     </Container>
   );

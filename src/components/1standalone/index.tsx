@@ -1,6 +1,6 @@
 // プロジェクトに依存しているコンポーネント
 export { Logo } from './Logo';
-export { HeaderIcon } from './HeaderIcon';
+export { HeaderIconLeft, HeaderIconsRight } from './HeaderIcons';
 export { TabIcon } from './TabIcon';
 export { AddFab } from './AddFab';
 export { ErrorMessage } from './ErrorMessage';

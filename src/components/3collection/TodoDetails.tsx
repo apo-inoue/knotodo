@@ -21,7 +21,7 @@ export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {
       <TodoDetailsTitle title={title} />
       <Divider />
       <TodoDetailsWorkload workload={workload} />
-      <Touchable onPress={() => console.log(todo.id)}>
+      <Touchable variant="outlined" onPress={() => console.log(todo.id)}>
         <Text>{todo.id}</Text>
       </Touchable>
       <Box mt={4}>
