@@ -1,4 +1,5 @@
 import React from 'react';
+import { DrawerActions } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
@@ -11,9 +12,10 @@ export const HeaderIconLeft = () => {
   return (
     <Box ml={3}>
       <MaterialCommunityIcons
-        name="medal"
+        name="menu"
         size={24}
         color={theme.colors.white}
+        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
       />
     </Box>
   );
@@ -29,14 +31,14 @@ export const HeaderIconsRight = () => {
         name="sort"
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.navigate('Setting')}
+        onPress={() => navigation.navigate('Sort')}
       />
       <Box mr={3} />
       <MaterialCommunityIcons
         name="settings"
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.navigate('Sort')}
+        onPress={() => navigation.navigate('Setting')}
       />
     </Box>
   );

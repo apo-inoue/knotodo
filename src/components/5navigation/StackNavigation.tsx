@@ -1,9 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TodoDetails, Setting, NewTodo } from '../4pages';
+import { TodoDetails, Setting, NewTodo, Sort } from '../4pages';
 import { useTheme } from 'styled-components';
 import { HeaderIconLeft, HeaderIconsRight } from '../1standalone';
 import { TabNavigation } from './TabNavigation';
+import { DrawerNavigation } from './DrawerNavigation';
 
 export const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -19,13 +20,12 @@ export const StackNavigation = () => {
         headerTitleStyle: {
           fontWeight: 'bold',
         },
-
-        headerRight: () => <HeaderIconsRight />,
       }}>
       <Stack.Screen
         name="Root"
-        component={TabNavigation}
+        component={DrawerNavigation}
         options={{
+          headerRight: () => <HeaderIconsRight />,
           headerTitle: 'KnoTodo',
           headerLeft: () => <HeaderIconLeft />,
         }}
@@ -42,6 +42,13 @@ export const StackNavigation = () => {
         component={TodoDetails}
         options={{
           headerTitle: '詳細',
+        }}
+      />
+      <Stack.Screen
+        name="Sort"
+        component={Sort}
+        options={{
+          headerTitle: '並べ替え',
         }}
       />
       <Stack.Screen
