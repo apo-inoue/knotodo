@@ -19,9 +19,7 @@ export const AuthNavigation = () => {
         Query: {
           fields: {
             todos: {
-              merge(existing, incoming) {
-                return incoming;
-              },
+              merge: false,
             },
           },
         },

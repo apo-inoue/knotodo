@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-type TabIconProps = {
+type CustomIconProps = {
   name: string;
   color: string;
 };
 
-export const TabIcon: FC<TabIconProps> = ({ name, color }) => {
+export const CustomIcon: FC<CustomIconProps> = ({ name, color }) => {
   return <MaterialCommunityIcons name={name} size={24} color={color} />;
 };

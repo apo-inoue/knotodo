@@ -1,8 +1,6 @@
-import React, { useLayoutEffect } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../4pages';
+import React from 'react';
 import { useTheme } from 'styled-components';
-import { TabIcon } from '../1standalone/TabIcon';
+import { CustomIcon } from '../1standalone';
 import { Color } from '../3collection/Color';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { TabNavigation } from './TabNavigation';
@@ -23,7 +21,7 @@ export const DrawerNavigation = () => {
         component={TabNavigation}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <TabIcon name="calendar-clock" color={color} />
+            <CustomIcon name="calendar-clock" color={color} />
           ),
         }}
       />
@@ -32,7 +30,7 @@ export const DrawerNavigation = () => {
         component={Color}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <TabIcon name="calendar-today" color={color} />
+            <CustomIcon name="calendar-today" color={color} />
           ),
         }}
       />
