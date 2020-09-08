@@ -7,9 +7,10 @@ import { useTheme } from 'styled-components';
 export const FAB: FC<TouchableProps> = props => {
   console.log(props);
   const theme = useTheme();
+  const shadow = theme.shadows[3];
 
   return (
-    <Box position="absolute" bottom={2} right={2} {...theme.shadows[3]}>
+    <Box position="absolute" bottom={2} right={2} style={{ ...shadow }}>
       <RoundButton {...props}>{props.children}</RoundButton>
     </Box>
   );

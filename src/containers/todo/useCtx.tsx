@@ -1,6 +1,4 @@
-import { FC, ChangeEvent, useReducer, useCallback, MouseEvent } from 'react';
 import { createCtx } from '../../helpers/createCtx';
-import { Urgency, TodoCtxType } from './type';
-import { todoReducer, initialState } from './reducer';
+import { TodoCtxType } from './type';
 
 export const [useTodoCtx, TodoCtxProvider] = createCtx<TodoCtxType>();

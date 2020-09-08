@@ -7,7 +7,7 @@ export const LogIn = () => {
   const { handleLogIn } = useAuthContext();
 
   return (
-    <Container>
+    <Container centerContent>
       <LogInCollection onLogIn={handleLogIn} />
     </Container>
   );

@@ -1,30 +1,31 @@
 import React, { FC, useState } from 'react';
 import { Box } from '../../../ui';
-import { Picker, Form } from 'native-base';
+import { Picker } from '@react-native-community/picker';
+import { Categories } from '../../../types/graphql';
+import { ReactText } from 'react';
 
 type CategoriesProps = {
-  categories: any;
+  categories: ({ __typename: 'categories' } & Pick<
+    Categories,
+    'category' | 'id'
+  >)[];
 };
 
-export const Categories: FC<CategoriesProps> = ({ categories }) => {
-  const [selectedValue, setSelectedValue] = useState('work');
-  const valueChangeHandler = (text: string) => {
-    setSelectedValue(text);
+export const CategoriesItem: FC<CategoriesProps> = ({ categories }) => {
+  const [selectedValue, setSelectedValue] = useState<ReactText>('');
+  const valueChangeHandler = (itemValue: ReactText) => {
+    return setSelectedValue(itemValue);
   };
 
   return (
     <Box width="100%">
-      <Form>
-        <Picker
-          note
-          mode="dropdown"
-          style={{ width: 120 }}
-          selectedValue={selectedValue}
-          onValueChange={valueChangeHandler}>
-          <Picker.Item label="ホーム" value="home" />
-          <Picker.Item label="仕事" value="work" />
-        </Picker>
-      </Form>
+      <Picker
+        style={{ width: 120 }}
+        selectedValue={selectedValue}
+        onValueChange={valueChangeHandler}>
+        <Picker.Item label="ホーム" value="home" />
+        <Picker.Item label="仕事" value="work" />
+      </Picker>
     </Box>
   );
 };

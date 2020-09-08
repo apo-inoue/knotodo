@@ -8,6 +8,8 @@ export const TODAY_TODOS = gql`
       isToday
       title
       urgency
+      category
+      workload
     }
   }
 `;
@@ -20,6 +22,8 @@ export const NOT_TODAY_TODOS = gql`
       isToday
       title
       urgency
+      category
+      workload
     }
   }
 `;
@@ -32,6 +36,8 @@ export const COMPLETED_TODOS = gql`
       isToday
       title
       urgency
+      category
+      workload
     }
   }
 `;
