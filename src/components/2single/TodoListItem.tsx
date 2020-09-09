@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
-import { Todos } from '../../../types/graphql';
-import { Touchable, PrimaryButton, Box, Text, Divider } from '../../../ui';
+import { Todos } from '../../types/graphql';
+import { Touchable, PrimaryButton, Box, Text, Divider } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'styled-components';
 
 type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<
@@ -10,10 +11,17 @@ type TodoListItem = {
     'title' | 'id' | 'isToday' | 'isCompleted'
   >;
   index: number;
-  onPress: (id: string) => void;
+  buttonAction: {
+    label: string;
+    onPress: (id: string) => void;
+  };
 };
 
-export const TodoListItem: FC<TodoListItem> = ({ todo, index, onPress }) => {
+export const TodoListItem: FC<TodoListItem> = ({
+  todo,
+  index,
+  buttonAction,
+}) => {
   const navigation = useNavigation();
   const params = todo;
   const vw = useWindowDimensions().width;
@@ -40,8 +48,8 @@ export const TodoListItem: FC<TodoListItem> = ({ todo, index, onPress }) => {
         <Box width={100} flexDirection="column" my="auto" alignItems="center">
           <PrimaryButton
             variant="outlined"
-            onPress={() => onPress(todo.id)}
-            text="Today"
+            onPress={() => buttonAction.onPress(todo.id)}
+            text={buttonAction.label}
           />
         </Box>
       </Box>

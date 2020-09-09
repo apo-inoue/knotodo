@@ -1,13 +1,7 @@
 import React, { FC } from 'react';
-import { Box, Divider, PrimaryButton } from '../../ui';
+import { Box, Divider, Text, Touchable } from '../../ui';
 import { Todos } from '../../types/graphql';
-import { Text } from 'native-base';
-import { Touchable } from '../../ui/button/Touchable';
-import {
-  TodoDetailsTitle,
-  TodoDetailsWorkload,
-  NewTodoUrgency,
-} from '../2single';
+import { Workload, Urgency } from '../2single';
 
 type TodoDetailsProps = {
   todo: Todos;
@@ -18,14 +12,14 @@ export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {
 
   return (
     <>
-      <TodoDetailsTitle title={title} />
+      <Text>{title}</Text>
       <Divider />
-      <TodoDetailsWorkload workload={workload} />
+      <Workload workload={workload} />
       <Touchable variant="outlined" onPress={() => console.log(todo.id)}>
-        <Text>{todo.id}</Text>
+        <Text>{id}</Text>
       </Touchable>
       <Box mt={4}>
-        <NewTodoUrgency />
+        <Urgency />
       </Box>
     </>
   );

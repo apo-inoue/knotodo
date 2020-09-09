@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
-import { Box } from '../../../ui';
+import { Box } from '../../ui';
 import { Picker } from '@react-native-community/picker';
-import { Categories } from '../../../types/graphql';
+import { Categories } from '../../types/graphql';
 import { ReactText } from 'react';
 
 type CategoriesProps = {
@@ -11,7 +11,7 @@ type CategoriesProps = {
   >)[];
 };
 
-export const CategoriesItem: FC<CategoriesProps> = ({ categories }) => {
+export const CategoriesPicker: FC<CategoriesProps> = ({ categories }) => {
   const [selectedValue, setSelectedValue] = useState<ReactText>('');
   const valueChangeHandler = (itemValue: ReactText) => {
     return setSelectedValue(itemValue);
