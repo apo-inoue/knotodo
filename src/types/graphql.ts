@@ -57,6 +57,77 @@ export type String_Comparison_Exp = {
   _similar: Maybe<Scalars['String']>;
 };
 
+/** columns and relationships of "accomplishment" */
+export type Accomplishment = {
+  __typename: 'accomplishment';
+  id: Scalars['Int'];
+  month: Scalars['Int'];
+  week: Scalars['Int'];
+  year: Scalars['Int'];
+};
+
+/** input type for inserting array relation for remote table "accomplishment" */
+export type Accomplishment_Arr_Rel_Insert_Input = {
+  data: Array<Accomplishment_Insert_Input>;
+};
+
+/** Boolean expression to filter rows from the table "accomplishment". All fields are combined with a logical 'AND'. */
+export type Accomplishment_Bool_Exp = {
+  _and: Maybe<Array<Maybe<Accomplishment_Bool_Exp>>>;
+  _not: Maybe<Accomplishment_Bool_Exp>;
+  _or: Maybe<Array<Maybe<Accomplishment_Bool_Exp>>>;
+  id: Maybe<Int_Comparison_Exp>;
+  month: Maybe<Int_Comparison_Exp>;
+  week: Maybe<Int_Comparison_Exp>;
+  year: Maybe<Int_Comparison_Exp>;
+};
+
+/** input type for inserting data into table "accomplishment" */
+export type Accomplishment_Insert_Input = {
+  id: Maybe<Scalars['Int']>;
+  month: Maybe<Scalars['Int']>;
+  week: Maybe<Scalars['Int']>;
+  year: Maybe<Scalars['Int']>;
+};
+
+/** response of any mutation on the table "accomplishment" */
+export type Accomplishment_Mutation_Response = {
+  __typename: 'accomplishment_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Accomplishment>;
+};
+
+/** input type for inserting object relation for remote table "accomplishment" */
+export type Accomplishment_Obj_Rel_Insert_Input = {
+  data: Accomplishment_Insert_Input;
+};
+
+/** ordering options when selecting data from "accomplishment" */
+export type Accomplishment_Order_By = {
+  id: Maybe<Order_By>;
+  month: Maybe<Order_By>;
+  week: Maybe<Order_By>;
+  year: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "accomplishment" */
+export type Accomplishment_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** select columns of table "accomplishment" */
+export type Accomplishment_Select_Column = 
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'month'
+  /** column name */
+  | 'week'
+  /** column name */
+  | 'year';
+
 /** columns and relationships of "categories" */
 export type Categories = {
   __typename: 'categories';
@@ -195,6 +266,10 @@ export type Mutation_Root = {
   delete_users: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk: Maybe<Users>;
+  /** insert data into the table: "accomplishment" */
+  insert_accomplishment: Maybe<Accomplishment_Mutation_Response>;
+  /** insert a single row into the table: "accomplishment" */
+  insert_accomplishment_one: Maybe<Accomplishment>;
   /** insert data into the table: "categories" */
   insert_categories: Maybe<Categories_Mutation_Response>;
   /** insert a single row into the table: "categories" */
@@ -271,6 +346,18 @@ export type Mutation_RootDelete_UsersArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_AccomplishmentArgs = {
+  objects: Array<Accomplishment_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Accomplishment_OneArgs = {
+  object: Accomplishment_Insert_Input;
 };
 
 
@@ -389,6 +476,10 @@ export type Order_By =
 /** query root */
 export type Query_Root = {
   __typename: 'query_root';
+  /** fetch data from the table: "accomplishment" */
+  accomplishment: Array<Accomplishment>;
+  /** fetch data from the table: "accomplishment" using primary key columns */
+  accomplishment_by_pk: Maybe<Accomplishment>;
   /** fetch data from the table: "categories" */
   categories: Array<Categories>;
   /** fetch data from the table: "categories" using primary key columns */
@@ -407,6 +498,22 @@ export type Query_Root = {
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk: Maybe<Users>;
+};
+
+
+/** query root */
+export type Query_RootAccomplishmentArgs = {
+  distinct_on: Maybe<Array<Accomplishment_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Accomplishment_Order_By>>;
+  where: Maybe<Accomplishment_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootAccomplishment_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -486,6 +593,10 @@ export type Query_RootUsers_By_PkArgs = {
 /** subscription root */
 export type Subscription_Root = {
   __typename: 'subscription_root';
+  /** fetch data from the table: "accomplishment" */
+  accomplishment: Array<Accomplishment>;
+  /** fetch data from the table: "accomplishment" using primary key columns */
+  accomplishment_by_pk: Maybe<Accomplishment>;
   /** fetch data from the table: "categories" */
   categories: Array<Categories>;
   /** fetch data from the table: "categories" using primary key columns */
@@ -504,6 +615,22 @@ export type Subscription_Root = {
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk: Maybe<Users>;
+};
+
+
+/** subscription root */
+export type Subscription_RootAccomplishmentArgs = {
+  distinct_on: Maybe<Array<Accomplishment_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Accomplishment_Order_By>>;
+  where: Maybe<Accomplishment_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootAccomplishment_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -1150,6 +1277,19 @@ export type Uuid_Comparison_Exp = {
   _nin: Maybe<Array<Scalars['uuid']>>;
 };
 
+export type GetAccomplishmentQueryVariables = Exact<{
+  _eq?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type GetAccomplishmentQuery = (
+  { __typename: 'query_root' }
+  & { accomplishment: Array<(
+    { __typename: 'accomplishment' }
+    & Pick<Accomplishment, 'id' | 'year' | 'month' | 'week'>
+  )> }
+);
+
 export type InsertCategoryMutationVariables = Exact<{
   category?: Maybe<Scalars['String']>;
 }>;
@@ -1268,6 +1408,42 @@ export type CompletedTodosQuery = (
 );
 
 
+export const GetAccomplishmentDocument = gql`
+    query GetAccomplishment($_eq: Int = 1) {
+  accomplishment(where: {id: {_eq: $_eq}}) {
+    id
+    year
+    month
+    week
+  }
+}
+    `;
+
+/**
+ * __useGetAccomplishmentQuery__
+ *
+ * To run a query within a React component, call `useGetAccomplishmentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccomplishmentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccomplishmentQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetAccomplishmentQuery(baseOptions?: Apollo.QueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
+        return Apollo.useQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+      }
+export function useGetAccomplishmentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
+          return Apollo.useLazyQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+        }
+export type GetAccomplishmentQueryHookResult = ReturnType<typeof useGetAccomplishmentQuery>;
+export type GetAccomplishmentLazyQueryHookResult = ReturnType<typeof useGetAccomplishmentLazyQuery>;
+export type GetAccomplishmentQueryResult = Apollo.QueryResult<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>;
 export const InsertCategoryDocument = gql`
     mutation InsertCategory($category: String = "") {
   insert_categories_one(object: {category: $category}) {

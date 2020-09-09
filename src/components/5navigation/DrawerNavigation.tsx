@@ -2,8 +2,24 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 import { CustomIcon } from '../1standalone';
 import { Color } from '../3collection/Color';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import { TabNavigation } from './TabNavigation';
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+} from '@react-navigation/drawer';
+import { useLinking, useLinkTo } from '@react-navigation/native';
+import { Accomplishment } from '../4pages';
+
+const CustomDrawerContent = (props: any) => {
+  const linkTo = useLinkTo();
+  return (
+    <DrawerContentScrollView {...props}>
+      <Accomplishment />
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  );
+};
 
 export const DrawerNavigation = () => {
   const theme = useTheme();
@@ -12,6 +28,7 @@ export const DrawerNavigation = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Home"
+      drawerContent={props => <CustomDrawerContent {...props} />}
       drawerContentOptions={{
         activeTintColor: theme.colors.main,
         inactiveTintColor: theme.colors.blacks[4],
@@ -21,7 +38,7 @@ export const DrawerNavigation = () => {
         component={TabNavigation}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <CustomIcon name="calendar-clock" color={color} />
+            <CustomIcon name="home" color={color} />
           ),
         }}
       />
@@ -30,7 +47,7 @@ export const DrawerNavigation = () => {
         component={Color}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <CustomIcon name="calendar-today" color={color} />
+            <CustomIcon name="invert-colors" color={color} />
           ),
         }}
       />

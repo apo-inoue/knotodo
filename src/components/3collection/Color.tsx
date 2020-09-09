@@ -21,10 +21,10 @@ export const Color: FC = () => {
 
   return (
     <>
-      {colorTypes.map((color: ColorType) => {
+      {colorTypes.map((colorType: ColorType) => {
         return (
-          <Box mt={2} key={color.id}>
-            <ColorTip color={color.color} />
+          <Box mt={2} key={colorType.id}>
+            <ColorTip color={colorType.color} />
           </Box>
         );
       })}
