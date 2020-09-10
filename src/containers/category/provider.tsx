@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useEventCallback } from '../../helpers/useEventCallback';
 import { FormCtxProvider } from './useCtx';
 
-export const FormProvider: FC = ({ children }) => {
+export const CategoryProvider: FC = ({ children }) => {
   const [state, setState] = useState({ category: '' });
 
   const categoryInputHandler = useEventCallback((e: string) => {

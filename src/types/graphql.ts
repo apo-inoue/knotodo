@@ -247,6 +247,99 @@ export type Categories_Update_Column =
   /** column name */
   | 'category';
 
+/** columns and relationships of "colorTypes" */
+export type ColorTypes = {
+  __typename: 'colorTypes';
+  color_type: Scalars['String'];
+  id: Maybe<Scalars['String']>;
+};
+
+/** Boolean expression to filter rows from the table "colorTypes". All fields are combined with a logical 'AND'. */
+export type ColorTypes_Bool_Exp = {
+  _and: Maybe<Array<Maybe<ColorTypes_Bool_Exp>>>;
+  _not: Maybe<ColorTypes_Bool_Exp>;
+  _or: Maybe<Array<Maybe<ColorTypes_Bool_Exp>>>;
+  color_type: Maybe<String_Comparison_Exp>;
+  id: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "colorTypes" */
+export type ColorTypes_Constraint = 
+  /** unique or primary key constraint */
+  | 'colorTypes_id_key'
+  /** unique or primary key constraint */
+  | 'colorTypes_pkey';
+
+export type ColorTypes_Enum = 
+  /** 2 */
+  | 'BLUE'
+  /** 1 */
+  | 'BRAND'
+  /** 3 */
+  | 'GREEN'
+  /** 6 */
+  | 'GREY'
+  /** 4 */
+  | 'ORANGE'
+  /** 5 */
+  | 'PINK';
+
+/** expression to compare columns of type colorTypes_enum. All fields are combined with logical 'AND'. */
+export type ColorTypes_Enum_Comparison_Exp = {
+  _eq: Maybe<ColorTypes_Enum>;
+  _in: Maybe<Array<ColorTypes_Enum>>;
+  _is_null: Maybe<Scalars['Boolean']>;
+  _neq: Maybe<ColorTypes_Enum>;
+  _nin: Maybe<Array<ColorTypes_Enum>>;
+};
+
+/** response of any mutation on the table "colorTypes" */
+export type ColorTypes_Mutation_Response = {
+  __typename: 'colorTypes_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<ColorTypes>;
+};
+
+/** on conflict condition type for table "colorTypes" */
+export type ColorTypes_On_Conflict = {
+  constraint: ColorTypes_Constraint;
+  update_columns: Array<ColorTypes_Update_Column>;
+  where: Maybe<ColorTypes_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "colorTypes" */
+export type ColorTypes_Order_By = {
+  color_type: Maybe<Order_By>;
+  id: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "colorTypes" */
+export type ColorTypes_Pk_Columns_Input = {
+  color_type: Scalars['String'];
+};
+
+/** select columns of table "colorTypes" */
+export type ColorTypes_Select_Column = 
+  /** column name */
+  | 'color_type'
+  /** column name */
+  | 'id';
+
+/** input type for updating data in table "colorTypes" */
+export type ColorTypes_Set_Input = {
+  color_type: Maybe<Scalars['String']>;
+  id: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "colorTypes" */
+export type ColorTypes_Update_Column = 
+  /** column name */
+  | 'color_type'
+  /** column name */
+  | 'id';
+
 /** mutation root */
 export type Mutation_Root = {
   __typename: 'mutation_root';
@@ -254,6 +347,10 @@ export type Mutation_Root = {
   delete_categories: Maybe<Categories_Mutation_Response>;
   /** delete single row from the table: "categories" */
   delete_categories_by_pk: Maybe<Categories>;
+  /** delete data from the table: "colorTypes" */
+  delete_colorTypes: Maybe<ColorTypes_Mutation_Response>;
+  /** delete single row from the table: "colorTypes" */
+  delete_colorTypes_by_pk: Maybe<ColorTypes>;
   /** delete data from the table: "todos" */
   delete_todos: Maybe<Todos_Mutation_Response>;
   /** delete single row from the table: "todos" */
@@ -286,6 +383,10 @@ export type Mutation_Root = {
   update_categories: Maybe<Categories_Mutation_Response>;
   /** update single row of the table: "categories" */
   update_categories_by_pk: Maybe<Categories>;
+  /** update data of the table: "colorTypes" */
+  update_colorTypes: Maybe<ColorTypes_Mutation_Response>;
+  /** update single row of the table: "colorTypes" */
+  update_colorTypes_by_pk: Maybe<ColorTypes>;
   /** update data of the table: "todos" */
   update_todos: Maybe<Todos_Mutation_Response>;
   /** update single row of the table: "todos" */
@@ -310,6 +411,18 @@ export type Mutation_RootDelete_CategoriesArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Categories_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_ColorTypesArgs = {
+  where: ColorTypes_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_ColorTypes_By_PkArgs = {
+  color_type: Scalars['String'];
 };
 
 
@@ -418,6 +531,20 @@ export type Mutation_RootUpdate_Categories_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_ColorTypesArgs = {
+  _set: Maybe<ColorTypes_Set_Input>;
+  where: ColorTypes_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_ColorTypes_By_PkArgs = {
+  _set: Maybe<ColorTypes_Set_Input>;
+  pk_columns: ColorTypes_Pk_Columns_Input;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_TodosArgs = {
   _set: Maybe<Todos_Set_Input>;
   where: Todos_Bool_Exp;
@@ -484,6 +611,10 @@ export type Query_Root = {
   categories: Array<Categories>;
   /** fetch data from the table: "categories" using primary key columns */
   categories_by_pk: Maybe<Categories>;
+  /** fetch data from the table: "colorTypes" */
+  colorTypes: Array<ColorTypes>;
+  /** fetch data from the table: "colorTypes" using primary key columns */
+  colorTypes_by_pk: Maybe<ColorTypes>;
   /** fetch data from the table: "todos" */
   todos: Array<Todos>;
   /** fetch aggregated fields from the table: "todos" */
@@ -530,6 +661,22 @@ export type Query_RootCategoriesArgs = {
 /** query root */
 export type Query_RootCategories_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** query root */
+export type Query_RootColorTypesArgs = {
+  distinct_on: Maybe<Array<ColorTypes_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<ColorTypes_Order_By>>;
+  where: Maybe<ColorTypes_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootColorTypes_By_PkArgs = {
+  color_type: Scalars['String'];
 };
 
 
@@ -601,6 +748,10 @@ export type Subscription_Root = {
   categories: Array<Categories>;
   /** fetch data from the table: "categories" using primary key columns */
   categories_by_pk: Maybe<Categories>;
+  /** fetch data from the table: "colorTypes" */
+  colorTypes: Array<ColorTypes>;
+  /** fetch data from the table: "colorTypes" using primary key columns */
+  colorTypes_by_pk: Maybe<ColorTypes>;
   /** fetch data from the table: "todos" */
   todos: Array<Todos>;
   /** fetch aggregated fields from the table: "todos" */
@@ -647,6 +798,22 @@ export type Subscription_RootCategoriesArgs = {
 /** subscription root */
 export type Subscription_RootCategories_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** subscription root */
+export type Subscription_RootColorTypesArgs = {
+  distinct_on: Maybe<Array<ColorTypes_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<ColorTypes_Order_By>>;
+  where: Maybe<ColorTypes_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootColorTypes_By_PkArgs = {
+  color_type: Scalars['String'];
 };
 
 
@@ -1141,6 +1308,7 @@ export type Users = {
   __typename: 'users';
   /** An array relationship */
   categories: Array<Categories>;
+  color_type: ColorTypes_Enum;
   id: Scalars['String'];
   nickname: Scalars['String'];
   /** An array relationship */
@@ -1191,6 +1359,7 @@ export type Users_Bool_Exp = {
   _not: Maybe<Users_Bool_Exp>;
   _or: Maybe<Array<Maybe<Users_Bool_Exp>>>;
   categories: Maybe<Categories_Bool_Exp>;
+  color_type: Maybe<ColorTypes_Enum_Comparison_Exp>;
   id: Maybe<String_Comparison_Exp>;
   nickname: Maybe<String_Comparison_Exp>;
   tousers: Maybe<Todos_Bool_Exp>;
@@ -1204,6 +1373,7 @@ export type Users_Constraint =
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
   categories: Maybe<Categories_Arr_Rel_Insert_Input>;
+  color_type: Maybe<ColorTypes_Enum>;
   id: Maybe<Scalars['String']>;
   nickname: Maybe<Scalars['String']>;
   tousers: Maybe<Todos_Arr_Rel_Insert_Input>;
@@ -1233,6 +1403,7 @@ export type Users_On_Conflict = {
 
 /** ordering options when selecting data from "users" */
 export type Users_Order_By = {
+  color_type: Maybe<Order_By>;
   id: Maybe<Order_By>;
   nickname: Maybe<Order_By>;
   tousers_aggregate: Maybe<Todos_Aggregate_Order_By>;
@@ -1245,6 +1416,8 @@ export type Users_Pk_Columns_Input = {
 
 /** select columns of table "users" */
 export type Users_Select_Column = 
+  /** column name */
+  | 'color_type'
   /** column name */
   | 'id'
   /** column name */
