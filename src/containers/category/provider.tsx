@@ -1,21 +1,17 @@
-import React, { FC, useReducer } from 'react';
+import React, { FC, useState } from 'react';
 import { useEventCallback } from '../../helpers/useEventCallback';
-import { initialState, formReducer } from './reducer';
 import { FormCtxProvider } from './useCtx';
 
-export const FormProvider: FC = ({ children }) => {
-  const [state, dispatch] = useReducer(formReducer, initialState);
+export const CategoryProvider: FC = ({ children }) => {
+  const [state, setState] = useState({ category: '' });
 
-  const handleChange = useEventCallback((e: string) => {
-    dispatch({
-      actionType: 'SET_CATEGORY',
-      payload: { value: e },
-    });
+  const categoryInputHandler = useEventCallback((e: string) => {
+    setState({ category: e });
   });
 
   const value = {
     state,
-    handleChange,
+    categoryInputHandler,
   };
 
   return <FormCtxProvider value={value}>{children}</FormCtxProvider>;

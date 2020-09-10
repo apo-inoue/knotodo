@@ -1,22 +1,60 @@
 import React from 'react';
-import { Button } from 'react-native';
-import { ButtonType } from './ButtonBase';
 import { useTheme } from 'styled-components';
+import { TouchableProps, Touchable } from './Touchable';
+import { Text } from '../typography/Text';
 
-export const PrimaryButton = (props: ButtonType) => {
+export const PrimaryButton = (props: TouchableProps & { text: string }) => {
   const theme = useTheme();
 
-  return <Button color={theme.colors.primary} {...props} />;
+  return (
+    <Touchable {...props} color="primary">
+      <Text
+        color={
+          props.variant === 'outlined'
+            ? theme.colors.primary
+            : theme.colors.white
+        }
+        fontSize={
+          props.btnSize && props.btnSize === 'lg'
+            ? theme.fontSizes[2]
+            : theme.fontSizes[1]
+        }>
+        {props.text}
+      </Text>
+    </Touchable>
+  );
 };
 
-export const SecondaryButton = (props: ButtonType) => {
+export const DangerButton = (props: TouchableProps & { text: string }) => {
   const theme = useTheme();
 
-  return <Button color={theme.colors.main} {...props} />;
+  return (
+    <Touchable {...props} color="danger">
+      <Text
+        color={
+          props.variant === 'contained'
+            ? theme.colors.white
+            : theme.colors.danger
+        }>
+        {props.text}
+      </Text>
+    </Touchable>
+  );
 };
 
-export const DisabledButton = (props: ButtonType) => {
+export const DisabledButton = (props: TouchableProps & { text: string }) => {
   const theme = useTheme();
 
-  return <Button disabled color={theme.colors.blacks[4]} {...props} />;
+  return (
+    <Touchable {...props} color="muted">
+      <Text
+        color={
+          props.variant === 'contained'
+            ? theme.colors.white
+            : theme.colors.muted
+        }>
+        {props.text}
+      </Text>
+    </Touchable>
+  );
 };

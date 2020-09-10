@@ -1,31 +1,43 @@
 import { gql } from '@apollo/client';
 
-export const GET_TODAY_TODOS = gql`
-  query getTodayTodos {
-    todo(where: { isToday: { _eq: true } }) {
+export const TODAY_TODOS = gql`
+  query todayTodos {
+    todos(where: { isToday: { _eq: true }, isCompleted: { _eq: false } }) {
       id
+      isCompleted
       isToday
       title
+      urgency
+      category
+      workload
     }
   }
 `;
 
-export const GET_NOT_TODAY_TODOS = gql`
-  query getNotTodayTodos {
-    todo(where: { isToday: { _eq: false } }) {
+export const NOT_TODAY_TODOS = gql`
+  query notTodayTodos {
+    todos(where: { isToday: { _eq: false }, isCompleted: { _eq: false } }) {
       id
+      isCompleted
       isToday
       title
+      urgency
+      category
+      workload
     }
   }
 `;
 
-export const GET_ALL_TODOS = gql`
-  query getAllTodos {
-    todo {
+export const COMPLETED_TODOS = gql`
+  query completedTodos {
+    todos(where: { isCompleted: { _eq: true } }) {
       id
+      isCompleted
       isToday
       title
+      urgency
+      category
+      workload
     }
   }
 `;

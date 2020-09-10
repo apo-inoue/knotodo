@@ -19,9 +19,13 @@ module.exports = {
             ],
             config: {
                 skipTypename: false,
+                nonOptionalTypename: true,
+                avoidOptionals: true,
+                enumsAsTypes: true,
                 withHooks: true,
                 withHOC: false,
                 withComponent: false,
+                withRefetchFn: false
             },
         },
         './graphql.schema.json': {

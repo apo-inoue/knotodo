@@ -1,28 +1,43 @@
-import React from 'react';
-import { FlatList, Text } from 'react-native';
+import React, { useCallback } from 'react';
 import { Container, Loader } from '../../ui';
-import { useNavigation } from '@react-navigation/native';
-import { useGetAllTodosQuery } from '../../types/graphql';
-import { PrimaryButton } from '../../ui';
-import { useTheme } from 'styled-components';
+import { useFocusEffect } from '@react-navigation/native';
+import {
+  useCompletedTodosQuery,
+  useDeleteToDoMutation,
+} from '../../types/graphql';
+import { ArchiveTodosCollection } from '../3collection';
+import { ErrorMessage } from '../1standalone/ErrorMessage';
+import { NoDataMessage } from '../1standalone/NoDataMessage';
+import { COMPLETED_TODOS } from '../../graphql/query/todos';
 
 export const ArchiveTodos = () => {
-  const navigation = useNavigation();
-  const theme = useTheme();
-  const { loading, error, data } = useGetAllTodosQuery();
+  const { loading, error, data, refetch } = useCompletedTodosQuery();
+  const [
+    deleteToDo,
+    { loading: mutationLoading, error: mutationError },
+  ] = useDeleteToDoMutation({
+    refetchQueries: [{ query: COMPLETED_TODOS }],
+  });
+  const deleteToDoHandler = (id: string) => {
+    deleteToDo({ variables: { _eq: id } });
+  };
 
-  if (loading) return <Loader />;
-  if (error) return <Text>エラー</Text>;
-  if (!data) return <Text>Todoはまだ登録されていません。</Text>;
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch]),
+  );
+
+  if (loading || mutationLoading) return <Loader />;
+  if (error || mutationError) return <ErrorMessage />;
+  if (!data) return <NoDataMessage />;
+
+  console.log(data, 'archive');
+  console.log(error, mutationError, 'ArchiveError');
 
   return (
     <Container>
-      <FlatList
-        data={data.todo}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <Text key={item.id}>{item.title}</Text>}
-      />
-      <PrimaryButton onPress={() => navigation.goBack()} title="GoHome" color={theme.colors.main} />
+      <ArchiveTodosCollection todos={data.todos} onPress={deleteToDoHandler} />
     </Container>
   );
 };

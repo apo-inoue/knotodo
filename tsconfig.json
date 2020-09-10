@@ -9,6 +9,8 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
-    "esModuleInterop": true
+    "baseUrl": "src",
+    "esModuleInterop": true,
+    "types": ["@graphql-typed-document-node/apollo-client-3"]
   }
 }

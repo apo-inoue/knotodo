@@ -1,6 +1,11 @@
 import { TodoState, TodoAction } from './type';
 
-export const initialState: TodoState = { title: '', urgency: 'today' };
+export const initialState: TodoState = {
+  title: '',
+  urgency: 'week',
+  category: '',
+  workload: 1,
+};
 
 export const todoReducer: (
   state: TodoState,
@@ -17,5 +22,17 @@ export const todoReducer: (
         ...state,
         urgency: action.payload.urgency,
       };
+    case 'SET_CATEGORY':
+      return {
+        ...state,
+        category: action.payload.category,
+      };
+    case 'SET_WORKLOAD':
+      return {
+        ...state,
+        workload: action.payload.workload,
+      };
+    default:
+      return state;
   }
 };

@@ -12,14 +12,13 @@ export const RoundButton: FC<TouchableProps> = props => {
 
   return (
     <Touchable
-      backgroundColor={theme.colors.main}
+      variant="contained"
+      color="primary"
       height={50}
       width={50}
       borderRadius={25}
       {...props}>
-      <Box flex={1} justifyContent="center" alignItems="center" p={2}>
-        {props.children}
-      </Box>
+      {props.children}
     </Touchable>
   );
 };

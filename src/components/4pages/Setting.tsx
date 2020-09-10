@@ -1,27 +1,24 @@
-import React, { useCallback } from 'react';
-import { Container, Text } from '../../ui';
-import { FontAwesome } from '@expo/vector-icons';
-import { useTheme } from 'styled-components';
-import { Linking } from 'react-native';
+import React from 'react';
+import { Container } from '../../ui';
+import { useAllCategoryQuery, useInsertCategoryMutation } from '../../types/graphql';
+import { NoDataMessage, ErrorMessage } from '../1standalone';
+import { ScreenLoader } from '../../ui/utils/Loader';
+import { SettingCollection } from '../3collection';
 
 export const Setting = () => {
-  const theme = useTheme();
-  const githubURL = 'https://github.com/apo-inoue/knotodo';
-  const handlePress = useCallback(async () => {
-    const supported = await Linking.canOpenURL(githubURL);
+  const { data, loading, error } = useAllCategoryQuery();
+  const [insertCategory] = useInsertCategoryMutation();
+  const insertCategoryHandler = () => {
+    insertCategory();
+  };
 
-    if (supported) {
-      await Linking.openURL(githubURL);
-    }
-  }, [githubURL]);
+  if (loading) return <ScreenLoader />;
+  if (!error) return <ErrorMessage />;
+  if (!data) return <NoDataMessage />;
 
   return (
     <Container>
-      <Text>...⚠︎開発中...</Text>
-      <Text onPress={handlePress} color={theme.colors.main}>
-        <FontAwesome name="github-square" size={24} color={theme.colors.main} />
-        github/knoTodo
-      </Text>
+      <SettingCollection categories={data.categories} onPress={insertCategoryHandler} />
     </Container>
   );
 };

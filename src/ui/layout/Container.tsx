@@ -11,10 +11,9 @@ type Container = Partial<{
 export const Container = styled.View<Container>`
   flex: 1;
   background-color: ${props => props.theme.colors.white};
-  align-items: center;
-  justify-content: center;
-  padding-left: 16px;
-  padding-right: 16px;
+  align-items: flex-start;
+  padding-left: 4px;
+  padding-right: 4px;
 
   ${space};
 
@@ -23,7 +22,7 @@ export const Container = styled.View<Container>`
   ${props =>
     props.centerContent &&
     `
-    justifyContents: center;
+    justifyContent: center;
     alignItems: center;
   `};
 `;
