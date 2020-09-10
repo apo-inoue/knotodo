@@ -16,7 +16,7 @@ import {
 type TouchableType = {
   variant?: 'outlined' | 'contained' | 'text';
   color?: 'primary' | 'muted' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
+  btnSize?: 'md' | 'lg';
 };
 
 export type TouchableProps = TouchableType &
@@ -34,6 +34,7 @@ export const Touchable = styled.TouchableOpacity<TouchableProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
   ${props =>
     props.color === 'primary' &&
     props.variant === 'contained' && {
@@ -56,8 +57,9 @@ export const Touchable = styled.TouchableOpacity<TouchableProps>`
     }};
 
   ${props =>
-    props.size === 'lg' && {
-      padding: '10px 14px',
+    props.size &&
+    props.size === 'large' && {
+      padding: '12px 16px',
     }};
 
   ${layout}

@@ -15,7 +15,7 @@ export const PrimaryButton = (props: TouchableProps & { text: string }) => {
             : theme.colors.white
         }
         fontSize={
-          props.size && props.size === 'lg'
+          props.btnSize && props.btnSize === 'lg'
             ? theme.fontSizes[2]
             : theme.fontSizes[1]
         }>
