@@ -2,11 +2,11 @@ const baseTheme = {
   colors: {
     success: '#27a745',
     danger: '#dc3545',
-    muted: '#f6f6f6',
-    light: '#ff58c9',
+    muted: 'rgba(0, 0, 0, 0.38)',
+    light: '#636ca0',
     main: '#354171',
     primary: '#354171',
-    dark: '#aa006a',
+    dark: '#021b45',
     white: '#ffffff',
     black: '#1f1f1f',
     blacks: [

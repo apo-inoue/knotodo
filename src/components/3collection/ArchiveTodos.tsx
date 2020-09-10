@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Todos } from '../../types/graphql';
-import { ArchiveTodoListItem } from '../2single';
+import { TodoListItem } from '../2single';
 import { useTheme } from 'styled-components';
 import { AddFab } from '../1standalone/AddFab';
 import { Box } from '../../ui';
@@ -26,7 +26,11 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({ todos, onPress }) => {
           keyExtractor={item => item.id}
           style={{ width: '100%' }}
           renderItem={({ item, index }) => (
-            <ArchiveTodoListItem todo={item} index={index} onPress={onPress} />
+            <TodoListItem
+              todo={item}
+              index={index}
+              buttonAction={{ onPress, label: 'delete' }}
+            />
           )}
         />
       </Box>

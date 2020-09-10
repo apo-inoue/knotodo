@@ -15,7 +15,7 @@ export const HeaderIconLeft = () => {
         name="menu"
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+        onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
       />
     </Box>
   );

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { FlatList } from 'react-native';
 import { PrimaryButton } from '../../ui';
-import { CategoryListItem } from '../2single/Setting/CategoryListItem';
+import { CategoryListItem } from '../2single';
 import { Categories } from '../../types/graphql';
 import { Divider } from '../../ui/utils/Divider';
 import { useNavigation } from '@react-navigation/native';

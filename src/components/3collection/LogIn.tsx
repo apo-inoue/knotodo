@@ -15,6 +15,7 @@ export const LogIn: FC<LogIn> = ({ onLogIn }) => {
       <Box mt={4}>
         <PrimaryButton
           variant="contained"
+          btnSize="lg"
           onPress={onLogIn}
           text="ログイン/新規登録"
         />

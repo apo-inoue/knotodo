@@ -1,11 +1,6 @@
 import React, { FC } from 'react';
 import { Divider, PrimaryButton } from '../../ui';
-import {
-  NewTodoTitle,
-  NewTodoCategories,
-  NewTodoUrgency,
-  NewTodoWorkload,
-} from '../2single';
+import { Title, CategoriesPicker, Urgency, Workloads } from '../2single';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/todo/useCtx';
 import { Box } from '../../ui/layout/Box';
@@ -25,13 +20,13 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
 
   return (
     <>
-      <NewTodoTitle />
+      <Title />
       <Divider />
-      <NewTodoUrgency />
+      <Urgency />
       <Divider />
-      <NewTodoWorkload />
+      <Workloads />
       <Divider />
-      <NewTodoCategories categories={categories} />
+      <CategoriesPicker categories={categories} />
       <Box mt={3}>
         <PrimaryButton
           variant="contained"

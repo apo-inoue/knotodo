@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, TextForm } from '../../../ui';
-import { useTodoCtx } from '../../../containers/todo/useCtx';
+import { Box, TextForm } from '../../ui';
+import { useTodoCtx } from '../../containers/todo/useCtx';
 
 export const Title = () => {
   const {

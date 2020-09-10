@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, RadioButton } from '../../../ui';
-import { useTodoCtx } from '../../../containers/todo/useCtx';
+import { Box, RadioButton } from '../../ui';
+import { useTodoCtx } from '../../containers/todo/useCtx';
 
 export const Urgency = () => {
   const {

@@ -8,3 +8,4 @@ export { LogIn as LogInCollection } from './LogIn';
 export { Sort as SortCollection } from './Sort';
 export { Setting as SettingCollection } from './Setting';
 export { Color as ColorCollection } from './Color';
+export { Accomplishment as AccomplishmentCollection } from './Accomplishment';

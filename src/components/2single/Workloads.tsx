@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box } from '../../../ui/layout/Box';
+import { Box, Touchable } from '../../ui';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { useTodoCtx } from '../../../containers/todo/useCtx';
-import { Touchable } from '../../../ui/button/Touchable';
+import { useTodoCtx } from '../../containers/todo/useCtx';
 
-export const Workload = () => {
+export const Workloads = () => {
   const {
     state: { workload },
     workloadInputHandler,

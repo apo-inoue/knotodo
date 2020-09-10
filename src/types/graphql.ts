@@ -57,6 +57,77 @@ export type String_Comparison_Exp = {
   _similar: Maybe<Scalars['String']>;
 };
 
+/** columns and relationships of "accomplishment" */
+export type Accomplishment = {
+  __typename: 'accomplishment';
+  id: Scalars['Int'];
+  month: Scalars['Int'];
+  week: Scalars['Int'];
+  year: Scalars['Int'];
+};
+
+/** input type for inserting array relation for remote table "accomplishment" */
+export type Accomplishment_Arr_Rel_Insert_Input = {
+  data: Array<Accomplishment_Insert_Input>;
+};
+
+/** Boolean expression to filter rows from the table "accomplishment". All fields are combined with a logical 'AND'. */
+export type Accomplishment_Bool_Exp = {
+  _and: Maybe<Array<Maybe<Accomplishment_Bool_Exp>>>;
+  _not: Maybe<Accomplishment_Bool_Exp>;
+  _or: Maybe<Array<Maybe<Accomplishment_Bool_Exp>>>;
+  id: Maybe<Int_Comparison_Exp>;
+  month: Maybe<Int_Comparison_Exp>;
+  week: Maybe<Int_Comparison_Exp>;
+  year: Maybe<Int_Comparison_Exp>;
+};
+
+/** input type for inserting data into table "accomplishment" */
+export type Accomplishment_Insert_Input = {
+  id: Maybe<Scalars['Int']>;
+  month: Maybe<Scalars['Int']>;
+  week: Maybe<Scalars['Int']>;
+  year: Maybe<Scalars['Int']>;
+};
+
+/** response of any mutation on the table "accomplishment" */
+export type Accomplishment_Mutation_Response = {
+  __typename: 'accomplishment_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<Accomplishment>;
+};
+
+/** input type for inserting object relation for remote table "accomplishment" */
+export type Accomplishment_Obj_Rel_Insert_Input = {
+  data: Accomplishment_Insert_Input;
+};
+
+/** ordering options when selecting data from "accomplishment" */
+export type Accomplishment_Order_By = {
+  id: Maybe<Order_By>;
+  month: Maybe<Order_By>;
+  week: Maybe<Order_By>;
+  year: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "accomplishment" */
+export type Accomplishment_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** select columns of table "accomplishment" */
+export type Accomplishment_Select_Column = 
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'month'
+  /** column name */
+  | 'week'
+  /** column name */
+  | 'year';
+
 /** columns and relationships of "categories" */
 export type Categories = {
   __typename: 'categories';
@@ -176,6 +247,99 @@ export type Categories_Update_Column =
   /** column name */
   | 'category';
 
+/** columns and relationships of "colorTypes" */
+export type ColorTypes = {
+  __typename: 'colorTypes';
+  color_type: Scalars['String'];
+  id: Maybe<Scalars['String']>;
+};
+
+/** Boolean expression to filter rows from the table "colorTypes". All fields are combined with a logical 'AND'. */
+export type ColorTypes_Bool_Exp = {
+  _and: Maybe<Array<Maybe<ColorTypes_Bool_Exp>>>;
+  _not: Maybe<ColorTypes_Bool_Exp>;
+  _or: Maybe<Array<Maybe<ColorTypes_Bool_Exp>>>;
+  color_type: Maybe<String_Comparison_Exp>;
+  id: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "colorTypes" */
+export type ColorTypes_Constraint = 
+  /** unique or primary key constraint */
+  | 'colorTypes_id_key'
+  /** unique or primary key constraint */
+  | 'colorTypes_pkey';
+
+export type ColorTypes_Enum = 
+  /** 2 */
+  | 'BLUE'
+  /** 1 */
+  | 'BRAND'
+  /** 3 */
+  | 'GREEN'
+  /** 6 */
+  | 'GREY'
+  /** 4 */
+  | 'ORANGE'
+  /** 5 */
+  | 'PINK';
+
+/** expression to compare columns of type colorTypes_enum. All fields are combined with logical 'AND'. */
+export type ColorTypes_Enum_Comparison_Exp = {
+  _eq: Maybe<ColorTypes_Enum>;
+  _in: Maybe<Array<ColorTypes_Enum>>;
+  _is_null: Maybe<Scalars['Boolean']>;
+  _neq: Maybe<ColorTypes_Enum>;
+  _nin: Maybe<Array<ColorTypes_Enum>>;
+};
+
+/** response of any mutation on the table "colorTypes" */
+export type ColorTypes_Mutation_Response = {
+  __typename: 'colorTypes_mutation_response';
+  /** number of affected rows by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data of the affected rows by the mutation */
+  returning: Array<ColorTypes>;
+};
+
+/** on conflict condition type for table "colorTypes" */
+export type ColorTypes_On_Conflict = {
+  constraint: ColorTypes_Constraint;
+  update_columns: Array<ColorTypes_Update_Column>;
+  where: Maybe<ColorTypes_Bool_Exp>;
+};
+
+/** ordering options when selecting data from "colorTypes" */
+export type ColorTypes_Order_By = {
+  color_type: Maybe<Order_By>;
+  id: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: "colorTypes" */
+export type ColorTypes_Pk_Columns_Input = {
+  color_type: Scalars['String'];
+};
+
+/** select columns of table "colorTypes" */
+export type ColorTypes_Select_Column = 
+  /** column name */
+  | 'color_type'
+  /** column name */
+  | 'id';
+
+/** input type for updating data in table "colorTypes" */
+export type ColorTypes_Set_Input = {
+  color_type: Maybe<Scalars['String']>;
+  id: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "colorTypes" */
+export type ColorTypes_Update_Column = 
+  /** column name */
+  | 'color_type'
+  /** column name */
+  | 'id';
+
 /** mutation root */
 export type Mutation_Root = {
   __typename: 'mutation_root';
@@ -183,6 +347,10 @@ export type Mutation_Root = {
   delete_categories: Maybe<Categories_Mutation_Response>;
   /** delete single row from the table: "categories" */
   delete_categories_by_pk: Maybe<Categories>;
+  /** delete data from the table: "colorTypes" */
+  delete_colorTypes: Maybe<ColorTypes_Mutation_Response>;
+  /** delete single row from the table: "colorTypes" */
+  delete_colorTypes_by_pk: Maybe<ColorTypes>;
   /** delete data from the table: "todos" */
   delete_todos: Maybe<Todos_Mutation_Response>;
   /** delete single row from the table: "todos" */
@@ -195,6 +363,10 @@ export type Mutation_Root = {
   delete_users: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk: Maybe<Users>;
+  /** insert data into the table: "accomplishment" */
+  insert_accomplishment: Maybe<Accomplishment_Mutation_Response>;
+  /** insert a single row into the table: "accomplishment" */
+  insert_accomplishment_one: Maybe<Accomplishment>;
   /** insert data into the table: "categories" */
   insert_categories: Maybe<Categories_Mutation_Response>;
   /** insert a single row into the table: "categories" */
@@ -211,6 +383,10 @@ export type Mutation_Root = {
   update_categories: Maybe<Categories_Mutation_Response>;
   /** update single row of the table: "categories" */
   update_categories_by_pk: Maybe<Categories>;
+  /** update data of the table: "colorTypes" */
+  update_colorTypes: Maybe<ColorTypes_Mutation_Response>;
+  /** update single row of the table: "colorTypes" */
+  update_colorTypes_by_pk: Maybe<ColorTypes>;
   /** update data of the table: "todos" */
   update_todos: Maybe<Todos_Mutation_Response>;
   /** update single row of the table: "todos" */
@@ -235,6 +411,18 @@ export type Mutation_RootDelete_CategoriesArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Categories_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_ColorTypesArgs = {
+  where: ColorTypes_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_ColorTypes_By_PkArgs = {
+  color_type: Scalars['String'];
 };
 
 
@@ -271,6 +459,18 @@ export type Mutation_RootDelete_UsersArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_AccomplishmentArgs = {
+  objects: Array<Accomplishment_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Accomplishment_OneArgs = {
+  object: Accomplishment_Insert_Input;
 };
 
 
@@ -327,6 +527,20 @@ export type Mutation_RootUpdate_CategoriesArgs = {
 export type Mutation_RootUpdate_Categories_By_PkArgs = {
   _set: Maybe<Categories_Set_Input>;
   pk_columns: Categories_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_ColorTypesArgs = {
+  _set: Maybe<ColorTypes_Set_Input>;
+  where: ColorTypes_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_ColorTypes_By_PkArgs = {
+  _set: Maybe<ColorTypes_Set_Input>;
+  pk_columns: ColorTypes_Pk_Columns_Input;
 };
 
 
@@ -389,10 +603,18 @@ export type Order_By =
 /** query root */
 export type Query_Root = {
   __typename: 'query_root';
+  /** fetch data from the table: "accomplishment" */
+  accomplishment: Array<Accomplishment>;
+  /** fetch data from the table: "accomplishment" using primary key columns */
+  accomplishment_by_pk: Maybe<Accomplishment>;
   /** fetch data from the table: "categories" */
   categories: Array<Categories>;
   /** fetch data from the table: "categories" using primary key columns */
   categories_by_pk: Maybe<Categories>;
+  /** fetch data from the table: "colorTypes" */
+  colorTypes: Array<ColorTypes>;
+  /** fetch data from the table: "colorTypes" using primary key columns */
+  colorTypes_by_pk: Maybe<ColorTypes>;
   /** fetch data from the table: "todos" */
   todos: Array<Todos>;
   /** fetch aggregated fields from the table: "todos" */
@@ -411,6 +633,22 @@ export type Query_Root = {
 
 
 /** query root */
+export type Query_RootAccomplishmentArgs = {
+  distinct_on: Maybe<Array<Accomplishment_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Accomplishment_Order_By>>;
+  where: Maybe<Accomplishment_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootAccomplishment_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** query root */
 export type Query_RootCategoriesArgs = {
   distinct_on: Maybe<Array<Categories_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
@@ -423,6 +661,22 @@ export type Query_RootCategoriesArgs = {
 /** query root */
 export type Query_RootCategories_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** query root */
+export type Query_RootColorTypesArgs = {
+  distinct_on: Maybe<Array<ColorTypes_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<ColorTypes_Order_By>>;
+  where: Maybe<ColorTypes_Bool_Exp>;
+};
+
+
+/** query root */
+export type Query_RootColorTypes_By_PkArgs = {
+  color_type: Scalars['String'];
 };
 
 
@@ -486,10 +740,18 @@ export type Query_RootUsers_By_PkArgs = {
 /** subscription root */
 export type Subscription_Root = {
   __typename: 'subscription_root';
+  /** fetch data from the table: "accomplishment" */
+  accomplishment: Array<Accomplishment>;
+  /** fetch data from the table: "accomplishment" using primary key columns */
+  accomplishment_by_pk: Maybe<Accomplishment>;
   /** fetch data from the table: "categories" */
   categories: Array<Categories>;
   /** fetch data from the table: "categories" using primary key columns */
   categories_by_pk: Maybe<Categories>;
+  /** fetch data from the table: "colorTypes" */
+  colorTypes: Array<ColorTypes>;
+  /** fetch data from the table: "colorTypes" using primary key columns */
+  colorTypes_by_pk: Maybe<ColorTypes>;
   /** fetch data from the table: "todos" */
   todos: Array<Todos>;
   /** fetch aggregated fields from the table: "todos" */
@@ -508,6 +770,22 @@ export type Subscription_Root = {
 
 
 /** subscription root */
+export type Subscription_RootAccomplishmentArgs = {
+  distinct_on: Maybe<Array<Accomplishment_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Accomplishment_Order_By>>;
+  where: Maybe<Accomplishment_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootAccomplishment_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** subscription root */
 export type Subscription_RootCategoriesArgs = {
   distinct_on: Maybe<Array<Categories_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
@@ -520,6 +798,22 @@ export type Subscription_RootCategoriesArgs = {
 /** subscription root */
 export type Subscription_RootCategories_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** subscription root */
+export type Subscription_RootColorTypesArgs = {
+  distinct_on: Maybe<Array<ColorTypes_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<ColorTypes_Order_By>>;
+  where: Maybe<ColorTypes_Bool_Exp>;
+};
+
+
+/** subscription root */
+export type Subscription_RootColorTypes_By_PkArgs = {
+  color_type: Scalars['String'];
 };
 
 
@@ -1014,6 +1308,7 @@ export type Users = {
   __typename: 'users';
   /** An array relationship */
   categories: Array<Categories>;
+  color_type: ColorTypes_Enum;
   id: Scalars['String'];
   nickname: Scalars['String'];
   /** An array relationship */
@@ -1064,6 +1359,7 @@ export type Users_Bool_Exp = {
   _not: Maybe<Users_Bool_Exp>;
   _or: Maybe<Array<Maybe<Users_Bool_Exp>>>;
   categories: Maybe<Categories_Bool_Exp>;
+  color_type: Maybe<ColorTypes_Enum_Comparison_Exp>;
   id: Maybe<String_Comparison_Exp>;
   nickname: Maybe<String_Comparison_Exp>;
   tousers: Maybe<Todos_Bool_Exp>;
@@ -1077,6 +1373,7 @@ export type Users_Constraint =
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
   categories: Maybe<Categories_Arr_Rel_Insert_Input>;
+  color_type: Maybe<ColorTypes_Enum>;
   id: Maybe<Scalars['String']>;
   nickname: Maybe<Scalars['String']>;
   tousers: Maybe<Todos_Arr_Rel_Insert_Input>;
@@ -1106,6 +1403,7 @@ export type Users_On_Conflict = {
 
 /** ordering options when selecting data from "users" */
 export type Users_Order_By = {
+  color_type: Maybe<Order_By>;
   id: Maybe<Order_By>;
   nickname: Maybe<Order_By>;
   tousers_aggregate: Maybe<Todos_Aggregate_Order_By>;
@@ -1118,6 +1416,8 @@ export type Users_Pk_Columns_Input = {
 
 /** select columns of table "users" */
 export type Users_Select_Column = 
+  /** column name */
+  | 'color_type'
   /** column name */
   | 'id'
   /** column name */
@@ -1149,6 +1449,19 @@ export type Uuid_Comparison_Exp = {
   _neq: Maybe<Scalars['uuid']>;
   _nin: Maybe<Array<Scalars['uuid']>>;
 };
+
+export type GetAccomplishmentQueryVariables = Exact<{
+  _eq?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type GetAccomplishmentQuery = (
+  { __typename: 'query_root' }
+  & { accomplishment: Array<(
+    { __typename: 'accomplishment' }
+    & Pick<Accomplishment, 'id' | 'year' | 'month' | 'week'>
+  )> }
+);
 
 export type InsertCategoryMutationVariables = Exact<{
   category?: Maybe<Scalars['String']>;
@@ -1268,6 +1581,42 @@ export type CompletedTodosQuery = (
 );
 
 
+export const GetAccomplishmentDocument = gql`
+    query GetAccomplishment($_eq: Int = 1) {
+  accomplishment(where: {id: {_eq: $_eq}}) {
+    id
+    year
+    month
+    week
+  }
+}
+    `;
+
+/**
+ * __useGetAccomplishmentQuery__
+ *
+ * To run a query within a React component, call `useGetAccomplishmentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccomplishmentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccomplishmentQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetAccomplishmentQuery(baseOptions?: Apollo.QueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
+        return Apollo.useQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+      }
+export function useGetAccomplishmentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
+          return Apollo.useLazyQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+        }
+export type GetAccomplishmentQueryHookResult = ReturnType<typeof useGetAccomplishmentQuery>;
+export type GetAccomplishmentLazyQueryHookResult = ReturnType<typeof useGetAccomplishmentLazyQuery>;
+export type GetAccomplishmentQueryResult = Apollo.QueryResult<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>;
 export const InsertCategoryDocument = gql`
     mutation InsertCategory($category: String = "") {
   insert_categories_one(object: {category: $category}) {

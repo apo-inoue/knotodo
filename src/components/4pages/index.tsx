@@ -8,3 +8,4 @@ export { TodayTodos } from './TodayTodos';
 export { TodoDetails } from './TodoDetails';
 export { Color } from './Color';
 export { Sort } from './Sort';
+export { Accomplishment } from './Accomplishment';
