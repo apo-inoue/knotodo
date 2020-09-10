@@ -16,6 +16,7 @@ import {
 type TouchableType = {
   variant?: 'outlined' | 'contained' | 'text';
   color?: 'primary' | 'muted' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
 };
 
 export type TouchableProps = TouchableType &
@@ -52,6 +53,11 @@ export const Touchable = styled.TouchableOpacity<TouchableProps>`
     props.color === 'muted' &&
     props.variant === 'outlined' && {
       border: `1px solid ${props.theme.colors.muted}`,
+    }};
+
+  ${props =>
+    props.size === 'lg' && {
+      padding: '10px 14px',
     }};
 
   ${layout}
