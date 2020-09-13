@@ -8,6 +8,7 @@ import {
 } from '@apollo/client';
 import { useAuthContext } from '../../containers/auth/useCtx';
 import { LogIn } from '../4pages';
+import { ColorProvider } from '../../containers/color/provider';
 
 export const AuthNavigation = () => {
   const {
@@ -39,7 +40,9 @@ export const AuthNavigation = () => {
 
   return (
     <ApolloProvider client={client}>
-      <Navigation />
+      <ColorProvider>
+        <Navigation />
+      </ColorProvider>
     </ApolloProvider>
   );
 };

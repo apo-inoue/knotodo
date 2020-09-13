@@ -1,7 +1,6 @@
 import { AuthState, AuthAction } from './types';
 
 export const initialState: AuthState = {
-  isLoggedIn: false,
   token: null,
   userInfo: {
     id: '',
@@ -10,7 +9,10 @@ export const initialState: AuthState = {
   },
 };
 
-export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
+export const authReducer = (
+  state: AuthState,
+  action: AuthAction,
+): AuthState => {
   console.log(action);
   switch (action.actionType) {
     case 'LOGIN': {

@@ -46,7 +46,10 @@ export const AuthProvider: FC = ({ children }) => {
           console.log('result', result);
           decodeToken(result.params.id_token);
         } else if (result.params && result.params.error) {
-          console.log(result.params.error_description || 'Something went wrong while logging in.');
+          console.log(
+            result.params.error_description ||
+              'Something went wrong while logging in.',
+          );
         }
       })
       .catch(e => console.log('error', e));
@@ -86,10 +89,10 @@ export const AuthProvider: FC = ({ children }) => {
 
         if (exp > Math.floor(new Date().getTime() / 1000)) {
           console.log('exp ok', token);
-          console.log('exp ok', id);
-          console.log('exp ok', name);
-          console.log('exp ok', isNewUser);
-          dispatch({ actionType: 'LOGIN', payload: { token, userInfo: { id, name, isNewUser } } });
+          dispatch({
+            actionType: 'LOGIN',
+            payload: { token, userInfo: { id, name, isNewUser } },
+          });
         } else {
           console.log('exp ng');
           dispatch({ actionType: 'LOGOUT' });

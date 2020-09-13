@@ -9,6 +9,7 @@ import { Touchable, TouchableProps } from '../button/Touchable';
 type RadioButton = {
   checked: boolean;
   text: string;
+  radioColor?: string;
 } & TouchableProps;
 
 export const RadioButton: FC<RadioButton> = props => {
@@ -19,9 +20,17 @@ export const RadioButton: FC<RadioButton> = props => {
       <Box my={1} alignItems="center" flexDirection="row">
         <Box mr={2}>
           {props.checked ? (
-            <FontAwesome name="dot-circle-o" size={24} color={theme.colors.main} />
+            <FontAwesome
+              name="dot-circle-o"
+              size={24}
+              color={props.radioColor ? props.radioColor : theme.colors.main}
+            />
           ) : (
-            <FontAwesome name="circle-o" size={24} color={theme.colors.blacks[5]} />
+            <FontAwesome
+              name="circle-o"
+              size={24}
+              color={theme.colors.blacks[5]}
+            />
           )}
         </Box>
         <Text>{props.text}</Text>

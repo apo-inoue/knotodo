@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, TextForm } from '../../ui';
+import { Box, TextForm, Image } from '../../ui';
 import { useTodoCtx } from '../../containers/todo/useCtx';
 
 export const Title = () => {
@@ -15,7 +15,13 @@ export const Title = () => {
         error={null}
         onChangeText={titleInputHandler}
         value={title}
-        selectionColor={'green'}
+      />
+      <Image
+        style={{
+          width: 50,
+          height: 50,
+        }}
+        source={require('../../../assets/knot.png')}
       />
     </Box>
   );
