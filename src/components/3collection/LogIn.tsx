@@ -13,10 +13,10 @@ export const LogIn: FC<LogIn> = ({ onLogIn }) => {
           <Image
             height={36}
             width={36}
-            source={require('../../../assets/knot.png')}
+            source={require('../../../assets/knot-color.png')}
           />
         </Box>
-        <Box mb="-8px">
+        <Box height={40}>
           <Text fontSize={40} fontWeight="bold" color="main">
             KnoToDo
           </Text>
