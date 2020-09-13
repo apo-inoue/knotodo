@@ -4,6 +4,7 @@ import { CategoryProvider } from './category/provider';
 import { TodoProvider } from './todo/provider';
 import { CustomThemeProvider } from './theme/provider';
 import { SortProvider } from './sort/provider';
+import { ColorProvider } from './color/provider';
 
 export const ComposedProviders: FC = ({ children }) => {
   return (
@@ -11,7 +12,9 @@ export const ComposedProviders: FC = ({ children }) => {
       <CategoryProvider>
         <TodoProvider>
           <SortProvider>
-            <CustomThemeProvider>{children}</CustomThemeProvider>
+            <ColorProvider>
+              <CustomThemeProvider>{children}</CustomThemeProvider>
+            </ColorProvider>
           </SortProvider>
         </TodoProvider>
       </CategoryProvider>

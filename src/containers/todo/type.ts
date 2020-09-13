@@ -1,5 +1,9 @@
 import { ChangeEvent, MouseEvent } from 'react';
 import { Urgency_Enum } from '../../types/graphql';
+import {
+  NativeSyntheticEvent,
+  TextInputTextInputEventData,
+} from 'react-native';
 
 export type TodoAction =
   | { actionType: 'SET_TITLE'; payload: { title: string } }

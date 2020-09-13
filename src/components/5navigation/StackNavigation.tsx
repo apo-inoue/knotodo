@@ -2,9 +2,10 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TodoDetails, Setting, NewTodo, Sort } from '../4pages';
 import { useTheme } from 'styled-components';
-import { HeaderIconLeft, HeaderIconsRight } from '../1standalone';
+import { HeaderIconLeft, HeaderIconsRight, Logo } from '../1standalone';
 import { TabNavigation } from './TabNavigation';
 import { DrawerNavigation } from './DrawerNavigation';
+import { Box, Text } from '../../ui';
 
 export const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -26,7 +27,16 @@ export const StackNavigation = () => {
         component={DrawerNavigation}
         options={{
           headerRight: () => <HeaderIconsRight />,
-          headerTitle: 'KnoTodo',
+          headerTitle: () => (
+            <Box flexDirection="row" alignItems="center">
+              <Box mr={2}>
+                <Logo />
+              </Box>
+              <Text span color={theme.colors.white} fontWeight="bold">
+                knoTodo
+              </Text>
+            </Box>
+          ),
           headerLeft: () => <HeaderIconLeft />,
         }}
       />
