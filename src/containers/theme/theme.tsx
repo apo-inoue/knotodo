@@ -72,7 +72,7 @@ export const baseTheme = {
   maxWidths: [16, 32, 64, 128, 256, 512, 768, 1024, 1536],
   shadows: [
     {
-      shadowColor: '#354171',
+      shadowColor: '#000000',
       shadowOffset: {
         width: 0,
         height: 1,
@@ -83,7 +83,7 @@ export const baseTheme = {
       elevation: 1,
     },
     {
-      shadowColor: '#354171',
+      shadowColor: '#000000',
       shadowOffset: {
         width: 0,
         height: 1,
@@ -93,7 +93,7 @@ export const baseTheme = {
       elevation: 2,
     },
     {
-      shadowColor: '#354171',
+      shadowColor: '#000000',
       shadowOffset: {
         width: 0,
         height: 1,
@@ -104,7 +104,7 @@ export const baseTheme = {
       elevation: 3,
     },
     {
-      shadowColor: '#354171',
+      shadowColor: '#000000',
       shadowOffset: {
         width: 0,
         height: 2,
@@ -114,7 +114,7 @@ export const baseTheme = {
       elevation: 4,
     },
     {
-      shadowColor: '#354171',
+      shadowColor: '#000000',
       shadowOffset: {
         width: 0,
         height: 2,

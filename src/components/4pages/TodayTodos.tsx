@@ -11,6 +11,8 @@ import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { TODAY_TODOS } from '../../graphql/query/todos';
 import { useApolloClient } from '@apollo/client';
 import { TodayTodosQuery, CompleteToDoMutation } from '../../types/graphql';
+import { useTheme } from 'styled-components';
+import { Layout } from '../1standalone/Layout';
 
 export const TodayTodos = () => {
   const client = useApolloClient();
@@ -45,6 +47,8 @@ export const TodayTodos = () => {
 
   console.log(data, 'today');
   console.log(error, mutationError, 'todayError');
+
+  const theme = useTheme();
 
   if (loading || mutationLoading) return <ScreenLoader />;
   if (error || mutationError) return <ErrorMessage />;

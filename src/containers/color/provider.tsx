@@ -27,45 +27,45 @@ export const colorPalettes: ColorType[] = [
     id: 2,
     color: 'BLUE',
     hex: {
-      light: '#1976d2',
+      light: '#63a4ff',
       main: '#1976d2',
-      dark: '#1976d2',
+      dark: '#004ba0',
     },
   },
   {
     id: 3,
     color: 'GREEN',
     hex: {
-      light: '#00796b',
+      light: '#48a999',
       main: '#00796b',
-      dark: '#00796b',
+      dark: '#004c40',
     },
   },
   {
     id: 4,
     color: 'ORANGE',
     hex: {
-      light: '#dd2c00',
+      light: '#ff6434',
       main: '#dd2c00',
-      dark: '#dd2c00',
+      dark: '#a30000',
     },
   },
   {
     id: 5,
     color: 'PINK',
     hex: {
-      light: '#d81b60',
+      light: '#ff5c8d',
       main: '#d81b60',
-      dark: '#d81b60',
+      dark: '#a00037',
     },
   },
   {
     id: 6,
     color: 'GREY',
     hex: {
-      light: '#424242',
+      light: '#6d6d6d',
       main: '#424242',
-      dark: '#424242',
+      dark: '#1b1b1b',
     },
   },
 ];
