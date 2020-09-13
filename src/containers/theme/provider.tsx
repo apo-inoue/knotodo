@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { ThemeProvider } from 'styled-components/native';
-import { theme } from './theme';
+import { baseTheme } from './theme';
 
 export const CustomThemeProvider: FC = ({ children }) => {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return <ThemeProvider theme={baseTheme}>{children}</ThemeProvider>;
 };

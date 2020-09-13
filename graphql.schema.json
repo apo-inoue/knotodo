@@ -8098,6 +8098,16 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "color_type",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "colorTypes_enum",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "id",
             "description": null,
             "type": {
@@ -8130,6 +8140,12 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          {
+            "name": "color_type",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "id",
             "description": "column name",

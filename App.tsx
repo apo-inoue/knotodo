@@ -1,5 +1,4 @@
 import React from 'react';
-import { CustomThemeProvider } from './src/containers/theme/provider';
 import { ComposedProviders } from './src/containers/ComposedProviders';
 import {
   useFonts,
@@ -29,9 +28,7 @@ const App = () => {
 
   return (
     <ComposedProviders>
-      <CustomThemeProvider>
-        <AuthNavigation />
-      </CustomThemeProvider>
+      <AuthNavigation />
     </ComposedProviders>
   );
 };

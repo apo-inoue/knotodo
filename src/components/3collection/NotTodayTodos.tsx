@@ -28,7 +28,7 @@ export const NotTodayTodos: FC<NotTodayTodos> = ({ todos, onPress }) => {
             <TodoListItem
               todo={item}
               index={index}
-              buttonAction={{ onPress, label: 'delete' }}
+              buttonAction={{ onPress, label: 'today' }}
             />
           )}
         />
