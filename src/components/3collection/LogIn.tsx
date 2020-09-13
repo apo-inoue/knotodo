@@ -17,7 +17,7 @@ export const LogIn: FC<LogIn> = ({ onLogIn }) => {
           />
         </Box>
         <Box mb="-8px">
-          <Text fontSize={40} fontWeight="bold" color="primary">
+          <Text fontSize={40} fontWeight="bold" color="main">
             KnoToDo
           </Text>
         </Box>

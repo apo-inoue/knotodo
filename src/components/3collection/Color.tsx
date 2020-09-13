@@ -3,44 +3,20 @@ import { PrimaryButton, Divider, Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import { RadioButton } from '../../ui/input/RadioButton';
-import { ColorTypes_Enum } from '../../types/graphql';
-
-type ColorType = {
-  id: number;
-  color: ColorTypes_Enum;
-};
+import { useColorCtx } from '../../containers/color/useCtx';
+import { colorPalettes } from '../../containers/color/provider';
 
 export const Color: FC = () => {
   const navigation = useNavigation();
-  const fetchedColor = 'BRAND';
-  const colorTypes: ColorType[] = [
-    { id: 1, color: 'BRAND' },
-    { id: 2, color: 'BLUE' },
-    { id: 3, color: 'GREEN' },
-    { id: 4, color: 'ORANGE' },
-    { id: 5, color: 'PINK' },
-    { id: 6, color: 'GREY' },
-  ];
-  const colorToHex = (colorType: ColorTypes_Enum) => {
-    switch (colorType) {
-      case 'BRAND':
-        return '#354171';
-      case 'BLUE':
-        return '#1976d2';
-      case 'GREEN':
-        return '#00796b';
-      case 'ORANGE':
-        return '#dd2c00';
-      case 'PINK':
-        return '#d81b60';
-      case 'GREY':
-        return '#424242';
-    }
+  const { color, colorSelectHandler, updateColorTypeHandler } = useColorCtx();
+  const handlePress = () => {
+    updateColorTypeHandler();
+    navigation.goBack();
   };
 
   return (
     <>
-      {colorTypes.map((colorType: any) => {
+      {colorPalettes.map(colorType => {
         return (
           <Box
             mt={3}
@@ -48,16 +24,23 @@ export const Color: FC = () => {
             flexDirection="row"
             alignItems="center">
             <RadioButton
-              // onPress={() => urgencySelectHandler('week')}
-              checked={colorType.color === fetchedColor}
+              radioColor={colorType.hex.main}
+              onPress={() => colorSelectHandler(colorType.color)}
+              checked={colorType.color === color}
               text=""
             />
-            <ColorTip color={colorToHex(colorType.color)} />
+            <ColorTip color={colorType.hex.main} />
           </Box>
         );
       })}
-      <Divider />
-      <PrimaryButton text="検索" onPress={navigation.goBack} />
+      <Box mt={5} width="60%" mx="auto">
+        <PrimaryButton
+          variant="contained"
+          btnSize="lg"
+          text="設定"
+          onPress={handlePress}
+        />
+      </Box>
     </>
   );
 };

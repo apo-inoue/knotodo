@@ -10,9 +10,7 @@ export const PrimaryButton = (props: TouchableProps & { text: string }) => {
     <Touchable {...props} color="primary">
       <Text
         color={
-          props.variant === 'outlined'
-            ? theme.colors.primary
-            : theme.colors.white
+          props.variant === 'outlined' ? theme.colors.main : theme.colors.white
         }
         fontSize={
           props.btnSize && props.btnSize === 'lg'

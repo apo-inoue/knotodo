@@ -1425,12 +1425,15 @@ export type Users_Select_Column =
 
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
+  color_type: Maybe<ColorTypes_Enum>;
   id: Maybe<Scalars['String']>;
   nickname: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "users" */
 export type Users_Update_Column = 
+  /** column name */
+  | 'color_type'
   /** column name */
   | 'id'
   /** column name */
@@ -1449,19 +1452,6 @@ export type Uuid_Comparison_Exp = {
   _neq: Maybe<Scalars['uuid']>;
   _nin: Maybe<Array<Scalars['uuid']>>;
 };
-
-export type GetAccomplishmentQueryVariables = Exact<{
-  _eq?: Maybe<Scalars['Int']>;
-}>;
-
-
-export type GetAccomplishmentQuery = (
-  { __typename: 'query_root' }
-  & { accomplishment: Array<(
-    { __typename: 'accomplishment' }
-    & Pick<Accomplishment, 'id' | 'year' | 'month' | 'week'>
-  )> }
-);
 
 export type InsertCategoryMutationVariables = Exact<{
   category?: Maybe<Scalars['String']>;
@@ -1536,6 +1526,33 @@ export type SetTodayTodoMutation = (
   )> }
 );
 
+export type UpdateColorTypeMutationVariables = Exact<{
+  color_type: Maybe<ColorTypes_Enum>;
+  _eq: Maybe<Scalars['String']>;
+}>;
+
+
+export type UpdateColorTypeMutation = (
+  { __typename: 'mutation_root' }
+  & { update_users: Maybe<(
+    { __typename: 'users_mutation_response' }
+    & Pick<Users_Mutation_Response, 'affected_rows'>
+  )> }
+);
+
+export type GetAccomplishmentQueryVariables = Exact<{
+  _eq?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type GetAccomplishmentQuery = (
+  { __typename: 'query_root' }
+  & { accomplishment: Array<(
+    { __typename: 'accomplishment' }
+    & Pick<Accomplishment, 'id' | 'year' | 'month' | 'week'>
+  )> }
+);
+
 export type AllCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1580,43 +1597,18 @@ export type CompletedTodosQuery = (
   )> }
 );
 
+export type GetColorTypeQueryVariables = Exact<{ [key: string]: never; }>;
 
-export const GetAccomplishmentDocument = gql`
-    query GetAccomplishment($_eq: Int = 1) {
-  accomplishment(where: {id: {_eq: $_eq}}) {
-    id
-    year
-    month
-    week
-  }
-}
-    `;
 
-/**
- * __useGetAccomplishmentQuery__
- *
- * To run a query within a React component, call `useGetAccomplishmentQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAccomplishmentQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAccomplishmentQuery({
- *   variables: {
- *      _eq: // value for '_eq'
- *   },
- * });
- */
-export function useGetAccomplishmentQuery(baseOptions?: Apollo.QueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
-        return Apollo.useQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
-      }
-export function useGetAccomplishmentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
-          return Apollo.useLazyQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
-        }
-export type GetAccomplishmentQueryHookResult = ReturnType<typeof useGetAccomplishmentQuery>;
-export type GetAccomplishmentLazyQueryHookResult = ReturnType<typeof useGetAccomplishmentLazyQuery>;
-export type GetAccomplishmentQueryResult = Apollo.QueryResult<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>;
+export type GetColorTypeQuery = (
+  { __typename: 'query_root' }
+  & { users: Array<(
+    { __typename: 'users' }
+    & Pick<Users, 'id' | 'color_type'>
+  )> }
+);
+
+
 export const InsertCategoryDocument = gql`
     mutation InsertCategory($category: String = "") {
   insert_categories_one(object: {category: $category}) {
@@ -1786,6 +1778,75 @@ export function useSetTodayTodoMutation(baseOptions?: Apollo.MutationHookOptions
 export type SetTodayTodoMutationHookResult = ReturnType<typeof useSetTodayTodoMutation>;
 export type SetTodayTodoMutationResult = Apollo.MutationResult<SetTodayTodoMutation>;
 export type SetTodayTodoMutationOptions = Apollo.BaseMutationOptions<SetTodayTodoMutation, SetTodayTodoMutationVariables>;
+export const UpdateColorTypeDocument = gql`
+    mutation UpdateColorType($color_type: colorTypes_enum, $_eq: String) {
+  update_users(_set: {color_type: $color_type}, where: {id: {_eq: $_eq}}) {
+    affected_rows
+  }
+}
+    `;
+export type UpdateColorTypeMutationFn = Apollo.MutationFunction<UpdateColorTypeMutation, UpdateColorTypeMutationVariables>;
+
+/**
+ * __useUpdateColorTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateColorTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateColorTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateColorTypeMutation, { data, loading, error }] = useUpdateColorTypeMutation({
+ *   variables: {
+ *      color_type: // value for 'color_type'
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useUpdateColorTypeMutation(baseOptions?: Apollo.MutationHookOptions<UpdateColorTypeMutation, UpdateColorTypeMutationVariables>) {
+        return Apollo.useMutation<UpdateColorTypeMutation, UpdateColorTypeMutationVariables>(UpdateColorTypeDocument, baseOptions);
+      }
+export type UpdateColorTypeMutationHookResult = ReturnType<typeof useUpdateColorTypeMutation>;
+export type UpdateColorTypeMutationResult = Apollo.MutationResult<UpdateColorTypeMutation>;
+export type UpdateColorTypeMutationOptions = Apollo.BaseMutationOptions<UpdateColorTypeMutation, UpdateColorTypeMutationVariables>;
+export const GetAccomplishmentDocument = gql`
+    query GetAccomplishment($_eq: Int = 1) {
+  accomplishment(where: {id: {_eq: $_eq}}) {
+    id
+    year
+    month
+    week
+  }
+}
+    `;
+
+/**
+ * __useGetAccomplishmentQuery__
+ *
+ * To run a query within a React component, call `useGetAccomplishmentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccomplishmentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccomplishmentQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetAccomplishmentQuery(baseOptions?: Apollo.QueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
+        return Apollo.useQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+      }
+export function useGetAccomplishmentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
+          return Apollo.useLazyQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+        }
+export type GetAccomplishmentQueryHookResult = ReturnType<typeof useGetAccomplishmentQuery>;
+export type GetAccomplishmentLazyQueryHookResult = ReturnType<typeof useGetAccomplishmentLazyQuery>;
+export type GetAccomplishmentQueryResult = Apollo.QueryResult<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>;
 export const AllCategoryDocument = gql`
     query AllCategory {
   categories {
@@ -1933,3 +1994,36 @@ export function useCompletedTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type CompletedTodosQueryHookResult = ReturnType<typeof useCompletedTodosQuery>;
 export type CompletedTodosLazyQueryHookResult = ReturnType<typeof useCompletedTodosLazyQuery>;
 export type CompletedTodosQueryResult = Apollo.QueryResult<CompletedTodosQuery, CompletedTodosQueryVariables>;
+export const GetColorTypeDocument = gql`
+    query GetColorType {
+  users {
+    id
+    color_type
+  }
+}
+    `;
+
+/**
+ * __useGetColorTypeQuery__
+ *
+ * To run a query within a React component, call `useGetColorTypeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetColorTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetColorTypeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetColorTypeQuery(baseOptions?: Apollo.QueryHookOptions<GetColorTypeQuery, GetColorTypeQueryVariables>) {
+        return Apollo.useQuery<GetColorTypeQuery, GetColorTypeQueryVariables>(GetColorTypeDocument, baseOptions);
+      }
+export function useGetColorTypeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetColorTypeQuery, GetColorTypeQueryVariables>) {
+          return Apollo.useLazyQuery<GetColorTypeQuery, GetColorTypeQueryVariables>(GetColorTypeDocument, baseOptions);
+        }
+export type GetColorTypeQueryHookResult = ReturnType<typeof useGetColorTypeQuery>;
+export type GetColorTypeLazyQueryHookResult = ReturnType<typeof useGetColorTypeLazyQuery>;
+export type GetColorTypeQueryResult = Apollo.QueryResult<GetColorTypeQuery, GetColorTypeQueryVariables>;

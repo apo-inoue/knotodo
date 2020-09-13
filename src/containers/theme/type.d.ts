@@ -9,7 +9,6 @@ declare module 'styled-components/native' {
       muted: string;
       light: string;
       main: string;
-      primary: string;
       dark: string;
       white: string;
       black: string;

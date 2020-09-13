@@ -9,15 +9,14 @@ import { ColorProvider } from './color/provider';
 export const ComposedProviders: FC = ({ children }) => {
   return (
     <AuthProvider>
-      <CategoryProvider>
-        <TodoProvider>
-          <SortProvider>
-            <ColorProvider>
-              <CustomThemeProvider>{children}</CustomThemeProvider>
-            </ColorProvider>
-          </SortProvider>
-        </TodoProvider>
-      </CategoryProvider>
+      {/* // defaultColor */}
+      <CustomThemeProvider>
+        <CategoryProvider>
+          <TodoProvider>
+            <SortProvider>{children}</SortProvider>
+          </TodoProvider>
+        </CategoryProvider>
+      </CustomThemeProvider>
     </AuthProvider>
   );
 };

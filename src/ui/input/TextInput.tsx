@@ -12,7 +12,7 @@ export type CustomTextInputProps = {
 export const TextInput = styled.TextInput<CustomTextInputProps>`
   height: 40px;
   width: 100%;
-  border-color: ${props => props.theme.colors.primary};
+  border-color: ${props => props.theme.colors.main};
   padding-left: 4px;
   font-size: ${props => `${props.theme.fontSizes[2]}px`};
 

@@ -38,17 +38,17 @@ export const Touchable = styled.TouchableOpacity<TouchableProps>`
   ${props =>
     props.color === 'primary' &&
     props.variant === 'contained' && {
-      backgroundColor: props.theme.colors.primary,
+      backgroundColor: props.theme.colors.main,
     }};
   ${props =>
     props.color === 'primary' &&
     props.variant === 'outlined' && {
-      border: `1px solid ${props.theme.colors.primary}`,
+      border: `1px solid ${props.theme.colors.main}`,
     }};
   ${props =>
     props.color === 'muted' &&
     props.variant === 'contained' && {
-      backgroundColor: props.theme.colors.primary,
+      backgroundColor: props.theme.colors.muted,
     }};
   ${props =>
     props.color === 'muted' &&

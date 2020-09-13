@@ -12,7 +12,7 @@ export const OutlinedTextInput: FC<CustomTextInputProps> = props => {
       borderTopRightRadius="4px"
       borderBottomRightRadius="4px"
       borderBottomLeftRadius="4px"
-      selectionColor={theme.colors.primary}
+      selectionColor={theme.colors.main}
       {...props}
     />
   );
