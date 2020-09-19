@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../4pages';
 import { useTheme } from 'styled-components';
 import { CustomIcon } from '../1standalone';
-import { useNavigation, useRoute } from '@react-navigation/native';
 
 export const TabNavigation = () => {
   const theme = useTheme();

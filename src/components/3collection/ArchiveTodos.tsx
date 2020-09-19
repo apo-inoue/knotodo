@@ -3,7 +3,6 @@ import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Todos } from '../../types/graphql';
 import { TodoListItem } from '../2single';
-import { useTheme } from 'styled-components';
 import { AddFab } from '../1standalone/AddFab';
 import { Box } from '../../ui';
 

@@ -9,19 +9,14 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { TODAY_TODOS } from '../../graphql/query/todos';
-import { useApolloClient } from '@apollo/client';
-import { TodayTodosQuery, CompleteToDoMutation } from '../../types/graphql';
-import { useTheme } from 'styled-components';
-import { Layout } from '../1standalone/Layout';
+import { TodayTodosQuery } from '../../types/graphql';
 
 export const TodayTodos = () => {
-  const client = useApolloClient();
   const { loading, error, data, refetch } = useTodayTodosQuery();
   const [
     completeTodo,
     { loading: mutationLoading, error: mutationError },
   ] = useCompleteToDoMutation({
-    // refetchQueries: [{ query: TODAY_TODOS }],
     update(cache, { data }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
@@ -44,11 +39,6 @@ export const TodayTodos = () => {
       refetch();
     }, [refetch]),
   );
-
-  console.log(data, 'today');
-  console.log(error, mutationError, 'todayError');
-
-  const theme = useTheme();
 
   if (loading || mutationLoading) return <ScreenLoader />;
   if (error || mutationError) return <ErrorMessage />;

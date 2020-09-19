@@ -23,5 +23,10 @@
     "tkeshi",
     "wd",
     "zw"
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#354171",
+    "activityBar.foreground": "#000000"
+  },
+  "workbench.useExperimentalGridLayout": true
 }

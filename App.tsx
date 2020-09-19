@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComposedProviders } from './src/containers/ComposedProviders';
+import { StoreProviders } from './src/store/StoreProviders';
 import {
   useFonts,
   NotoSansJP_100Thin,
@@ -27,9 +27,9 @@ const App = () => {
   }
 
   return (
-    <ComposedProviders>
+    <StoreProviders>
       <AuthNavigation />
-    </ComposedProviders>
+    </StoreProviders>
   );
 };
 

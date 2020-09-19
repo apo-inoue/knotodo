@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '../../ui';
 import { SortCollection } from '../3collection';
-import { useSortCtx } from '../../containers/sort/useCtx';
+import { useSortCtx } from '../../containers/contexts/sort';
 
 export const Sort = () => {
   const { sortInputHandler } = useSortCtx();

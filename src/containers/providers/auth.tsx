@@ -1,6 +1,6 @@
 import React, { FC, useReducer } from 'react';
-import { authReducer, initialState } from './reducer';
-import { AuthContextProvider } from './useCtx';
+import { authReducer, initialState } from '../reducers/auth';
+import { AuthContextProvider } from '../contexts/auth';
 import * as Random from 'expo-random';
 import * as SecureStore from 'expo-secure-store';
 import jwtDecoder from 'jwt-decode';
@@ -8,12 +8,11 @@ import queryString from 'query-string';
 import {
   AUTH_CLIENT_ID,
   AUTH_DOMAIN,
-  AUTH_NAMESPACE,
   ID_TOKEN_KEY,
   NONCE_KEY,
 } from '../../../config';
 import * as AuthSession from 'expo-auth-session';
-import { decodedToken } from './types';
+import { decodedToken } from '../types/auth';
 
 export const AuthProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -71,7 +70,7 @@ export const AuthProvider: FC = ({ children }) => {
             exp,
             token,
           }),
-        ).then(() => handleSession(false));
+        ).then(() => handleSession());
         // ).then(() => handleSession(decodedToken[AUTH_NAMESPACE].isNewUser));
       } else {
         console.log('error');
@@ -80,25 +79,30 @@ export const AuthProvider: FC = ({ children }) => {
     });
   };
 
-  const handleSession = (isNewUser = false) => {
-    SecureStore.getItemAsync(ID_TOKEN_KEY).then(session => {
-      console.log('session', session);
-      if (session) {
-        const sessionObj = JSON.parse(session);
-        const { exp, token, id, name } = sessionObj;
+  const handleSession = () => {
+    // TODO: 新しいユーザーに対するチュートリアル機能を作成する
+    const isNewUser = false;
+    SecureStore.getItemAsync(ID_TOKEN_KEY)
+      .then(session => {
+        console.log('session', session);
+        if (session) {
+          const sessionObj = JSON.parse(session);
+          const { exp, token, id, name } = sessionObj;
 
-        if (exp > Math.floor(new Date().getTime() / 1000)) {
-          console.log('exp ok', token);
-          dispatch({
-            actionType: 'LOGIN',
-            payload: { token, userInfo: { id, name, isNewUser } },
-          });
-        } else {
-          console.log('exp ng');
-          dispatch({ actionType: 'LOGOUT' });
+          if (exp > Math.floor(new Date().getTime() / 1000)) {
+            console.log('exp ok', token);
+            dispatch({
+              actionType: 'LOGIN',
+              payload: { token, userInfo: { id, name, isNewUser } },
+            });
+          } else {
+            dispatch({ actionType: 'LOGOUT' });
+          }
         }
-      }
-    });
+      })
+      .catch(error => {
+        return error;
+      });
   };
 
   const handleLogOut = () => {

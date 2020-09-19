@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useEventCallback } from '../../helpers/useEventCallback';
-import { FormCtxProvider } from './useCtx';
+import { FormCtxProvider } from '../contexts/category';
 
 export const CategoryProvider: FC = ({ children }) => {
   const [state, setState] = useState({ category: '' });

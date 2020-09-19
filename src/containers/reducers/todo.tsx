@@ -1,4 +1,4 @@
-import { TodoState, TodoAction } from './type';
+import { TodoState, TodoAction } from '../types/todo';
 
 export const initialState: TodoState = {
   title: '',

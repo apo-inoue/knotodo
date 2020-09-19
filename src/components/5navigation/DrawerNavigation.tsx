@@ -2,17 +2,15 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 import { CustomIcon } from '../1standalone';
 import { Color } from '../3collection/Color';
-import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { TabNavigation } from './TabNavigation';
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import { useLinking, useLinkTo } from '@react-navigation/native';
 import { Accomplishment } from '../4pages';
 
 const CustomDrawerContent = (props: any) => {
-  const linkTo = useLinkTo();
   return (
     <DrawerContentScrollView {...props}>
       <Accomplishment />

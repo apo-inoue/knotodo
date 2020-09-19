@@ -1,12 +1,7 @@
 import React, { FC, useReducer, useCallback } from 'react';
-import { todoReducer, initialState } from './reducer';
-import { TodoCtxProvider } from './useCtx';
+import { todoReducer, initialState } from '../reducers/todo';
+import { TodoCtxProvider } from '../contexts/todo';
 import { Urgency_Enum } from '../../types/graphql';
-import { useEventCallback } from '../../helpers/useEventCallback';
-import {
-  NativeSyntheticEvent,
-  TextInputTextInputEventData,
-} from 'react-native';
 
 export const TodoProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState);

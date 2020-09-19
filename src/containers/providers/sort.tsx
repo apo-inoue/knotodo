@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useEventCallback } from '../../helpers/useEventCallback';
-import { SortCtxProvider } from './useCtx';
+import { SortCtxProvider } from '../contexts/sort';
 
 export const SortProvider: FC = ({ children }) => {
   const [state, setState] = useState({ sort: '' });

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Divider, PrimaryButton } from '../../ui';
 import { Title, CategoriesPicker, Urgency, Workloads } from '../2single';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
-import { useTodoCtx } from '../../containers/todo/useCtx';
+import { useTodoCtx } from '../../containers/contexts/todo';
 import { Box } from '../../ui/layout/Box';
 
 type NewTodoProps = {

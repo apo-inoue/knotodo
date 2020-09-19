@@ -1,4 +1,4 @@
-import { AuthState, AuthAction } from './types';
+import { AuthState, AuthAction } from '../types/auth';
 
 export const initialState: AuthState = {
   token: null,

@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { ThemeProvider } from 'styled-components/native';
 import { baseTheme } from './theme';
 
