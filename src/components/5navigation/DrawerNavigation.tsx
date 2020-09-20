@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
-import { Color } from '../3collection/Color';
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
@@ -11,9 +10,9 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import { Accomplishment } from '../4pages';
+import { Accomplishment, CategorySetting, Color } from '../4pages';
 import { DrawerIcon } from '../1standalone/DrawerIcon';
-import { CategorySetting } from '../3collection/CategorySetting';
+import { ROUTE_NAMES } from './type';
 
 const CustomDrawerContent: FC<DrawerContentComponentProps<
   DrawerContentOptions
@@ -41,7 +40,7 @@ export const DrawerNavigation: FC = () => {
         inactiveTintColor: theme.colors.blacks[4],
       }}>
       <Drawer.Screen
-        name="ホーム"
+        name={ROUTE_NAMES.ホーム}
         component={TabNavigation}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
@@ -50,7 +49,7 @@ export const DrawerNavigation: FC = () => {
         }}
       />
       <Drawer.Screen
-        name="カラー設定"
+        name={ROUTE_NAMES.カラー設定}
         component={Color}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
@@ -59,7 +58,7 @@ export const DrawerNavigation: FC = () => {
         }}
       />
       <Drawer.Screen
-        name="カテゴリ設定"
+        name={ROUTE_NAMES.カテゴリ設定}
         component={CategorySetting}
         options={{
           drawerIcon: ({ color }: { color: string }) => (

@@ -1518,19 +1518,27 @@ export type DeleteToDoMutation = (
   & { delete_todos: Maybe<(
     { __typename: 'todos_mutation_response' }
     & Pick<Todos_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename: 'todos' }
+      & Pick<Todos, 'id'>
+    )> }
   )> }
 );
 
 export type SetTodayTodoMutationVariables = Exact<{
-  id: Scalars['String'];
+  _eq: Scalars['String'];
 }>;
 
 
 export type SetTodayTodoMutation = (
   { __typename: 'mutation_root' }
-  & { update_todos_by_pk: Maybe<(
-    { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'title'>
+  & { update_todos: Maybe<(
+    { __typename: 'todos_mutation_response' }
+    & Pick<Todos_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename: 'todos' }
+      & Pick<Todos, 'id'>
+    )> }
   )> }
 );
 
@@ -1729,6 +1737,9 @@ export const DeleteToDoDocument = gql`
     mutation DeleteToDo($_eq: String) {
   delete_todos(where: {id: {_eq: $_eq}}) {
     affected_rows
+    returning {
+      id
+    }
   }
 }
     `;
@@ -1758,11 +1769,12 @@ export type DeleteToDoMutationHookResult = ReturnType<typeof useDeleteToDoMutati
 export type DeleteToDoMutationResult = Apollo.MutationResult<DeleteToDoMutation>;
 export type DeleteToDoMutationOptions = Apollo.BaseMutationOptions<DeleteToDoMutation, DeleteToDoMutationVariables>;
 export const SetTodayTodoDocument = gql`
-    mutation SetTodayTodo($id: String!) {
-  update_todos_by_pk(pk_columns: {id: $id}, _set: {isToday: true}) {
-    __typename
-    id
-    title
+    mutation SetTodayTodo($_eq: String!) {
+  update_todos(where: {id: {_eq: $_eq}}, _set: {isToday: true}) {
+    affected_rows
+    returning {
+      id
+    }
   }
 }
     `;
@@ -1781,7 +1793,7 @@ export type SetTodayTodoMutationFn = Apollo.MutationFunction<SetTodayTodoMutatio
  * @example
  * const [setTodayTodoMutation, { data, loading, error }] = useSetTodayTodoMutation({
  *   variables: {
- *      id: // value for 'id'
+ *      _eq: // value for '_eq'
  *   },
  * });
  */

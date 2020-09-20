@@ -2,12 +2,14 @@ import React, { FC } from 'react';
 import { Box, Touchable } from '../../ui';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useTodoCtx } from '../../containers/contexts/todo';
+import { useTheme } from 'styled-components';
 
 type WorkloadProps = {
   workload: number;
 };
 
 export const Workload: FC<WorkloadProps> = ({ workload }) => {
+  const theme = useTheme();
   const workloadArray = [1, 2, 3, 4, 5];
 
   return (
@@ -20,7 +22,7 @@ export const Workload: FC<WorkloadProps> = ({ workload }) => {
             <FontAwesome5
               name="hammer"
               size={24}
-              color={isWorkload ? 'black' : '#aaaaaa'}
+              color={isWorkload ? theme.colors.main : theme.colors.blacks[3]}
             />
           </Box>
         );

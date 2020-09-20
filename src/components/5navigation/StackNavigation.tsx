@@ -2,9 +2,11 @@ import React, { FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TodoDetails, Category, NewTodo, Sort, EditTodo } from '../4pages';
 import { useTheme } from 'styled-components';
-import { HeaderIconLeft, HeaderIconsRight, Logo } from '../1standalone';
+import { HeaderIconLeft, HeaderIconsRight } from '../1standalone';
 import { DrawerNavigation } from './DrawerNavigation';
-import { Box, Text } from '../../ui';
+import { Text } from '../../ui';
+import { RouteProp } from '@react-navigation/native';
+import { HeaderTitle } from '../1standalone/HeaderTitle';
 
 export const StackNavigation: FC = () => {
   const Stack = createStackNavigator();
@@ -24,35 +26,31 @@ export const StackNavigation: FC = () => {
       <Stack.Screen
         name="Root"
         component={DrawerNavigation}
-        options={{
+        options={({
+          route,
+        }: {
+          // eslint-disable-next-line @typescript-eslint/ban-types
+          route: RouteProp<Record<string, object | undefined>, 'Root'>;
+        }) => ({
           headerRight: () => <HeaderIconsRight />,
-          headerTitle: () => (
-            <Box flexDirection="row" alignItems="center">
-              <Box mr={2}>
-                <Logo />
-              </Box>
-              <Text span color={theme.colors.white} fontWeight="bold">
-                knoTodo
-              </Text>
-            </Box>
-          ),
+          headerTitle: () => <HeaderTitle route={route} />,
           headerLeft: () => <HeaderIconLeft />,
-        }}
+        })}
       />
       <Stack.Screen
-        name="NewTodo"
+        name="新規作成"
         component={NewTodo}
         options={{
           headerTitle: () => (
             <Text span color={theme.colors.white} fontWeight="bold">
-              knoTodo
+              新規作成
             </Text>
           ),
           headerBackTitle: 'knoTodo',
         }}
       />
       <Stack.Screen
-        name="EditTodo"
+        name="編集"
         component={EditTodo}
         options={{
           headerTitle: () => (
@@ -64,7 +62,7 @@ export const StackNavigation: FC = () => {
         }}
       />
       <Stack.Screen
-        name="TodoDetails"
+        name="詳細"
         component={TodoDetails}
         options={{
           headerTitle: () => (
@@ -76,7 +74,7 @@ export const StackNavigation: FC = () => {
         }}
       />
       <Stack.Screen
-        name="Sort"
+        name="並べ替え"
         component={Sort}
         options={{
           headerTitle: () => (
@@ -88,12 +86,12 @@ export const StackNavigation: FC = () => {
         }}
       />
       <Stack.Screen
-        name="Category"
+        name="フィルター"
         component={Category}
         options={{
           headerTitle: () => (
             <Text span color={theme.colors.white} fontWeight="bold">
-              設定
+              フィルター
             </Text>
           ),
           headerBackTitle: 'knoTodo',

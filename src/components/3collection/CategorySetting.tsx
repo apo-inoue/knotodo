@@ -4,6 +4,7 @@ import { PrimaryButton, SlideUpView } from '../../ui';
 import { CategoryListItem } from '../2single';
 import { Categories } from '../../types/graphql';
 import { CategoryAdd } from '../2single/CategoryAdd';
+import { FadeInView } from '../../ui/animation/FadeInView';
 
 type CategorySettingProps = {
   categories: ({ __typename: 'categories' } & Pick<
@@ -25,7 +26,17 @@ export const CategorySetting: FC<CategorySettingProps> = ({
         renderItem={({ item }) => <CategoryListItem category={item} />}
       /> */}
       <CategoryAdd />
-      <SlideUpView style={{ width: '100%' }}>
+      <FadeInView>
+        <PrimaryButton
+          variant="contained"
+          btnSize="lg"
+          width="30%"
+          stretch
+          text="追加"
+          onPress={onPress}
+        />
+      </FadeInView>
+      <SlideUpView>
         <PrimaryButton
           variant="contained"
           btnSize="lg"

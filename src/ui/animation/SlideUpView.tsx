@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, ViewProps } from 'react-native';
 
 export const SlideUpView: React.FC<ViewProps> = ({ children, style }) => {
-  const appear = new Animated.Value(0);
+  const appear = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     Animated.timing(appear, {
       toValue: 1,
@@ -10,8 +10,7 @@ export const SlideUpView: React.FC<ViewProps> = ({ children, style }) => {
       easing: Easing.out(Easing.quad),
       useNativeDriver: true,
     }).start();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [appear]);
 
   return (
     <Animated.View
@@ -20,9 +19,9 @@ export const SlideUpView: React.FC<ViewProps> = ({ children, style }) => {
           opacity: appear,
           transform: [
             {
-              translateY: appear.interpolate({
-                inputRange: [0, 1],
-                outputRange: [100, 0],
+              translateX: appear.interpolate({
+                inputRange: [0, 300],
+                outputRange: [1, 0],
               }),
             },
           ],

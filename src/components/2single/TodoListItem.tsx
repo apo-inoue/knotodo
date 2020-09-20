@@ -27,7 +27,7 @@ export const TodoListItem: FC<TodoListItem> = ({
   const vw = useWindowDimensions().width;
 
   return (
-    <Box>
+    <SlideUpView>
       {index > 0 && <Divider />}
       <Box flexDirection="row" height={48}>
         <Box flexDirection="column" flexGrow={1}>
@@ -53,6 +53,6 @@ export const TodoListItem: FC<TodoListItem> = ({
           />
         </Box>
       </Box>
-    </Box>
+    </SlideUpView>
   );
 };

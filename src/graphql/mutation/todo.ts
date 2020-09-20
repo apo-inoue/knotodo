@@ -38,16 +38,20 @@ export const DELETE_TODO = gql`
   mutation DeleteToDo($_eq: String) {
     delete_todos(where: { id: { _eq: $_eq } }) {
       affected_rows
+      returning {
+        id
+      }
     }
   }
 `;
 
 export const SET_TODAY_TODO = gql`
-  mutation SetTodayTodo($id: String!) {
-    update_todos_by_pk(pk_columns: { id: $id }, _set: { isToday: true }) {
-      __typename
-      id
-      title
+  mutation SetTodayTodo($_eq: String!) {
+    update_todos(where: { id: { _eq: $_eq } }, _set: { isToday: true }) {
+      affected_rows
+      returning {
+        id
+      }
     }
   }
 `;
