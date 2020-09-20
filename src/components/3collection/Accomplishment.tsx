@@ -19,7 +19,7 @@ export const Accomplishment: FC<AccomplishmentProps> = ({ accomplishment }) => {
   }, []);
 
   return (
-    <Box mb={3}>
+    <Box my={3}>
       <Box>
         <Text textAlign="center">
           今週:<Text span>{week}</Text>タスククリア

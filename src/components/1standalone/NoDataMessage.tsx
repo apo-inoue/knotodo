@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Container, Text } from '../../ui';
 import { useTheme } from 'styled-components';
 
-export const NoDataMessage = () => {
+export const NoDataMessage: FC = () => {
   const theme = useTheme();
 
   return (

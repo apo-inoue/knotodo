@@ -13,11 +13,11 @@ export const LogIn: FC<LogIn> = ({ onLogIn }) => {
           <Image
             height={36}
             width={36}
-            source={require('../../../assets/knot.png')}
+            source={require('../../../assets/knot-color.png')}
           />
         </Box>
-        <Box mb="-8px">
-          <Text fontSize={40} fontWeight="bold" color="main">
+        <Box height={40}>
+          <Text fontSize={40} lineHeight="50px" fontWeight="bold" color="main">
             KnoToDo
           </Text>
         </Box>
@@ -29,7 +29,6 @@ export const LogIn: FC<LogIn> = ({ onLogIn }) => {
       <Box mt={4}>
         <PrimaryButton
           variant="contained"
-          btnSize="lg"
           onPress={onLogIn}
           text="ログイン/新規登録"
         />

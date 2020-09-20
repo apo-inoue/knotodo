@@ -3,7 +3,7 @@ import { useWindowDimensions } from 'react-native';
 import { Todos } from '../../types/graphql';
 import { Touchable, PrimaryButton, Box, Text, Divider } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from 'styled-components';
+import { SlideUpView } from '../../ui/animation/SlideUpView';
 
 type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<
@@ -27,7 +27,7 @@ export const TodoListItem: FC<TodoListItem> = ({
   const vw = useWindowDimensions().width;
 
   return (
-    <Box>
+    <SlideUpView>
       {index > 0 && <Divider />}
       <Box flexDirection="row" height={48}>
         <Box flexDirection="column" flexGrow={1}>
@@ -53,6 +53,6 @@ export const TodoListItem: FC<TodoListItem> = ({
           />
         </Box>
       </Box>
-    </Box>
+    </SlideUpView>
   );
 };

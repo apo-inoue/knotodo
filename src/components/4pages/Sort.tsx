@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Container } from '../../ui';
 import { SortCollection } from '../3collection';
-import { useSortCtx } from '../../containers/sort/useCtx';
 
-export const Sort = () => {
-  const { sortInputHandler } = useSortCtx();
-
+export const Sort: FC = () => {
   return (
     <Container>
-      <SortCollection onPress={sortInputHandler} />
+      <SortCollection />
     </Container>
   );
 };

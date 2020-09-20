@@ -17,3 +17,15 @@ export const OutlinedTextInput: FC<CustomTextInputProps> = props => {
     />
   );
 };
+
+export const UnderlinedTextInput: FC<CustomTextInputProps> = props => {
+  const theme = useTheme();
+
+  return (
+    <TextInput
+      variant="underlined"
+      selectionColor={theme.colors.main}
+      {...props}
+    />
+  );
+};

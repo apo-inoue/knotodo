@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TodoDetails, Setting, NewTodo, Sort } from '../4pages';
+import { TodoDetails, Category, NewTodo, Sort, EditTodo } from '../4pages';
 import { useTheme } from 'styled-components';
-import { HeaderIconLeft, HeaderIconsRight, Logo } from '../1standalone';
-import { TabNavigation } from './TabNavigation';
+import { HeaderIconLeft, HeaderIconsRight } from '../1standalone';
 import { DrawerNavigation } from './DrawerNavigation';
-import { Box, Text } from '../../ui';
+import { Text } from '../../ui';
+import { RouteProp } from '@react-navigation/native';
+import { HeaderTitle } from '../1standalone/HeaderTitle';
 
-export const StackNavigation = () => {
+export const StackNavigation: FC = () => {
   const Stack = createStackNavigator();
   const theme = useTheme();
 
@@ -25,47 +26,75 @@ export const StackNavigation = () => {
       <Stack.Screen
         name="Root"
         component={DrawerNavigation}
-        options={{
+        options={({
+          route,
+        }: {
+          // eslint-disable-next-line @typescript-eslint/ban-types
+          route: RouteProp<Record<string, object | undefined>, 'Root'>;
+        }) => ({
           headerRight: () => <HeaderIconsRight />,
-          headerTitle: () => (
-            <Box flexDirection="row" alignItems="center">
-              <Box mr={2}>
-                <Logo />
-              </Box>
-              <Text span color={theme.colors.white} fontWeight="bold">
-                knoTodo
-              </Text>
-            </Box>
-          ),
+          headerTitle: () => <HeaderTitle route={route} />,
           headerLeft: () => <HeaderIconLeft />,
-        }}
+        })}
       />
       <Stack.Screen
-        name="NewTodo"
+        name="新規作成"
         component={NewTodo}
         options={{
-          headerTitle: '新規',
+          headerTitle: () => (
+            <Text span color={theme.colors.white} fontWeight="bold">
+              新規作成
+            </Text>
+          ),
+          headerBackTitle: 'knoTodo',
         }}
       />
       <Stack.Screen
-        name="TodoDetails"
+        name="編集"
+        component={EditTodo}
+        options={{
+          headerTitle: () => (
+            <Text span color={theme.colors.white} fontWeight="bold">
+              編集
+            </Text>
+          ),
+          headerBackTitle: 'knoTodo',
+        }}
+      />
+      <Stack.Screen
+        name="詳細"
         component={TodoDetails}
         options={{
-          headerTitle: '詳細',
+          headerTitle: () => (
+            <Text span color={theme.colors.white} fontWeight="bold">
+              詳細
+            </Text>
+          ),
+          headerBackTitle: 'knoTodo',
         }}
       />
       <Stack.Screen
-        name="Sort"
+        name="並べ替え"
         component={Sort}
         options={{
-          headerTitle: '並べ替え',
+          headerTitle: () => (
+            <Text span color={theme.colors.white} fontWeight="bold">
+              並べ替え
+            </Text>
+          ),
+          headerBackTitle: 'knoTodo',
         }}
       />
       <Stack.Screen
-        name="Setting"
-        component={Setting}
+        name="フィルター"
+        component={Category}
         options={{
-          headerTitle: '設定',
+          headerTitle: () => (
+            <Text span color={theme.colors.white} fontWeight="bold">
+              フィルター
+            </Text>
+          ),
+          headerBackTitle: 'knoTodo',
         }}
       />
     </Stack.Navigator>

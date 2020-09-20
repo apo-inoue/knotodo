@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Box } from '../../ui';
-import { Picker } from '@react-native-community/picker';
+import { Picker } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { ReactText } from 'react';
 
@@ -18,14 +17,17 @@ export const CategoriesPicker: FC<CategoriesProps> = ({ categories }) => {
   };
 
   return (
-    <Box width="100%">
-      <Picker
-        style={{ width: 120 }}
-        selectedValue={selectedValue}
-        onValueChange={valueChangeHandler}>
-        <Picker.Item label="ホーム" value="home" />
-        <Picker.Item label="仕事" value="work" />
-      </Picker>
-    </Box>
+    <Picker
+      width={200}
+      height={100}
+      selectedValue={selectedValue}
+      mode="dropdown"
+      onValueChange={valueChangeHandler}>
+      <Picker.Item label={categories[0].category} value="home" />
+      <Picker.Item label="仕事" value="work" />
+      <Picker.Item label="ほげ" value="hoge" />
+      <Picker.Item label="ふが" value="huga" />
+      <Picker.Item label="ふご" value="hugo" />
+    </Picker>
   );
 };

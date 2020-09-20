@@ -1,27 +1,24 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { FC } from 'react';
 import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../4pages';
 import { useTheme } from 'styled-components';
-import { CustomIcon } from '../1standalone';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { TabIcon } from '../1standalone';
 
-export const TabNavigation = () => {
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
+export const TabNavigation: FC = () => {
   const theme = useTheme();
-  const Tab = createBottomTabNavigator();
+  const Tab = createMaterialBottomTabNavigator();
 
   return (
     <Tab.Navigator
       initialRouteName="Today"
-      tabBarOptions={{
-        activeTintColor: theme.colors.main,
-        inactiveTintColor: theme.colors.blacks[4],
-      }}>
+      barStyle={{ backgroundColor: theme.colors.main }}>
       <Tab.Screen
         name="Archive"
         component={ArchiveTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
-            <CustomIcon name="calendar-clock" color={color} />
+            <TabIcon tabName="archive" color={color} />
           ),
         }}
       />
@@ -30,7 +27,7 @@ export const TabNavigation = () => {
         component={TodayTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
-            <CustomIcon name="calendar-today" color={color} />
+            <TabIcon tabName="today" color={color} />
           ),
         }}
       />
@@ -39,7 +36,7 @@ export const TabNavigation = () => {
         component={NotTodayTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
-            <CustomIcon name="calendar-blank" color={color} />
+            <TabIcon tabName="notToday" color={color} />
           ),
         }}
       />
