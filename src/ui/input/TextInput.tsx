@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components/native';
 import { border, layout, BorderProps, LayoutProps } from 'styled-system';
-import { ReactNode } from 'react';
 import { TextInputProps } from 'react-native';
 
 export type CustomTextInputProps = {

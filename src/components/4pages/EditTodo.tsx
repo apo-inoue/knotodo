@@ -29,9 +29,15 @@ export const EditTodo = () => {
     });
   };
 
-  if (loading) return <ScreenLoader />;
-  if (error) return <ErrorMessage />;
-  if (!data) return <NoDataMessage />;
+  if (loading) {
+    return <ScreenLoader />;
+  }
+  if (error) {
+    return <ErrorMessage />;
+  }
+  if (!data) {
+    return <NoDataMessage />;
+  }
 
   return (
     <Container centerContent>

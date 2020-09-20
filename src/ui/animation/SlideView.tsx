@@ -3,13 +3,17 @@ import { Animated, Easing, ViewProps } from 'react-native';
 
 export const SlideUpView: React.FC<ViewProps> = ({ children, style }) => {
   const appear = new Animated.Value(0);
+  const hog = 'hoge';
   useEffect(() => {
-    Animated.timing(appear, {
-      toValue: 1,
-      duration: 500,
-      easing: Easing.out(Easing.quad),
-      useNativeDriver: true,
-    }).start();
+    if (hog === 'hoge') {
+      Animated.timing(appear, {
+        toValue: 1,
+        duration: 500,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true,
+      }).start();
+      console.log('hog', hog);
+    }
   }, []);
 
   return (

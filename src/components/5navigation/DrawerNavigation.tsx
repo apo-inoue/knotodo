@@ -9,6 +9,7 @@ import {
 } from '@react-navigation/drawer';
 import { Accomplishment } from '../4pages';
 import { DrawerIcon } from '../1standalone/DrawerIcon';
+import { CategorySetting } from '../3collection/CategorySetting';
 
 const CustomDrawerContent = (props: any) => {
   return (
@@ -46,6 +47,15 @@ export const DrawerNavigation = () => {
         options={{
           drawerIcon: ({ color }: { color: string }) => (
             <DrawerIcon drawerName="color" color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="カテゴリ設定"
+        component={CategorySetting}
+        options={{
+          drawerIcon: ({ color }: { color: string }) => (
+            <DrawerIcon drawerName="categorySetting" color={color} />
           ),
         }}
       />

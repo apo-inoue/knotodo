@@ -29,9 +29,15 @@ export const NewTodo = () => {
     });
   };
 
-  if (loading) return <ScreenLoader />;
-  if (error) return <ErrorMessage />;
-  if (!data) return <NoDataMessage />;
+  if (loading) {
+    return <ScreenLoader />;
+  }
+  if (error) {
+    return <ErrorMessage />;
+  }
+  if (!data) {
+    return <NoDataMessage />;
+  }
 
   console.log(data, error);
 

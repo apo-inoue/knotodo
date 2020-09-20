@@ -28,9 +28,15 @@ export const ArchiveTodos = () => {
     }, [refetch]),
   );
 
-  if (loading || mutationLoading) return <Loader />;
-  if (error || mutationError) return <ErrorMessage />;
-  if (!data) return <NoDataMessage />;
+  if (loading || mutationLoading) {
+    return <Loader />;
+  }
+  if (error || mutationError) {
+    return <ErrorMessage />;
+  }
+  if (!data) {
+    return <NoDataMessage />;
+  }
 
   console.log(data, 'archive');
   console.log(error, mutationError, 'ArchiveError');

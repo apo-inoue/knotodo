@@ -8,5 +8,6 @@ export { TodoDetails as TodoDetailsCollection } from './TodoDetails';
 export { LogIn as LogInCollection } from './LogIn';
 export { Sort as SortCollection } from './Sort';
 export { Category as CategoryCollection } from './Category';
+export { CategorySetting as CategorySettingCollection } from './CategorySetting';
 export { Color as ColorCollection } from './Color';
 export { Accomplishment as AccomplishmentCollection } from './Accomplishment';

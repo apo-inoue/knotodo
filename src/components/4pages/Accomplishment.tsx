@@ -19,9 +19,15 @@ export const Accomplishment = () => {
     }
   }, [isDrawerOpen]);
 
-  if (loading) return <Loader />;
-  if (error) return <ErrorMessage />;
-  if (!data) return <NoDataMessage />;
+  if (loading) {
+    return <Loader />;
+  }
+  if (error) {
+    return <ErrorMessage />;
+  }
+  if (!data) {
+    return <NoDataMessage />;
+  }
 
   return (
     <Box>

@@ -29,9 +29,15 @@ export const NotTodayTodos = () => {
     }, [refetch]),
   );
 
-  if (loading || mutationLoading) return <ScreenLoader />;
-  if (error || mutationError) return <ErrorMessage />;
-  if (!data) return <NoDataMessage />;
+  if (loading || mutationLoading) {
+    return <ScreenLoader />;
+  }
+  if (error || mutationError) {
+    return <ErrorMessage />;
+  }
+  if (!data) {
+    return <NoDataMessage />;
+  }
 
   console.log(data, 'notToday');
   console.log(error, mutationError, 'notTodayError');

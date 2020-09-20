@@ -65,7 +65,9 @@ export const ColorProvider: FC = ({ children }) => {
     updateColorTypeHandler,
   };
 
-  if (loading) return <Box />;
+  if (loading) {
+    return <Box />;
+  }
 
   return (
     <ColorCtxProvider value={value}>

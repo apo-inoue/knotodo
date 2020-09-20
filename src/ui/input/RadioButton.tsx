@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import { Box } from '../layout/Box';
 import { useTheme } from 'styled-components';
 import { Text } from '../typography/Text';
-import { Spacing } from '../layout/Spacing';
 import { Touchable, TouchableProps } from '../button/Touchable';
 
 type RadioButton = {

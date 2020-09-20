@@ -17,8 +17,8 @@ export const Container = styled.View<Container>`
 
   ${space};
 
-  ${props => props.fill && `flex: 1`};
-  ${props => props.fullWidth && `width: 100%`};
+  ${props => props.fill && 'flex: 1'};
+  ${props => props.fullWidth && 'width: 100%'};
   ${props =>
     props.centerContent &&
     `

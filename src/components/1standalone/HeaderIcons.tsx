@@ -35,7 +35,7 @@ export const HeaderIconsRight = () => {
       />
       <Box mr={3} />
       <MaterialCommunityIcons
-        name="settings"
+        name="filter"
         size={24}
         color={theme.colors.white}
         onPress={() => navigation.navigate('Setting')}

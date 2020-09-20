@@ -4,6 +4,7 @@ export { LogIn } from './LogIn';
 export { NewTodo } from './NewTodo';
 export { EditTodo } from './EditTodo';
 export { Category } from './Category';
+export { CategorySetting } from './CategorySetting';
 export { NotTodayTodos } from './NotTodayTodos';
 export { TodayTodos } from './TodayTodos';
 export { TodoDetails } from './TodoDetails';

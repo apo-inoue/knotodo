@@ -4,4 +4,5 @@ export { TodoTitle, TodoTitleEdit } from './TodoTitle';
 export { Urgency } from './Urgency';
 export { CategoriesPicker } from './CategoriesPicker';
 export { CategoryListItem } from './CategoryListItem';
+export { CategoryAdd } from './CategoryAdd';
 export { Workload, WorkloadEdit } from './Workload';

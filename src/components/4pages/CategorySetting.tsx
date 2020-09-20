@@ -6,9 +6,9 @@ import {
 } from '../../types/graphql';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
 import { ScreenLoader } from '../../ui/utils/Loader';
-import { CategoryCollection } from '../3collection';
+import { CategorySettingCollection } from '../3collection';
 
-export const Category = () => {
+export const CategorySetting = () => {
   const { data, loading, error } = useAllCategoryQuery();
   const [insertCategory] = useInsertCategoryMutation();
   const insertCategoryHandler = () => {
@@ -27,7 +27,7 @@ export const Category = () => {
 
   return (
     <Container>
-      <CategoryCollection
+      <CategorySettingCollection
         categories={data.categories}
         onPress={insertCategoryHandler}
       />
