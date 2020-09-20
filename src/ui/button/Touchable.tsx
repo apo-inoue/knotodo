@@ -1,13 +1,11 @@
 import { TouchableOpacityProps } from 'react-native';
-import styled, { DefaultTheme } from 'styled-components/native';
+import styled from 'styled-components/native';
 import {
   space,
-  color,
   border,
   layout,
   flexbox,
   SpaceProps,
-  ColorProps,
   BorderProps,
   LayoutProps,
   FlexboxProps,

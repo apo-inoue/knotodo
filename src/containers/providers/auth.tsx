@@ -12,7 +12,7 @@ import {
   NONCE_KEY,
 } from '../../../config';
 import * as AuthSession from 'expo-auth-session';
-import { decodedToken } from '../types/auth';
+import { decodedToken as DecodedToken } from '../types/auth';
 
 export const AuthProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -41,11 +41,11 @@ export const AuthProvider: FC = ({ children }) => {
           nonce,
         }),
     })
-      .then((result: any) => {
+      .then((result: AuthSession.AuthSessionResult) => {
         if (result.type === 'success') {
           console.log('result', result);
           decodeToken(result.params.id_token);
-        } else if (result.params && result.params.error) {
+        } else if (result.type === 'error') {
           console.log(
             result.params.error_description ||
               'Something went wrong while logging in.',
@@ -56,13 +56,12 @@ export const AuthProvider: FC = ({ children }) => {
   };
 
   const decodeToken = (token: string) => {
-    const decodedToken: decodedToken = jwtDecoder(token);
+    const decodedToken: DecodedToken = jwtDecoder(token);
     console.log(decodedToken);
     const { nonce, sub, name, exp } = decodedToken;
 
     SecureStore.getItemAsync(NONCE_KEY).then(storedNonce => {
-      if (nonce == storedNonce) {
-        console.log('corresponding nonce!!');
+      if (nonce === storedNonce) {
         SecureStore.setItemAsync(
           ID_TOKEN_KEY,
           JSON.stringify({

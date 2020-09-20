@@ -23,7 +23,6 @@ export const NotTodayTodos: FC<NotTodayTodos> = ({ todos, onPress }) => {
         <FlatList
           data={todos}
           keyExtractor={item => item.id}
-          style={{ width: '100%' }}
           renderItem={({ item, index }) => (
             <TodoListItem
               todo={item}

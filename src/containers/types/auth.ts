@@ -28,6 +28,7 @@ export type decodedToken = {
   email: string;
   email_verified: boolean;
   exp: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   https: any;
   iat: number;
   iss: string;

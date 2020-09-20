@@ -132,19 +132,19 @@ export type Accomplishment_Select_Column =
 export type Categories = {
   __typename: 'categories';
   category: Scalars['String'];
+  /** An object relationship */
+  category_user: Users;
   id: Scalars['uuid'];
   /** An array relationship */
-  todos: Array<Todos>;
+  todo_category: Array<Todos>;
   /** An aggregated array relationship */
-  todos_aggregate: Todos_Aggregate;
-  /** An object relationship */
-  user: Users;
+  todo_category_aggregate: Todos_Aggregate;
   user_id: Scalars['String'];
 };
 
 
 /** columns and relationships of "categories" */
-export type CategoriesTodosArgs = {
+export type CategoriesTodo_CategoryArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -154,7 +154,7 @@ export type CategoriesTodosArgs = {
 
 
 /** columns and relationships of "categories" */
-export type CategoriesTodos_AggregateArgs = {
+export type CategoriesTodo_Category_AggregateArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -174,9 +174,9 @@ export type Categories_Bool_Exp = {
   _not: Maybe<Categories_Bool_Exp>;
   _or: Maybe<Array<Maybe<Categories_Bool_Exp>>>;
   category: Maybe<String_Comparison_Exp>;
+  category_user: Maybe<Users_Bool_Exp>;
   id: Maybe<Uuid_Comparison_Exp>;
-  todos: Maybe<Todos_Bool_Exp>;
-  user: Maybe<Users_Bool_Exp>;
+  todo_category: Maybe<Todos_Bool_Exp>;
   user_id: Maybe<String_Comparison_Exp>;
 };
 
@@ -188,8 +188,10 @@ export type Categories_Constraint =
 /** input type for inserting data into table "categories" */
 export type Categories_Insert_Input = {
   category: Maybe<Scalars['String']>;
-  todos: Maybe<Todos_Arr_Rel_Insert_Input>;
-  user: Maybe<Users_Obj_Rel_Insert_Input>;
+  category_user: Maybe<Users_Obj_Rel_Insert_Input>;
+  id: Maybe<Scalars['uuid']>;
+  todo_category: Maybe<Todos_Arr_Rel_Insert_Input>;
+  user_id: Maybe<Scalars['String']>;
 };
 
 /** response of any mutation on the table "categories" */
@@ -217,9 +219,9 @@ export type Categories_On_Conflict = {
 /** ordering options when selecting data from "categories" */
 export type Categories_Order_By = {
   category: Maybe<Order_By>;
+  category_user: Maybe<Users_Order_By>;
   id: Maybe<Order_By>;
-  todos_aggregate: Maybe<Todos_Aggregate_Order_By>;
-  user: Maybe<Users_Order_By>;
+  todo_category_aggregate: Maybe<Todos_Aggregate_Order_By>;
   user_id: Maybe<Order_By>;
 };
 
@@ -240,12 +242,18 @@ export type Categories_Select_Column =
 /** input type for updating data in table "categories" */
 export type Categories_Set_Input = {
   category: Maybe<Scalars['String']>;
+  id: Maybe<Scalars['uuid']>;
+  user_id: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "categories" */
 export type Categories_Update_Column = 
   /** column name */
-  | 'category';
+  | 'category'
+  /** column name */
+  | 'id'
+  /** column name */
+  | 'user_id';
 
 /** columns and relationships of "colorTypes" */
 export type ColorTypes = {
@@ -1195,15 +1203,15 @@ export type Urgency = {
   __typename: 'urgency';
   id: Maybe<Scalars['String']>;
   /** An array relationship */
-  todos: Array<Todos>;
+  todo_urgency: Array<Todos>;
   /** An aggregated array relationship */
-  todos_aggregate: Todos_Aggregate;
+  todo_urgency_aggregate: Todos_Aggregate;
   urgency_type: Scalars['String'];
 };
 
 
 /** columns and relationships of "urgency" */
-export type UrgencyTodosArgs = {
+export type UrgencyTodo_UrgencyArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -1213,7 +1221,7 @@ export type UrgencyTodosArgs = {
 
 
 /** columns and relationships of "urgency" */
-export type UrgencyTodos_AggregateArgs = {
+export type UrgencyTodo_Urgency_AggregateArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -1227,7 +1235,7 @@ export type Urgency_Bool_Exp = {
   _not: Maybe<Urgency_Bool_Exp>;
   _or: Maybe<Array<Maybe<Urgency_Bool_Exp>>>;
   id: Maybe<String_Comparison_Exp>;
-  todos: Maybe<Todos_Bool_Exp>;
+  todo_urgency: Maybe<Todos_Bool_Exp>;
   urgency_type: Maybe<String_Comparison_Exp>;
 };
 
@@ -1274,7 +1282,7 @@ export type Urgency_On_Conflict = {
 /** ordering options when selecting data from "urgency" */
 export type Urgency_Order_By = {
   id: Maybe<Order_By>;
-  todos_aggregate: Maybe<Todos_Aggregate_Order_By>;
+  todo_urgency_aggregate: Maybe<Todos_Aggregate_Order_By>;
   urgency_type: Maybe<Order_By>;
 };
 
@@ -1306,45 +1314,45 @@ export type Urgency_Update_Column =
 /** columns and relationships of "users" */
 export type Users = {
   __typename: 'users';
-  /** An array relationship */
-  categories: Array<Categories>;
   color_type: ColorTypes_Enum;
   id: Scalars['String'];
   nickname: Scalars['String'];
   /** An array relationship */
-  tousers: Array<Todos>;
+  todo_user: Array<Todos>;
   /** An aggregated array relationship */
-  tousers_aggregate: Todos_Aggregate;
+  todo_user_aggregate: Todos_Aggregate;
+  /** An array relationship */
+  user_category: Array<Categories>;
 };
 
 
 /** columns and relationships of "users" */
-export type UsersCategoriesArgs = {
+export type UsersTodo_UserArgs = {
+  distinct_on: Maybe<Array<Todos_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Todos_Order_By>>;
+  where: Maybe<Todos_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersTodo_User_AggregateArgs = {
+  distinct_on: Maybe<Array<Todos_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Todos_Order_By>>;
+  where: Maybe<Todos_Bool_Exp>;
+};
+
+
+/** columns and relationships of "users" */
+export type UsersUser_CategoryArgs = {
   distinct_on: Maybe<Array<Categories_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
   order_by: Maybe<Array<Categories_Order_By>>;
   where: Maybe<Categories_Bool_Exp>;
-};
-
-
-/** columns and relationships of "users" */
-export type UsersTousersArgs = {
-  distinct_on: Maybe<Array<Todos_Select_Column>>;
-  limit: Maybe<Scalars['Int']>;
-  offset: Maybe<Scalars['Int']>;
-  order_by: Maybe<Array<Todos_Order_By>>;
-  where: Maybe<Todos_Bool_Exp>;
-};
-
-
-/** columns and relationships of "users" */
-export type UsersTousers_AggregateArgs = {
-  distinct_on: Maybe<Array<Todos_Select_Column>>;
-  limit: Maybe<Scalars['Int']>;
-  offset: Maybe<Scalars['Int']>;
-  order_by: Maybe<Array<Todos_Order_By>>;
-  where: Maybe<Todos_Bool_Exp>;
 };
 
 /** input type for inserting array relation for remote table "users" */
@@ -1358,11 +1366,11 @@ export type Users_Bool_Exp = {
   _and: Maybe<Array<Maybe<Users_Bool_Exp>>>;
   _not: Maybe<Users_Bool_Exp>;
   _or: Maybe<Array<Maybe<Users_Bool_Exp>>>;
-  categories: Maybe<Categories_Bool_Exp>;
   color_type: Maybe<ColorTypes_Enum_Comparison_Exp>;
   id: Maybe<String_Comparison_Exp>;
   nickname: Maybe<String_Comparison_Exp>;
-  tousers: Maybe<Todos_Bool_Exp>;
+  todo_user: Maybe<Todos_Bool_Exp>;
+  user_category: Maybe<Categories_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "users" */
@@ -1372,11 +1380,11 @@ export type Users_Constraint =
 
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
-  categories: Maybe<Categories_Arr_Rel_Insert_Input>;
   color_type: Maybe<ColorTypes_Enum>;
   id: Maybe<Scalars['String']>;
   nickname: Maybe<Scalars['String']>;
-  tousers: Maybe<Todos_Arr_Rel_Insert_Input>;
+  todo_user: Maybe<Todos_Arr_Rel_Insert_Input>;
+  user_category: Maybe<Categories_Arr_Rel_Insert_Input>;
 };
 
 /** response of any mutation on the table "users" */
@@ -1406,7 +1414,7 @@ export type Users_Order_By = {
   color_type: Maybe<Order_By>;
   id: Maybe<Order_By>;
   nickname: Maybe<Order_By>;
-  tousers_aggregate: Maybe<Todos_Aggregate_Order_By>;
+  todo_user_aggregate: Maybe<Todos_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "users" */
@@ -1537,6 +1545,10 @@ export type UpdateColorTypeMutation = (
   & { update_users: Maybe<(
     { __typename: 'users_mutation_response' }
     & Pick<Users_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename: 'users' }
+      & Pick<Users, 'id' | 'color_type'>
+    )> }
   )> }
 );
 
@@ -1644,6 +1656,7 @@ export type InsertCategoryMutationOptions = Apollo.BaseMutationOptions<InsertCat
 export const InsertToDoDocument = gql`
     mutation InsertToDo($isCompleted: Boolean = false, $title: String = "", $urgency: urgency_enum = month, $isToday: Boolean = true, $workload: Int = 1) {
   insert_todos_one(object: {isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency, workload: $workload}) {
+    __typename
     id
   }
 }
@@ -1782,6 +1795,10 @@ export const UpdateColorTypeDocument = gql`
     mutation UpdateColorType($color_type: colorTypes_enum, $_eq: String) {
   update_users(_set: {color_type: $color_type}, where: {id: {_eq: $_eq}}) {
     affected_rows
+    returning {
+      id
+      color_type
+    }
   }
 }
     `;

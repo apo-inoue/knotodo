@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../4pages';
 import { useTheme } from 'styled-components';
 import { TabIcon } from '../1standalone';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-export const TabNavigation = () => {
+export const TabNavigation: FC = () => {
   const theme = useTheme();
   const Tab = createMaterialBottomTabNavigator();
 

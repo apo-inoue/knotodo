@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { FC } from 'react';
 import { Container } from '../../ui';
 import { EditTodoCollection } from '../3collection';
 import { ScreenLoader } from '../../ui/utils/Loader';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
-import { Urgency_Enum, InsertToDoMutationVariables } from '../../types/graphql';
+import { InsertToDoMutationVariables } from '../../types/graphql';
 import {
   useAllCategoryQuery,
   useInsertToDoMutation,
 } from '../../types/graphql';
 
-export const EditTodo = () => {
+export const EditTodo: FC = () => {
   const { data, loading, error } = useAllCategoryQuery();
   const [insertTodo] = useInsertToDoMutation();
   const insertTodoHandler = ({

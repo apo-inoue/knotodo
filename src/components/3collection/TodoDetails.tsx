@@ -10,7 +10,7 @@ type TodoDetailsProps = {
 };
 
 export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {
-  const { id, title, workload, category } = todo;
+  const { id, title, workload } = todo;
   const navigation = useNavigation();
 
   return (

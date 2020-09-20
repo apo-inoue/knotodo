@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Picker } from 'react-native';
+import { Picker } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { ReactText } from 'react';
 
@@ -18,8 +18,8 @@ export const CategoriesPicker: FC<CategoriesProps> = ({ categories }) => {
 
   return (
     <Picker
-      style={{ width: 200, height: 100 }}
-      itemStyle={{ fontSize: 16, flex: 1 }}
+      width={200}
+      height={100}
       selectedValue={selectedValue}
       mode="dropdown"
       onValueChange={valueChangeHandler}>

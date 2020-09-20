@@ -23,3 +23,6 @@ export { OutlinedTextForm, UnderlinedTextForm } from './input/TextForm';
 export { RadioButton } from './input/RadioButton';
 export { Loader, ScreenLoader } from './utils/Loader';
 export { Divider } from './utils/Divider';
+export { FlatList } from './utils/FlatList';
+export { Picker } from './utils/Picker';
+export { SlideUpView } from './animation/SlideUpView';

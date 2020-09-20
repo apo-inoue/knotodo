@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Container } from '../../ui';
 import { SortCollection } from '../3collection';
-import { useSortCtx } from '../../containers/contexts/sort';
 
-export const Sort = () => {
+export const Sort: FC = () => {
   return (
     <Container>
       <SortCollection />

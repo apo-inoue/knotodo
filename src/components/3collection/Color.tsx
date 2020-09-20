@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { PrimaryButton, Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
@@ -23,7 +23,7 @@ export const Color: FC = () => {
           <Box mt={3} key={id} flexDirection="row" alignItems="center">
             <RadioButton
               radioColor={hex.main}
-              onPress={() => colorSelectHandler(color)}
+              onPress={() => colorSelectHandler(colorConstant.color)}
               checked={colorConstant.color === color}
               text=""
             />

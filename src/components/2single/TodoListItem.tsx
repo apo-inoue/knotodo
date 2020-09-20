@@ -3,6 +3,7 @@ import { useWindowDimensions } from 'react-native';
 import { Todos } from '../../types/graphql';
 import { Touchable, PrimaryButton, Box, Text, Divider } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
+import { SlideUpView } from '../../ui/animation/SlideUpView';
 
 type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<

@@ -29,7 +29,7 @@ export const Workload: FC<WorkloadProps> = ({ workload }) => {
   );
 };
 
-export const WorkloadEdit = () => {
+export const WorkloadEdit: FC = () => {
   const {
     state: { workload },
     workloadInputHandler,

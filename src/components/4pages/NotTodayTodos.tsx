@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import {
   useNotTodayTodosQuery,
@@ -11,7 +11,7 @@ import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { ScreenLoader } from '../../ui/utils/Loader';
 import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
 
-export const NotTodayTodos = () => {
+export const NotTodayTodos: FC = () => {
   const { loading, error, data, refetch } = useNotTodayTodosQuery();
   const [
     setToday,

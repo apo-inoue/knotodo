@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TodoDetails, Category, NewTodo, Sort, EditTodo } from '../4pages';
 import { useTheme } from 'styled-components';
@@ -6,7 +6,7 @@ import { HeaderIconLeft, HeaderIconsRight, Logo } from '../1standalone';
 import { DrawerNavigation } from './DrawerNavigation';
 import { Box, Text } from '../../ui';
 
-export const StackNavigation = () => {
+export const StackNavigation: FC = () => {
   const Stack = createStackNavigator();
   const theme = useTheme();
 

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Divider, PrimaryButton } from '../../ui';
-import { TodoTitle, CategoriesPicker, Urgency, WorkloadEdit } from '../2single';
+import { PrimaryButton } from '../../ui';
+import { CategoriesPicker, Urgency, WorkloadEdit } from '../2single';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
 import { Box } from '../../ui/layout/Box';

@@ -1,11 +1,8 @@
-import React from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTheme } from 'styled-components';
-import { Box } from '../../ui/layout/Box';
+import React, { FC } from 'react';
 import { UnderlinedTextForm } from '../../ui/input/TextForm';
 import { useCategoryCtx } from '../../containers/contexts/category';
 
-export const CategoryAdd = () => {
+export const CategoryAdd: FC = () => {
   const {
     state: { category },
     categoryInputHandler,

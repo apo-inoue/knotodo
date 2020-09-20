@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Container } from '../../ui';
 import {
   useAllCategoryQuery,
@@ -8,7 +8,7 @@ import { NoDataMessage, ErrorMessage } from '../1standalone';
 import { ScreenLoader } from '../../ui/utils/Loader';
 import { CategoryCollection } from '../3collection';
 
-export const Category = () => {
+export const Category: FC = () => {
   const { data, loading, error } = useAllCategoryQuery();
   const [insertCategory] = useInsertCategoryMutation();
   const insertCategoryHandler = () => {

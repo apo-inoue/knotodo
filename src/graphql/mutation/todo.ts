@@ -17,6 +17,7 @@ export const INSERT_TODO = gql`
         workload: $workload
       }
     ) {
+      __typename
       id
     }
   }

@@ -22,8 +22,8 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({ todos, onPress }) => {
       <Box mt={2} width="100%">
         <FlatList
           data={todos}
-          keyExtractor={item => item.id}
           style={{ width: '100%' }}
+          keyExtractor={item => item.id}
           renderItem={({ item, index }) => (
             <TodoListItem
               todo={item}

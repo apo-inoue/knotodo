@@ -1,10 +1,14 @@
 import React, { FC } from 'react';
-import { FlatList } from 'react-native';
 import { Todos } from '../../types/graphql';
 import { TodoListItem } from '../2single';
 import { AddFab } from '../1standalone/AddFab';
 import { useNavigation } from '@react-navigation/native';
-import { Box } from '../../ui';
+import { Box, FlatList } from '../../ui';
+
+type TodoType = { __typename: 'todos' } & Pick<
+  Todos,
+  'title' | 'id' | 'isToday' | 'isCompleted'
+>;
 
 type TodayTodos = {
   todos: ({ __typename: 'todos' } & Pick<
@@ -20,11 +24,10 @@ export const TodayTodos: FC<TodayTodos> = ({ todos, onPress }) => {
   return (
     <>
       <Box mt={2} width="100%">
-        <FlatList
+        <FlatList<TodoType>
           data={todos}
-          keyExtractor={item => item.id}
-          style={{ width: '100%' }}
-          renderItem={({ item, index }) => (
+          keyExtractor={(item: TodoType) => item.id}
+          renderItem={({ item, index }: { item: TodoType; index: number }) => (
             <TodoListItem
               todo={item}
               index={index}

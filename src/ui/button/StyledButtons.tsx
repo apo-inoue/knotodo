@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 import { TouchableProps, Touchable } from './Touchable';
 import { Text } from '../typography/Text';
 
-export const PrimaryButton = (
-  props: TouchableProps & { text: string; stretch?: boolean },
-) => {
+export const PrimaryButton: FC<
+  TouchableProps & { text: string; stretch?: boolean }
+> = props => {
   const theme = useTheme();
 
   return (
     <Touchable {...props} color="primary">
       <Text
         textAlign="center"
-        style={{ width: props.stretch ? '100%' : 'auto' }}
+        stretch={props.stretch}
         color={
           props.variant === 'outlined' ? theme.colors.main : theme.colors.white
         }
@@ -27,7 +27,7 @@ export const PrimaryButton = (
   );
 };
 
-export const DangerButton = (props: TouchableProps & { text: string }) => {
+export const DangerButton: FC<TouchableProps & { text: string }> = props => {
   const theme = useTheme();
 
   return (
@@ -44,7 +44,7 @@ export const DangerButton = (props: TouchableProps & { text: string }) => {
   );
 };
 
-export const DisabledButton = (props: TouchableProps & { text: string }) => {
+export const DisabledButton: FC<TouchableProps & { text: string }> = props => {
   const theme = useTheme();
 
   return (

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Image } from '../../ui';
 
-export const Logo = () => {
+export const Logo: FC = () => {
   return (
     <Image
       height={24}

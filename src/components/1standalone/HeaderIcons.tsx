@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { DrawerActions } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
 
-export const HeaderIconLeft = () => {
+export const HeaderIconLeft: FC = () => {
   const navigation = useNavigation();
   const theme = useTheme();
 
@@ -21,7 +21,7 @@ export const HeaderIconLeft = () => {
   );
 };
 
-export const HeaderIconsRight = () => {
+export const HeaderIconsRight: FC = () => {
   const navigation = useNavigation();
   const theme = useTheme();
 

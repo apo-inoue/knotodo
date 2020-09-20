@@ -5,7 +5,6 @@ import { Touchable } from '../../ui/button/Touchable';
 import { Box } from '../../ui/layout/Box';
 import { Divider } from '../../ui/utils/Divider';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTheme } from 'styled-components';
 
 type CategoryListItemProps = {
   category: { __typename: 'categories' } & Pick<Categories, 'category' | 'id'>;

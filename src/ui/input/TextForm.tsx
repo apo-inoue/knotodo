@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TextInput, CustomTextInputProps } from './TextInput';
+import { CustomTextInputProps } from './TextInput';
 import { Text } from '../typography/Text';
 import { useTheme } from 'styled-components';
 import { OutlinedTextInput, UnderlinedTextInput } from './OutlinedTextInput';

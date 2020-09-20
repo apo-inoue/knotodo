@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Container } from '../../ui/layout/Container';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { TodoDetailsCollection } from '../3collection';
-import { PrimaryButton } from '../../ui/button/StyledButtons';
 import { ErrorMessage } from '../1standalone';
 import { Todos } from '../../types/graphql';
-import { Box } from '../../ui/layout/Box';
 
-export const TodoDetails = () => {
+export const TodoDetails: FC = () => {
   const route = useRoute();
   const todo = (route.params as Todos) ?? undefined;
 

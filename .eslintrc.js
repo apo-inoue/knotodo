@@ -18,11 +18,14 @@ module.exports = {
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    '@typescript-eslint/no-non-null-assertion': 0,
   },
   env: {
     node: true,
     browser: true,
     es6: true,
   },
-  parser: 'babel-eslint',
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+  },
 };

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 import { Color } from '../3collection/Color';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerContentComponentProps,
+  DrawerContentOptions,
+} from '@react-navigation/drawer';
 import { TabNavigation } from './TabNavigation';
 import {
   DrawerContentScrollView,
@@ -11,7 +15,9 @@ import { Accomplishment } from '../4pages';
 import { DrawerIcon } from '../1standalone/DrawerIcon';
 import { CategorySetting } from '../3collection/CategorySetting';
 
-const CustomDrawerContent = (props: any) => {
+const CustomDrawerContent: FC<DrawerContentComponentProps<
+  DrawerContentOptions
+>> = props => {
   return (
     <DrawerContentScrollView {...props}>
       <Accomplishment />
@@ -20,14 +26,16 @@ const CustomDrawerContent = (props: any) => {
   );
 };
 
-export const DrawerNavigation = () => {
+export const DrawerNavigation: FC = () => {
   const theme = useTheme();
   const Drawer = createDrawerNavigator();
 
   return (
     <Drawer.Navigator
       initialRouteName="Home"
-      drawerContent={props => <CustomDrawerContent {...props} />}
+      drawerContent={(
+        props: DrawerContentComponentProps<DrawerContentOptions>,
+      ) => <CustomDrawerContent {...props} />}
       drawerContentOptions={{
         activeTintColor: theme.colors.main,
         inactiveTintColor: theme.colors.blacks[4],

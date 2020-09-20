@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigation } from './StackNavigation';
 import { useTheme } from 'styled-components';
@@ -6,7 +6,7 @@ import { Box } from '../../ui/layout/Box';
 import { StatusBar } from 'react-native';
 import Constants from 'expo-constants';
 
-export const Navigation = () => {
+export const Navigation: FC = () => {
   const theme = useTheme();
 
   return (
