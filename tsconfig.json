@@ -1,16 +1,21 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "strictNullChecks": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
     "lib": ["dom", "esnext"],
     "moduleResolution": "node",
+    "noImplicitAny": true,
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
     "baseUrl": "src",
     "esModuleInterop": true,
-    "types": ["@graphql-typed-document-node/apollo-client-3"]
-  }
+    "types": ["@graphql-typed-document-node/apollo-client-3"],
+    "target": "ESNext"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "babel.config.js", "jest.config.js", "dist"]
 }

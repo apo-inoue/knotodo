@@ -3,12 +3,16 @@ import { useTheme } from 'styled-components';
 import { TouchableProps, Touchable } from './Touchable';
 import { Text } from '../typography/Text';
 
-export const PrimaryButton = (props: TouchableProps & { text: string }) => {
+export const PrimaryButton = (
+  props: TouchableProps & { text: string; stretch?: boolean },
+) => {
   const theme = useTheme();
 
   return (
     <Touchable {...props} color="primary">
       <Text
+        textAlign="center"
+        style={{ width: props.stretch ? '100%' : 'auto' }}
         color={
           props.variant === 'outlined' ? theme.colors.main : theme.colors.white
         }

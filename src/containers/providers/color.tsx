@@ -1,12 +1,12 @@
-import React, { FC, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ColorCtxProvider } from '../contexts/color';
-import { ColorTypes_Enum, useGetColorTypeQuery } from '../../types/graphql';
+import { useGetColorTypeQuery } from '../../types/graphql';
 import { ThemeProvider } from 'styled-components/native';
 import { baseTheme } from '../../theme/theme';
 import { useUpdateColorTypeMutation } from '../../types/graphql';
 import { GET_COLOR_TYPE } from '../../graphql/query/users';
 import { Box } from '../../ui/layout/Box';
-import { colorConstants } from '../constants/color';
+import { colorConstants } from '../../theme/color';
 import { useAuthContext } from '../contexts/auth';
 
 export const ColorProvider: FC = ({ children }) => {
@@ -39,8 +39,8 @@ export const ColorProvider: FC = ({ children }) => {
   };
 
   const [color, setColor] = useState<ColorTypes_Enum>('BRAND');
-  const colorSelectHandler = useCallback((color: ColorTypes_Enum) => {
-    setColor(color);
+  const colorSelectHandler = useCallback((newColor: ColorTypes_Enum) => {
+    setColor(newColor);
   }, []);
 
   const [
@@ -51,7 +51,6 @@ export const ColorProvider: FC = ({ children }) => {
   });
   console.log(error, loading, mData, color);
   const updateColorTypeHandler = () => {
-    updateColorType;
     return updateColorType({
       variables: {
         color_type: color,

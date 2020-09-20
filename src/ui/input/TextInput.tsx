@@ -25,7 +25,7 @@ export const TextInput = styled.TextInput<CustomTextInputProps>`
   ${props =>
     props.variant === 'underlined' &&
     css`
-      border-bottoms-width: 1px;
+      border-bottom-width: 1px;
     `};
 
   ${border};

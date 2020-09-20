@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
-import { CustomIcon } from '../1standalone';
 import { Color } from '../3collection/Color';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { TabNavigation } from './TabNavigation';
@@ -9,6 +8,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import { Accomplishment } from '../4pages';
+import { DrawerIcon } from '../1standalone/DrawerIcon';
 
 const CustomDrawerContent = (props: any) => {
   return (
@@ -32,20 +32,20 @@ export const DrawerNavigation = () => {
         inactiveTintColor: theme.colors.blacks[4],
       }}>
       <Drawer.Screen
-        name="Home"
+        name="ホーム"
         component={TabNavigation}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <CustomIcon name="home" color={color} />
+            <DrawerIcon drawerName="home" color={color} />
           ),
         }}
       />
       <Drawer.Screen
-        name="Color"
+        name="カラー設定"
         component={Color}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <CustomIcon name="invert-colors" color={color} />
+            <DrawerIcon drawerName="color" color={color} />
           ),
         }}
       />

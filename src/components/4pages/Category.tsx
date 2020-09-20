@@ -1,11 +1,14 @@
 import React from 'react';
 import { Container } from '../../ui';
-import { useAllCategoryQuery, useInsertCategoryMutation } from '../../types/graphql';
+import {
+  useAllCategoryQuery,
+  useInsertCategoryMutation,
+} from '../../types/graphql';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
 import { ScreenLoader } from '../../ui/utils/Loader';
-import { SettingCollection } from '../3collection';
+import { CategoryCollection } from '../3collection';
 
-export const Setting = () => {
+export const Category = () => {
   const { data, loading, error } = useAllCategoryQuery();
   const [insertCategory] = useInsertCategoryMutation();
   const insertCategoryHandler = () => {
@@ -18,7 +21,10 @@ export const Setting = () => {
 
   return (
     <Container>
-      <SettingCollection categories={data.categories} onPress={insertCategoryHandler} />
+      <CategoryCollection
+        categories={data.categories}
+        onPress={insertCategoryHandler}
+      />
     </Container>
   );
 };

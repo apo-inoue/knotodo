@@ -8,7 +8,6 @@ import { Todos } from '../../types/graphql';
 import { Box } from '../../ui/layout/Box';
 
 export const TodoDetails = () => {
-  const navigation = useNavigation();
   const route = useRoute();
   const todo = (route.params as Todos) ?? undefined;
 
@@ -17,13 +16,6 @@ export const TodoDetails = () => {
   return (
     <Container centerContent>
       <TodoDetailsCollection todo={todo} />
-      <Box mt={4}>
-        <PrimaryButton
-          variant="outlined"
-          onPress={navigation.goBack}
-          text="GoHome"
-        />
-      </Box>
     </Container>
   );
 };

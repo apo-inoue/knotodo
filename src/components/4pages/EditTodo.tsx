@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container } from '../../ui';
-import { NewTodoCollection } from '../3collection';
+import { EditTodoCollection } from '../3collection';
 import { ScreenLoader } from '../../ui/utils/Loader';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
@@ -10,7 +10,7 @@ import {
   useInsertToDoMutation,
 } from '../../types/graphql';
 
-export const NewTodo = () => {
+export const EditTodo = () => {
   const { data, loading, error } = useAllCategoryQuery();
   const [insertTodo] = useInsertToDoMutation();
   const insertTodoHandler = ({
@@ -33,11 +33,9 @@ export const NewTodo = () => {
   if (error) return <ErrorMessage />;
   if (!data) return <NoDataMessage />;
 
-  console.log(data, error);
-
   return (
     <Container centerContent>
-      <NewTodoCollection
+      <EditTodoCollection
         onPress={insertTodoHandler}
         categories={data.categories}
       />

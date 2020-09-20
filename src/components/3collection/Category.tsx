@@ -4,7 +4,7 @@ import { PrimaryButton } from '../../ui';
 import { CategoryListItem } from '../2single';
 import { Categories } from '../../types/graphql';
 
-type SettingProps = {
+type CategoryProps = {
   categories: ({ __typename: 'categories' } & Pick<
     Categories,
     'category' | 'id'
@@ -12,7 +12,7 @@ type SettingProps = {
   onPress: () => void;
 };
 
-export const Setting: FC<SettingProps> = ({ categories, onPress }) => {
+export const Category: FC<CategoryProps> = ({ categories, onPress }) => {
   return (
     <>
       <FlatList

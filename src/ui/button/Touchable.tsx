@@ -34,6 +34,8 @@ export const Touchable = styled.TouchableOpacity<TouchableProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  align-self: center;
 
   ${props =>
     props.color === 'primary' &&
@@ -57,9 +59,9 @@ export const Touchable = styled.TouchableOpacity<TouchableProps>`
     }};
 
   ${props =>
-    props.size &&
-    props.size === 'large' && {
-      padding: '12px 16px',
+    props.btnSize &&
+    props.btnSize === 'lg' && {
+      padding: '10px 20px',
     }};
 
   ${layout}

@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
-import { PrimaryButton, Divider, Box } from '../../ui';
+import React from 'react';
+import { PrimaryButton, Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import { RadioButton } from '../../ui/input/RadioButton';
 import { useColorCtx } from '../../containers/contexts/color';
-import { colorConstants } from '../../containers/constants/color';
+import { colorConstants } from '../../theme/color';
 
 export const Color: FC = () => {
   const navigation = useNavigation();
@@ -17,13 +17,14 @@ export const Color: FC = () => {
   return (
     <>
       {colorConstants.map(colorConstant => {
-        const { id, hex, color } = colorConstant;
+        const { id, hex } = colorConstant;
+
         return (
           <Box mt={3} key={id} flexDirection="row" alignItems="center">
             <RadioButton
               radioColor={hex.main}
               onPress={() => colorSelectHandler(color)}
-              checked={color === color}
+              checked={colorConstant.color === color}
               text=""
             />
             <ColorTip color={hex.main} />

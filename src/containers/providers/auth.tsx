@@ -24,6 +24,7 @@ export const AuthProvider: FC = ({ children }) => {
     const nonce = String.fromCharCode.apply(null, randomNumArray);
     console.log(nonce, 'nonce');
     await SecureStore.setItemAsync(NONCE_KEY, nonce);
+
     return nonce;
   };
 
@@ -74,6 +75,7 @@ export const AuthProvider: FC = ({ children }) => {
         // ).then(() => handleSession(decodedToken[AUTH_NAMESPACE].isNewUser));
       } else {
         console.log('error');
+
         return;
       }
     });

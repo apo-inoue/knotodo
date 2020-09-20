@@ -9,6 +9,7 @@ type Text = { span?: boolean } & TypographyProps &
   Readonly<{ children?: ReactNode }>;
 
 export const Text = styled.Text<Text>`
+  font-family: 'NotoSansJP_400Regular';
   ${props =>
     props.span && {
       fontSize: props.theme.fontSizes[2],

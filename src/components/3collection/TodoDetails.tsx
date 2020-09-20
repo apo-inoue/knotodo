@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { Box, Divider, Text, Touchable } from '../../ui';
 import { Todos } from '../../types/graphql';
-import { Workload, Urgency } from '../2single';
+import { Workload, Urgency, TodoTitle } from '../2single';
+import { PrimaryButton } from '../../ui/button/StyledButtons';
+import { useNavigation } from '@react-navigation/native';
 
 type TodoDetailsProps = {
   todo: Todos;
@@ -9,10 +11,11 @@ type TodoDetailsProps = {
 
 export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {
   const { id, title, workload, category } = todo;
+  const navigation = useNavigation();
 
   return (
     <>
-      <Text>{title}</Text>
+      <TodoTitle title={title} />
       <Divider />
       <Workload workload={workload} />
       <Touchable variant="outlined" onPress={() => console.log(todo.id)}>
@@ -20,6 +23,23 @@ export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {
       </Touchable>
       <Box mt={4}>
         <Urgency />
+      </Box>
+      <Box mt={4} flexDirection="row">
+        <PrimaryButton
+          variant="outlined"
+          width="30%"
+          stretch
+          onPress={navigation.goBack}
+          text="戻る"
+        />
+        <Box mr={3} />
+        <PrimaryButton
+          variant="contained"
+          width="30%"
+          stretch
+          onPress={() => navigation.navigate('EditTodo')}
+          text="編集"
+        />
       </Box>
     </>
   );

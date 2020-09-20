@@ -15,8 +15,11 @@ export {
 export { Image } from './image/Image';
 export { ImageBackground } from './image/ImageBackground';
 export { TextInput } from './input/TextInput';
-export { OutlinedTextInput } from './input/OutlinedTextInput';
-export { TextForm } from './input/TextForm';
+export {
+  OutlinedTextInput,
+  UnderlinedTextInput,
+} from './input/OutlinedTextInput';
+export { OutlinedTextForm, UnderlinedTextForm } from './input/TextForm';
 export { RadioButton } from './input/RadioButton';
 export { Loader, ScreenLoader } from './utils/Loader';
 export { Divider } from './utils/Divider';
