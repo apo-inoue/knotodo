@@ -30,6 +30,7 @@
     "@storybook/react-native": "^5.3.19",
     "@types/jwt-decode": "^2.2.1",
     "@types/react-native-auth0": "^2.5.1",
+    "date-fns": "^2.16.1",
     "expo": "~38.0.8",
     "expo-auth-session": "~1.4.0",
     "expo-constants": "~9.1.1",

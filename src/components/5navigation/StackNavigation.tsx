@@ -6,7 +6,7 @@ import { HeaderIconLeft, HeaderIconsRight } from '../1standalone';
 import { DrawerNavigation } from './DrawerNavigation';
 import { Text } from '../../ui';
 import { RouteProp } from '@react-navigation/native';
-import { HeaderTitle } from '../1standalone/HeaderTitle';
+import { HeaderTitle } from '../1standalone';
 
 export const StackNavigation: FC = () => {
   const Stack = createStackNavigator();

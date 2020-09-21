@@ -4,7 +4,7 @@ import { CategoriesPicker, Urgency, WorkloadEdit } from '../2single';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
 import { Box } from '../../ui/layout/Box';
-import { TodoTitleEdit } from '../2single/TodoTitle';
+import { TodoTitleEdit } from '../2single';
 
 type NewTodoProps = {
   categories: ({ __typename: 'categories' } & Pick<

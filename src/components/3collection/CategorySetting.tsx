@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
-import { FlatList } from 'react-native';
 import { PrimaryButton, SlideUpView } from '../../ui';
-import { CategoryListItem } from '../2single';
 import { Categories } from '../../types/graphql';
-import { CategoryAdd } from '../2single/CategoryAdd';
+import { CategoryAdd } from '../2single';
 import { FadeInView } from '../../ui/animation/FadeInView';
 
 type CategorySettingProps = {

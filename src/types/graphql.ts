@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  timestamptz: any;
   uuid: any;
 };
 
@@ -132,19 +133,19 @@ export type Accomplishment_Select_Column =
 export type Categories = {
   __typename: 'categories';
   category: Scalars['String'];
-  /** An object relationship */
-  category_user: Users;
-  id: Scalars['uuid'];
   /** An array relationship */
-  todo_category: Array<Todos>;
+  category_by_todo: Array<Todos>;
   /** An aggregated array relationship */
-  todo_category_aggregate: Todos_Aggregate;
+  category_by_todo_aggregate: Todos_Aggregate;
+  id: Scalars['uuid'];
+  /** An object relationship */
+  user_by_id: Users;
   user_id: Scalars['String'];
 };
 
 
 /** columns and relationships of "categories" */
-export type CategoriesTodo_CategoryArgs = {
+export type CategoriesCategory_By_TodoArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -154,7 +155,7 @@ export type CategoriesTodo_CategoryArgs = {
 
 
 /** columns and relationships of "categories" */
-export type CategoriesTodo_Category_AggregateArgs = {
+export type CategoriesCategory_By_Todo_AggregateArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -174,9 +175,9 @@ export type Categories_Bool_Exp = {
   _not: Maybe<Categories_Bool_Exp>;
   _or: Maybe<Array<Maybe<Categories_Bool_Exp>>>;
   category: Maybe<String_Comparison_Exp>;
-  category_user: Maybe<Users_Bool_Exp>;
+  category_by_todo: Maybe<Todos_Bool_Exp>;
   id: Maybe<Uuid_Comparison_Exp>;
-  todo_category: Maybe<Todos_Bool_Exp>;
+  user_by_id: Maybe<Users_Bool_Exp>;
   user_id: Maybe<String_Comparison_Exp>;
 };
 
@@ -188,9 +189,9 @@ export type Categories_Constraint =
 /** input type for inserting data into table "categories" */
 export type Categories_Insert_Input = {
   category: Maybe<Scalars['String']>;
-  category_user: Maybe<Users_Obj_Rel_Insert_Input>;
+  category_by_todo: Maybe<Todos_Arr_Rel_Insert_Input>;
   id: Maybe<Scalars['uuid']>;
-  todo_category: Maybe<Todos_Arr_Rel_Insert_Input>;
+  user_by_id: Maybe<Users_Obj_Rel_Insert_Input>;
   user_id: Maybe<Scalars['String']>;
 };
 
@@ -219,9 +220,9 @@ export type Categories_On_Conflict = {
 /** ordering options when selecting data from "categories" */
 export type Categories_Order_By = {
   category: Maybe<Order_By>;
-  category_user: Maybe<Users_Order_By>;
+  category_by_todo_aggregate: Maybe<Todos_Aggregate_Order_By>;
   id: Maybe<Order_By>;
-  todo_category_aggregate: Maybe<Todos_Aggregate_Order_By>;
+  user_by_id: Maybe<Users_Order_By>;
   user_id: Maybe<Order_By>;
 };
 
@@ -259,7 +260,19 @@ export type Categories_Update_Column =
 export type ColorTypes = {
   __typename: 'colorTypes';
   color_type: Scalars['String'];
+  /** An array relationship */
+  color_type_enum: Array<Users>;
   id: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "colorTypes" */
+export type ColorTypesColor_Type_EnumArgs = {
+  distinct_on: Maybe<Array<Users_Select_Column>>;
+  limit: Maybe<Scalars['Int']>;
+  offset: Maybe<Scalars['Int']>;
+  order_by: Maybe<Array<Users_Order_By>>;
+  where: Maybe<Users_Bool_Exp>;
 };
 
 /** Boolean expression to filter rows from the table "colorTypes". All fields are combined with a logical 'AND'. */
@@ -268,6 +281,7 @@ export type ColorTypes_Bool_Exp = {
   _not: Maybe<ColorTypes_Bool_Exp>;
   _or: Maybe<Array<Maybe<ColorTypes_Bool_Exp>>>;
   color_type: Maybe<String_Comparison_Exp>;
+  color_type_enum: Maybe<Users_Bool_Exp>;
   id: Maybe<String_Comparison_Exp>;
 };
 
@@ -554,6 +568,7 @@ export type Mutation_RootUpdate_ColorTypes_By_PkArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_TodosArgs = {
+  _inc: Maybe<Todos_Inc_Input>;
   _set: Maybe<Todos_Set_Input>;
   where: Todos_Bool_Exp;
 };
@@ -561,6 +576,7 @@ export type Mutation_RootUpdate_TodosArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Todos_By_PkArgs = {
+  _inc: Maybe<Todos_Inc_Input>;
   _set: Maybe<Todos_Set_Input>;
   pk_columns: Todos_Pk_Columns_Input;
 };
@@ -882,6 +898,20 @@ export type Subscription_RootUsers_By_PkArgs = {
   id: Scalars['String'];
 };
 
+
+/** expression to compare columns of type timestamptz. All fields are combined with logical 'AND'. */
+export type Timestamptz_Comparison_Exp = {
+  _eq: Maybe<Scalars['timestamptz']>;
+  _gt: Maybe<Scalars['timestamptz']>;
+  _gte: Maybe<Scalars['timestamptz']>;
+  _in: Maybe<Array<Scalars['timestamptz']>>;
+  _is_null: Maybe<Scalars['Boolean']>;
+  _lt: Maybe<Scalars['timestamptz']>;
+  _lte: Maybe<Scalars['timestamptz']>;
+  _neq: Maybe<Scalars['timestamptz']>;
+  _nin: Maybe<Array<Scalars['timestamptz']>>;
+};
+
 /**
  * urgency
  * 
@@ -890,19 +920,21 @@ export type Subscription_RootUsers_By_PkArgs = {
  */
 export type Todos = {
   __typename: 'todos';
-  category: Maybe<Scalars['uuid']>;
   /** An object relationship */
-  categoryByCategory: Maybe<Categories>;
+  category_by_id: Maybe<Categories>;
+  category_id: Maybe<Scalars['uuid']>;
+  completed_at: Maybe<Scalars['timestamptz']>;
+  created_at: Maybe<Scalars['timestamptz']>;
+  deleted_at: Maybe<Scalars['timestamptz']>;
   id: Scalars['String'];
   isCompleted: Scalars['Boolean'];
   isToday: Scalars['Boolean'];
   title: Scalars['String'];
   urgency: Urgency_Enum;
   /** An object relationship */
-  urgencyByUrgency: Urgency;
+  urgency_enum: Urgency;
   /** An object relationship */
   user: Users;
-  user_id: Scalars['String'];
   workload: Scalars['Int'];
 };
 
@@ -973,16 +1005,18 @@ export type Todos_Bool_Exp = {
   _and: Maybe<Array<Maybe<Todos_Bool_Exp>>>;
   _not: Maybe<Todos_Bool_Exp>;
   _or: Maybe<Array<Maybe<Todos_Bool_Exp>>>;
-  category: Maybe<Uuid_Comparison_Exp>;
-  categoryByCategory: Maybe<Categories_Bool_Exp>;
+  category_by_id: Maybe<Categories_Bool_Exp>;
+  category_id: Maybe<Uuid_Comparison_Exp>;
+  completed_at: Maybe<Timestamptz_Comparison_Exp>;
+  created_at: Maybe<Timestamptz_Comparison_Exp>;
+  deleted_at: Maybe<Timestamptz_Comparison_Exp>;
   id: Maybe<String_Comparison_Exp>;
   isCompleted: Maybe<Boolean_Comparison_Exp>;
   isToday: Maybe<Boolean_Comparison_Exp>;
   title: Maybe<String_Comparison_Exp>;
   urgency: Maybe<Urgency_Enum_Comparison_Exp>;
-  urgencyByUrgency: Maybe<Urgency_Bool_Exp>;
+  urgency_enum: Maybe<Urgency_Bool_Exp>;
   user: Maybe<Users_Bool_Exp>;
-  user_id: Maybe<String_Comparison_Exp>;
   workload: Maybe<Int_Comparison_Exp>;
 };
 
@@ -991,10 +1025,15 @@ export type Todos_Constraint =
   /** unique or primary key constraint */
   | 'todo_pkey';
 
+/** input type for incrementing integer column in table "todos" */
+export type Todos_Inc_Input = {
+  workload: Maybe<Scalars['Int']>;
+};
+
 /** input type for inserting data into table "todos" */
 export type Todos_Insert_Input = {
-  category: Maybe<Scalars['uuid']>;
-  categoryByCategory: Maybe<Categories_Obj_Rel_Insert_Input>;
+  category_by_id: Maybe<Categories_Obj_Rel_Insert_Input>;
+  category_id: Maybe<Scalars['uuid']>;
   isCompleted: Maybe<Scalars['Boolean']>;
   isToday: Maybe<Scalars['Boolean']>;
   title: Maybe<Scalars['String']>;
@@ -1006,38 +1045,46 @@ export type Todos_Insert_Input = {
 /** aggregate max on columns */
 export type Todos_Max_Fields = {
   __typename: 'todos_max_fields';
-  category: Maybe<Scalars['uuid']>;
+  category_id: Maybe<Scalars['uuid']>;
+  completed_at: Maybe<Scalars['timestamptz']>;
+  created_at: Maybe<Scalars['timestamptz']>;
+  deleted_at: Maybe<Scalars['timestamptz']>;
   id: Maybe<Scalars['String']>;
   title: Maybe<Scalars['String']>;
-  user_id: Maybe<Scalars['String']>;
   workload: Maybe<Scalars['Int']>;
 };
 
 /** order by max() on columns of table "todos" */
 export type Todos_Max_Order_By = {
-  category: Maybe<Order_By>;
+  category_id: Maybe<Order_By>;
+  completed_at: Maybe<Order_By>;
+  created_at: Maybe<Order_By>;
+  deleted_at: Maybe<Order_By>;
   id: Maybe<Order_By>;
   title: Maybe<Order_By>;
-  user_id: Maybe<Order_By>;
   workload: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Todos_Min_Fields = {
   __typename: 'todos_min_fields';
-  category: Maybe<Scalars['uuid']>;
+  category_id: Maybe<Scalars['uuid']>;
+  completed_at: Maybe<Scalars['timestamptz']>;
+  created_at: Maybe<Scalars['timestamptz']>;
+  deleted_at: Maybe<Scalars['timestamptz']>;
   id: Maybe<Scalars['String']>;
   title: Maybe<Scalars['String']>;
-  user_id: Maybe<Scalars['String']>;
   workload: Maybe<Scalars['Int']>;
 };
 
 /** order by min() on columns of table "todos" */
 export type Todos_Min_Order_By = {
-  category: Maybe<Order_By>;
+  category_id: Maybe<Order_By>;
+  completed_at: Maybe<Order_By>;
+  created_at: Maybe<Order_By>;
+  deleted_at: Maybe<Order_By>;
   id: Maybe<Order_By>;
   title: Maybe<Order_By>;
-  user_id: Maybe<Order_By>;
   workload: Maybe<Order_By>;
 };
 
@@ -1065,16 +1112,18 @@ export type Todos_On_Conflict = {
 
 /** ordering options when selecting data from "todos" */
 export type Todos_Order_By = {
-  category: Maybe<Order_By>;
-  categoryByCategory: Maybe<Categories_Order_By>;
+  category_by_id: Maybe<Categories_Order_By>;
+  category_id: Maybe<Order_By>;
+  completed_at: Maybe<Order_By>;
+  created_at: Maybe<Order_By>;
+  deleted_at: Maybe<Order_By>;
   id: Maybe<Order_By>;
   isCompleted: Maybe<Order_By>;
   isToday: Maybe<Order_By>;
   title: Maybe<Order_By>;
   urgency: Maybe<Order_By>;
-  urgencyByUrgency: Maybe<Urgency_Order_By>;
+  urgency_enum: Maybe<Urgency_Order_By>;
   user: Maybe<Users_Order_By>;
-  user_id: Maybe<Order_By>;
   workload: Maybe<Order_By>;
 };
 
@@ -1086,7 +1135,13 @@ export type Todos_Pk_Columns_Input = {
 /** select columns of table "todos" */
 export type Todos_Select_Column = 
   /** column name */
-  | 'category'
+  | 'category_id'
+  /** column name */
+  | 'completed_at'
+  /** column name */
+  | 'created_at'
+  /** column name */
+  | 'deleted_at'
   /** column name */
   | 'id'
   /** column name */
@@ -1098,8 +1153,6 @@ export type Todos_Select_Column =
   /** column name */
   | 'urgency'
   /** column name */
-  | 'user_id'
-  /** column name */
   | 'workload';
 
 /** input type for updating data in table "todos" */
@@ -1108,6 +1161,8 @@ export type Todos_Set_Input = {
   isToday: Maybe<Scalars['Boolean']>;
   title: Maybe<Scalars['String']>;
   urgency: Maybe<Urgency_Enum>;
+  user_id: Maybe<Scalars['String']>;
+  workload: Maybe<Scalars['Int']>;
 };
 
 /** aggregate stddev on columns */
@@ -1163,7 +1218,11 @@ export type Todos_Update_Column =
   /** column name */
   | 'title'
   /** column name */
-  | 'urgency';
+  | 'urgency'
+  /** column name */
+  | 'user_id'
+  /** column name */
+  | 'workload';
 
 /** aggregate var_pop on columns */
 export type Todos_Var_Pop_Fields = {
@@ -1203,15 +1262,15 @@ export type Urgency = {
   __typename: 'urgency';
   id: Maybe<Scalars['String']>;
   /** An array relationship */
-  todo_urgency: Array<Todos>;
+  todos_by_urgency: Array<Todos>;
   /** An aggregated array relationship */
-  todo_urgency_aggregate: Todos_Aggregate;
+  todos_by_urgency_aggregate: Todos_Aggregate;
   urgency_type: Scalars['String'];
 };
 
 
 /** columns and relationships of "urgency" */
-export type UrgencyTodo_UrgencyArgs = {
+export type UrgencyTodos_By_UrgencyArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -1221,7 +1280,7 @@ export type UrgencyTodo_UrgencyArgs = {
 
 
 /** columns and relationships of "urgency" */
-export type UrgencyTodo_Urgency_AggregateArgs = {
+export type UrgencyTodos_By_Urgency_AggregateArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -1235,7 +1294,7 @@ export type Urgency_Bool_Exp = {
   _not: Maybe<Urgency_Bool_Exp>;
   _or: Maybe<Array<Maybe<Urgency_Bool_Exp>>>;
   id: Maybe<String_Comparison_Exp>;
-  todo_urgency: Maybe<Todos_Bool_Exp>;
+  todos_by_urgency: Maybe<Todos_Bool_Exp>;
   urgency_type: Maybe<String_Comparison_Exp>;
 };
 
@@ -1282,7 +1341,7 @@ export type Urgency_On_Conflict = {
 /** ordering options when selecting data from "urgency" */
 export type Urgency_Order_By = {
   id: Maybe<Order_By>;
-  todo_urgency_aggregate: Maybe<Todos_Aggregate_Order_By>;
+  todos_by_urgency_aggregate: Maybe<Todos_Aggregate_Order_By>;
   urgency_type: Maybe<Order_By>;
 };
 
@@ -1318,16 +1377,16 @@ export type Users = {
   id: Scalars['String'];
   nickname: Scalars['String'];
   /** An array relationship */
-  todo_user: Array<Todos>;
+  todos_by_user: Array<Todos>;
   /** An aggregated array relationship */
-  todo_user_aggregate: Todos_Aggregate;
+  todos_by_user_aggregate: Todos_Aggregate;
   /** An array relationship */
-  user_category: Array<Categories>;
+  user_by_id: Array<Categories>;
 };
 
 
 /** columns and relationships of "users" */
-export type UsersTodo_UserArgs = {
+export type UsersTodos_By_UserArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -1337,7 +1396,7 @@ export type UsersTodo_UserArgs = {
 
 
 /** columns and relationships of "users" */
-export type UsersTodo_User_AggregateArgs = {
+export type UsersTodos_By_User_AggregateArgs = {
   distinct_on: Maybe<Array<Todos_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -1347,7 +1406,7 @@ export type UsersTodo_User_AggregateArgs = {
 
 
 /** columns and relationships of "users" */
-export type UsersUser_CategoryArgs = {
+export type UsersUser_By_IdArgs = {
   distinct_on: Maybe<Array<Categories_Select_Column>>;
   limit: Maybe<Scalars['Int']>;
   offset: Maybe<Scalars['Int']>;
@@ -1369,8 +1428,8 @@ export type Users_Bool_Exp = {
   color_type: Maybe<ColorTypes_Enum_Comparison_Exp>;
   id: Maybe<String_Comparison_Exp>;
   nickname: Maybe<String_Comparison_Exp>;
-  todo_user: Maybe<Todos_Bool_Exp>;
-  user_category: Maybe<Categories_Bool_Exp>;
+  todos_by_user: Maybe<Todos_Bool_Exp>;
+  user_by_id: Maybe<Categories_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "users" */
@@ -1383,8 +1442,8 @@ export type Users_Insert_Input = {
   color_type: Maybe<ColorTypes_Enum>;
   id: Maybe<Scalars['String']>;
   nickname: Maybe<Scalars['String']>;
-  todo_user: Maybe<Todos_Arr_Rel_Insert_Input>;
-  user_category: Maybe<Categories_Arr_Rel_Insert_Input>;
+  todos_by_user: Maybe<Todos_Arr_Rel_Insert_Input>;
+  user_by_id: Maybe<Categories_Arr_Rel_Insert_Input>;
 };
 
 /** response of any mutation on the table "users" */
@@ -1414,7 +1473,7 @@ export type Users_Order_By = {
   color_type: Maybe<Order_By>;
   id: Maybe<Order_By>;
   nickname: Maybe<Order_By>;
-  todo_user_aggregate: Maybe<Todos_Aggregate_Order_By>;
+  todos_by_user_aggregate: Maybe<Todos_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: "users" */
@@ -1560,19 +1619,6 @@ export type UpdateColorTypeMutation = (
   )> }
 );
 
-export type GetAccomplishmentQueryVariables = Exact<{
-  _eq?: Maybe<Scalars['Int']>;
-}>;
-
-
-export type GetAccomplishmentQuery = (
-  { __typename: 'query_root' }
-  & { accomplishment: Array<(
-    { __typename: 'accomplishment' }
-    & Pick<Accomplishment, 'id' | 'year' | 'month' | 'week'>
-  )> }
-);
-
 export type AllCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1591,7 +1637,11 @@ export type TodayTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'category' | 'workload'>
+    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'workload'>
+    & { category_by_id: Maybe<(
+      { __typename: 'categories' }
+      & Pick<Categories, 'category'>
+    )> }
   )> }
 );
 
@@ -1602,7 +1652,11 @@ export type NotTodayTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'category' | 'workload'>
+    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'workload'>
+    & { category_by_id: Maybe<(
+      { __typename: 'categories' }
+      & Pick<Categories, 'category'>
+    )> }
   )> }
 );
 
@@ -1613,8 +1667,42 @@ export type CompletedTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'category' | 'workload'>
+    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'workload'>
+    & { category_by_id: Maybe<(
+      { __typename: 'categories' }
+      & Pick<Categories, 'category'>
+    )> }
   )> }
+);
+
+export type GetAccomplishmentQueryVariables = Exact<{
+  _gte1: Maybe<Scalars['timestamptz']>;
+  _gte2: Maybe<Scalars['timestamptz']>;
+  _gte3: Maybe<Scalars['timestamptz']>;
+}>;
+
+
+export type GetAccomplishmentQuery = (
+  { __typename: 'query_root' }
+  & { week: (
+    { __typename: 'todos_aggregate' }
+    & { aggregate: Maybe<(
+      { __typename: 'todos_aggregate_fields' }
+      & Pick<Todos_Aggregate_Fields, 'count'>
+    )> }
+  ), month: (
+    { __typename: 'todos_aggregate' }
+    & { aggregate: Maybe<(
+      { __typename: 'todos_aggregate_fields' }
+      & Pick<Todos_Aggregate_Fields, 'count'>
+    )> }
+  ), year: (
+    { __typename: 'todos_aggregate' }
+    & { aggregate: Maybe<(
+      { __typename: 'todos_aggregate_fields' }
+      & Pick<Todos_Aggregate_Fields, 'count'>
+    )> }
+  ) }
 );
 
 export type GetColorTypeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1840,42 +1928,6 @@ export function useUpdateColorTypeMutation(baseOptions?: Apollo.MutationHookOpti
 export type UpdateColorTypeMutationHookResult = ReturnType<typeof useUpdateColorTypeMutation>;
 export type UpdateColorTypeMutationResult = Apollo.MutationResult<UpdateColorTypeMutation>;
 export type UpdateColorTypeMutationOptions = Apollo.BaseMutationOptions<UpdateColorTypeMutation, UpdateColorTypeMutationVariables>;
-export const GetAccomplishmentDocument = gql`
-    query GetAccomplishment($_eq: Int = 1) {
-  accomplishment(where: {id: {_eq: $_eq}}) {
-    id
-    year
-    month
-    week
-  }
-}
-    `;
-
-/**
- * __useGetAccomplishmentQuery__
- *
- * To run a query within a React component, call `useGetAccomplishmentQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAccomplishmentQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAccomplishmentQuery({
- *   variables: {
- *      _eq: // value for '_eq'
- *   },
- * });
- */
-export function useGetAccomplishmentQuery(baseOptions?: Apollo.QueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
-        return Apollo.useQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
-      }
-export function useGetAccomplishmentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
-          return Apollo.useLazyQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
-        }
-export type GetAccomplishmentQueryHookResult = ReturnType<typeof useGetAccomplishmentQuery>;
-export type GetAccomplishmentLazyQueryHookResult = ReturnType<typeof useGetAccomplishmentLazyQuery>;
-export type GetAccomplishmentQueryResult = Apollo.QueryResult<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>;
 export const AllCategoryDocument = gql`
     query AllCategory {
   categories {
@@ -1917,8 +1969,10 @@ export const TodayTodosDocument = gql`
     isToday
     title
     urgency
-    category
     workload
+    category_by_id {
+      category
+    }
   }
 }
     `;
@@ -1955,8 +2009,10 @@ export const NotTodayTodosDocument = gql`
     isToday
     title
     urgency
-    category
     workload
+    category_by_id {
+      category
+    }
   }
 }
     `;
@@ -1993,8 +2049,10 @@ export const CompletedTodosDocument = gql`
     isToday
     title
     urgency
-    category
     workload
+    category_by_id {
+      category
+    }
   }
 }
     `;
@@ -2023,6 +2081,53 @@ export function useCompletedTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type CompletedTodosQueryHookResult = ReturnType<typeof useCompletedTodosQuery>;
 export type CompletedTodosLazyQueryHookResult = ReturnType<typeof useCompletedTodosLazyQuery>;
 export type CompletedTodosQueryResult = Apollo.QueryResult<CompletedTodosQuery, CompletedTodosQueryVariables>;
+export const GetAccomplishmentDocument = gql`
+    query GetAccomplishment($_gte1: timestamptz, $_gte2: timestamptz, $_gte3: timestamptz) {
+  week: todos_aggregate(where: {completed_at: {_gte: $_gte1}}) {
+    aggregate {
+      count
+    }
+  }
+  month: todos_aggregate(where: {completed_at: {_gte: $_gte2}}) {
+    aggregate {
+      count
+    }
+  }
+  year: todos_aggregate(where: {completed_at: {_gte: $_gte3}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAccomplishmentQuery__
+ *
+ * To run a query within a React component, call `useGetAccomplishmentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccomplishmentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccomplishmentQuery({
+ *   variables: {
+ *      _gte1: // value for '_gte1'
+ *      _gte2: // value for '_gte2'
+ *      _gte3: // value for '_gte3'
+ *   },
+ * });
+ */
+export function useGetAccomplishmentQuery(baseOptions?: Apollo.QueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
+        return Apollo.useQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+      }
+export function useGetAccomplishmentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
+          return Apollo.useLazyQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+        }
+export type GetAccomplishmentQueryHookResult = ReturnType<typeof useGetAccomplishmentQuery>;
+export type GetAccomplishmentLazyQueryHookResult = ReturnType<typeof useGetAccomplishmentLazyQuery>;
+export type GetAccomplishmentQueryResult = Apollo.QueryResult<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>;
 export const GetColorTypeDocument = gql`
     query GetColorType {
   users {

@@ -8,8 +8,10 @@ export const TODAY_TODOS = gql`
       isToday
       title
       urgency
-      category
       workload
+      category_by_id {
+        category
+      }
     }
   }
 `;
@@ -22,8 +24,10 @@ export const NOT_TODAY_TODOS = gql`
       isToday
       title
       urgency
-      category
       workload
+      category_by_id {
+        category
+      }
     }
   }
 `;
@@ -36,8 +40,34 @@ export const COMPLETED_TODOS = gql`
       isToday
       title
       urgency
-      category
       workload
+      category_by_id {
+        category
+      }
+    }
+  }
+`;
+
+export const GET_ACCOMPLISHMENT = gql`
+  query GetAccomplishment(
+    $_gte1: timestamptz
+    $_gte2: timestamptz
+    $_gte3: timestamptz
+  ) {
+    week: todos_aggregate(where: { completed_at: { _gte: $_gte1 } }) {
+      aggregate {
+        count
+      }
+    }
+    month: todos_aggregate(where: { completed_at: { _gte: $_gte2 } }) {
+      aggregate {
+        count
+      }
+    }
+    year: todos_aggregate(where: { completed_at: { _gte: $_gte3 } }) {
+      aggregate {
+        count
+      }
     }
   }
 `;
