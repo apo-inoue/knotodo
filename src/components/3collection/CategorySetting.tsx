@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { PrimaryButton, SlideUpView } from '../../ui';
+import { PrimaryButton, Box, Divider } from '../../ui';
 import { Categories } from '../../types/graphql';
-import { CategoryAdd } from '../2single';
-import { FadeInView } from '../../ui/animation/FadeInView';
+import { CategoryAdd, CategoryListItem } from '../2single';
 
 type CategorySettingProps = {
   categories: ({ __typename: 'categories' } & Pick<
@@ -16,34 +15,34 @@ export const CategorySetting: FC<CategorySettingProps> = ({
   categories,
   onPress,
 }) => {
+  const isDeleteAllowed = categories.length > 0;
+
   return (
     <>
-      {/* <FlatList
-        data={categories}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <CategoryListItem category={item} />}
-      /> */}
-      <CategoryAdd />
-      <FadeInView>
+      {categories.map(category => {
+        return (
+          <Box key={category.id} width="100%">
+            <CategoryListItem
+              category={category}
+              isDeleteAllowed={isDeleteAllowed}
+            />
+            <Divider />
+          </Box>
+        );
+      })}
+      <Box mt={3} justifyContent="center" width="100%" px={4}>
+        <CategoryAdd />
+      </Box>
+      <Box mt={3} justifyContent="center" width="100%" px={4}>
         <PrimaryButton
           variant="contained"
           btnSize="lg"
-          width="30%"
+          width="100%"
           stretch
           text="追加"
           onPress={onPress}
         />
-      </FadeInView>
-      <SlideUpView>
-        <PrimaryButton
-          variant="contained"
-          btnSize="lg"
-          width="30%"
-          stretch
-          text="追加"
-          onPress={onPress}
-        />
-      </SlideUpView>
+      </Box>
     </>
   );
 };

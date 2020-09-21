@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Box, Divider, Text, Touchable } from '../../ui';
 import { Todos } from '../../types/graphql';
-import { Workload, Urgency, TodoTitle } from '../2single';
+import { TodoWorkload } from '../2single';
 import { PrimaryButton } from '../../ui/button/StyledButtons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -10,19 +10,19 @@ type TodoDetailsProps = {
 };
 
 export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {
-  const { id, title, workload } = todo;
+  const { id, title, workload, urgency } = todo;
   const navigation = useNavigation();
 
   return (
     <>
-      <TodoTitle title={title} />
+      <Text>{title}</Text>
       <Divider />
-      <Workload workload={workload} />
+      <TodoWorkload workload={workload} />
       <Touchable variant="outlined" onPress={() => console.log(todo.id)}>
         <Text>{id}</Text>
       </Touchable>
       <Box mt={4}>
-        <Urgency />
+        <Text>{urgency}</Text>
       </Box>
       <Box mt={4} flexDirection="row">
         <PrimaryButton

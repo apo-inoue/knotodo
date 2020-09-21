@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { UnderlinedTextForm } from '../../ui/input/TextForm';
+import { UnderlinedTextForm } from '../../ui';
 import { useCategoryCtx } from '../../containers/contexts/category';
 
 export const CategoryAdd: FC = () => {

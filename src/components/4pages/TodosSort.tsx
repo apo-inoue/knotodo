@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Container } from '../../ui';
-import { SortCollection } from '../3collection';
+import { TodosSortCollection } from '../3collection';
 
-export const Sort: FC = () => {
+export const TodosSort: FC = () => {
   return (
     <Container>
-      <SortCollection />
+      <TodosSortCollection />
     </Container>
   );
 };

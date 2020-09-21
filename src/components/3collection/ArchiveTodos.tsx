@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Todos } from '../../types/graphql';
 import { TodoListItem } from '../2single';
-import { AddFab } from '../1standalone/AddFab';
+import { AddFab } from '../1standalone';
 import { Box, FlatList } from '../../ui';
 
 type TodoType = { __typename: 'todos' } & Pick<

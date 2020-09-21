@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Box, RadioButton } from '../../ui';
 import { useTodoCtx } from '../../containers/contexts/todo';
 
-export const Urgency: FC = () => {
+export const TodoUrgencySelect: FC = () => {
   const {
     state: { urgency },
     urgencySelectHandler,

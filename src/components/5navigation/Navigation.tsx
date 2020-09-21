@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
+import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigation } from './StackNavigation';
 import { useTheme } from 'styled-components';
-import { Box } from '../../ui/layout/Box';
-import { StatusBar } from 'react-native';
+import { Box } from '../../ui';
 import Constants from 'expo-constants';
 
 export const Navigation: FC = () => {

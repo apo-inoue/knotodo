@@ -1,15 +1,14 @@
 import React, { FC, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { Container, ScreenLoader } from '../../ui';
+import { ErrorMessage, NoDataMessage } from '../1standalone';
+import { TodayTodosCollection } from '../3collection';
 import {
   useTodayTodosQuery,
   useCompleteToDoMutation,
+  TodayTodosQuery,
 } from '../../types/graphql';
-import { TodayTodosCollection } from '../3collection';
-import { useFocusEffect } from '@react-navigation/native';
-import { ErrorMessage } from '../1standalone/ErrorMessage';
-import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { TODAY_TODOS } from '../../graphql/query/todos';
-import { TodayTodosQuery } from '../../types/graphql';
 
 export const TodayTodos: FC = () => {
   const { loading, error, data, refetch } = useTodayTodosQuery();

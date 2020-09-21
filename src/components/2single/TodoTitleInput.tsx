@@ -1,12 +1,8 @@
 import React, { FC } from 'react';
-import { UnderlinedTextForm, Text } from '../../ui';
+import { UnderlinedTextForm } from '../../ui';
 import { useTodoCtx } from '../../containers/contexts/todo';
 
-export const TodoTitle: FC<{ title: string }> = ({ title }) => {
-  return <Text>{title}</Text>;
-};
-
-export const TodoTitleEdit: FC = () => {
+export const TodoTitleInput: FC = () => {
   const {
     state: { title },
     titleInputHandler,

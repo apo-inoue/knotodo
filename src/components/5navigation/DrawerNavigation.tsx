@@ -11,7 +11,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import { Accomplishment, CategorySetting, Color } from '../4pages';
-import { DrawerIcon } from '../1standalone/DrawerIcon';
+import { DrawerIcon } from '../1standalone';
 import { ROUTE_NAMES } from './type';
 
 const CustomDrawerContent: FC<DrawerContentComponentProps<

@@ -49,11 +49,7 @@ export const COMPLETED_TODOS = gql`
 `;
 
 export const GET_ACCOMPLISHMENT = gql`
-  query GetAccomplishment(
-    $_gte1: timestamptz
-    $_gte2: timestamptz
-    $_gte3: timestamptz
-  ) {
+  query GetAccomplishment($_gte1: Date, $_gte2: Date, $_gte3: Date) {
     week: todos_aggregate(where: { completed_at: { _gte: $_gte1 } }) {
       aggregate {
         count

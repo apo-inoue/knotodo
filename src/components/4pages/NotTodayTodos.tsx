@@ -4,11 +4,9 @@ import {
   useNotTodayTodosQuery,
   useSetTodayTodoMutation,
 } from '../../types/graphql';
-import { Container } from '../../ui';
-import { ErrorMessage } from '../1standalone';
+import { Container, ScreenLoader } from '../../ui';
+import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { NotTodayTodosCollection } from '../3collection';
-import { NoDataMessage } from '../1standalone/NoDataMessage';
-import { ScreenLoader } from '../../ui/utils/Loader';
 import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
 import { NotTodayTodosQuery } from '../../types/graphql';
 

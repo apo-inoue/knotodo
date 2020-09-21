@@ -5,20 +5,16 @@ import {
   useInsertCategoryMutation,
 } from '../../types/graphql';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
-import { ScreenLoader } from '../../ui/utils/Loader';
-import { CategoryCollection } from '../3collection';
+import { ScreenLoader } from '../../ui';
+import { CategoryFilterCollection } from '../3collection';
 
-export const Category: FC = () => {
+export const CategoryFilter: FC = () => {
   const { data, loading, error } = useAllCategoryQuery();
-  const [insertCategory] = useInsertCategoryMutation();
-  const insertCategoryHandler = () => {
-    insertCategory();
-  };
 
   if (loading) {
     return <ScreenLoader />;
   }
-  if (!error) {
+  if (error) {
     return <ErrorMessage />;
   }
   if (!data) {
@@ -27,10 +23,7 @@ export const Category: FC = () => {
 
   return (
     <Container>
-      <CategoryCollection
-        categories={data.categories}
-        onPress={insertCategoryHandler}
-      />
+      <CategoryFilterCollection categories={data.categories} />
     </Container>
   );
 };

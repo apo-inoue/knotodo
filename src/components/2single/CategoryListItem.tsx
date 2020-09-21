@@ -1,39 +1,51 @@
 import React, { FC } from 'react';
-import { Text } from '../../ui/typography/Text';
+import { Text, Touchable, Box } from '../../ui';
 import { Categories } from '../../types/graphql';
-import { Touchable } from '../../ui/button/Touchable';
-import { Box } from '../../ui/layout/Box';
-import { Divider } from '../../ui/utils/Divider';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useWindowDimensions } from 'react-native';
+import { useTheme } from 'styled-components';
 
 type CategoryListItemProps = {
   category: { __typename: 'categories' } & Pick<Categories, 'category' | 'id'>;
+  isDeleteAllowed: boolean;
 };
 
-export const CategoryListItem: FC<CategoryListItemProps> = ({ category }) => {
-  return <Text>{category.category}</Text>;
-};
+export const CategoryListItem: FC<CategoryListItemProps> = ({
+  category,
+  isDeleteAllowed,
+}) => {
+  const theme = useTheme();
+  const vw = useWindowDimensions().width;
 
-export const CategoryList: FC<CategoryListItemProps> = ({ category }) => {
   return (
-    <Box>
-      <Divider />
-      <Box flexDirection="row" height={48}>
-        <Box flexDirection="column" flexGrow={1}>
-          <Box width="80%" alignItems="flex-start" justifyContent="center">
-            <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
-              {category.category}
-            </Text>
-          </Box>
+    <Box flexDirection="row" height={48} border="1px solid red">
+      <Box flexDirection="column" flexGrow={1} height="100%">
+        <Box
+          width={0.7 * vw}
+          height="100%"
+          alignItems="flex-start"
+          justifyContent="center"
+          border="1px solid blue">
+          <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
+            {category.category}
+          </Text>
         </Box>
-        <Box width={100} flexDirection="column" my="auto" alignItems="center">
-          <Touchable>
-            <MaterialCommunityIcons name="delete" size={24} color="black" />
+      </Box>
+      <Box width={80} flexDirection="column" my="auto" alignItems="center">
+        <Box flexDirection="row">
+          <Touchable p={2} disabled={!isDeleteAllowed}>
+            <MaterialCommunityIcons
+              name="delete"
+              size={28}
+              color={
+                isDeleteAllowed ? theme.colors.main : theme.colors.blacks[4]
+              }
+            />
           </Touchable>
-          <Touchable>
+          <Touchable p={2}>
             <MaterialCommunityIcons
               name="square-edit-outline"
-              size={24}
+              size={28}
               color="black"
             />
           </Touchable>

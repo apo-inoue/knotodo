@@ -1,9 +1,15 @@
 import React, { FC } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { Todos } from '../../types/graphql';
-import { Touchable, PrimaryButton, Box, Text, Divider } from '../../ui';
+import {
+  Touchable,
+  PrimaryButton,
+  Box,
+  Text,
+  Divider,
+  SlideUpView,
+} from '../../ui';
 import { useNavigation } from '@react-navigation/native';
-import { SlideUpView } from '../../ui/animation/SlideUpView';
 
 type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<

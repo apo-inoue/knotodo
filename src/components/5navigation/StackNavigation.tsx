@@ -1,12 +1,17 @@
 import React, { FC } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TodoDetails, Category, NewTodo, Sort, EditTodo } from '../4pages';
+import {
+  TodoDetails,
+  CategoryFilter,
+  NewTodo,
+  TodosSort,
+  EditTodo,
+} from '../4pages';
 import { useTheme } from 'styled-components';
-import { HeaderIconLeft, HeaderIconsRight } from '../1standalone';
+import { HeaderIconLeft, HeaderIconsRight, HeaderTitle } from '../1standalone';
 import { DrawerNavigation } from './DrawerNavigation';
 import { Text } from '../../ui';
 import { RouteProp } from '@react-navigation/native';
-import { HeaderTitle } from '../1standalone';
 
 export const StackNavigation: FC = () => {
   const Stack = createStackNavigator();
@@ -75,7 +80,7 @@ export const StackNavigation: FC = () => {
       />
       <Stack.Screen
         name="並べ替え"
-        component={Sort}
+        component={TodosSort}
         options={{
           headerTitle: () => (
             <Text span color={theme.colors.white} fontWeight="bold">
@@ -87,7 +92,7 @@ export const StackNavigation: FC = () => {
       />
       <Stack.Screen
         name="フィルター"
-        component={Category}
+        component={CategoryFilter}
         options={{
           headerTitle: () => (
             <Text span color={theme.colors.white} fontWeight="bold">

@@ -3,7 +3,7 @@ import { PrimaryButton } from '../../ui';
 import { Divider } from '../../ui/utils/Divider';
 import { useNavigation } from '@react-navigation/native';
 
-export const Sort: FC = () => {
+export const TodosSort: FC = () => {
   const navigation = useNavigation();
 
   return (

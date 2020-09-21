@@ -1,16 +1,21 @@
 import React, { FC } from 'react';
-import { Container } from '../../ui';
+import { Container, ScreenLoader } from '../../ui';
 import {
   useAllCategoryQuery,
   useInsertCategoryMutation,
 } from '../../types/graphql';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
-import { ScreenLoader } from '../../ui/utils/Loader';
 import { CategorySettingCollection } from '../3collection';
+import { useCategoryCtx } from '../../containers/contexts/category';
 
 export const CategorySetting: FC = () => {
+  const {
+    state: { category },
+  } = useCategoryCtx();
   const { data, loading, error } = useAllCategoryQuery();
-  const [insertCategory] = useInsertCategoryMutation();
+  const [insertCategory] = useInsertCategoryMutation({
+    variables: { category },
+  });
   const insertCategoryHandler = () => {
     insertCategory();
   };
@@ -18,7 +23,7 @@ export const CategorySetting: FC = () => {
   if (loading) {
     return <ScreenLoader />;
   }
-  if (!error) {
+  if (error) {
     return <ErrorMessage />;
   }
   if (!data) {

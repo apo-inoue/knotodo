@@ -32,24 +32,27 @@ export const Accomplishment: FC<AccomplishmentProps> = ({ accomplishment }) => {
     }
   };
   console.log(prizeScore, 'prize', weeklyAccomplishment);
+  const accomplishmentIntervals = [
+    {
+      interval: '今週',
+      count: week.aggregate?.count ?? 0,
+    },
+    { interval: '今月', count: month.aggregate?.count ?? 0 },
+    { interval: '今年', count: year.aggregate?.count ?? 0 },
+  ];
 
   return (
     <Box my={3}>
-      <Box>
-        <Text textAlign="center">
-          今週:<Text span>{week.aggregate?.count ?? 0}</Text>タスククリア
-        </Text>
-      </Box>
-      <Box mt={2}>
-        <Text textAlign="center">
-          今月:<Text span>{month.aggregate?.count ?? 0}</Text>タスククリア
-        </Text>
-      </Box>
-      <Box mt={2}>
-        <Text textAlign="center">
-          今年:<Text span>{year.aggregate?.count ?? 0}</Text>タスククリア
-        </Text>
-      </Box>
+      {accomplishmentIntervals.map(accomplishmentInterval => {
+        return (
+          <Box key={accomplishmentInterval.interval}>
+            <Text textAlign="center">
+              {accomplishmentInterval.interval}
+              <Text span>{accomplishmentInterval.count}</Text>タスククリア
+            </Text>
+          </Box>
+        );
+      })}
       <Box mt={2}>
         <Prize />
       </Box>

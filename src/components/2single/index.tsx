@@ -1,8 +1,10 @@
 // スクリーンに依存していてhandleを受け取るコンポーネント
 export { TodoListItem } from './TodoListItem';
-export { TodoTitle, TodoTitleEdit } from './TodoTitle';
-export { Urgency } from './Urgency';
+export { TodoTitleInput } from './TodoTitleInput';
+export { TodoUrgencySelect } from './TodoUrgencySelect';
 export { CategoriesPicker } from './CategoriesPicker';
 export { CategoryListItem } from './CategoryListItem';
+export { CategorySelectItem } from './CategorySelectItem';
 export { CategoryAdd } from './CategoryAdd';
-export { Workload, WorkloadEdit } from './Workload';
+export { TodoWorkload } from './TodoWorkload';
+export { TodoWorkloadSelect } from './TodoWorkloadSelect';
