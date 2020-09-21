@@ -13,9 +13,11 @@ type ContainerProps = Partial<{
 
 const ContainerWidth = styled.View<ContainerProps>`
   flex: 1;
-  width: 92%;
+  width: 100%;
   background-color: ${props => props.theme.colors.white};
   align-items: flex-start;
+  padding-right: 16px;
+  padding-left: 16px;
   margin-left: auto;
   margin-right: auto;
 

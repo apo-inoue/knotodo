@@ -9,7 +9,7 @@ export const PrimaryButton: FC<
   const theme = useTheme();
 
   return (
-    <Touchable {...props} color="primary">
+    <Touchable {...props} color="primary" m="1px">
       <Text
         textAlign="center"
         stretch={props.stretch}
@@ -31,7 +31,7 @@ export const DangerButton: FC<TouchableProps & { text: string }> = props => {
   const theme = useTheme();
 
   return (
-    <Touchable {...props} color="danger">
+    <Touchable {...props} color="danger" m="1px">
       <Text
         color={
           props.variant === 'contained'
@@ -48,7 +48,7 @@ export const DisabledButton: FC<TouchableProps & { text: string }> = props => {
   const theme = useTheme();
 
   return (
-    <Touchable {...props} color="muted">
+    <Touchable {...props} color="muted" m="1px">
       <Text
         color={
           props.variant === 'contained'

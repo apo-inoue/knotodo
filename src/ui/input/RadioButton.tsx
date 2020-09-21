@@ -15,7 +15,7 @@ export const RadioButton: FC<RadioButton> = props => {
   const theme = useTheme();
 
   return (
-    <Touchable {...props}>
+    <Touchable p={0} {...props}>
       <Box my={1} alignItems="center" flexDirection="row">
         <Box mr={2}>
           {props.checked ? (

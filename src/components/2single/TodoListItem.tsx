@@ -36,7 +36,6 @@ export const TodoListItem: FC<TodoListItem> = ({ todo, buttonAction }) => {
           width={100}
           flexDirection="row"
           my="auto"
-          mr="1px"
           justifyContent="flex-end">
           <PrimaryButton
             variant="outlined"

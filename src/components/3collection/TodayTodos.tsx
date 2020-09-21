@@ -10,7 +10,6 @@ type TodoType = { __typename: 'todos' } & Pick<
   Todos,
   'title' | 'id' | 'isToday' | 'isCompleted'
 >;
-
 type TodayTodos = {
   todos: ({ __typename: 'todos' } & Pick<
     Todos,
@@ -28,13 +27,15 @@ export const TodayTodos: FC<TodayTodos> = ({ todos, onPress }) => {
         <FlatList<TodoType>
           data={todos}
           keyExtractor={(item: TodoType) => item.id}
-          renderItem={({ item }: { item: TodoType; index: number }) => (
+          renderItem={({ item, index }: { item: TodoType; index: number }) => (
             <Box key={item.id} width="100%">
               <TodoListItem
                 todo={item}
                 buttonAction={{ onPress, label: 'Complete' }}
               />
               <Divider />
+              {/* // NOTE: FABが重なって押しにくくなるのを避けるため余白を追加する */}
+              {todos.length - 1 === index && <Box mb={5} />}
             </Box>
           )}
         />

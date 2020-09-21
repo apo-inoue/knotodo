@@ -25,7 +25,11 @@ export const CategoriesPicker: FC<CategoriesProps> = ({ categories }) => {
       onValueChange={valueChangeHandler}>
       {categories.map(category => {
         return (
-          <Picker.Item label={category.category} value={category.category} />
+          <Picker.Item
+            key={category.id}
+            label={category.category}
+            value={category.category}
+          />
         );
       })}
     </Picker>

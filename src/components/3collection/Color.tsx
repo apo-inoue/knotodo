@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { PrimaryButton, Box } from '../../ui';
+import { PrimaryButton, Box, Touchable } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
-import styled from 'styled-components/native';
 import { RadioButton } from '../../ui/input/RadioButton';
 import { useColorCtx } from '../../containers/contexts/color';
 import { colorConstants } from '../../theme/color';
@@ -20,20 +19,32 @@ export const Color: FC = () => {
         const { id, hex } = colorConstant;
 
         return (
-          <Box mt={3} key={id} flexDirection="row" alignItems="center">
-            <RadioButton
-              radioColor={hex.main}
-              onPress={() => colorSelectHandler(colorConstant.color)}
-              checked={colorConstant.color === color}
-              text=""
-            />
-            <ColorTip color={hex.main} />
-          </Box>
+          <Touchable
+            key={id}
+            p={0}
+            width="100%"
+            onPress={() => colorSelectHandler(colorConstant.color)}>
+            <Box mt={4} flexDirection="row" alignItems="center">
+              <RadioButton
+                radioColor={hex.main}
+                checked={colorConstant.color === color}
+                text=""
+              />
+              <Box bg={hex.main} height={32} flex="1 1" />
+            </Box>
+          </Touchable>
         );
       })}
-      <Box mt={5} width="60%" mx="auto">
+      <Box
+        flexDirection="column"
+        flex={1}
+        width="100%"
+        justifyContent="flex-end"
+        alignItems="center"
+        mb={4}>
         <PrimaryButton
           variant="contained"
+          stretch
           btnSize="lg"
           text="設定"
           onPress={handlePress}
@@ -42,9 +53,3 @@ export const Color: FC = () => {
     </>
   );
 };
-
-const ColorTip = styled.View<{ color: string }>`
-  background-color: ${props => props.color};
-  height: 32px;
-  width: 80%;
-`;
