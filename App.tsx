@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { StoreProviders } from './src/store/StoreProviders';
 import {
   useFonts,
@@ -12,7 +12,7 @@ import {
 import { AppLoading } from 'expo';
 import { AuthNavigation } from './src/components/5navigation/AuthNavigation';
 
-const App = () => {
+const App: FC = () => {
   const [fontsLoaded] = useFonts({
     NotoSansJP_100Thin,
     NotoSansJP_300Light,

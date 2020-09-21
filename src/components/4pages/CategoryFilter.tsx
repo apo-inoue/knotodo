@@ -1,9 +1,6 @@
 import React, { FC } from 'react';
 import { Container } from '../../ui';
-import {
-  useAllCategoryQuery,
-  useInsertCategoryMutation,
-} from '../../types/graphql';
+import { useAllCategoryQuery } from '../../types/graphql';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
 import { ScreenLoader } from '../../ui';
 import { CategoryFilterCollection } from '../3collection';

@@ -12,6 +12,7 @@ import { HeaderIconLeft, HeaderIconsRight, HeaderTitle } from '../1standalone';
 import { DrawerNavigation } from './DrawerNavigation';
 import { Text } from '../../ui';
 import { RouteProp } from '@react-navigation/native';
+import { STACK_ROUTE_NAMES } from './type';
 
 export const StackNavigation: FC = () => {
   const Stack = createStackNavigator();
@@ -43,7 +44,7 @@ export const StackNavigation: FC = () => {
         })}
       />
       <Stack.Screen
-        name="新規作成"
+        name={STACK_ROUTE_NAMES.新規作成}
         component={NewTodo}
         options={{
           headerTitle: () => (
@@ -55,7 +56,7 @@ export const StackNavigation: FC = () => {
         }}
       />
       <Stack.Screen
-        name="編集"
+        name={STACK_ROUTE_NAMES.編集}
         component={EditTodo}
         options={{
           headerTitle: () => (
@@ -67,7 +68,7 @@ export const StackNavigation: FC = () => {
         }}
       />
       <Stack.Screen
-        name="詳細"
+        name={STACK_ROUTE_NAMES.詳細}
         component={TodoDetails}
         options={{
           headerTitle: () => (
@@ -79,7 +80,7 @@ export const StackNavigation: FC = () => {
         }}
       />
       <Stack.Screen
-        name="並べ替え"
+        name={STACK_ROUTE_NAMES.並べ替え}
         component={TodosSort}
         options={{
           headerTitle: () => (
@@ -91,7 +92,7 @@ export const StackNavigation: FC = () => {
         }}
       />
       <Stack.Screen
-        name="フィルター"
+        name={STACK_ROUTE_NAMES.フィルター}
         component={CategoryFilter}
         options={{
           headerTitle: () => (

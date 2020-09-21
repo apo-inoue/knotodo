@@ -5,6 +5,7 @@ import { TodoListItem } from '../2single';
 import { AddFab } from '../1standalone/AddFab';
 import { useNavigation } from '@react-navigation/native';
 import { Box } from '../../ui';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 type NotTodayTodos = {
   todos: ({ __typename: 'todos' } & Pick<
@@ -32,7 +33,7 @@ export const NotTodayTodos: FC<NotTodayTodos> = ({ todos, onPress }) => {
           )}
         />
       </Box>
-      <AddFab onPress={() => navigation.navigate('NewTodo')} />
+      <AddFab onPress={() => navigation.navigate(STACK_ROUTE_NAMES.新規作成)} />
     </>
   );
 };

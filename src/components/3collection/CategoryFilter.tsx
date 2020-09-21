@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { PrimaryButton } from '../../ui';
+import { PrimaryButton, Box } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { CategorySelectItem } from '../2single';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
@@ -17,7 +17,9 @@ export const CategoryFilter: FC<CategoryProps> = ({ categories }) => {
   return (
     <>
       {categories.map(category => {
-        <CategorySelectItem category={category} />;
+        <Box key={category.id} width="100%">
+          <CategorySelectItem category={category} />
+        </Box>;
       })}
       <PrimaryButton
         variant="contained"

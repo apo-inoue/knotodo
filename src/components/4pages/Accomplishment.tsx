@@ -2,10 +2,8 @@ import React, { FC, useEffect } from 'react';
 import { useGetAccomplishmentQuery } from '../../types/graphql';
 import { useIsDrawerOpen } from '@react-navigation/drawer';
 import { AccomplishmentCollection } from '../3collection';
-import { Box } from '../../ui';
-import { Loader } from '../../ui/utils/Loader';
-import { ErrorMessage } from '../1standalone/ErrorMessage';
-import { NoDataMessage } from '../1standalone/NoDataMessage';
+import { Box, Loader } from '../../ui';
+import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { startOfISOWeek, startOfMonth, startOfYear, formatISO } from 'date-fns';
 
 export const Accomplishment: FC = () => {

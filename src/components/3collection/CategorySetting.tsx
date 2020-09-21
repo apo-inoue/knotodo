@@ -30,7 +30,7 @@ export const CategorySetting: FC<CategorySettingProps> = ({
           </Box>
         );
       })}
-      <Box mt={3} justifyContent="center" width="100%" px={4}>
+      <Box mt={6} justifyContent="center" width="100%" px={4}>
         <CategoryAdd />
       </Box>
       <Box mt={3} justifyContent="center" width="100%" px={4}>

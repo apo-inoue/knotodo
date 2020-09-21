@@ -18,14 +18,13 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
   const vw = useWindowDimensions().width;
 
   return (
-    <Box flexDirection="row" height={48} border="1px solid red">
+    <Box flexDirection="row" height={48}>
       <Box flexDirection="column" flexGrow={1} height="100%">
         <Box
           width={0.7 * vw}
           height="100%"
           alignItems="flex-start"
-          justifyContent="center"
-          border="1px solid blue">
+          justifyContent="center">
           <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
             {category.category}
           </Text>

@@ -10,6 +10,7 @@ import {
   SlideUpView,
 } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<
@@ -40,7 +41,7 @@ export const TodoListItem: FC<TodoListItem> = ({
           <Touchable
             p={0}
             height={48}
-            onPress={() => navigation.navigate('TodoDetails', params)}>
+            onPress={() => navigation.navigate(STACK_ROUTE_NAMES.詳細, params)}>
             <Box
               width={0.6 * vw}
               alignItems="flex-start"

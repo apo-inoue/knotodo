@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 export const HeaderIconLeft: FC = () => {
   const navigation = useNavigation();
@@ -31,14 +32,14 @@ export const HeaderIconsRight: FC = () => {
         name="sort"
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.navigate('Sort')}
+        onPress={() => navigation.navigate(STACK_ROUTE_NAMES.並べ替え)}
       />
       <Box mr={3} />
       <MaterialCommunityIcons
         name="filter"
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.navigate('Setting')}
+        onPress={() => navigation.navigate(STACK_ROUTE_NAMES.フィルター)}
       />
     </Box>
   );

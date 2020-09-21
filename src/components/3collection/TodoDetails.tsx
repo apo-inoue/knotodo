@@ -4,6 +4,7 @@ import { Todos } from '../../types/graphql';
 import { TodoWorkload } from '../2single';
 import { PrimaryButton } from '../../ui/button/StyledButtons';
 import { useNavigation } from '@react-navigation/native';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 type TodoDetailsProps = {
   todo: Todos;
@@ -37,7 +38,7 @@ export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {
           variant="contained"
           width="30%"
           stretch
-          onPress={() => navigation.navigate('EditTodo')}
+          onPress={() => navigation.navigate(STACK_ROUTE_NAMES.編集)}
           text="編集"
         />
       </Box>

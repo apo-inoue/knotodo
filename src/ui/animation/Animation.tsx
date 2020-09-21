@@ -1,6 +1,6 @@
 import { ViewProps } from 'react-native';
 import { ReactNode } from 'react';
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { FlexboxProps } from 'styled-system';
 import {
   space,

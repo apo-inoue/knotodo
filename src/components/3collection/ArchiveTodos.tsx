@@ -4,6 +4,7 @@ import { Todos } from '../../types/graphql';
 import { TodoListItem } from '../2single';
 import { AddFab } from '../1standalone';
 import { Box, FlatList } from '../../ui';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
@@ -35,7 +36,7 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({ todos, onPress }) => {
           )}
         />
       </Box>
-      <AddFab onPress={() => navigation.navigate('NewTodo')} />
+      <AddFab onPress={() => navigation.navigate(STACK_ROUTE_NAMES.新規作成)} />
     </>
   );
 };

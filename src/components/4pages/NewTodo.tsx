@@ -38,8 +38,6 @@ export const NewTodo: FC = () => {
     return <NoDataMessage />;
   }
 
-  console.log(data, error);
-
   return (
     <Container centerContent>
       <NewTodoCollection
