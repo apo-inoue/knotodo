@@ -6,6 +6,7 @@ export const RoundButton: FC<TouchableProps> = props => {
     <Touchable
       variant="contained"
       color="primary"
+      center
       height={50}
       width={50}
       borderRadius={25}

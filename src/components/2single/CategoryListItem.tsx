@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Text, Touchable, Box } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useWindowDimensions } from 'react-native';
 import { useTheme } from 'styled-components';
 
 type CategoryListItemProps = {
@@ -15,40 +14,34 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
   isDeleteAllowed,
 }) => {
   const theme = useTheme();
-  const vw = useWindowDimensions().width;
 
   return (
-    <Box flexDirection="row" height={48}>
-      <Box flexDirection="column" flexGrow={1} height="100%">
-        <Box
-          width={0.7 * vw}
-          height="100%"
-          alignItems="flex-start"
-          justifyContent="center">
-          <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
-            {category.category}
-          </Text>
-        </Box>
+    <Box flexDirection="row" height={48} width="100%">
+      <Box flex="1 1" justifyContent="center" height={48}>
+        <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
+          {category.category}
+        </Text>
       </Box>
-      <Box width={80} flexDirection="column" my="auto" alignItems="center">
-        <Box flexDirection="row">
-          <Touchable p={2} disabled={!isDeleteAllowed}>
-            <MaterialCommunityIcons
-              name="delete"
-              size={28}
-              color={
-                isDeleteAllowed ? theme.colors.main : theme.colors.blacks[4]
-              }
-            />
-          </Touchable>
-          <Touchable p={2}>
-            <MaterialCommunityIcons
-              name="square-edit-outline"
-              size={28}
-              color="black"
-            />
-          </Touchable>
-        </Box>
+      <Box
+        width={90}
+        flexDirection="row"
+        my="auto"
+        alignItems="center"
+        justifyContent="flex-end">
+        <Touchable pr={1.2} disabled={!isDeleteAllowed}>
+          <MaterialCommunityIcons
+            name="delete"
+            size={28}
+            color={isDeleteAllowed ? theme.colors.main : theme.colors.blacks[4]}
+          />
+        </Touchable>
+        <Touchable pr={0} mr="-2px">
+          <MaterialCommunityIcons
+            name="square-edit-outline"
+            size={28}
+            color={theme.colors.main}
+          />
+        </Touchable>
       </Box>
     </Box>
   );

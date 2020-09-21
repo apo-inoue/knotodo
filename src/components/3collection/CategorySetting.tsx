@@ -19,6 +19,7 @@ export const CategorySetting: FC<CategorySettingProps> = ({
 
   return (
     <>
+      <Box mt={2} width="100%" />
       {categories.map(category => {
         return (
           <Box key={category.id} width="100%">

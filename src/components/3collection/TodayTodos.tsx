@@ -3,7 +3,7 @@ import { Todos } from '../../types/graphql';
 import { TodoListItem } from '../2single';
 import { AddFab } from '../1standalone/AddFab';
 import { useNavigation } from '@react-navigation/native';
-import { Box, FlatList } from '../../ui';
+import { Box, FlatList, Divider } from '../../ui';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 type TodoType = { __typename: 'todos' } & Pick<
@@ -28,12 +28,14 @@ export const TodayTodos: FC<TodayTodos> = ({ todos, onPress }) => {
         <FlatList<TodoType>
           data={todos}
           keyExtractor={(item: TodoType) => item.id}
-          renderItem={({ item, index }: { item: TodoType; index: number }) => (
-            <TodoListItem
-              todo={item}
-              index={index}
-              buttonAction={{ onPress, label: 'Complete' }}
-            />
+          renderItem={({ item }: { item: TodoType; index: number }) => (
+            <Box key={item.id} width="100%">
+              <TodoListItem
+                todo={item}
+                buttonAction={{ onPress, label: 'Complete' }}
+              />
+              <Divider />
+            </Box>
           )}
         />
       </Box>
