@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
-import { CheckBox } from 'react-native';
-import { Text, Touchable } from '../../ui';
+import { Text, Touchable, CheckBox } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { Box } from '../../ui/layout/Box';
@@ -17,20 +16,16 @@ export const CategorySelectItem: FC<CategorySelectItemProps> = ({
 
   return (
     <Box width="100%" flexDirection="row">
-      {console.log('hello')}
       <Touchable
         width="80%"
         onPress={() => filterSelectHandler(category.category)}>
         <Text>{category.category}</Text>
       </Touchable>
       <Box width={50} height={50}>
-        <CheckBox
-          disabled={false}
-          value={toggleCheckBox}
-          onValueChange={newValue => setToggleCheckBox(newValue)}
-        />
+        <Touchable onPress={() => setToggleCheckBox(!toggleCheckBox)}>
+          <CheckBox checked={toggleCheckBox} />
+        </Touchable>
       </Box>
-      <Text>helo</Text>
     </Box>
   );
 };

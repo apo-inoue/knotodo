@@ -1,6 +1,6 @@
 import { FontAwesome } from '@expo/vector-icons';
 import React, { FC } from 'react';
-import { Box } from '..';
+import { Box } from '../layout/Box';
 
 type CheckBox = {
   checked: boolean;

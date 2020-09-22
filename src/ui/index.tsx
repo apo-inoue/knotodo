@@ -21,6 +21,7 @@ export {
 } from './input/OutlinedTextInput';
 export { OutlinedTextForm, UnderlinedTextForm } from './input/TextForm';
 export { RadioButton } from './input/RadioButton';
+export { CheckBox } from './input/CheckBox';
 export { Loader, ScreenLoader } from './utils/Loader';
 export { Divider } from './utils/Divider';
 export { FlatList } from './utils/FlatList';
