@@ -58,3 +58,14 @@ export const SET_TODAY_TODO = gql`
     }
   }
 `;
+
+export const SET_NOT_TODAY_TODO = gql`
+  mutation SetNotTodayTodo($_eq: String!) {
+    update_todos(where: { id: { _eq: $_eq } }, _set: { isToday: false }) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`;

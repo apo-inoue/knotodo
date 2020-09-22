@@ -1637,6 +1637,23 @@ export type SetTodayTodoMutation = (
   )> }
 );
 
+export type SetNotTodayTodoMutationVariables = Exact<{
+  _eq: Scalars['String'];
+}>;
+
+
+export type SetNotTodayTodoMutation = (
+  { __typename: 'mutation_root' }
+  & { update_todos: Maybe<(
+    { __typename: 'todos_mutation_response' }
+    & Pick<Todos_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename: 'todos' }
+      & Pick<Todos, 'id'>
+    )> }
+  )> }
+);
+
 export type UpdateColorTypeMutationVariables = Exact<{
   color_type: Maybe<ColorTypes_Enum>;
   _eq: Maybe<Scalars['String']>;
@@ -1997,6 +2014,41 @@ export function useSetTodayTodoMutation(baseOptions?: Apollo.MutationHookOptions
 export type SetTodayTodoMutationHookResult = ReturnType<typeof useSetTodayTodoMutation>;
 export type SetTodayTodoMutationResult = Apollo.MutationResult<SetTodayTodoMutation>;
 export type SetTodayTodoMutationOptions = Apollo.BaseMutationOptions<SetTodayTodoMutation, SetTodayTodoMutationVariables>;
+export const SetNotTodayTodoDocument = gql`
+    mutation SetNotTodayTodo($_eq: String!) {
+  update_todos(where: {id: {_eq: $_eq}}, _set: {isToday: false}) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type SetNotTodayTodoMutationFn = Apollo.MutationFunction<SetNotTodayTodoMutation, SetNotTodayTodoMutationVariables>;
+
+/**
+ * __useSetNotTodayTodoMutation__
+ *
+ * To run a mutation, you first call `useSetNotTodayTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSetNotTodayTodoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [setNotTodayTodoMutation, { data, loading, error }] = useSetNotTodayTodoMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useSetNotTodayTodoMutation(baseOptions?: Apollo.MutationHookOptions<SetNotTodayTodoMutation, SetNotTodayTodoMutationVariables>) {
+        return Apollo.useMutation<SetNotTodayTodoMutation, SetNotTodayTodoMutationVariables>(SetNotTodayTodoDocument, baseOptions);
+      }
+export type SetNotTodayTodoMutationHookResult = ReturnType<typeof useSetNotTodayTodoMutation>;
+export type SetNotTodayTodoMutationResult = Apollo.MutationResult<SetNotTodayTodoMutation>;
+export type SetNotTodayTodoMutationOptions = Apollo.BaseMutationOptions<SetNotTodayTodoMutation, SetNotTodayTodoMutationVariables>;
 export const UpdateColorTypeDocument = gql`
     mutation UpdateColorType($color_type: colorTypes_enum, $_eq: String) {
   update_users(_set: {color_type: $color_type}, where: {id: {_eq: $_eq}}) {

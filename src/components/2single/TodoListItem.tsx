@@ -21,7 +21,7 @@ export const TodoListItem: FC<TodoListItem> = ({ todo, buttonAction }) => {
 
   return (
     <SlideUpView>
-      <Box flexDirection="row" height={48}>
+      <Box flexDirection="row" height={50}>
         <Box flex="1 1" justifyContent="center">
           <Touchable
             p={0}

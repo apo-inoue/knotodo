@@ -28,7 +28,7 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({ todos, onPress }) => {
           data={todos}
           keyExtractor={(item: TodoType) => item.id}
           renderItem={({ item, index }: { item: TodoType; index: number }) => (
-            <Box key={item.id} width="100%">
+            <Box width="100%">
               <TodoListItem
                 todo={item}
                 buttonAction={{ onPress, label: 'Delete' }}

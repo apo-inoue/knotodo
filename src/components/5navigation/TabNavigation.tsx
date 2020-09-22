@@ -11,7 +11,7 @@ export const TabNavigation: FC = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={TAB_ROUTE_NAMES.Today}
+      initialRouteName={TAB_ROUTE_NAMES.NotToday}
       barStyle={{ backgroundColor: theme.colors.main }}>
       <Tab.Screen
         name="Archive"
