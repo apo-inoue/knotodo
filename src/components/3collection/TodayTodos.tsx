@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Todos } from '../../types/graphql';
 import { TodoListItem } from '../2single';
-import { AddFab } from '../1standalone/AddFab';
+import { AddFab } from '../1standalone';
 import { useNavigation } from '@react-navigation/native';
 import { Box, FlatList, Divider } from '../../ui';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';

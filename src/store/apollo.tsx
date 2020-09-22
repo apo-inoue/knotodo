@@ -19,6 +19,9 @@ export const CustomApolloProvider: FC = ({ children }) => {
             todos: {
               merge: false,
             },
+            categories: {
+              merge: false,
+            },
           },
         },
       },

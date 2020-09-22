@@ -58,7 +58,6 @@ export const baseTheme = {
       '-apple-system, BlinkMacSystemFont, "avenir next", avenir, "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial, sans-serif',
   },
   borders: [
-    0,
     '1px solid',
     '2px solid',
     '4px solid',
@@ -66,7 +65,7 @@ export const baseTheme = {
     '16px solid',
     '32px solid',
   ],
-  radii: [0, 2, 4, 16, 9999, '100%'],
+  radii: [0, 2, 4, 16, 9999],
   widths: [16, 32, 64, 128, 256],
   heights: [16, 32, 64, 128, 256],
   maxWidths: [16, 32, 64, 128, 256, 512, 768, 1024, 1536],

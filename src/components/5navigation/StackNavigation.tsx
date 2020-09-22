@@ -20,6 +20,7 @@ export const StackNavigation: FC = () => {
 
   return (
     <Stack.Navigator
+      mode="modal"
       screenOptions={{
         headerStyle: {
           backgroundColor: theme.colors.main,

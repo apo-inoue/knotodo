@@ -35,7 +35,7 @@ declare module 'styled-components/native' {
       sansSerif: string;
     };
     borders: ReactText[];
-    radii: ReactText[];
+    radii: number[];
     widths: number[];
     heights: number[];
     maxWidths: number[];

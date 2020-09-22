@@ -19,7 +19,7 @@ export const CategoryFilter: FC = () => {
   }
 
   return (
-    <Container>
+    <Container centerContent>
       <CategoryFilterCollection categories={data.categories} />
     </Container>
   );

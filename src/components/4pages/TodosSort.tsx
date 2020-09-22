@@ -4,7 +4,7 @@ import { TodosSortCollection } from '../3collection';
 
 export const TodosSort: FC = () => {
   return (
-    <Container>
+    <Container centerContent>
       <TodosSortCollection />
     </Container>
   );

@@ -10,7 +10,7 @@ export const CategoryAdd: FC = () => {
 
   return (
     <UnderlinedTextForm
-      placeholder="タイトル"
+      placeholder="カテゴリの名前"
       error={null}
       onChangeText={categoryInputHandler}
       value={category}

@@ -15,11 +15,6 @@ export const PrimaryButton: FC<
         stretch={props.stretch}
         color={
           props.variant === 'outlined' ? theme.colors.main : theme.colors.white
-        }
-        fontSize={
-          props.btnSize && props.btnSize === 'lg'
-            ? theme.fontSizes[2]
-            : theme.fontSizes[1]
         }>
         {props.text}
       </Text>

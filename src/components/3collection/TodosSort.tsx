@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import { PrimaryButton } from '../../ui';
-import { Divider } from '../../ui/utils/Divider';
+import { PrimaryButton, Divider } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 
 export const TodosSort: FC = () => {
