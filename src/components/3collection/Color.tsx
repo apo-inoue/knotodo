@@ -34,7 +34,7 @@ export const Color: FC = () => {
           variant="contained"
           stretch
           btnSize="lg"
-          width="80%"
+          width="100%"
           text="設定"
           onPress={handlePress}
         />

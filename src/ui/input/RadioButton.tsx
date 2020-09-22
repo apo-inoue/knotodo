@@ -1,13 +1,11 @@
-import { FontAwesome } from '@expo/vector-icons';
 import React, { FC } from 'react';
-import { Box } from '../layout/Box';
 import { useTheme } from 'styled-components';
-import { Text } from '../typography/Text';
+import { Box } from '../layout/Box';
 import { Touchable, TouchableProps } from '../button/Touchable';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type RadioButton = {
   checked: boolean;
-  text: string;
   radioColor?: string;
 } & TouchableProps;
 
@@ -16,23 +14,20 @@ export const RadioButton: FC<RadioButton> = props => {
 
   return (
     <Touchable p={0} {...props}>
-      <Box my={1} alignItems="center" flexDirection="row">
-        <Box mr={2}>
-          {props.checked ? (
-            <FontAwesome
-              name="dot-circle-o"
-              size={24}
-              color={props.radioColor ? props.radioColor : theme.colors.main}
-            />
-          ) : (
-            <FontAwesome
-              name="circle-o"
-              size={24}
-              color={theme.colors.blacks[5]}
-            />
-          )}
-        </Box>
-        <Text>{props.text}</Text>
+      <Box>
+        {props.checked ? (
+          <MaterialCommunityIcons
+            name="checkbox-marked-circle"
+            size={24}
+            color={props.radioColor ? props.radioColor : theme.colors.main}
+          />
+        ) : (
+          <MaterialCommunityIcons
+            name="checkbox-blank-circle-outline"
+            size={24}
+            color={theme.colors.blacks[5]}
+          />
+        )}
       </Box>
     </Touchable>
   );

@@ -7,9 +7,7 @@ export const DRAWER_ROUTE_NAMES = {
 export type DrawerRouteName = typeof DRAWER_ROUTE_NAMES[keyof typeof DRAWER_ROUTE_NAMES];
 
 export const STACK_ROUTE_NAMES = {
-  フィルター: 'フィルター',
-  並べ替え: '並べ替え',
-  カテゴリ設定: 'カテゴリ設定',
+  Root: 'Root',
   詳細: '詳細',
   編集: '編集',
   新規作成: '新規作成',
