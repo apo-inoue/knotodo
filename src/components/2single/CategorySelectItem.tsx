@@ -15,13 +15,18 @@ export const CategorySelectItem: FC<CategorySelectItemProps> = ({
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   return (
-    <Box width="100%" flexDirection="row">
-      <Touchable
-        width="80%"
-        onPress={() => filterSelectHandler(category.category)}>
-        <Text>{category.category}</Text>
-      </Touchable>
-      <Box width={50} height={50}>
+    <Box width="100%" flexDirection="row" height={50}>
+      <Box flex="1 1" justifyContent="center">
+        <Touchable
+          p={0}
+          justifyContent="center"
+          onPress={() => filterSelectHandler(category.category)}>
+          <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
+            {category.category}
+          </Text>
+        </Touchable>
+      </Box>
+      <Box width={50} flexDirection="row" my="auto" justifyContent="flex-end">
         <Touchable onPress={() => setToggleCheckBox(!toggleCheckBox)}>
           <CheckBox checked={toggleCheckBox} />
         </Touchable>

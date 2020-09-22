@@ -34,8 +34,8 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
 
   return (
     <SlideUpView>
-      <Box flexDirection="row" height={48} width="100%">
-        <Box flex="1 1" justifyContent="center" height={48}>
+      <Box flexDirection="row" height={50} width="100%">
+        <Box flex="1 1" justifyContent="center" height="100%">
           {!isEditMode ? (
             <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
               {category.category}
