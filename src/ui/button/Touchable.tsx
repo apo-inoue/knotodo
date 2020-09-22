@@ -56,12 +56,14 @@ export const Touchable = styled.TouchableOpacity<TouchableProps>`
     props.color === 'primary' &&
     props.variant === 'outlined' && {
       border: `1px solid ${props.theme.colors.main}`,
+      padding: '7px 13px',
     }};
 
   ${props =>
     props.color === 'muted' &&
     props.variant === 'contained' && {
       backgroundColor: props.theme.colors.muted,
+      padding: '7px 13px',
     }};
 
   ${props =>

@@ -1,14 +1,60 @@
 import React, { FC } from 'react';
-import { PrimaryButton, Divider } from '../../ui';
+import { PrimaryButton, Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
+import { TodoSortItem } from '../2single/TodoSortItem';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
+
+type AvailableSort = {
+  name: string;
+  desc: string;
+  asc: string;
+};
 
 export const TodosSort: FC = () => {
   const navigation = useNavigation();
+  const { sortInputHandler } = useSortFilterCtx();
+  const availableSorts: AvailableSort[] = [
+    {
+      name: '作成日',
+      desc: '古い順',
+      asc: '新しい順',
+    },
+    {
+      name: '工数',
+      desc: '少ない順',
+      asc: '多い順',
+    },
+    {
+      name: '期日',
+      desc: '近い順',
+      asc: '遠い順',
+    },
+  ];
 
   return (
     <>
-      <Divider />
-      <PrimaryButton text="検索" onPress={navigation.goBack} />
+      {availableSorts.map(availableSort => (
+        <Box width="100%" key={availableSort.name}>
+          <TodoSortItem sort={availableSort} />
+        </Box>
+      ))}
+      <Box mb={4} flexDirection="row">
+        <PrimaryButton
+          variant="outlined"
+          width="40%"
+          stretch
+          onPress={navigation.goBack}
+          text="キャンセル"
+        />
+        <Box mr={3} />
+        <PrimaryButton
+          variant="contained"
+          width="40%"
+          stretch
+          onPress={() => sortInputHandler('hoge')}
+          text="並び替え"
+        />
+      </Box>
     </>
   );
 };

@@ -5,7 +5,7 @@ import { AddFab } from '../1standalone';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Divider, PrimaryButton } from '../../ui';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
-import { SwipeListView, SwipeRow, RowMap } from 'react-native-swipe-list-view';
+import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import { ListRenderItemInfo } from 'react-native';
 
 type TodoType = { __typename: 'todos' } & Pick<
@@ -69,29 +69,3 @@ export const TodayTodos: FC<TodayTodos> = ({ todos, onPress, onPostpone }) => {
     </>
   );
 };
-
-/* <Box
-            pl={4}
-            flexDirection="row"
-            justifyContent="space-between"
-            flex={1}
-            alignItems="center">
-            <Box flexDirection="column" alignItems="flex-end" width="100%">
-              <PrimaryButton
-                variant="contained"
-                text="NotToday"
-                onPress={() => onPostpone(rowData.item.id)}
-              />
-            </Box>
-          </Box>
-          <Box width="100%" bg="white">
-            <TodoListItem
-              todo={rowData.item}
-              buttonAction={{ onPress, label: 'Complete' }}
-            />
-          </Box>
-        </Box>
-        <Divider width="100%" />
-        {/* // NOTE: FABが重なって押しにくくなるのを避けるため余白を追加する */
-
-// {todos.length - 1 === rowData.index && <Box mb={5} />} */}
