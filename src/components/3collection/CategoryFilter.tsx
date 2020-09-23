@@ -15,9 +15,10 @@ type CategoryType = { __typename: 'categories' } & Pick<
 
 type CategoryProps = {
   categories: CategoryType[];
+  onPress: () => void;
 };
 
-export const CategoryFilter: FC<CategoryProps> = ({ categories }) => {
+export const CategoryFilter: FC<CategoryProps> = ({ categories, onPress }) => {
   const theme = useTheme();
   const navigation = useNavigation();
   const { filterSelectHandler } = useSortFilterCtx();
@@ -26,36 +27,39 @@ export const CategoryFilter: FC<CategoryProps> = ({ categories }) => {
 
   return (
     <>
-      <Box mt={4} width="100%" flex={1}>
-        <Box flexDirection="row" justifyContent="space-between">
-          <Box flex="1">
-            <Text>すべて</Text>
-          </Box>
-          <Switch
-            trackColor={{ false: theme.colors.white, true: theme.colors.main }}
-            thumbColor={theme.colors.white}
-            ios_backgroundColor={theme.colors.blacks[8]}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        </Box>
+      <Box
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        width="100%"
+        mb={3}>
+        <Text>すべて</Text>
+        <Switch
+          trackColor={{ false: theme.colors.white, true: theme.colors.main }}
+          thumbColor={theme.colors.white}
+          ios_backgroundColor={theme.colors.blacks[8]}
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
       </Box>
-      <FlatList<CategoryType>
-        data={categories}
-        keyExtractor={(item: CategoryType) => `${item.id}`}
-        renderItem={({ item }: { item: CategoryType }) => (
-          <Box width="100%">
-            <CategorySelectItem category={item} />
-            <Divider />
-          </Box>
-        )}
-      />
-      <Box mb={4} flexDirection="row">
+      <Box height="200px">
+        <FlatList<CategoryType>
+          data={categories}
+          keyExtractor={(item: CategoryType) => `${item.id}`}
+          renderItem={({ item }: { item: CategoryType }) => (
+            <Box width="100%">
+              <CategorySelectItem category={item} />
+              <Divider />
+            </Box>
+          )}
+        />
+      </Box>
+      <Box flexDirection="row" width="100%" justifyContent="center" mt={4}>
         <PrimaryButton
           variant="outlined"
           width="40%"
           stretch
-          onPress={navigation.goBack}
+          onPress={onPress}
           text="キャンセル"
         />
         <Box mr={3} />

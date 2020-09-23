@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
-import { Container } from '../../ui';
+import { Box } from '../../ui';
 import { useAllCategoryQuery } from '../../types/graphql';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
 import { ScreenLoader } from '../../ui';
 import { CategoryFilterCollection } from '../3collection';
 
-export const CategoryFilter: FC = () => {
+type CategoryFilterProps = {
+  onPress: () => void;
+};
+
+export const CategoryFilter: FC<CategoryFilterProps> = ({ onPress }) => {
   const { data, loading, error } = useAllCategoryQuery();
 
   if (loading) {
@@ -19,8 +23,11 @@ export const CategoryFilter: FC = () => {
   }
 
   return (
-    <Container centerContent>
-      <CategoryFilterCollection categories={data.categories} />
-    </Container>
+    <Box bg="white" py={4} px={3}>
+      <CategoryFilterCollection
+        categories={data.categories}
+        onPress={onPress}
+      />
+    </Box>
   );
 };

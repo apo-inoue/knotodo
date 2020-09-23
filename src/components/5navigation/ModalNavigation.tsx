@@ -22,15 +22,15 @@ export const ModalNavigation: FC<ModalNavigationProps> = ({
         isVisible={isSortModalVisible}
         onBackdropPress={onPressSort}
         onSwipeComplete={onPressSort}
-        swipeDirection={['down']}>
+        swipeDirection={['down', 'up']}>
         <TodosSort />
       </Modal>
       <Modal
         isVisible={isFilterModalVisible}
         onSwipeComplete={onPressFilter}
         onBackdropPress={onPressFilter}
-        swipeDirection={['down']}>
-        <CategoryFilter />
+        swipeDirection={['down', 'up']}>
+        <CategoryFilter onPress={onPressFilter} />
       </Modal>
       <DrawerNavigation />
     </>

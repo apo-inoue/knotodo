@@ -38,23 +38,6 @@ export const TodosSort: FC = () => {
           <TodoSortItem sort={availableSort} />
         </Box>
       ))}
-      <Box mb={4} flexDirection="row">
-        <PrimaryButton
-          variant="outlined"
-          width="40%"
-          stretch
-          onPress={navigation.goBack}
-          text="キャンセル"
-        />
-        <Box mr={3} />
-        <PrimaryButton
-          variant="contained"
-          width="40%"
-          stretch
-          onPress={() => sortInputHandler('hoge')}
-          text="並び替え"
-        />
-      </Box>
     </>
   );
 };

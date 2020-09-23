@@ -17,18 +17,29 @@ export const TodoSortItem: FC<TodoSortItemProps> = ({ sort }) => {
           <Text>{sort.name}</Text>
         </Box>
         <Box
-          width={250}
           flexDirection="row"
           my="auto"
           alignItems="center"
           justifyContent="flex-end">
-          <Box width={80}>
-            <Text>{sort.desc}</Text>
+          <Box>
+            <PrimaryButton
+              variant="outlined"
+              width={90}
+              stretch
+              borderBottomRightRadius={0}
+              borderTopRightRadius={0}
+              text={sort.desc}
+            />
           </Box>
-          <Box mr={3} />
-          <Box width={80}>
-            <Text>{sort.asc}</Text>
-          </Box>
+          <Box mr="-2px" />
+          <PrimaryButton
+            variant="contained"
+            width={90}
+            stretch
+            borderBottomLeftRadius={0}
+            borderTopLeftRadius={0}
+            text={sort.asc}
+          />
         </Box>
       </Box>
       <Divider />

@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react';
-import { Container } from '../../ui';
+import { Box } from '../../ui';
 import { TodosSortCollection } from '../3collection';
 
 export const TodosSort: FC = () => {
   return (
-    <Container centerContent>
+    <Box bg="white" py={4} px={3}>
       <TodosSortCollection />
-    </Container>
+    </Box>
   );
 };
