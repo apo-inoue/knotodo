@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { DrawerNavigation } from './DrawerNavigation';
 import Modal from 'react-native-modal';
 import { TodosSort, CategoryFilter } from '../4pages';

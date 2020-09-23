@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Container, ScreenLoader } from '../../ui';
 import {
   useAllCategoryQuery,
@@ -11,6 +11,7 @@ import { useCategoryCtx } from '../../containers/contexts/category';
 import { ALL_CATEGORY } from '../../graphql/query/categories';
 import { useUpdateCategoryMutation } from '../../types/graphql';
 import { useDeleteCategoryMutation } from '../../types/graphql';
+import { useFocusEffect } from 'react-navigation';
 
 export const CategorySetting: FC = () => {
   const {
@@ -65,6 +66,12 @@ export const CategorySetting: FC = () => {
   const updateCategoryHandler = (id: string, c: string) => {
     updateCategory({ variables: { id: id, category: c } });
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch]),
+  );
 
   if (loading) {
     return <ScreenLoader />;

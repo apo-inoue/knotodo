@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
-import { PrimaryButton, Box } from '../../ui';
-import { useNavigation } from '@react-navigation/native';
+import { Box } from '../../ui';
 import { TodoSortItem } from '../2single/TodoSortItem';
-import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 
 type AvailableSort = {
   name: string;
@@ -11,8 +9,6 @@ type AvailableSort = {
 };
 
 export const TodosSort: FC = () => {
-  const navigation = useNavigation();
-  const { sortInputHandler } = useSortFilterCtx();
   const availableSorts: AvailableSort[] = [
     {
       name: '作成日',

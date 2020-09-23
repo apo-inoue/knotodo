@@ -6,7 +6,6 @@ import { CategorySelectItem } from '../2single';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { Divider } from '../../ui/utils/Divider';
 import { useTheme } from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
 
 type CategoryType = { __typename: 'categories' } & Pick<
   Categories,
@@ -20,7 +19,6 @@ type CategoryProps = {
 
 export const CategoryFilter: FC<CategoryProps> = ({ categories, onPress }) => {
   const theme = useTheme();
-  const navigation = useNavigation();
   const { filterSelectHandler } = useSortFilterCtx();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);

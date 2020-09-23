@@ -4,7 +4,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
-import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 export const HeaderIconLeft: FC = () => {
   const navigation = useNavigation();
