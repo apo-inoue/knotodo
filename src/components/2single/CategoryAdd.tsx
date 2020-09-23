@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { UnderlinedTextForm } from '../../ui/input/TextForm';
+import { UnderlinedTextForm } from '../../ui';
 import { useCategoryCtx } from '../../containers/contexts/category';
 
 export const CategoryAdd: FC = () => {
@@ -10,7 +10,7 @@ export const CategoryAdd: FC = () => {
 
   return (
     <UnderlinedTextForm
-      placeholder="タイトル"
+      placeholder="カテゴリの名前"
       error={null}
       onChangeText={categoryInputHandler}
       value={category}

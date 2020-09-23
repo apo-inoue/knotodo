@@ -25,7 +25,10 @@ export const INSERT_TODO = gql`
 
 export const COMPLETE_TODO = gql`
   mutation CompleteToDo($_eq: String!) {
-    update_todos(where: { id: { _eq: $_eq } }, _set: { isCompleted: true }) {
+    update_todos(
+      where: { id: { _eq: $_eq } }
+      _set: { isCompleted: true, completed_at: "now()" }
+    ) {
       affected_rows
       returning {
         id
@@ -35,8 +38,8 @@ export const COMPLETE_TODO = gql`
 `;
 
 export const DELETE_TODO = gql`
-  mutation DeleteToDo($_eq: String) {
-    delete_todos(where: { id: { _eq: $_eq } }) {
+  mutation DeleteToDo($_eq: String!) {
+    update_todos(where: { id: { _eq: $_eq } }, _set: { deleted_at: "now()" }) {
       affected_rows
       returning {
         id
@@ -48,6 +51,17 @@ export const DELETE_TODO = gql`
 export const SET_TODAY_TODO = gql`
   mutation SetTodayTodo($_eq: String!) {
     update_todos(where: { id: { _eq: $_eq } }, _set: { isToday: true }) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+export const SET_NOT_TODAY_TODO = gql`
+  mutation SetNotTodayTodo($_eq: String!) {
+    update_todos(where: { id: { _eq: $_eq } }, _set: { isToday: false }) {
       affected_rows
       returning {
         id

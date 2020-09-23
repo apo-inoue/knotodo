@@ -1,10 +1,14 @@
 import React, { FC } from 'react';
-import { PrimaryButton } from '../../ui';
-import { CategoriesPicker, Urgency, WorkloadEdit } from '../2single';
+import { PrimaryButton, Box } from '../../ui';
+import {
+  CategoriesPicker,
+  TodoUrgencySelect,
+  TodoWorkloadSelect,
+  TodoTitleInput,
+} from '../2single';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { Box } from '../../ui/layout/Box';
-import { TodoTitleEdit } from '../2single/TodoTitle';
+import { useNavigation } from '@react-navigation/native';
 
 type NewTodoProps = {
   categories: ({ __typename: 'categories' } & Pick<
@@ -15,6 +19,7 @@ type NewTodoProps = {
 };
 
 export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
+  const navigation = useNavigation();
   const {
     state: { title, urgency, workload },
   } = useTodoCtx();
@@ -22,21 +27,30 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   return (
     <>
       <Box width="80%">
-        <TodoTitleEdit />
+        <TodoTitleInput />
       </Box>
       <Box mt={3}>
-        <WorkloadEdit />
+        <TodoWorkloadSelect />
       </Box>
       <Box mt={3}>
-        <Urgency />
+        <TodoUrgencySelect />
       </Box>
       <Box>
         <CategoriesPicker categories={categories} />
       </Box>
-      <Box mt={3}>
+      <Box mt={4} flexDirection="row">
+        <PrimaryButton
+          variant="outlined"
+          width="30%"
+          stretch
+          onPress={navigation.goBack}
+          text="キャンセル"
+        />
+        <Box mr={3} />
         <PrimaryButton
           variant="contained"
-          width="80%"
+          btnSize="lg"
+          width="30%"
           stretch
           text="追加"
           onPress={() => onPress({ title, urgency, workload })}

@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
-import { Container } from '../../ui';
+import { Container, ScreenLoader } from '../../ui';
 import { EditTodoCollection } from '../3collection';
-import { ScreenLoader } from '../../ui/utils/Loader';
-import { ErrorMessage } from '../1standalone/ErrorMessage';
-import { NoDataMessage } from '../1standalone/NoDataMessage';
+import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { InsertToDoMutationVariables } from '../../types/graphql';
 import {
   useAllCategoryQuery,

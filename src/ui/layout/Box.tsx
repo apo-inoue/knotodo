@@ -1,17 +1,19 @@
 import { ViewProps } from 'react-native';
 import { ReactNode } from 'react';
 import styled from 'styled-components/native';
-import { FlexboxProps } from 'styled-system';
 import {
   space,
   layout,
-  flex,
+  flexbox,
   border,
   position,
+  color,
   BorderProps,
   SpaceProps,
   LayoutProps,
   PositionProps,
+  FlexboxProps,
+  ColorProps,
 } from 'styled-system';
 
 type View = {
@@ -22,16 +24,20 @@ type View = {
   LayoutProps &
   FlexboxProps &
   ViewProps &
+  ColorProps &
   Readonly<{ children?: ReactNode }>;
 
 export const Box = styled.View<View>`
   /* box-sizing: border-box; */
   min-width: 0;
+  display: flex;
+
   ${position}
   ${space}
-  ${flex}
+  ${flexbox}
   ${border}
   ${layout}
+  ${color}
 
   ${props =>
     props.textAlign === 'center' && {

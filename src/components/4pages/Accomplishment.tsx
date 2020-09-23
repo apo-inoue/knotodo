@@ -2,13 +2,22 @@ import React, { FC, useEffect } from 'react';
 import { useGetAccomplishmentQuery } from '../../types/graphql';
 import { useIsDrawerOpen } from '@react-navigation/drawer';
 import { AccomplishmentCollection } from '../3collection';
-import { Box } from '../../ui';
-import { Loader } from '../../ui/utils/Loader';
-import { ErrorMessage } from '../1standalone/ErrorMessage';
-import { NoDataMessage } from '../1standalone/NoDataMessage';
+import { Box, Loader } from '../../ui';
+import { ErrorMessage, NoDataMessage } from '../1standalone';
+import { startOfISOWeek, startOfMonth, startOfYear, formatISO } from 'date-fns';
 
 export const Accomplishment: FC = () => {
-  const { loading, error, data, refetch } = useGetAccomplishmentQuery();
+  const startWeek = formatISO(startOfISOWeek(new Date()));
+  const startMonth = formatISO(startOfMonth(new Date()));
+  const startYear = formatISO(startOfYear(new Date()));
+  console.log(startWeek, 'week');
+  const { loading, error, data, refetch } = useGetAccomplishmentQuery({
+    variables: {
+      _gte1: startWeek,
+      _gte2: startMonth,
+      _gte3: startYear,
+    },
+  });
   const isDrawerOpen = useIsDrawerOpen();
   useEffect(() => {
     if (isDrawerOpen) {
@@ -28,7 +37,7 @@ export const Accomplishment: FC = () => {
 
   return (
     <Box>
-      <AccomplishmentCollection accomplishment={data.accomplishment[0]} />
+      <AccomplishmentCollection accomplishment={data} />
     </Box>
   );
 };

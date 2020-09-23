@@ -23,11 +23,15 @@ export const CategoriesPicker: FC<CategoriesProps> = ({ categories }) => {
       selectedValue={selectedValue}
       mode="dropdown"
       onValueChange={valueChangeHandler}>
-      <Picker.Item label={categories[0].category} value="home" />
-      <Picker.Item label="仕事" value="work" />
-      <Picker.Item label="ほげ" value="hoge" />
-      <Picker.Item label="ふが" value="huga" />
-      <Picker.Item label="ふご" value="hugo" />
+      {categories.map(category => {
+        return (
+          <Picker.Item
+            key={category.id}
+            label={category.category}
+            value={category.category}
+          />
+        );
+      })}
     </Picker>
   );
 };

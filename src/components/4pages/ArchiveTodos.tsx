@@ -22,7 +22,7 @@ export const ArchiveTodos: FC = () => {
         query: COMPLETED_TODOS,
       });
       const newTodos = existingTodos!.todos.filter(
-        t => t.id !== updateData!.delete_todos!.returning[0].id,
+        t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,

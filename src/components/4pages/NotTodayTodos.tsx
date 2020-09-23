@@ -3,17 +3,17 @@ import { useFocusEffect } from '@react-navigation/native';
 import {
   useNotTodayTodosQuery,
   useSetTodayTodoMutation,
+  useCompleteToDoMutation,
 } from '../../types/graphql';
-import { Container } from '../../ui';
-import { ErrorMessage } from '../1standalone';
+import { Container, ScreenLoader } from '../../ui';
+import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { NotTodayTodosCollection } from '../3collection';
-import { NoDataMessage } from '../1standalone/NoDataMessage';
-import { ScreenLoader } from '../../ui/utils/Loader';
 import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
 import { NotTodayTodosQuery } from '../../types/graphql';
 
 export const NotTodayTodos: FC = () => {
   const { loading, error, data, refetch } = useNotTodayTodosQuery();
+  // ---------- setToday ----------
   const [
     setToday,
     { loading: mutationLoading, error: mutationError },
@@ -34,6 +34,24 @@ export const NotTodayTodos: FC = () => {
   const setTodayHandler = (id: string) => {
     setToday({ variables: { _eq: id } });
   };
+  // ---------- complete ----------
+  const [completeTodo] = useCompleteToDoMutation({
+    update(cache, { data: updateData }) {
+      const existingTodos = cache.readQuery<NotTodayTodosQuery>({
+        query: NOT_TODAY_TODOS,
+      });
+      const newTodos = existingTodos!.todos.filter(
+        t => t.id !== updateData!.update_todos!.returning[0].id,
+      );
+      cache.writeQuery<NotTodayTodosQuery>({
+        query: NOT_TODAY_TODOS,
+        data: { __typename: 'query_root', todos: newTodos },
+      });
+    },
+  });
+  const completeTodoHandler = (id: string) => {
+    completeTodo({ variables: { _eq: id } });
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -53,7 +71,11 @@ export const NotTodayTodos: FC = () => {
 
   return (
     <Container>
-      <NotTodayTodosCollection todos={data.todos} onPress={setTodayHandler} />
+      <NotTodayTodosCollection
+        todos={data.todos}
+        onPress={setTodayHandler}
+        onComplete={completeTodoHandler}
+      />
     </Container>
   );
 };

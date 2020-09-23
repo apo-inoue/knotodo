@@ -21,8 +21,15 @@ export const HeaderIconLeft: FC = () => {
   );
 };
 
-export const HeaderIconsRight: FC = () => {
-  const navigation = useNavigation();
+type HeaderIconsRightProps = {
+  onPressSort: () => void;
+  onPressFilter: () => void;
+};
+
+export const HeaderIconsRight: FC<HeaderIconsRightProps> = ({
+  onPressSort,
+  onPressFilter,
+}) => {
   const theme = useTheme();
 
   return (
@@ -31,14 +38,14 @@ export const HeaderIconsRight: FC = () => {
         name="sort"
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.navigate('Sort')}
+        onPress={onPressSort}
       />
       <Box mr={3} />
       <MaterialCommunityIcons
         name="filter"
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.navigate('Setting')}
+        onPress={onPressFilter}
       />
     </Box>
   );

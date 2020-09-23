@@ -1,19 +1,25 @@
+import React, { FC } from 'react';
 import styled from 'styled-components/native';
 import { space, SpaceProps } from 'styled-system';
+import { Box } from './Box';
+import { useTheme } from 'styled-components';
 
-type Container = Partial<{
+type ContainerProps = Partial<{
   fill: boolean;
   fullWidth: boolean;
   centerContent: boolean;
 }> &
   SpaceProps;
 
-export const Container = styled.View<Container>`
+const ContainerWidth = styled.View<ContainerProps>`
   flex: 1;
+  width: 100%;
   background-color: ${props => props.theme.colors.white};
   align-items: flex-start;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-right: 16px;
+  padding-left: 16px;
+  margin-left: auto;
+  margin-right: auto;
 
   ${space};
 
@@ -26,3 +32,18 @@ export const Container = styled.View<Container>`
     alignItems: center;
   `};
 `;
+
+export const Container: FC<ContainerProps> = props => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      justifyContent="center"
+      alignItems="center"
+      width="100%"
+      height="100%"
+      bg={theme.colors.white}>
+      <ContainerWidth {...props}>{props.children}</ContainerWidth>
+    </Box>
+  );
+};

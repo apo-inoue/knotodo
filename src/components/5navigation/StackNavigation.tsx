@@ -1,16 +1,38 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TodoDetails, Category, NewTodo, Sort, EditTodo } from '../4pages';
+import { TodoDetails, NewTodo, EditTodo } from '../4pages';
 import { useTheme } from 'styled-components';
-import { HeaderIconLeft, HeaderIconsRight } from '../1standalone';
-import { DrawerNavigation } from './DrawerNavigation';
+import { HeaderIconLeft, HeaderIconsRight, HeaderTitle } from '../1standalone';
 import { Text } from '../../ui';
 import { RouteProp } from '@react-navigation/native';
-import { HeaderTitle } from '../1standalone/HeaderTitle';
+import { STACK_ROUTE_NAMES } from './type';
+import { ModalNavigation } from './ModalNavigation';
 
 export const StackNavigation: FC = () => {
   const Stack = createStackNavigator();
   const theme = useTheme();
+  const [isSortModalVisible, setSortModalVisible] = useState(false);
+  const [isFilterModalVisible, setFilterModalVisible] = useState(false);
+  const onPressSort = () => {
+    setSortModalVisible(!isSortModalVisible);
+  };
+  const onHideSort = () => {
+    setSortModalVisible(false);
+  };
+  const onPressFilter = () => {
+    setFilterModalVisible(!isSortModalVisible);
+  };
+  const onHideFilter = () => {
+    setFilterModalVisible(false);
+  };
+  const renderItem = () => (
+    <ModalNavigation
+      isSortModalVisible={isSortModalVisible}
+      onPressSort={onHideSort}
+      isFilterModalVisible={isFilterModalVisible}
+      onPressFilter={onHideFilter}
+    />
+  );
 
   return (
     <Stack.Navigator
@@ -24,21 +46,26 @@ export const StackNavigation: FC = () => {
         },
       }}>
       <Stack.Screen
-        name="Root"
-        component={DrawerNavigation}
+        name={STACK_ROUTE_NAMES.Root}
+        component={renderItem}
         options={({
           route,
         }: {
           // eslint-disable-next-line @typescript-eslint/ban-types
           route: RouteProp<Record<string, object | undefined>, 'Root'>;
         }) => ({
-          headerRight: () => <HeaderIconsRight />,
+          headerRight: () => (
+            <HeaderIconsRight
+              onPressSort={onPressSort}
+              onPressFilter={onPressFilter}
+            />
+          ),
           headerTitle: () => <HeaderTitle route={route} />,
           headerLeft: () => <HeaderIconLeft />,
         })}
       />
       <Stack.Screen
-        name="新規作成"
+        name={STACK_ROUTE_NAMES.新規作成}
         component={NewTodo}
         options={{
           headerTitle: () => (
@@ -50,7 +77,7 @@ export const StackNavigation: FC = () => {
         }}
       />
       <Stack.Screen
-        name="編集"
+        name={STACK_ROUTE_NAMES.編集}
         component={EditTodo}
         options={{
           headerTitle: () => (
@@ -62,36 +89,12 @@ export const StackNavigation: FC = () => {
         }}
       />
       <Stack.Screen
-        name="詳細"
+        name={STACK_ROUTE_NAMES.詳細}
         component={TodoDetails}
         options={{
           headerTitle: () => (
             <Text span color={theme.colors.white} fontWeight="bold">
               詳細
-            </Text>
-          ),
-          headerBackTitle: 'knoTodo',
-        }}
-      />
-      <Stack.Screen
-        name="並べ替え"
-        component={Sort}
-        options={{
-          headerTitle: () => (
-            <Text span color={theme.colors.white} fontWeight="bold">
-              並べ替え
-            </Text>
-          ),
-          headerBackTitle: 'knoTodo',
-        }}
-      />
-      <Stack.Screen
-        name="フィルター"
-        component={Category}
-        options={{
-          headerTitle: () => (
-            <Text span color={theme.colors.white} fontWeight="bold">
-              フィルター
             </Text>
           ),
           headerBackTitle: 'knoTodo',

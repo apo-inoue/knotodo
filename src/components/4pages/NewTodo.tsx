@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { Container } from '../../ui';
+import { Container, ScreenLoader } from '../../ui';
 import { NewTodoCollection } from '../3collection';
-import { ScreenLoader } from '../../ui/utils/Loader';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { InsertToDoMutationVariables } from '../../types/graphql';
@@ -38,8 +37,6 @@ export const NewTodo: FC = () => {
   if (!data) {
     return <NoDataMessage />;
   }
-
-  console.log(data, error);
 
   return (
     <Container centerContent>

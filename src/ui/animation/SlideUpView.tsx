@@ -6,7 +6,7 @@ export const SlideUpView: React.FC<ViewProps> = ({ children, style }) => {
   useEffect(() => {
     Animated.timing(appear, {
       toValue: 1,
-      duration: 500,
+      duration: 200,
       easing: Easing.out(Easing.quad),
       useNativeDriver: true,
     }).start();

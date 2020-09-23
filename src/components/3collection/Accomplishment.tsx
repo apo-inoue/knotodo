@@ -1,45 +1,61 @@
 import React, { FC, useMemo } from 'react';
 import { Box, Text } from '../../ui';
-import { Accomplishment as AccomplishmentType } from '../../types/graphql';
+import { GetAccomplishmentQuery } from '../../types/graphql';
+import { prizeReckoner } from '../../helpers/prizeReckoner';
 
 type AccomplishmentProps = {
-  accomplishment: {
-    __typename: 'accomplishment';
-  } & Pick<AccomplishmentType, 'id' | 'year' | 'month' | 'week'>;
+  accomplishment: GetAccomplishmentQuery;
 };
 
 export const Accomplishment: FC<AccomplishmentProps> = ({ accomplishment }) => {
   const { year, month, week } = accomplishment;
-  const dailyGoal = useMemo(() => {
-    const dayOfTheWeek = new Date().getDay();
-    if (dayOfTheWeek === 0) {
-      return 21;
+  const weeklyAccomplishment = week.aggregate?.count ?? 0;
+  const prizeScore = useMemo(() => prizeReckoner(weeklyAccomplishment), [
+    weeklyAccomplishment,
+  ]);
+  const Prize = () => {
+    switch (prizeScore) {
+      case 3:
+        return (
+          <Text textAlign="center" fontWeight="bold">
+            ✨✨Excellent work! ✨✨
+          </Text>
+        );
+      case 2:
+        return <Text textAlign="center">✨Well done! ✨</Text>;
+      case 1:
+        return <Text textAlign="center">✨Good job! ✨</Text>;
+      case 0:
+        return <Text textAlign="center">Let's start it today</Text>;
+      default:
+        return <Text textAlign="center">Let's start it today</Text>;
     }
-    return dayOfTheWeek * 3;
-  }, []);
+  };
+  console.log(prizeScore, 'prize', weeklyAccomplishment);
+  const accomplishmentIntervals = [
+    {
+      interval: '今週',
+      count: week.aggregate?.count ?? 0,
+    },
+    { interval: '今月', count: month.aggregate?.count ?? 0 },
+    { interval: '今年', count: year.aggregate?.count ?? 0 },
+  ];
 
   return (
     <Box my={3}>
-      <Box>
-        <Text textAlign="center">
-          今週:<Text span>{week}</Text>タスククリア
-        </Text>
-      </Box>
+      {accomplishmentIntervals.map(accomplishmentInterval => {
+        return (
+          <Box key={accomplishmentInterval.interval}>
+            <Text textAlign="center">
+              {accomplishmentInterval.interval}
+              <Text span>{accomplishmentInterval.count}</Text>タスククリア
+            </Text>
+          </Box>
+        );
+      })}
       <Box mt={2}>
-        <Text textAlign="center">
-          今月:<Text span>{month}</Text>タスククリア
-        </Text>
+        <Prize />
       </Box>
-      <Box mt={2}>
-        <Text textAlign="center">
-          今年:<Text span>{year}</Text>タスククリア
-        </Text>
-      </Box>
-      {week > dailyGoal && (
-        <Box mt={2}>
-          <Text textAlign="center">✨WellDone✨</Text>
-        </Box>
-      )}
     </Box>
   );
 };

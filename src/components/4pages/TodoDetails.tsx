@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Container } from '../../ui/layout/Container';
+import { Container } from '../../ui';
 import { useRoute } from '@react-navigation/native';
-import { TodoDetailsCollection } from '../3collection';
 import { ErrorMessage } from '../1standalone';
+import { TodoDetailsCollection } from '../3collection';
 import { Todos } from '../../types/graphql';
 
 export const TodoDetails: FC = () => {

@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../4pages';
 import { useTheme } from 'styled-components';
 import { TabIcon } from '../1standalone';
-
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { TAB_ROUTE_NAMES } from './type';
 
 export const TabNavigation: FC = () => {
   const theme = useTheme();
@@ -11,7 +11,7 @@ export const TabNavigation: FC = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Today"
+      initialRouteName={TAB_ROUTE_NAMES.NotToday}
       barStyle={{ backgroundColor: theme.colors.main }}>
       <Tab.Screen
         name="Archive"
@@ -23,7 +23,7 @@ export const TabNavigation: FC = () => {
         }}
       />
       <Tab.Screen
-        name="Today"
+        name={TAB_ROUTE_NAMES.Today}
         component={TodayTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
@@ -32,7 +32,7 @@ export const TabNavigation: FC = () => {
         }}
       />
       <Tab.Screen
-        name="NotToday"
+        name={TAB_ROUTE_NAMES.NotToday}
         component={NotTodayTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
