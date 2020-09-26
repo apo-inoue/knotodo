@@ -1,26 +1,31 @@
 import React, { FC } from 'react';
 import { Box, Touchable } from '../../ui';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { useTodoCtx } from '../../containers/contexts/todo';
 import { useTheme } from 'styled-components';
 
-export const TodoWorkloadSelect: FC = () => {
-  const theme = useTheme();
-  const {
-    state: { workload },
-    workloadInputHandler,
-  } = useTodoCtx();
+type TodoWorkloadSelectProps = {
+  workload: number;
+  workloadSelectHandler: (workload: number) => void;
+};
 
+export const TodoWorkloadSelect: FC<TodoWorkloadSelectProps> = ({
+  workload,
+  workloadSelectHandler,
+}) => {
+  const theme = useTheme();
   const workloadArray = [1, 2, 3, 4, 5];
 
   return (
     <Box display="flex" flexDirection="row">
       {workloadArray.map(num => {
         const isWorkload = num <= workload;
+        const handleSelect = () => {
+          workloadSelectHandler(num);
+        };
 
         return (
           <Box key={num}>
-            <Touchable onPress={() => workloadInputHandler(num)}>
+            <Touchable onPress={handleSelect}>
               <FontAwesome5
                 name="hammer"
                 size={24}

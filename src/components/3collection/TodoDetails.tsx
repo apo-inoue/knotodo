@@ -10,6 +10,7 @@ type TodoDetailsProps = {
   todo: Todos;
 };
 
+// !This component is no longer used, because we prefer to navigate edit screen directly.
 export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {
   const { id, title, workload, urgency } = todo;
   const navigation = useNavigation();

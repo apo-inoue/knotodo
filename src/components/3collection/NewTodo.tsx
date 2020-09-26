@@ -4,11 +4,11 @@ import {
   CategoriesPicker,
   TodoUrgencySelect,
   TodoWorkloadSelect,
-  TodoTitleInput,
 } from '../2single';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
 import { useNavigation } from '@react-navigation/native';
+import { UnderlinedTextForm } from '../../ui/input/TextForm';
 
 type NewTodoProps = {
   categories: ({ __typename: 'categories' } & Pick<
@@ -21,19 +21,35 @@ type NewTodoProps = {
 export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   const navigation = useNavigation();
   const {
-    state: { title, urgency, workload },
+    newTodo: {
+      state: { title, urgency, workload },
+      titleInputHandler,
+      workloadSelectHandler,
+      urgencySelectHandler,
+    },
   } = useTodoCtx();
 
   return (
     <>
       <Box width="80%">
-        <TodoTitleInput />
+        <UnderlinedTextForm
+          placeholder="タイトル"
+          error={null}
+          onChangeText={titleInputHandler}
+          value={title}
+        />
       </Box>
       <Box mt={3}>
-        <TodoWorkloadSelect />
+        <TodoWorkloadSelect
+          workload={workload}
+          workloadSelectHandler={workloadSelectHandler}
+        />
       </Box>
       <Box mt={3}>
-        <TodoUrgencySelect />
+        <TodoUrgencySelect
+          urgency={urgency}
+          urgencySelectHandler={urgencySelectHandler}
+        />
       </Box>
       <Box>
         <CategoriesPicker categories={categories} />

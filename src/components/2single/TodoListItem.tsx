@@ -26,7 +26,9 @@ export const TodoListItem: FC<TodoListItem> = ({ todo, buttonAction }) => {
           <Touchable
             p={0}
             justifyContent="center"
-            onPress={() => navigation.navigate(STACK_ROUTE_NAMES.詳細, params)}>
+            onPress={() =>
+              navigation.navigate(STACK_ROUTE_NAMES.編集, { todo })
+            }>
             <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
               {todo.title}
             </Text>

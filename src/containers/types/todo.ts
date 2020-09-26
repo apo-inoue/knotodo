@@ -1,11 +1,5 @@
 import { Urgency_Enum } from '../../types/graphql';
 
-export type TodoAction =
-  | { actionType: 'SET_TITLE'; payload: { title: string } }
-  | { actionType: 'SET_URGENCY'; payload: { urgency: Urgency_Enum } }
-  | { actionType: 'SET_CATEGORY'; payload: { category: string } }
-  | { actionType: 'SET_WORKLOAD'; payload: { workload: number } };
-
 export type TodoState = {
   title: string;
   urgency: Urgency_Enum;
@@ -14,9 +8,19 @@ export type TodoState = {
 };
 
 export type TodoCtxType = {
-  state: TodoState;
-  titleInputHandler: (text: string) => void;
-  urgencySelectHandler: (urgency: Urgency_Enum) => void;
-  categorySelectHandler: (category: string) => void;
-  workloadInputHandler: (workload: number) => void;
+  newTodo: {
+    state: TodoState;
+    titleInputHandler: (title: string) => void;
+    urgencySelectHandler: (urgency: Urgency_Enum) => void;
+    categorySelectHandler: (category: string) => void;
+    workloadSelectHandler: (workload: number) => void;
+  };
+  editTodo: {
+    state: TodoState;
+    todoMountHandler: (todo: TodoState) => void;
+    titleInputHandler: (title: string) => void;
+    urgencySelectHandler: (urgency: Urgency_Enum) => void;
+    categorySelectHandler: (category: string) => void;
+    workloadSelectHandler: (workload: number) => void;
+  };
 };

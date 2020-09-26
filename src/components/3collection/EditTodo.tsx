@@ -4,12 +4,22 @@ import {
   CategoriesPicker,
   TodoUrgencySelect,
   TodoWorkloadSelect,
-  TodoTitleInput,
 } from '../2single';
-import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
+import {
+  Categories,
+  InsertToDoMutationVariables,
+  Todos,
+} from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { UnderlinedTextForm } from '../../ui/input/TextForm';
 
+type TodoType = {
+  todo: { __typename: 'todos' } & Pick<
+    Todos,
+    'title' | 'id' | 'isToday' | 'isCompleted'
+  >;
+};
 type EditTodoProps = {
   categories: ({ __typename: 'categories' } & Pick<
     Categories,
@@ -20,20 +30,39 @@ type EditTodoProps = {
 
 export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { todo } = route.params as TodoType;
   const {
-    state: { title, urgency, workload },
+    editTodo: {
+      state: { title, urgency, workload },
+      titleInputHandler,
+      workloadSelectHandler,
+      urgencySelectHandler,
+    },
   } = useTodoCtx();
+  console.log(navigation, todo, 'param');
 
   return (
     <>
       <Box width="80%">
-        <TodoTitleInput />
+        <UnderlinedTextForm
+          placeholder="タイトル"
+          error={null}
+          onChangeText={titleInputHandler}
+          value={title}
+        />
       </Box>
       <Box mt={3}>
-        <TodoWorkloadSelect />
+        <TodoWorkloadSelect
+          workload={workload}
+          workloadSelectHandler={workloadSelectHandler}
+        />
       </Box>
       <Box mt={3}>
-        <TodoUrgencySelect />
+        <TodoUrgencySelect
+          urgency={urgency}
+          urgencySelectHandler={urgencySelectHandler}
+        />
       </Box>
       <Box>
         <CategoriesPicker categories={categories} />

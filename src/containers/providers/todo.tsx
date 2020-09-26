@@ -1,45 +1,67 @@
-import React, { FC, useReducer, useCallback } from 'react';
-import { todoReducer, initialState } from '../reducers/todo';
+import React, { FC, useState } from 'react';
 import { TodoCtxProvider } from '../contexts/todo';
 import { Urgency_Enum } from '../../types/graphql';
+import { TodoState } from '../types/todo';
 
 export const TodoProvider: FC = ({ children }) => {
-  const [state, dispatch] = useReducer(todoReducer, initialState);
+  const [newTodo, setNewTodo] = useState<TodoState>({
+    title: '',
+    urgency: 'week',
+    category: '',
+    workload: 1,
+  });
+  const [editTodo, setEditTodo] = useState<TodoState>({
+    title: '',
+    urgency: 'week',
+    category: '',
+    workload: 1,
+  });
 
-  const titleInputHandler = useCallback((text: string) => {
-    dispatch({
-      actionType: 'SET_TITLE',
-      payload: { title: text },
-    });
-  }, []);
+  const newTodoTitleInputHandler = (title: string) => {
+    return setNewTodo({ ...newTodo, title });
+  };
+  const newTodoUrgencySelectHandler = (urgency: Urgency_Enum) => {
+    return setNewTodo({ ...newTodo, urgency });
+  };
+  const newTodoCategorySelectHandler = (category: string) => {
+    return setNewTodo({ ...newTodo, category });
+  };
+  const newTodoWorkloadSelectHandler = (workload: number) => {
+    return setNewTodo({ ...newTodo, workload });
+  };
 
-  const urgencySelectHandler = useCallback((urgency: Urgency_Enum) => {
-    dispatch({
-      actionType: 'SET_URGENCY',
-      payload: { urgency },
-    });
-  }, []);
-
-  const categorySelectHandler = useCallback((category: string) => {
-    dispatch({
-      actionType: 'SET_CATEGORY',
-      payload: { category },
-    });
-  }, []);
-
-  const workloadInputHandler = useCallback((workload: number) => {
-    dispatch({
-      actionType: 'SET_WORKLOAD',
-      payload: { workload },
-    });
-  }, []);
+  const editTodoMountHandler = (todo: TodoState) => {
+    return setEditTodo(todo);
+  };
+  const editTodoTitleInputHandler = (title: string) => {
+    return setNewTodo({ ...editTodo, title });
+  };
+  const editTodoUrgencySelectHandler = (urgency: Urgency_Enum) => {
+    return setEditTodo({ ...editTodo, urgency });
+  };
+  const editTodoCategorySelectHandler = (category: string) => {
+    return setEditTodo({ ...editTodo, category });
+  };
+  const editTodoWorkloadSelectHandler = (workload: number) => {
+    return setEditTodo({ ...editTodo, workload });
+  };
 
   const value = {
-    state,
-    titleInputHandler,
-    urgencySelectHandler,
-    categorySelectHandler,
-    workloadInputHandler,
+    newTodo: {
+      state: newTodo,
+      titleInputHandler: newTodoTitleInputHandler,
+      urgencySelectHandler: newTodoUrgencySelectHandler,
+      categorySelectHandler: newTodoCategorySelectHandler,
+      workloadSelectHandler: newTodoWorkloadSelectHandler,
+    },
+    editTodo: {
+      state: editTodo,
+      todoMountHandler: editTodoMountHandler,
+      titleInputHandler: editTodoTitleInputHandler,
+      urgencySelectHandler: editTodoUrgencySelectHandler,
+      categorySelectHandler: editTodoCategorySelectHandler,
+      workloadSelectHandler: editTodoWorkloadSelectHandler,
+    },
   };
 
   return <TodoCtxProvider value={value}>{children}</TodoCtxProvider>;
