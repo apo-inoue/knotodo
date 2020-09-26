@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import { Todos } from '../../types/graphql';
-import { TodoListItem } from '../2single';
+import { TodoListItem, SwipeTodo } from '../2single';
 import { AddFab } from '../1standalone/AddFab';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Divider, PrimaryButton } from '../../ui';
+import { Box, Divider } from '../../ui';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
+import { ListRenderItemInfo } from 'react-native';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
@@ -26,34 +27,38 @@ export const NotTodayTodos: FC<NotTodayTodos> = ({
   onComplete,
 }) => {
   const navigation = useNavigation();
-  const renderItem = ({ item, index }: { item: TodoType; index: number }) => (
-    <SwipeRow rightOpenValue={-100}>
-      <Box
-        pl={4}
-        flexDirection="row"
-        justifyContent="space-between"
-        flex={1}
-        alignItems="center">
-        <Box flexDirection="column" alignItems="flex-end" width="100%">
-          <Box flexDirection="row" alignItems="center" height={50}>
-            <PrimaryButton
-              variant="contained"
-              text="Complete"
-              onPress={() => onComplete(item.id)}
+  const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
+    const isLastRow = todos.length - 1 === rowData.index;
+    const todoItem = rowData.item;
+    return (
+      <Box>
+        <SwipeRow rightOpenValue={-100}>
+          <Box
+            pl={4}
+            flexDirection="row"
+            justifyContent="space-between"
+            flex={1}
+            alignItems="center">
+            <Box flexDirection="column" alignItems="flex-end" width="100%">
+              <SwipeTodo
+                todo={todoItem}
+                onPress={onComplete}
+                btnText="Complete"
+              />
+            </Box>
+          </Box>
+          <Box width="100%" bg="white">
+            <TodoListItem
+              todo={todoItem}
+              buttonAction={{ onPress, label: 'Today' }}
             />
           </Box>
-          <Divider width="100%" />
-          {todos.length - 1 === index && <Box mb={5} />}
-        </Box>
+        </SwipeRow>
+        <Divider width="100%" />
+        {isLastRow && <Box mb={5} />}
       </Box>
-      <Box width="100%" bg="white">
-        <TodoListItem todo={item} buttonAction={{ onPress, label: 'Today' }} />
-        <Divider />
-        {/* // NOTE: FABが重なって押しにくくなるのを避けるため余白を追加する */}
-        {todos.length - 1 === index && <Box mb={5} />}
-      </Box>
-    </SwipeRow>
-  );
+    );
+  };
 
   return (
     <>

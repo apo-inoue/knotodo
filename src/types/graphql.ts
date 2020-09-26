@@ -1654,6 +1654,40 @@ export type SetNotTodayTodoMutation = (
   )> }
 );
 
+export type RestoreNotTodayMutationVariables = Exact<{
+  _eq: Scalars['String'];
+}>;
+
+
+export type RestoreNotTodayMutation = (
+  { __typename: 'mutation_root' }
+  & { update_todos: Maybe<(
+    { __typename: 'todos_mutation_response' }
+    & Pick<Todos_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename: 'todos' }
+      & Pick<Todos, 'id'>
+    )> }
+  )> }
+);
+
+export type RestoreTodayMutationVariables = Exact<{
+  _eq: Scalars['String'];
+}>;
+
+
+export type RestoreTodayMutation = (
+  { __typename: 'mutation_root' }
+  & { update_todos: Maybe<(
+    { __typename: 'todos_mutation_response' }
+    & Pick<Todos_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename: 'todos' }
+      & Pick<Todos, 'id'>
+    )> }
+  )> }
+);
+
 export type UpdateColorTypeMutationVariables = Exact<{
   color_type: Maybe<ColorTypes_Enum>;
   _eq: Maybe<Scalars['String']>;
@@ -1683,7 +1717,11 @@ export type AllCategoryQuery = (
   )> }
 );
 
-export type TodayTodosQueryVariables = Exact<{ [key: string]: never; }>;
+export type TodayTodosQueryVariables = Exact<{
+  created_at?: Maybe<Order_By>;
+  urgency?: Maybe<Order_By>;
+  workload?: Maybe<Order_By>;
+}>;
 
 
 export type TodayTodosQuery = (
@@ -2049,6 +2087,76 @@ export function useSetNotTodayTodoMutation(baseOptions?: Apollo.MutationHookOpti
 export type SetNotTodayTodoMutationHookResult = ReturnType<typeof useSetNotTodayTodoMutation>;
 export type SetNotTodayTodoMutationResult = Apollo.MutationResult<SetNotTodayTodoMutation>;
 export type SetNotTodayTodoMutationOptions = Apollo.BaseMutationOptions<SetNotTodayTodoMutation, SetNotTodayTodoMutationVariables>;
+export const RestoreNotTodayDocument = gql`
+    mutation RestoreNotToday($_eq: String!) {
+  update_todos(where: {id: {_eq: $_eq}}, _set: {isCompleted: false, completed_at: null, isToday: false, deleted_at: null}) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type RestoreNotTodayMutationFn = Apollo.MutationFunction<RestoreNotTodayMutation, RestoreNotTodayMutationVariables>;
+
+/**
+ * __useRestoreNotTodayMutation__
+ *
+ * To run a mutation, you first call `useRestoreNotTodayMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRestoreNotTodayMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [restoreNotTodayMutation, { data, loading, error }] = useRestoreNotTodayMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useRestoreNotTodayMutation(baseOptions?: Apollo.MutationHookOptions<RestoreNotTodayMutation, RestoreNotTodayMutationVariables>) {
+        return Apollo.useMutation<RestoreNotTodayMutation, RestoreNotTodayMutationVariables>(RestoreNotTodayDocument, baseOptions);
+      }
+export type RestoreNotTodayMutationHookResult = ReturnType<typeof useRestoreNotTodayMutation>;
+export type RestoreNotTodayMutationResult = Apollo.MutationResult<RestoreNotTodayMutation>;
+export type RestoreNotTodayMutationOptions = Apollo.BaseMutationOptions<RestoreNotTodayMutation, RestoreNotTodayMutationVariables>;
+export const RestoreTodayDocument = gql`
+    mutation RestoreToday($_eq: String!) {
+  update_todos(where: {id: {_eq: $_eq}}, _set: {isCompleted: false, completed_at: null, isToday: true, deleted_at: null}) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type RestoreTodayMutationFn = Apollo.MutationFunction<RestoreTodayMutation, RestoreTodayMutationVariables>;
+
+/**
+ * __useRestoreTodayMutation__
+ *
+ * To run a mutation, you first call `useRestoreTodayMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRestoreTodayMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [restoreTodayMutation, { data, loading, error }] = useRestoreTodayMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useRestoreTodayMutation(baseOptions?: Apollo.MutationHookOptions<RestoreTodayMutation, RestoreTodayMutationVariables>) {
+        return Apollo.useMutation<RestoreTodayMutation, RestoreTodayMutationVariables>(RestoreTodayDocument, baseOptions);
+      }
+export type RestoreTodayMutationHookResult = ReturnType<typeof useRestoreTodayMutation>;
+export type RestoreTodayMutationResult = Apollo.MutationResult<RestoreTodayMutation>;
+export type RestoreTodayMutationOptions = Apollo.BaseMutationOptions<RestoreTodayMutation, RestoreTodayMutationVariables>;
 export const UpdateColorTypeDocument = gql`
     mutation UpdateColorType($color_type: colorTypes_enum, $_eq: String) {
   update_users(_set: {color_type: $color_type}, where: {id: {_eq: $_eq}}) {
@@ -2121,8 +2229,8 @@ export type AllCategoryQueryHookResult = ReturnType<typeof useAllCategoryQuery>;
 export type AllCategoryLazyQueryHookResult = ReturnType<typeof useAllCategoryLazyQuery>;
 export type AllCategoryQueryResult = Apollo.QueryResult<AllCategoryQuery, AllCategoryQueryVariables>;
 export const TodayTodosDocument = gql`
-    query todayTodos {
-  todos(where: {isToday: {_eq: true}, isCompleted: {_eq: false}, deleted_at: {_eq: null}}) {
+    query todayTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null) {
+  todos(where: {isToday: {_eq: true}, isCompleted: {_eq: false}, deleted_at: {_is_null: true}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
     id
     isCompleted
     isToday
@@ -2148,6 +2256,9 @@ export const TodayTodosDocument = gql`
  * @example
  * const { data, loading, error } = useTodayTodosQuery({
  *   variables: {
+ *      created_at: // value for 'created_at'
+ *      urgency: // value for 'urgency'
+ *      workload: // value for 'workload'
  *   },
  * });
  */
@@ -2162,7 +2273,7 @@ export type TodayTodosLazyQueryHookResult = ReturnType<typeof useTodayTodosLazyQ
 export type TodayTodosQueryResult = Apollo.QueryResult<TodayTodosQuery, TodayTodosQueryVariables>;
 export const NotTodayTodosDocument = gql`
     query notTodayTodos {
-  todos(where: {isToday: {_eq: false}, isCompleted: {_eq: false}, deleted_at: {_eq: null}}) {
+  todos(where: {isToday: {_eq: false}, isCompleted: {_eq: false}, deleted_at: {_is_null: true}}) {
     id
     isCompleted
     isToday
@@ -2202,7 +2313,7 @@ export type NotTodayTodosLazyQueryHookResult = ReturnType<typeof useNotTodayTodo
 export type NotTodayTodosQueryResult = Apollo.QueryResult<NotTodayTodosQuery, NotTodayTodosQueryVariables>;
 export const CompletedTodosDocument = gql`
     query completedTodos {
-  todos(where: {isCompleted: {_eq: true}, deleted_at: {_eq: null}}) {
+  todos(where: {isCompleted: {_eq: true}, deleted_at: {_is_null: true}}) {
     id
     isCompleted
     isToday

@@ -14,10 +14,7 @@ import { NotTodayTodosQuery } from '../../types/graphql';
 export const NotTodayTodos: FC = () => {
   const { loading, error, data, refetch } = useNotTodayTodosQuery();
   // ---------- setToday ----------
-  const [
-    setToday,
-    { loading: mutationLoading, error: mutationError },
-  ] = useSetTodayTodoMutation({
+  const [setToday] = useSetTodayTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
@@ -59,10 +56,10 @@ export const NotTodayTodos: FC = () => {
     }, [refetch]),
   );
 
-  if (loading || mutationLoading) {
+  if (loading) {
     return <ScreenLoader />;
   }
-  if (error || mutationError) {
+  if (error) {
     return <ErrorMessage />;
   }
   if (!data) {

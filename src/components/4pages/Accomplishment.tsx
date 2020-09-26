@@ -10,7 +10,6 @@ export const Accomplishment: FC = () => {
   const startWeek = formatISO(startOfISOWeek(new Date()));
   const startMonth = formatISO(startOfMonth(new Date()));
   const startYear = formatISO(startOfYear(new Date()));
-  console.log(startWeek, 'week');
   const { loading, error, data, refetch } = useGetAccomplishmentQuery({
     variables: {
       _gte1: startWeek,

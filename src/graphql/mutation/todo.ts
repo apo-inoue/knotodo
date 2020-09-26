@@ -69,3 +69,41 @@ export const SET_NOT_TODAY_TODO = gql`
     }
   }
 `;
+
+export const RESTORE_NOT_TODAY = gql`
+  mutation RestoreNotToday($_eq: String!) {
+    update_todos(
+      where: { id: { _eq: $_eq } }
+      _set: {
+        isCompleted: false
+        completed_at: null
+        isToday: false
+        deleted_at: null
+      }
+    ) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+export const RESTORE_TODAY = gql`
+  mutation RestoreToday($_eq: String!) {
+    update_todos(
+      where: { id: { _eq: $_eq } }
+      _set: {
+        isCompleted: false
+        completed_at: null
+        isToday: true
+        deleted_at: null
+      }
+    ) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`;

@@ -10,14 +10,16 @@ import {
   TodayTodosQuery,
 } from '../../types/graphql';
 import { TODAY_TODOS } from '../../graphql/query/todos';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
+import { Order_By, Todos_Order_By } from '../../types/graphql';
 
 export const TodayTodos: FC = () => {
-  const { loading, error, data, refetch } = useTodayTodosQuery();
+  const { sort } = useSortFilterCtx();
+  const { loading, error, data, refetch } = useTodayTodosQuery({
+    variables: { [sort.key]: sort.order },
+  });
   // ---------- complete ----------
-  const [
-    completeTodo,
-    { loading: mutationLoading, error: mutationError },
-  ] = useCompleteToDoMutation({
+  const [completeTodo] = useCompleteToDoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
@@ -59,8 +61,8 @@ export const TodayTodos: FC = () => {
     }, [refetch]),
   );
 
-  if (loading || mutationLoading) return <ScreenLoader />;
-  if (error || mutationError) return <ErrorMessage />;
+  if (loading) return <ScreenLoader />;
+  if (error) return <ErrorMessage />;
   if (!data) return <NoDataMessage />;
 
   return (

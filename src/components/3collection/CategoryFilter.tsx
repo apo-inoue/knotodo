@@ -14,10 +14,13 @@ type CategoryType = { __typename: 'categories' } & Pick<
 
 type CategoryProps = {
   categories: CategoryType[];
-  onPress: () => void;
+  filterModalToggler: () => void;
 };
 
-export const CategoryFilter: FC<CategoryProps> = ({ categories, onPress }) => {
+export const CategoryFilter: FC<CategoryProps> = ({
+  categories,
+  filterModalToggler,
+}) => {
   const theme = useTheme();
   const { filterSelectHandler } = useSortFilterCtx();
   const [isEnabled, setIsEnabled] = useState(false);
@@ -57,7 +60,7 @@ export const CategoryFilter: FC<CategoryProps> = ({ categories, onPress }) => {
           variant="outlined"
           width="40%"
           stretch
-          onPress={onPress}
+          onPress={filterModalToggler}
           text="キャンセル"
         />
         <Box mr={3} />

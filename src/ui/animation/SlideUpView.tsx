@@ -6,7 +6,7 @@ export const SlideUpView: React.FC<ViewProps> = ({ children, style }) => {
   useEffect(() => {
     Animated.timing(appear, {
       toValue: 1,
-      duration: 200,
+      duration: 300,
       easing: Easing.out(Easing.quad),
       useNativeDriver: true,
     }).start();
@@ -20,8 +20,8 @@ export const SlideUpView: React.FC<ViewProps> = ({ children, style }) => {
           transform: [
             {
               translateX: appear.interpolate({
-                inputRange: [0, 300],
-                outputRange: [1, 0],
+                inputRange: [0, 1],
+                outputRange: [100, 0],
               }),
             },
           ],

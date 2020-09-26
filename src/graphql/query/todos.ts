@@ -1,12 +1,21 @@
 import { gql } from '@apollo/client';
 
 export const TODAY_TODOS = gql`
-  query todayTodos {
+  query todayTodos(
+    $created_at: order_by = null
+    $urgency: order_by = null
+    $workload: order_by = null
+  ) {
     todos(
       where: {
         isToday: { _eq: true }
         isCompleted: { _eq: false }
-        deleted_at: { _eq: null }
+        deleted_at: { _is_null: true }
+      }
+      order_by: {
+        created_at: $created_at
+        urgency: $urgency
+        workload: $workload
       }
     ) {
       id
@@ -28,7 +37,7 @@ export const NOT_TODAY_TODOS = gql`
       where: {
         isToday: { _eq: false }
         isCompleted: { _eq: false }
-        deleted_at: { _eq: null }
+        deleted_at: { _is_null: true }
       }
     ) {
       id
@@ -46,7 +55,9 @@ export const NOT_TODAY_TODOS = gql`
 
 export const COMPLETED_TODOS = gql`
   query completedTodos {
-    todos(where: { isCompleted: { _eq: true }, deleted_at: { _eq: null } }) {
+    todos(
+      where: { isCompleted: { _eq: true }, deleted_at: { _is_null: true } }
+    ) {
       id
       isCompleted
       isToday

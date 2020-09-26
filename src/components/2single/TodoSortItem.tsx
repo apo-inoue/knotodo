@@ -1,24 +1,35 @@
 import React, { FC } from 'react';
 import { PrimaryButton, Divider, Box, Text } from '../../ui';
+import { TodayTodosQueryVariables } from '../../types/graphql';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 
 type TodoSortItemProps = {
-  sort: {
+  sortItem: {
     name: string;
+    value: keyof TodayTodosQueryVariables;
     desc: string;
     asc: string;
   };
 };
 
-export const TodoSortItem: FC<TodoSortItemProps> = ({ sort }) => {
+export const TodoSortItem: FC<TodoSortItemProps> = ({ sortItem }) => {
+  const { sort, sortPressHandler } = useSortFilterCtx();
+  const onPressDesc = () => {
+    sortPressHandler({ key: sortItem.value, order: 'desc' });
+  };
+  const onPressAsc = () => {
+    sortPressHandler({ key: sortItem.value, order: 'asc' });
+  };
+
   return (
-    <Box key={sort.name} width="100%" height={50}>
+    <Box key={sortItem.name} width="100%" height={64}>
       <Box flexDirection="row" justifyContent="space-between" width="100%">
         <Box flex="1 1" justifyContent="center" height="100%">
-          <Text>{sort.name}</Text>
+          <Text>{sortItem.name}</Text>
         </Box>
         <Box
           flexDirection="row"
-          my="auto"
+          mb="12px"
           alignItems="center"
           justifyContent="flex-end">
           <Box>
@@ -28,7 +39,8 @@ export const TodoSortItem: FC<TodoSortItemProps> = ({ sort }) => {
               stretch
               borderBottomRightRadius={0}
               borderTopRightRadius={0}
-              text={sort.desc}
+              text={sortItem.desc}
+              onPress={onPressDesc}
             />
           </Box>
           <Box mr="-2px" />
@@ -38,7 +50,8 @@ export const TodoSortItem: FC<TodoSortItemProps> = ({ sort }) => {
             stretch
             borderBottomLeftRadius={0}
             borderTopLeftRadius={0}
-            text={sort.asc}
+            text={sortItem.asc}
+            onPress={onPressAsc}
           />
         </Box>
       </Box>

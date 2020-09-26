@@ -10,3 +10,5 @@ export { CategoryAdd } from './CategoryAdd';
 export { ColorSelectItem } from './ColorSelectItem';
 export { TodoWorkload } from './TodoWorkload';
 export { TodoWorkloadSelect } from './TodoWorkloadSelect';
+export { SwipeArchiveTodo } from './SwipeArchiveTodo';
+export { SwipeTodo } from './SwipeTodo';

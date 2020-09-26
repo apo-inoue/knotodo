@@ -6,10 +6,12 @@ import { ScreenLoader } from '../../ui';
 import { CategoryFilterCollection } from '../3collection';
 
 type CategoryFilterProps = {
-  onPress: () => void;
+  filterModalToggler: () => void;
 };
 
-export const CategoryFilter: FC<CategoryFilterProps> = ({ onPress }) => {
+export const CategoryFilter: FC<CategoryFilterProps> = ({
+  filterModalToggler,
+}) => {
   const { data, loading, error } = useAllCategoryQuery();
 
   if (loading) {
@@ -26,7 +28,7 @@ export const CategoryFilter: FC<CategoryFilterProps> = ({ onPress }) => {
     <Box bg="white" py={4} px={3}>
       <CategoryFilterCollection
         categories={data.categories}
-        onPress={onPress}
+        filterModalToggler={filterModalToggler}
       />
     </Box>
   );
