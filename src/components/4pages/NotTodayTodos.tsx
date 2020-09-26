@@ -10,20 +10,26 @@ import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { NotTodayTodosCollection } from '../3collection';
 import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
 import { NotTodayTodosQuery } from '../../types/graphql';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 
 export const NotTodayTodos: FC = () => {
-  const { loading, error, data, refetch } = useNotTodayTodosQuery();
+  const { sort } = useSortFilterCtx();
+  const { loading, error, data, refetch } = useNotTodayTodosQuery({
+    variables: { [sort.key]: sort.order },
+  });
   // ---------- setToday ----------
   const [setToday] = useSetTodayTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
+        variables: { [sort.key]: sort.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
+        variables: { [sort.key]: sort.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -36,12 +42,14 @@ export const NotTodayTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
+        variables: { [sort.key]: sort.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
+        variables: { [sort.key]: sort.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -59,10 +67,10 @@ export const NotTodayTodos: FC = () => {
   if (loading) {
     return <ScreenLoader />;
   }
-  if (error) {
+  if (error || !data) {
     return <ErrorMessage />;
   }
-  if (!data) {
+  if (data?.todos.length === 0) {
     return <NoDataMessage />;
   }
 

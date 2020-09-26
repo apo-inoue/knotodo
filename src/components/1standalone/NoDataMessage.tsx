@@ -6,8 +6,8 @@ export const NoDataMessage: FC = () => {
   const theme = useTheme();
 
   return (
-    <Container>
-      <Text color={theme.colors.blacks[3]}>unhandled error occur!!</Text>
+    <Container centerContent>
+      <Text color={theme.colors.blacks[7]}>todoがありません。</Text>
     </Container>
   );
 };

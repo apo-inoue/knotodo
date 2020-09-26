@@ -19,6 +19,7 @@ export type TodoCtxType = {
       isToday: boolean;
       isCompleted: boolean;
     }) => void;
+    todoClearHandler: () => void;
     titleInputHandler: (title: string) => void;
     urgencySelectHandler: (urgency: Urgency_Enum) => void;
     categorySelectHandler: (category: string) => void;

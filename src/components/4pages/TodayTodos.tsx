@@ -18,16 +18,18 @@ export const TodayTodos: FC = () => {
     variables: { [sort.key]: sort.order },
   });
   // ---------- complete ----------
-  const [completeTodo] = useCompleteToDoMutation({
+  const [completeTodo, { error: err }] = useCompleteToDoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
+        variables: { [sort.key]: sort.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
+        variables: { [sort.key]: sort.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -40,12 +42,14 @@ export const TodayTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
+        variables: { [sort.key]: sort.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
+        variables: { [sort.key]: sort.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -60,9 +64,11 @@ export const TodayTodos: FC = () => {
     }, [refetch]),
   );
 
+  console.log(err, 'Err');
+
   if (loading) return <ScreenLoader />;
-  if (error) return <ErrorMessage />;
-  if (!data) return <NoDataMessage />;
+  if (error || !data) return <ErrorMessage />;
+  if (data?.todos.length === 0) return <NoDataMessage />;
 
   return (
     <Container>

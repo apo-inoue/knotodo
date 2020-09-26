@@ -1570,11 +1570,11 @@ export type DeleteCategoryMutation = (
 );
 
 export type InsertToDoMutationVariables = Exact<{
-  isCompleted?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
   urgency?: Maybe<Urgency_Enum>;
-  isToday?: Maybe<Scalars['Boolean']>;
   workload?: Maybe<Scalars['Int']>;
+  isToday?: Maybe<Scalars['Boolean']>;
+  isCompleted?: Maybe<Scalars['Boolean']>;
 }>;
 
 
@@ -1749,7 +1749,7 @@ export type TodayTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'workload'>
+    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isCompleted' | 'isToday'>
     & { category_by_id: Maybe<(
       { __typename: 'categories' }
       & Pick<Categories, 'category'>
@@ -1757,14 +1757,18 @@ export type TodayTodosQuery = (
   )> }
 );
 
-export type NotTodayTodosQueryVariables = Exact<{ [key: string]: never; }>;
+export type NotTodayTodosQueryVariables = Exact<{
+  created_at?: Maybe<Order_By>;
+  urgency?: Maybe<Order_By>;
+  workload?: Maybe<Order_By>;
+}>;
 
 
 export type NotTodayTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'workload'>
+    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'>
     & { category_by_id: Maybe<(
       { __typename: 'categories' }
       & Pick<Categories, 'category'>
@@ -1772,14 +1776,18 @@ export type NotTodayTodosQuery = (
   )> }
 );
 
-export type CompletedTodosQueryVariables = Exact<{ [key: string]: never; }>;
+export type CompletedTodosQueryVariables = Exact<{
+  created_at?: Maybe<Order_By>;
+  urgency?: Maybe<Order_By>;
+  workload?: Maybe<Order_By>;
+}>;
 
 
 export type CompletedTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'isCompleted' | 'isToday' | 'title' | 'urgency' | 'workload'>
+    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'>
     & { category_by_id: Maybe<(
       { __typename: 'categories' }
       & Pick<Categories, 'category'>
@@ -1932,7 +1940,7 @@ export type DeleteCategoryMutationHookResult = ReturnType<typeof useDeleteCatego
 export type DeleteCategoryMutationResult = Apollo.MutationResult<DeleteCategoryMutation>;
 export type DeleteCategoryMutationOptions = Apollo.BaseMutationOptions<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
 export const InsertToDoDocument = gql`
-    mutation InsertToDo($isCompleted: Boolean = false, $title: String = "", $urgency: urgency_enum = month, $isToday: Boolean = true, $workload: Int = 1) {
+    mutation InsertToDo($title: String = "", $urgency: urgency_enum = month, $workload: Int = 1, $isToday: Boolean = true, $isCompleted: Boolean = false) {
   insert_todos_one(object: {isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency, workload: $workload}) {
     __typename
     id
@@ -1954,11 +1962,11 @@ export type InsertToDoMutationFn = Apollo.MutationFunction<InsertToDoMutation, I
  * @example
  * const [insertToDoMutation, { data, loading, error }] = useInsertToDoMutation({
  *   variables: {
- *      isCompleted: // value for 'isCompleted'
  *      title: // value for 'title'
  *      urgency: // value for 'urgency'
- *      isToday: // value for 'isToday'
  *      workload: // value for 'workload'
+ *      isToday: // value for 'isToday'
+ *      isCompleted: // value for 'isCompleted'
  *   },
  * });
  */
@@ -2292,11 +2300,11 @@ export const TodayTodosDocument = gql`
     query todayTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null) {
   todos(where: {isToday: {_eq: true}, isCompleted: {_eq: false}, deleted_at: {_is_null: true}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
     id
-    isCompleted
-    isToday
     title
     urgency
     workload
+    isCompleted
+    isToday
     category_by_id {
       category
     }
@@ -2332,14 +2340,14 @@ export type TodayTodosQueryHookResult = ReturnType<typeof useTodayTodosQuery>;
 export type TodayTodosLazyQueryHookResult = ReturnType<typeof useTodayTodosLazyQuery>;
 export type TodayTodosQueryResult = Apollo.QueryResult<TodayTodosQuery, TodayTodosQueryVariables>;
 export const NotTodayTodosDocument = gql`
-    query notTodayTodos {
-  todos(where: {isToday: {_eq: false}, isCompleted: {_eq: false}, deleted_at: {_is_null: true}}) {
+    query notTodayTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null) {
+  todos(where: {isToday: {_eq: false}, isCompleted: {_eq: false}, deleted_at: {_is_null: true}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
     id
-    isCompleted
-    isToday
     title
     urgency
     workload
+    isToday
+    isCompleted
     category_by_id {
       category
     }
@@ -2359,6 +2367,9 @@ export const NotTodayTodosDocument = gql`
  * @example
  * const { data, loading, error } = useNotTodayTodosQuery({
  *   variables: {
+ *      created_at: // value for 'created_at'
+ *      urgency: // value for 'urgency'
+ *      workload: // value for 'workload'
  *   },
  * });
  */
@@ -2372,14 +2383,14 @@ export type NotTodayTodosQueryHookResult = ReturnType<typeof useNotTodayTodosQue
 export type NotTodayTodosLazyQueryHookResult = ReturnType<typeof useNotTodayTodosLazyQuery>;
 export type NotTodayTodosQueryResult = Apollo.QueryResult<NotTodayTodosQuery, NotTodayTodosQueryVariables>;
 export const CompletedTodosDocument = gql`
-    query completedTodos {
-  todos(where: {isCompleted: {_eq: true}, deleted_at: {_is_null: true}}) {
+    query completedTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null) {
+  todos(where: {isCompleted: {_eq: true}, deleted_at: {_is_null: true}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
     id
-    isCompleted
-    isToday
     title
     urgency
     workload
+    isToday
+    isCompleted
     category_by_id {
       category
     }
@@ -2399,6 +2410,9 @@ export const CompletedTodosDocument = gql`
  * @example
  * const { data, loading, error } = useCompletedTodosQuery({
  *   variables: {
+ *      created_at: // value for 'created_at'
+ *      urgency: // value for 'urgency'
+ *      workload: // value for 'workload'
  *   },
  * });
  */

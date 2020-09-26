@@ -10,25 +10,29 @@ import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { COMPLETED_TODOS } from '../../graphql/query/todos';
 import { useRestoreNotTodayMutation } from '../../types/graphql';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import {
   CompletedTodosQuery,
   useRestoreTodayMutation,
 } from '../../types/graphql';
 
 export const ArchiveTodos: FC = () => {
+  const { sort } = useSortFilterCtx();
   const { loading, error, data, refetch } = useCompletedTodosQuery({
-    fetchPolicy: 'network-only',
+    variables: { [sort.key]: sort.order },
   });
   const [deleteToDo] = useDeleteToDoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
+        variables: { [sort.key]: sort.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
+        variables: { [sort.key]: sort.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -41,12 +45,14 @@ export const ArchiveTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
+        variables: { [sort.key]: sort.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
+        variables: { [sort.key]: sort.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -59,12 +65,14 @@ export const ArchiveTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
+        variables: { [sort.key]: sort.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
+        variables: { [sort.key]: sort.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -82,10 +90,10 @@ export const ArchiveTodos: FC = () => {
   if (loading) {
     return <Loader />;
   }
-  if (error) {
+  if (error || !data) {
     return <ErrorMessage />;
   }
-  if (!data) {
+  if (data?.todos.length === 0) {
     return <NoDataMessage />;
   }
 

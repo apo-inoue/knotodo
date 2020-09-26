@@ -7,7 +7,7 @@ import {
 } from '../2single';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { UnderlinedTextForm } from '../../ui/input/TextForm';
 
 type NewTodoProps = {
@@ -23,11 +23,20 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   const {
     newTodo: {
       state: { title, urgency, workload, isToday, isCompleted },
+      todoClearHandler,
       titleInputHandler,
       workloadSelectHandler,
       urgencySelectHandler,
     },
   } = useTodoCtx();
+  const insertAndNavigateHandler = () => {
+    onPress({ title, urgency, workload, isToday, isCompleted });
+    navigation.goBack();
+  };
+  const cancelAndNavigateHandler = () => {
+    todoClearHandler();
+    navigation.goBack();
+  };
 
   return (
     <>
@@ -59,7 +68,7 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
           variant="outlined"
           width="30%"
           stretch
-          onPress={navigation.goBack}
+          onPress={cancelAndNavigateHandler}
           text="キャンセル"
         />
         <Box mr={3} />
@@ -69,9 +78,7 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
           width="30%"
           stretch
           text="追加"
-          onPress={() =>
-            onPress({ title, urgency, workload, isToday, isCompleted })
-          }
+          onPress={insertAndNavigateHandler}
         />
       </Box>
     </>

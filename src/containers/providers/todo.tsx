@@ -4,22 +4,18 @@ import { Urgency_Enum } from '../../types/graphql';
 import { TodoState } from '../types/todo';
 
 export const TodoProvider: FC = ({ children }) => {
-  const [newTodo, setNewTodo] = useState<TodoState>({
+  const initialTodo: TodoState = {
     title: '',
     urgency: 'week',
     category: '',
     workload: 1,
     isToday: false,
     isCompleted: false,
-  });
+  };
+  const [newTodo, setNewTodo] = useState<TodoState>(initialTodo);
   const [editTodo, setEditTodo] = useState<{ id: string } & TodoState>({
+    ...initialTodo,
     id: '',
-    title: '',
-    urgency: 'week',
-    category: '',
-    workload: 1,
-    isToday: false,
-    isCompleted: false,
   });
 
   const newTodoMountHandler = ({
@@ -30,6 +26,9 @@ export const TodoProvider: FC = ({ children }) => {
     isCompleted: boolean;
   }) => {
     return setNewTodo({ ...newTodo, isToday, isCompleted });
+  };
+  const newTodoClearHandler = () => {
+    setNewTodo(initialTodo);
   };
   const newTodoTitleInputHandler = (title: string) => {
     return setNewTodo({ ...newTodo, title });
@@ -64,6 +63,7 @@ export const TodoProvider: FC = ({ children }) => {
     newTodo: {
       state: newTodo,
       todoMountHandler: newTodoMountHandler,
+      todoClearHandler: newTodoClearHandler,
       titleInputHandler: newTodoTitleInputHandler,
       urgencySelectHandler: newTodoUrgencySelectHandler,
       categorySelectHandler: newTodoCategorySelectHandler,

@@ -19,11 +19,11 @@ export const TODAY_TODOS = gql`
       }
     ) {
       id
-      isCompleted
-      isToday
       title
       urgency
       workload
+      isCompleted
+      isToday
       category_by_id {
         category
       }
@@ -32,20 +32,29 @@ export const TODAY_TODOS = gql`
 `;
 
 export const NOT_TODAY_TODOS = gql`
-  query notTodayTodos {
+  query notTodayTodos(
+    $created_at: order_by = null
+    $urgency: order_by = null
+    $workload: order_by = null
+  ) {
     todos(
       where: {
         isToday: { _eq: false }
         isCompleted: { _eq: false }
         deleted_at: { _is_null: true }
       }
+      order_by: {
+        created_at: $created_at
+        urgency: $urgency
+        workload: $workload
+      }
     ) {
       id
-      isCompleted
-      isToday
       title
       urgency
       workload
+      isToday
+      isCompleted
       category_by_id {
         category
       }
@@ -54,16 +63,25 @@ export const NOT_TODAY_TODOS = gql`
 `;
 
 export const COMPLETED_TODOS = gql`
-  query completedTodos {
+  query completedTodos(
+    $created_at: order_by = null
+    $urgency: order_by = null
+    $workload: order_by = null
+  ) {
     todos(
       where: { isCompleted: { _eq: true }, deleted_at: { _is_null: true } }
+      order_by: {
+        created_at: $created_at
+        urgency: $urgency
+        workload: $workload
+      }
     ) {
       id
-      isCompleted
-      isToday
       title
       urgency
       workload
+      isToday
+      isCompleted
       category_by_id {
         category
       }

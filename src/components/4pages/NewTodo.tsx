@@ -4,15 +4,12 @@ import { NewTodoCollection } from '../3collection';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
 import { InsertToDoMutationVariables } from '../../types/graphql';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   useAllCategoryQuery,
   useInsertToDoMutation,
 } from '../../types/graphql';
 
 export const NewTodo: FC = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
   const { data, loading, error } = useAllCategoryQuery();
   const [insertTodo] = useInsertToDoMutation();
   const insertTodoHandler = ({
@@ -31,7 +28,6 @@ export const NewTodo: FC = () => {
         isCompleted,
       },
     });
-    navigation.goBack();
   };
 
   if (loading) {
