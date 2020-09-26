@@ -18,7 +18,7 @@ export const TodayTodos: FC = () => {
     variables: { [sort.key]: sort.order },
   });
   // ---------- complete ----------
-  const [completeTodo, { error: err }] = useCompleteToDoMutation({
+  const [completeTodo] = useCompleteToDoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
@@ -63,8 +63,6 @@ export const TodayTodos: FC = () => {
       refetch();
     }, [refetch]),
   );
-
-  console.log(err, 'Err');
 
   if (loading) return <ScreenLoader />;
   if (error || !data) return <ErrorMessage />;

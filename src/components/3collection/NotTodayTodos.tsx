@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { Todos } from '../../types/graphql';
-import { TodoListItem, SwipeTodo } from '../2single';
 import { AddFab } from '../1standalone/AddFab';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Divider } from '../../ui';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
-import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import { ListRenderItemInfo } from 'react-native';
+import { NotTodayTodoSwipe } from './NotTodayTodoSwipe';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
@@ -26,32 +26,17 @@ export const NotTodayTodos: FC<NotTodayTodos> = ({
   const navigation = useNavigation();
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
     const isLastRow = todos.length - 1 === rowData.index;
-    const todoItem = rowData.item;
+    const todo = rowData.item;
     return (
       <Box>
-        <SwipeRow rightOpenValue={-100}>
-          <Box
-            pl={4}
-            flexDirection="row"
-            justifyContent="space-between"
-            flex={1}
-            alignItems="center">
-            <Box flexDirection="column" alignItems="flex-end" width="100%">
-              <SwipeTodo
-                todo={todoItem}
-                onPress={onComplete}
-                btnText="Complete"
-              />
-            </Box>
-          </Box>
-          <Box width="100%" bg="white">
-            <TodoListItem
-              todo={todoItem}
-              buttonAction={{ onPress, label: 'Today' }}
-            />
-          </Box>
-        </SwipeRow>
+        <NotTodayTodoSwipe
+          todo={todo}
+          onPress={onPress}
+          onComplete={onComplete}
+        />
+        <Box width="100%" />
         <Divider width="100%" />
+        {/* // NOTE: FABが重なって押しにくくなるのを避けるため余白を追加する */}
         {isLastRow && <Box mb={5} />}
       </Box>
     );

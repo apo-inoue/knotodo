@@ -1,18 +1,13 @@
 import React, { FC } from 'react';
-import { PrimaryButton, Box } from '../../ui';
+import { useNavigation } from '@react-navigation/native';
+import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
+import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import {
   CategoriesPicker,
   TodoUrgencySelect,
   TodoWorkloadSelect,
 } from '../2single';
-import {
-  Categories,
-  InsertToDoMutationVariables,
-  Todos,
-} from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { useNavigation } from '@react-navigation/native';
-import { UnderlinedTextForm } from '../../ui/input/TextForm';
 
 type EditTodoProps = {
   categories: ({ __typename: 'categories' } & Pick<

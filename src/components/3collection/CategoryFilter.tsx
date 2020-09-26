@@ -1,11 +1,10 @@
 import React, { FC, useState } from 'react';
 import { Switch } from 'react-native';
-import { PrimaryButton, Box, Text, FlatList } from '../../ui';
+import { useTheme } from 'styled-components';
+import { PrimaryButton, Box, Text, FlatList, Divider } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { CategorySelectItem } from '../2single';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
-import { Divider } from '../../ui/utils/Divider';
-import { useTheme } from 'styled-components';
 
 type CategoryType = { __typename: 'categories' } & Pick<
   Categories,

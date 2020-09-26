@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Box } from '../../ui';
-import { TodoSortItem } from '../2single/TodoSortItem';
+import { TodoSortItem } from '../2single';
 import { TodayTodosQueryVariables } from '../../types/graphql';
 
 type SortItem = {

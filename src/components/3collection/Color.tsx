@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { PrimaryButton, Box, FlatList } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
-import { useColorCtx } from '../../containers/contexts/color';
 import { colorConstants, ColorType } from '../../theme/color';
+import { PrimaryButton, Box, FlatList } from '../../ui';
 import { ColorSelectItem } from '../2single';
+import { useColorCtx } from '../../containers/contexts/color';
 
 export const Color: FC = () => {
   const navigation = useNavigation();

@@ -1,56 +1,51 @@
 import React, { FC, useState } from 'react';
-import { SwipeRow } from 'react-native-swipe-list-view';
+import { TodoListItem, SwipeArchiveTodo } from '../2single';
 import { Todos } from '../../types/graphql';
 import { Box, SlideUpOutView } from '../../ui';
-import { TodoListItem, SwipeArchiveTodo } from '../2single';
+import { SwipeRow } from 'react-native-swipe-list-view';
+import { SwipeTodo } from '../2single/SwipeTodo';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
   'title' | 'id' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'
 >;
-type ArchiveTodoSwipeProps = {
+type NotTodayTodoSwipeProps = {
   todo: TodoType;
   onPress: (id: string) => void;
-  onRestoreToday: (id: string) => void;
-  onRestoreNotToday: (id: string) => void;
+  onComplete: (id: string) => void;
 };
 
-export const ArchiveTodoSwipe: FC<ArchiveTodoSwipeProps> = ({
+export const NotTodayTodoSwipe: FC<NotTodayTodoSwipeProps> = ({
   todo,
   onPress,
-  onRestoreToday,
-  onRestoreNotToday,
+  onComplete,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const onPressEffectHandler = () => {
     onPress(todo.id);
     setIsPressed(true);
   };
-  const onRestoreTodayEffectHandler = () => {
-    onRestoreToday(todo.id);
-    setIsPressed(true);
-  };
-  const onRestoreNotTodayEffectHandler = () => {
-    onRestoreNotToday(todo.id);
+  const onCompleteEffectHandler = () => {
+    onComplete(todo.id);
     setIsPressed(true);
   };
 
   return (
     <SlideUpOutView isOut={isPressed}>
-      <SwipeRow rightOpenValue={-200}>
+      <SwipeRow rightOpenValue={-100}>
         <Box pl={4} flexDirection="row" flex={1} alignItems="center">
           <Box flexDirection="column" alignItems="flex-end" width="100%">
-            <SwipeArchiveTodo
+            <SwipeTodo
               todo={todo}
-              onRestoreToday={onRestoreTodayEffectHandler}
-              onRestoreNotToday={onRestoreNotTodayEffectHandler}
+              onPress={onCompleteEffectHandler}
+              btnText="Complete"
             />
           </Box>
         </Box>
         <Box width="100%" bg="white">
           <TodoListItem
             todo={todo}
-            buttonAction={{ onPress: onPressEffectHandler, label: 'Delete' }}
+            buttonAction={{ onPress: onPressEffectHandler, label: 'Today' }}
           />
         </Box>
       </SwipeRow>

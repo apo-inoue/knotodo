@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { Todos } from '../../types/graphql';
-import { AddFab } from '../1standalone';
-import { Box, Divider } from '../../ui';
-import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import { ListRenderItemInfo } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import { useNavigation } from '@react-navigation/native';
+import { Box, Divider } from '../../ui';
+import { Todos } from '../../types/graphql';
 import { ArchiveTodoSwipe } from './ArchiveTodoSwipe';
+import { AddFab } from '../1standalone';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'isToday' | 'isCompleted' | 'urgency' | 'workload'
+  'title' | 'id' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'
 >;
 type ArchiveTodosType = {
   todos: TodoType[];

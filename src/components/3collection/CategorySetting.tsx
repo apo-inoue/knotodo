@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
+import { FlatList } from 'react-native';
 import { PrimaryButton, Box, Divider } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { CategoryAdd, CategoryListItem } from '../2single';
-import { FlatList } from 'react-native';
 
 type CategoryType = { __typename: 'categories' } & Pick<
   Categories,
