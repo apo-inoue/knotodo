@@ -6719,6 +6719,16 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "category_id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "completed_at",
             "description": null,
             "type": {
@@ -6774,16 +6784,6 @@
             "type": {
               "kind": "ENUM",
               "name": "urgency_enum",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -6988,6 +6988,12 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "category_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "completed_at",
             "description": "column name",
             "isDeprecated": false,
@@ -7019,12 +7025,6 @@
           },
           {
             "name": "urgency",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "user_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

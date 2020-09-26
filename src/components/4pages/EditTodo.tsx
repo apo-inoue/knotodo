@@ -2,29 +2,32 @@ import React, { FC } from 'react';
 import { Container, ScreenLoader } from '../../ui';
 import { EditTodoCollection } from '../3collection';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
-import { InsertToDoMutationVariables } from '../../types/graphql';
+import { useNavigation } from '@react-navigation/native';
 import {
+  UpdateTodoMutationVariables,
+  useUpdateTodoMutation,
   useAllCategoryQuery,
-  useInsertToDoMutation,
 } from '../../types/graphql';
 
 export const EditTodo: FC = () => {
+  const navigation = useNavigation();
   const { data, loading, error } = useAllCategoryQuery();
-  const [insertTodo] = useInsertToDoMutation();
-  const insertTodoHandler = ({
+  const [updateTodo] = useUpdateTodoMutation();
+  const updateTodoHandler = ({
     title,
     urgency,
     workload,
-  }: InsertToDoMutationVariables) => {
-    insertTodo({
+    category_id,
+  }: UpdateTodoMutationVariables) => {
+    updateTodo({
       variables: {
-        isCompleted: false,
-        urgency,
-        isToday: false,
         title,
+        urgency,
         workload,
+        category_id,
       },
     });
+    navigation.goBack();
   };
 
   if (loading) {
@@ -40,7 +43,7 @@ export const EditTodo: FC = () => {
   return (
     <Container centerContent>
       <EditTodoCollection
-        onPress={insertTodoHandler}
+        onPress={updateTodoHandler}
         categories={data.categories}
       />
     </Container>

@@ -11,15 +11,9 @@ import {
   Todos,
 } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { UnderlinedTextForm } from '../../ui/input/TextForm';
 
-type TodoType = {
-  todo: { __typename: 'todos' } & Pick<
-    Todos,
-    'title' | 'id' | 'isToday' | 'isCompleted'
-  >;
-};
 type EditTodoProps = {
   categories: ({ __typename: 'categories' } & Pick<
     Categories,
@@ -30,8 +24,6 @@ type EditTodoProps = {
 
 export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
   const navigation = useNavigation();
-  const route = useRoute();
-  const { todo } = route.params as TodoType;
   const {
     editTodo: {
       state: { title, urgency, workload },
@@ -40,7 +32,6 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
       urgencySelectHandler,
     },
   } = useTodoCtx();
-  console.log(navigation, todo, 'param');
 
   return (
     <>
@@ -81,7 +72,7 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
           btnSize="lg"
           width="30%"
           stretch
-          text="追加"
+          text="保存"
           onPress={() => onPress({ title, urgency, workload })}
         />
       </Box>

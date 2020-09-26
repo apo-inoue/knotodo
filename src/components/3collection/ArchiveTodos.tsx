@@ -10,7 +10,7 @@ import { ArchiveTodoSwipe } from './ArchiveTodoSwipe';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'isToday' | 'isCompleted'
+  'title' | 'id' | 'isToday' | 'isCompleted' | 'urgency' | 'workload'
 >;
 type ArchiveTodosType = {
   todos: TodoType[];

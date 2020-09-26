@@ -7,7 +7,7 @@ import {
 } from '../2single';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { UnderlinedTextForm } from '../../ui/input/TextForm';
 
 type NewTodoProps = {
@@ -22,7 +22,7 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   const navigation = useNavigation();
   const {
     newTodo: {
-      state: { title, urgency, workload },
+      state: { title, urgency, workload, isToday, isCompleted },
       titleInputHandler,
       workloadSelectHandler,
       urgencySelectHandler,
@@ -69,7 +69,9 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
           width="30%"
           stretch
           text="追加"
-          onPress={() => onPress({ title, urgency, workload })}
+          onPress={() =>
+            onPress({ title, urgency, workload, isToday, isCompleted })
+          }
         />
       </Box>
     </>

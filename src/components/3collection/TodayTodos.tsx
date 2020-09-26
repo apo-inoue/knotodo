@@ -7,22 +7,27 @@ import { Box, Divider, PrimaryButton } from '../../ui';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import { ListRenderItemInfo } from 'react-native';
+import { useTodoCtx } from '../../containers/contexts/todo';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'isToday' | 'isCompleted'
+  'title' | 'id' | 'isToday' | 'isCompleted' | 'urgency' | 'workload'
 >;
 type TodayTodos = {
-  todos: ({ __typename: 'todos' } & Pick<
-    Todos,
-    'title' | 'id' | 'isToday' | 'isCompleted'
-  >)[];
+  todos: TodoType[];
   onPress: (id: string) => void;
   onPostpone: (id: string) => void;
 };
 
 export const TodayTodos: FC<TodayTodos> = ({ todos, onPress, onPostpone }) => {
   const navigation = useNavigation();
+  const {
+    newTodo: { todoMountHandler },
+  } = useTodoCtx();
+  const mountAndNavigateHandler = () => {
+    todoMountHandler({ isToday: true, isCompleted: false });
+    navigation.navigate(STACK_ROUTE_NAMES.新規作成);
+  };
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => (
     <Box>
       <SwipeRow rightOpenValue={-100}>
@@ -65,7 +70,7 @@ export const TodayTodos: FC<TodayTodos> = ({ todos, onPress, onPostpone }) => {
           rightOpenValue={-150}
         />
       </Box>
-      <AddFab onPress={() => navigation.navigate(STACK_ROUTE_NAMES.新規作成)} />
+      <AddFab onPress={mountAndNavigateHandler} />
     </>
   );
 };

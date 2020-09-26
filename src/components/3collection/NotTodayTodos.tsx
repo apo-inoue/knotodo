@@ -10,13 +10,10 @@ import { ListRenderItemInfo } from 'react-native';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'isToday' | 'isCompleted'
+  'title' | 'id' | 'isToday' | 'isCompleted' | 'urgency' | 'workload'
 >;
 type NotTodayTodos = {
-  todos: ({ __typename: 'todos' } & Pick<
-    Todos,
-    'title' | 'id' | 'isToday' | 'isCompleted'
-  >)[];
+  todos: TodoType[];
   onPress: (id: string) => void;
   onComplete: (id: string) => void;
 };

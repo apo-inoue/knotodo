@@ -1157,13 +1157,13 @@ export type Todos_Select_Column =
 
 /** input type for updating data in table "todos" */
 export type Todos_Set_Input = {
+  category_id: Maybe<Scalars['uuid']>;
   completed_at: Maybe<Scalars['timestamptz']>;
   deleted_at: Maybe<Scalars['timestamptz']>;
   isCompleted: Maybe<Scalars['Boolean']>;
   isToday: Maybe<Scalars['Boolean']>;
   title: Maybe<Scalars['String']>;
   urgency: Maybe<Urgency_Enum>;
-  user_id: Maybe<Scalars['String']>;
   workload: Maybe<Scalars['Int']>;
 };
 
@@ -1214,6 +1214,8 @@ export type Todos_Sum_Order_By = {
 /** update columns of table "todos" */
 export type Todos_Update_Column = 
   /** column name */
+  | 'category_id'
+  /** column name */
   | 'completed_at'
   /** column name */
   | 'deleted_at'
@@ -1225,8 +1227,6 @@ export type Todos_Update_Column =
   | 'title'
   /** column name */
   | 'urgency'
-  /** column name */
-  | 'user_id'
   /** column name */
   | 'workload';
 
@@ -1583,6 +1583,27 @@ export type InsertToDoMutation = (
   & { insert_todos_one: Maybe<(
     { __typename: 'todos' }
     & Pick<Todos, 'id'>
+  )> }
+);
+
+export type UpdateTodoMutationVariables = Exact<{
+  _eq?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  urgency?: Maybe<Urgency_Enum>;
+  workload?: Maybe<Scalars['Int']>;
+  category_id?: Maybe<Scalars['uuid']>;
+}>;
+
+
+export type UpdateTodoMutation = (
+  { __typename: 'mutation_root' }
+  & { update_todos: Maybe<(
+    { __typename: 'todos_mutation_response' }
+    & Pick<Todos_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename: 'todos' }
+      & Pick<Todos, 'id'>
+    )> }
   )> }
 );
 
@@ -1947,6 +1968,45 @@ export function useInsertToDoMutation(baseOptions?: Apollo.MutationHookOptions<I
 export type InsertToDoMutationHookResult = ReturnType<typeof useInsertToDoMutation>;
 export type InsertToDoMutationResult = Apollo.MutationResult<InsertToDoMutation>;
 export type InsertToDoMutationOptions = Apollo.BaseMutationOptions<InsertToDoMutation, InsertToDoMutationVariables>;
+export const UpdateTodoDocument = gql`
+    mutation UpdateTodo($_eq: String = "", $title: String = "", $urgency: urgency_enum = month, $workload: Int = 10, $category_id: uuid = "") {
+  update_todos(where: {id: {_eq: $_eq}}, _set: {title: $title, urgency: $urgency, workload: $workload, category_id: $category_id}) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, UpdateTodoMutationVariables>;
+
+/**
+ * __useUpdateTodoMutation__
+ *
+ * To run a mutation, you first call `useUpdateTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTodoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTodoMutation, { data, loading, error }] = useUpdateTodoMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *      title: // value for 'title'
+ *      urgency: // value for 'urgency'
+ *      workload: // value for 'workload'
+ *      category_id: // value for 'category_id'
+ *   },
+ * });
+ */
+export function useUpdateTodoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTodoMutation, UpdateTodoMutationVariables>) {
+        return Apollo.useMutation<UpdateTodoMutation, UpdateTodoMutationVariables>(UpdateTodoDocument, baseOptions);
+      }
+export type UpdateTodoMutationHookResult = ReturnType<typeof useUpdateTodoMutation>;
+export type UpdateTodoMutationResult = Apollo.MutationResult<UpdateTodoMutation>;
+export type UpdateTodoMutationOptions = Apollo.BaseMutationOptions<UpdateTodoMutation, UpdateTodoMutationVariables>;
 export const CompleteToDoDocument = gql`
     mutation CompleteToDo($_eq: String!) {
   update_todos(where: {id: {_eq: $_eq}}, _set: {isCompleted: true, completed_at: "now()"}) {

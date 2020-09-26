@@ -9,14 +9,28 @@ export const TodoProvider: FC = ({ children }) => {
     urgency: 'week',
     category: '',
     workload: 1,
+    isToday: false,
+    isCompleted: false,
   });
-  const [editTodo, setEditTodo] = useState<TodoState>({
+  const [editTodo, setEditTodo] = useState<{ id: string } & TodoState>({
+    id: '',
     title: '',
     urgency: 'week',
     category: '',
     workload: 1,
+    isToday: false,
+    isCompleted: false,
   });
 
+  const newTodoMountHandler = ({
+    isToday,
+    isCompleted,
+  }: {
+    isToday: boolean;
+    isCompleted: boolean;
+  }) => {
+    return setNewTodo({ ...newTodo, isToday, isCompleted });
+  };
   const newTodoTitleInputHandler = (title: string) => {
     return setNewTodo({ ...newTodo, title });
   };
@@ -30,7 +44,7 @@ export const TodoProvider: FC = ({ children }) => {
     return setNewTodo({ ...newTodo, workload });
   };
 
-  const editTodoMountHandler = (todo: TodoState) => {
+  const editTodoMountHandler = (todo: { id: string } & TodoState) => {
     return setEditTodo(todo);
   };
   const editTodoTitleInputHandler = (title: string) => {
@@ -49,6 +63,7 @@ export const TodoProvider: FC = ({ children }) => {
   const value = {
     newTodo: {
       state: newTodo,
+      todoMountHandler: newTodoMountHandler,
       titleInputHandler: newTodoTitleInputHandler,
       urgencySelectHandler: newTodoUrgencySelectHandler,
       categorySelectHandler: newTodoCategorySelectHandler,

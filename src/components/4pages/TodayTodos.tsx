@@ -11,7 +11,6 @@ import {
 } from '../../types/graphql';
 import { TODAY_TODOS } from '../../graphql/query/todos';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
-import { Order_By, Todos_Order_By } from '../../types/graphql';
 
 export const TodayTodos: FC = () => {
   const { sort } = useSortFilterCtx();

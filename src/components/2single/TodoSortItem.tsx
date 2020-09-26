@@ -13,7 +13,7 @@ type TodoSortItemProps = {
 };
 
 export const TodoSortItem: FC<TodoSortItemProps> = ({ sortItem }) => {
-  const { sort, sortPressHandler } = useSortFilterCtx();
+  const { sortPressHandler } = useSortFilterCtx();
   const onPressDesc = () => {
     sortPressHandler({ key: sortItem.value, order: 'desc' });
   };

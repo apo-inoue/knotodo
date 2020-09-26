@@ -2,11 +2,11 @@ import { gql } from '@apollo/client';
 
 export const INSERT_TODO = gql`
   mutation InsertToDo(
-    $isCompleted: Boolean = false
     $title: String = ""
     $urgency: urgency_enum = month
-    $isToday: Boolean = true
     $workload: Int = 1
+    $isToday: Boolean = true
+    $isCompleted: Boolean = false
   ) {
     insert_todos_one(
       object: {
@@ -19,6 +19,31 @@ export const INSERT_TODO = gql`
     ) {
       __typename
       id
+    }
+  }
+`;
+
+export const UPDATE_TODO = gql`
+  mutation UpdateTodo(
+    $_eq: String = ""
+    $title: String = ""
+    $urgency: urgency_enum = month
+    $workload: Int = 10
+    $category_id: uuid = ""
+  ) {
+    update_todos(
+      where: { id: { _eq: $_eq } }
+      _set: {
+        title: $title
+        urgency: $urgency
+        workload: $workload
+        category_id: $category_id
+      }
+    ) {
+      affected_rows
+      returning {
+        id
+      }
     }
   }
 `;
