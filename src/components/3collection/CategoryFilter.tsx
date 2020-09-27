@@ -1,11 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Switch } from 'react-native';
-import { PrimaryButton, Box, Text, FlatList } from '../../ui';
+import { useTheme } from 'styled-components';
+import { PrimaryButton, Box, Text, FlatList, Divider } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { CategorySelectItem } from '../2single';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
-import { Divider } from '../../ui/utils/Divider';
-import { useTheme } from 'styled-components';
 
 type CategoryType = { __typename: 'categories' } & Pick<
   Categories,
@@ -14,14 +13,22 @@ type CategoryType = { __typename: 'categories' } & Pick<
 
 type CategoryProps = {
   categories: CategoryType[];
-  onPress: () => void;
+  filterModalToggler: () => void;
 };
 
-export const CategoryFilter: FC<CategoryProps> = ({ categories, onPress }) => {
+export const CategoryFilter: FC<CategoryProps> = ({
+  categories,
+  filterModalToggler,
+}) => {
   const theme = useTheme();
-  const { filterSelectHandler } = useSortFilterCtx();
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const {
+    filter: { mountFilterHandler, cancelFilterHandler, isAll, isAllToggler },
+  } = useSortFilterCtx();
+  const onPressCancelHandler = () => {
+    cancelFilterHandler();
+    filterModalToggler();
+  };
+  useEffect(() => mountFilterHandler, [mountFilterHandler]);
 
   return (
     <>
@@ -36,28 +43,26 @@ export const CategoryFilter: FC<CategoryProps> = ({ categories, onPress }) => {
           trackColor={{ false: theme.colors.white, true: theme.colors.main }}
           thumbColor={theme.colors.white}
           ios_backgroundColor={theme.colors.blacks[8]}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
+          onValueChange={isAllToggler}
+          value={isAll}
         />
       </Box>
-      <Box height="200px">
-        <FlatList<CategoryType>
-          data={categories}
-          keyExtractor={(item: CategoryType) => `${item.id}`}
-          renderItem={({ item }: { item: CategoryType }) => (
-            <Box width="100%">
-              <CategorySelectItem category={item} />
-              <Divider />
-            </Box>
-          )}
-        />
-      </Box>
+      <FlatList<CategoryType>
+        data={categories}
+        keyExtractor={(item: CategoryType) => `${item.id}`}
+        renderItem={({ item }: { item: CategoryType }) => (
+          <Box width="100%">
+            <CategorySelectItem category={item} />
+            <Divider />
+          </Box>
+        )}
+      />
       <Box flexDirection="row" width="100%" justifyContent="center" mt={4}>
         <PrimaryButton
           variant="outlined"
           width="40%"
           stretch
-          onPress={onPress}
+          onPress={onPressCancelHandler}
           text="キャンセル"
         />
         <Box mr={3} />
@@ -65,7 +70,7 @@ export const CategoryFilter: FC<CategoryProps> = ({ categories, onPress }) => {
           variant="contained"
           width="40%"
           stretch
-          onPress={() => filterSelectHandler(categories[0].id)}
+          onPress={filterModalToggler}
           text="絞り込み"
         />
       </Box>

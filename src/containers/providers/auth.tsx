@@ -18,11 +18,9 @@ export const AuthProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   const generateNonce = async () => {
-    console.log(AuthSession.getRedirectUrl());
     const randomNum: Uint8Array = await Random.getRandomBytesAsync(16);
     const randomNumArray = Array.from(randomNum);
     const nonce = String.fromCharCode.apply(null, randomNumArray);
-    console.log(nonce, 'nonce');
     await SecureStore.setItemAsync(NONCE_KEY, nonce);
 
     return nonce;
@@ -57,7 +55,6 @@ export const AuthProvider: FC = ({ children }) => {
 
   const decodeToken = (token: string) => {
     const decodedToken: DecodedToken = jwtDecoder(token);
-    console.log(decodedToken);
     const { nonce, sub, name, exp } = decodedToken;
 
     SecureStore.getItemAsync(NONCE_KEY).then(storedNonce => {
@@ -85,7 +82,6 @@ export const AuthProvider: FC = ({ children }) => {
     const isNewUser = false;
     SecureStore.getItemAsync(ID_TOKEN_KEY)
       .then(session => {
-        console.log('session', session);
         if (session) {
           const sessionObj = JSON.parse(session);
           const { exp, token, id, name } = sessionObj;

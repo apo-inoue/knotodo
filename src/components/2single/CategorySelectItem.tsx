@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Text, Touchable, CheckBox } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
@@ -11,26 +11,37 @@ type CategorySelectItemProps = {
 export const CategorySelectItem: FC<CategorySelectItemProps> = ({
   category,
 }) => {
-  const { filterSelectHandler } = useSortFilterCtx();
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const {
+    filter: {
+      filterState,
+      isAll,
+      isAllToggler,
+      checkOnHandler,
+      checkOffHandler,
+    },
+  } = useSortFilterCtx();
+  const isChecked = filterState.categoryIds.includes(category.id);
+  const onToggleCheckBox = () => {
+    if (isAll) {
+      isAllToggler();
+      isChecked ? checkOffHandler(category.id) : checkOnHandler(category.id);
+    } else {
+      isChecked ? checkOffHandler(category.id) : checkOnHandler(category.id);
+    }
+  };
 
   return (
-    <Box width="100%" flexDirection="row" height={50}>
-      <Box flex="1 1" justifyContent="center">
-        <Touchable
-          p={0}
-          justifyContent="center"
-          onPress={() => filterSelectHandler(category.category)}>
+    <Touchable onPress={onToggleCheckBox}>
+      <Box width="100%" flexDirection="row" height={50}>
+        <Box flex="1 1" justifyContent="center">
           <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
             {category.category}
           </Text>
-        </Touchable>
+        </Box>
+        <Box width={50} flexDirection="row" my="auto" justifyContent="flex-end">
+          <CheckBox checked={isChecked || isAll} onPress={onToggleCheckBox} />
+        </Box>
       </Box>
-      <Box width={50} flexDirection="row" my="auto" justifyContent="flex-end">
-        <Touchable onPress={() => setToggleCheckBox(!toggleCheckBox)}>
-          <CheckBox checked={toggleCheckBox} />
-        </Touchable>
-      </Box>
-    </Box>
+    </Touchable>
   );
 };

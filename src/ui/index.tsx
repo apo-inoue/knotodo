@@ -18,7 +18,7 @@ export { TextInput } from './input/TextInput';
 export {
   OutlinedTextInput,
   UnderlinedTextInput,
-} from './input/OutlinedTextInput';
+} from './input/StyledTextInput';
 export { OutlinedTextForm, UnderlinedTextForm } from './input/TextForm';
 export { RadioButton } from './input/RadioButton';
 export { CheckBox } from './input/CheckBox';
@@ -27,4 +27,6 @@ export { Divider } from './utils/Divider';
 export { FlatList } from './utils/FlatList';
 export { Picker } from './utils/Picker';
 export { SlideUpView } from './animation/SlideUpView';
+export { SlideOutView } from './animation/SlideOutView';
+export { SlideUpOutView } from './animation/SlideUpOutView';
 export { FadeInView } from './animation/FadeInView';

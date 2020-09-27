@@ -1,13 +1,12 @@
 import React, { FC } from 'react';
 import { Container, ScreenLoader } from '../../ui';
-import { NewTodoCollection } from '../3collection';
-import { ErrorMessage } from '../1standalone/ErrorMessage';
-import { NoDataMessage } from '../1standalone/NoDataMessage';
-import { InsertToDoMutationVariables } from '../../types/graphql';
 import {
+  InsertToDoMutationVariables,
   useAllCategoryQuery,
   useInsertToDoMutation,
 } from '../../types/graphql';
+import { ErrorMessage, NoDataMessage } from '../1standalone';
+import { NewTodoCollection } from '../3collection';
 
 export const NewTodo: FC = () => {
   const { data, loading, error } = useAllCategoryQuery();
@@ -16,14 +15,18 @@ export const NewTodo: FC = () => {
     title,
     urgency,
     workload,
+    isToday,
+    isCompleted,
+    category_id,
   }: InsertToDoMutationVariables) => {
     insertTodo({
       variables: {
-        isCompleted: false,
-        urgency,
-        isToday: false,
         title,
+        urgency,
         workload,
+        isToday,
+        isCompleted,
+        category_id,
       },
     });
   };
@@ -31,10 +34,10 @@ export const NewTodo: FC = () => {
   if (loading) {
     return <ScreenLoader />;
   }
-  if (error) {
+  if (error || !data) {
     return <ErrorMessage />;
   }
-  if (!data) {
+  if (data?.categories.length === 0) {
     return <NoDataMessage />;
   }
 

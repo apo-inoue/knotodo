@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
-import { Box, Divider, Text, Touchable } from '../../ui';
-import { Todos } from '../../types/graphql';
-import { TodoWorkload } from '../2single';
-import { PrimaryButton } from '../../ui/button/StyledButtons';
 import { useNavigation } from '@react-navigation/native';
+import { Todos } from '../../types/graphql';
+import { Box, Divider, Text, Touchable, PrimaryButton } from '../../ui';
+import { TodoWorkload } from '../2single';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 type TodoDetailsProps = {
   todo: Todos;
 };
 
+// !This component is no longer used, because we prefer to navigate edit screen directly.
 export const TodoDetails: FC<TodoDetailsProps> = ({ todo }) => {
   const { id, title, workload, urgency } = todo;
   const navigation = useNavigation();

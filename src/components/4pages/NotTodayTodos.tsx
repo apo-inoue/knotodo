@@ -1,32 +1,47 @@
 import React, { FC, useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
   useNotTodayTodosQuery,
   useSetTodayTodoMutation,
   useCompleteToDoMutation,
+  NotTodayTodosQuery,
 } from '../../types/graphql';
-import { Container, ScreenLoader } from '../../ui';
-import { ErrorMessage, NoDataMessage } from '../1standalone';
-import { NotTodayTodosCollection } from '../3collection';
 import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
-import { NotTodayTodosQuery } from '../../types/graphql';
+import { Container, ScreenLoader } from '../../ui';
+import { ErrorMessage, NoDataMessage, AddFab } from '../1standalone';
+import { NotTodayTodosCollection } from '../3collection';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
+import { useTodoCtx } from '../../containers/contexts/todo';
 
 export const NotTodayTodos: FC = () => {
-  const { loading, error, data, refetch } = useNotTodayTodosQuery();
+  const navigation = useNavigation();
+  const {
+    sort: { sortState },
+    filter: {
+      filterState: { categoryIds },
+    },
+  } = useSortFilterCtx();
+  const categoryIdsVariables = categoryIds.length === 0 ? null : categoryIds;
+  const { loading, error, data, refetch } = useNotTodayTodosQuery({
+    variables: { [sortState.key]: sortState.order, _in: categoryIdsVariables },
+  });
   // ---------- setToday ----------
-  const [
-    setToday,
-    { loading: mutationLoading, error: mutationError },
-  ] = useSetTodayTodoMutation({
+  const [setToday] = useSetTodayTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
+        variables: { [sortState.key]: sortState.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -39,12 +54,14 @@ export const NotTodayTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
+        variables: { [sortState.key]: sortState.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
+        variables: { [sortState.key]: sortState.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -53,20 +70,33 @@ export const NotTodayTodos: FC = () => {
     completeTodo({ variables: { _eq: id } });
   };
 
+  const {
+    newTodo: { todoMountHandler },
+  } = useTodoCtx();
+  const mountAndNavigateHandler = () => {
+    todoMountHandler({ isToday: false, isCompleted: false });
+    navigation.navigate(STACK_ROUTE_NAMES.新規作成);
+  };
+
   useFocusEffect(
     useCallback(() => {
       refetch();
     }, [refetch]),
   );
 
-  if (loading || mutationLoading) {
+  if (loading) {
     return <ScreenLoader />;
   }
-  if (error || mutationError) {
+  if (error || !data) {
     return <ErrorMessage />;
   }
-  if (!data) {
-    return <NoDataMessage />;
+  if (data?.todos.length === 0) {
+    return (
+      <>
+        <NoDataMessage />
+        <AddFab onPress={mountAndNavigateHandler} />
+      </>
+    );
   }
 
   return (

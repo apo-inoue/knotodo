@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC } from 'react';
 import { Container, ScreenLoader } from '../../ui';
 import {
   useAllCategoryQuery,
@@ -11,13 +11,12 @@ import { useCategoryCtx } from '../../containers/contexts/category';
 import { ALL_CATEGORY } from '../../graphql/query/categories';
 import { useUpdateCategoryMutation } from '../../types/graphql';
 import { useDeleteCategoryMutation } from '../../types/graphql';
-import { useFocusEffect } from 'react-navigation';
 
 export const CategorySetting: FC = () => {
   const {
     state: { category },
   } = useCategoryCtx();
-  const { data, loading, error, refetch } = useAllCategoryQuery();
+  const { data, loading, error } = useAllCategoryQuery();
   const [insertCategory] = useInsertCategoryMutation({
     variables: { category },
     update(cache, { data: updateData }) {
@@ -67,19 +66,13 @@ export const CategorySetting: FC = () => {
     updateCategory({ variables: { id: id, category: c } });
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      refetch();
-    }, [refetch]),
-  );
-
   if (loading) {
     return <ScreenLoader />;
   }
-  if (error) {
+  if (error || !data) {
     return <ErrorMessage />;
   }
-  if (!data) {
+  if (data.categories.length === 0) {
     return <NoDataMessage />;
   }
 

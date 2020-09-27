@@ -14,3 +14,15 @@ export const UPDATE_COLOR_TYPE = gql`
     }
   }
 `;
+
+export const UPDATE_USER_MESSAGE = gql`
+  mutation UpdateUserMessage($message: String, $_eq: String) {
+    update_users(_set: { message: $message }, where: { id: { _eq: $_eq } }) {
+      affected_rows
+      returning {
+        id
+        message
+      }
+    }
+  }
+`;

@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import { CustomTextInputProps } from './TextInput';
 import { Text } from '../typography/Text';
 import { useTheme } from 'styled-components';
-import { OutlinedTextInput, UnderlinedTextInput } from './OutlinedTextInput';
+import { OutlinedTextInput, UnderlinedTextInput } from './StyledTextInput';
 import { Box } from '../layout/Box';
 
 type TextForm = {
   label?: string;
-  error: null | string;
+  err: null | string;
 } & CustomTextInputProps;
 
 export const OutlinedTextForm: FC<TextForm> = props => {
@@ -17,18 +17,18 @@ export const OutlinedTextForm: FC<TextForm> = props => {
     <>
       <Text>{props.label}</Text>
       <OutlinedTextInput {...props} />
-      {props.error && <Text color={theme.colors.danger}>{props.error}</Text>}
+      {props.err && <Text color={theme.colors.danger}>{props.err}</Text>}
     </>
   );
 };
 
-export const UnderlinedTextForm: FC<TextForm> = props => {
+export const UnderlinedTextForm: FC<TextForm> = ({ err, ...rest }) => {
   const theme = useTheme();
 
   return (
-    <Box width="100%" flexDirection="row" justifyContent="center">
-      <UnderlinedTextInput {...props} />
-      {props.error && <Text color={theme.colors.danger}>{props.error}</Text>}
+    <Box width="100%" flexDirection="column" justifyContent="center">
+      <UnderlinedTextInput {...rest} />
+      <Text color={theme.colors.danger}>{err}</Text>
     </Box>
   );
 };

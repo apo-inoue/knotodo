@@ -10,16 +10,17 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import { Accomplishment, CategorySetting, Color } from '../4pages';
+import { AccomplishmentAndMessage, CategorySetting, Color } from '../4pages';
 import { DrawerIcon } from '../1standalone';
 import { DRAWER_ROUTE_NAMES } from './type';
+import { MessageSetting } from '../4pages/MessageSetting';
 
 const CustomDrawerContent: FC<DrawerContentComponentProps<
   DrawerContentOptions
 >> = props => {
   return (
     <DrawerContentScrollView {...props}>
-      <Accomplishment />
+      <AccomplishmentAndMessage />
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
   );
@@ -63,6 +64,15 @@ export const DrawerNavigation: FC = () => {
         options={{
           drawerIcon: ({ color }: { color: string }) => (
             <DrawerIcon drawerName="categorySetting" color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={DRAWER_ROUTE_NAMES.ヒトコト設定}
+        component={MessageSetting}
+        options={{
+          drawerIcon: ({ color }: { color: string }) => (
+            <DrawerIcon drawerName="messageSetting" color={color} />
           ),
         }}
       />

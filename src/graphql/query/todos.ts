@@ -1,67 +1,101 @@
 import { gql } from '@apollo/client';
 
 export const TODAY_TODOS = gql`
-  query todayTodos {
+  query todayTodos(
+    $created_at: order_by = null
+    $urgency: order_by = null
+    $workload: order_by = null
+    $_in: [uuid!]
+  ) {
     todos(
       where: {
-        isToday: { _eq: true }
-        isCompleted: { _eq: false }
-        deleted_at: { _eq: null }
+        _and: {
+          isToday: { _eq: true }
+          isCompleted: { _eq: false }
+          deleted_at: { _is_null: true }
+          category_id: { _in: $_in }
+        }
+      }
+      order_by: {
+        created_at: $created_at
+        urgency: $urgency
+        workload: $workload
       }
     ) {
       id
-      isCompleted
-      isToday
       title
       urgency
       workload
-      category_by_id {
-        category
-      }
+      isCompleted
+      isToday
+      category_id
     }
   }
 `;
 
 export const NOT_TODAY_TODOS = gql`
-  query notTodayTodos {
+  query notTodayTodos(
+    $created_at: order_by = null
+    $urgency: order_by = null
+    $workload: order_by = null
+    $_in: [uuid!]
+  ) {
     todos(
       where: {
         isToday: { _eq: false }
         isCompleted: { _eq: false }
-        deleted_at: { _eq: null }
+        deleted_at: { _is_null: true }
+        category_id: { _in: $_in }
+      }
+      order_by: {
+        created_at: $created_at
+        urgency: $urgency
+        workload: $workload
       }
     ) {
       id
-      isCompleted
-      isToday
       title
       urgency
       workload
-      category_by_id {
-        category
-      }
+      isToday
+      isCompleted
+      category_id
     }
   }
 `;
 
 export const COMPLETED_TODOS = gql`
-  query completedTodos {
-    todos(where: { isCompleted: { _eq: true }, deleted_at: { _eq: null } }) {
+  query completedTodos(
+    $created_at: order_by = null
+    $urgency: order_by = null
+    $workload: order_by = null
+    $_in: [uuid!]
+  ) {
+    todos(
+      where: {
+        isCompleted: { _eq: true }
+        deleted_at: { _is_null: true }
+        category_id: { _in: $_in }
+      }
+      order_by: {
+        created_at: $created_at
+        urgency: $urgency
+        workload: $workload
+      }
+    ) {
       id
-      isCompleted
-      isToday
       title
       urgency
       workload
-      category_by_id {
-        category
-      }
+      isToday
+      isCompleted
+      category_id
     }
   }
 `;
 
-export const GET_ACCOMPLISHMENT = gql`
-  query GetAccomplishment(
+export const GET_ACCOMPLISHMENT_AND_MESSAGE = gql`
+  query GetAccomplishmentAndMessage(
     $_gte1: timestamptz
     $_gte2: timestamptz
     $_gte3: timestamptz
@@ -80,6 +114,9 @@ export const GET_ACCOMPLISHMENT = gql`
       aggregate {
         count
       }
+    }
+    users {
+      message
     }
   }
 `;

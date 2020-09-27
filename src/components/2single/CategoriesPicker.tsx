@@ -1,34 +1,34 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Picker } from '../../ui';
 import { Categories } from '../../types/graphql';
-import { ReactText } from 'react';
 
 type CategoriesProps = {
   categories: ({ __typename: 'categories' } & Pick<
     Categories,
     'category' | 'id'
   >)[];
+  category_id: string;
+  categorySelectHandler: (category_id: string) => void;
 };
 
-export const CategoriesPicker: FC<CategoriesProps> = ({ categories }) => {
-  const [selectedValue, setSelectedValue] = useState<ReactText>('');
-  const valueChangeHandler = (itemValue: ReactText) => {
-    return setSelectedValue(itemValue);
-  };
-
+export const CategoriesPicker: FC<CategoriesProps> = ({
+  categories,
+  category_id,
+  categorySelectHandler,
+}) => {
   return (
     <Picker
       width={200}
       height={100}
-      selectedValue={selectedValue}
+      selectedValue={category_id}
       mode="dropdown"
-      onValueChange={valueChangeHandler}>
+      onValueChange={categorySelectHandler}>
       {categories.map(category => {
         return (
           <Picker.Item
             key={category.id}
             label={category.category}
-            value={category.category}
+            value={category.id}
           />
         );
       })}

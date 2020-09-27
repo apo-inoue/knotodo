@@ -2,27 +2,32 @@ import React, { FC } from 'react';
 import { Container, ScreenLoader } from '../../ui';
 import { EditTodoCollection } from '../3collection';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
-import { InsertToDoMutationVariables } from '../../types/graphql';
+import { TODAY_TODOS, NOT_TODAY_TODOS } from '../../graphql/query/todos';
 import {
+  UpdateTodoMutationVariables,
+  useUpdateTodoMutation,
   useAllCategoryQuery,
-  useInsertToDoMutation,
 } from '../../types/graphql';
 
 export const EditTodo: FC = () => {
   const { data, loading, error } = useAllCategoryQuery();
-  const [insertTodo] = useInsertToDoMutation();
-  const insertTodoHandler = ({
+  const [updateTodo] = useUpdateTodoMutation({
+    refetchQueries: [{ query: TODAY_TODOS }, { query: NOT_TODAY_TODOS }],
+  });
+  const updateTodoHandler = ({
+    id,
     title,
     urgency,
     workload,
-  }: InsertToDoMutationVariables) => {
-    insertTodo({
+    category_id,
+  }: UpdateTodoMutationVariables) => {
+    updateTodo({
       variables: {
-        isCompleted: false,
-        urgency,
-        isToday: false,
+        id,
         title,
+        urgency,
         workload,
+        category_id,
       },
     });
   };
@@ -30,17 +35,17 @@ export const EditTodo: FC = () => {
   if (loading) {
     return <ScreenLoader />;
   }
-  if (error) {
+  if (error || !data) {
     return <ErrorMessage />;
   }
-  if (!data) {
+  if (data.categories.length === 0) {
     return <NoDataMessage />;
   }
 
   return (
     <Container centerContent>
       <EditTodoCollection
-        onPress={insertTodoHandler}
+        onPress={updateTodoHandler}
         categories={data.categories}
       />
     </Container>

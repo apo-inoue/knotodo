@@ -13,24 +13,18 @@ export const StackNavigation: FC = () => {
   const theme = useTheme();
   const [isSortModalVisible, setSortModalVisible] = useState(false);
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
-  const onPressSort = () => {
+  const sortModalToggler = () => {
     setSortModalVisible(!isSortModalVisible);
   };
-  const onHideSort = () => {
-    setSortModalVisible(false);
-  };
-  const onPressFilter = () => {
-    setFilterModalVisible(!isSortModalVisible);
-  };
-  const onHideFilter = () => {
-    setFilterModalVisible(false);
+  const filterModalToggler = () => {
+    setFilterModalVisible(!isFilterModalVisible);
   };
   const renderItem = () => (
     <ModalNavigation
       isSortModalVisible={isSortModalVisible}
-      onPressSort={onHideSort}
+      sortModalToggler={sortModalToggler}
       isFilterModalVisible={isFilterModalVisible}
-      onPressFilter={onHideFilter}
+      filterModalToggler={filterModalToggler}
     />
   );
 
@@ -56,8 +50,8 @@ export const StackNavigation: FC = () => {
         }) => ({
           headerRight: () => (
             <HeaderIconsRight
-              onPressSort={onPressSort}
-              onPressFilter={onPressFilter}
+              onPressSort={sortModalToggler}
+              onPressFilter={filterModalToggler}
             />
           ),
           headerTitle: () => <HeaderTitle route={route} />,

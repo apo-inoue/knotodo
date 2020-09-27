@@ -1,49 +1,99 @@
-import React, { FC } from 'react';
-import { PrimaryButton, Box } from '../../ui';
+import React, { FC, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
+import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import {
   CategoriesPicker,
   TodoUrgencySelect,
   TodoWorkloadSelect,
-  TodoTitleInput,
 } from '../2single';
-import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { useNavigation } from '@react-navigation/native';
 
 type NewTodoProps = {
   categories: ({ __typename: 'categories' } & Pick<
     Categories,
     'category' | 'id'
   >)[];
-  onPress: ({ title, urgency, workload }: InsertToDoMutationVariables) => void;
+  onPress: ({
+    title,
+    urgency,
+    workload,
+    isToday,
+    isCompleted,
+    category_id,
+  }: InsertToDoMutationVariables) => void;
 };
 
 export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   const navigation = useNavigation();
+  const [error, setError] = useState<string>('');
   const {
-    state: { title, urgency, workload },
+    newTodo: {
+      state: { title, urgency, workload, isToday, isCompleted, category_id },
+      todoClearHandler,
+      titleInputHandler,
+      workloadSelectHandler,
+      urgencySelectHandler,
+      categorySelectHandler,
+    },
   } = useTodoCtx();
+  const category: string = category_id === '' ? categories[0].id : category_id;
+  const insertAndNavigateHandler = () => {
+    if (title === '') {
+      setError('入力してください');
+    } else {
+      onPress({
+        title,
+        urgency,
+        workload,
+        isToday,
+        isCompleted,
+        category_id: category,
+      });
+      navigation.goBack();
+    }
+  };
+  const cancelAndNavigateHandler = () => {
+    todoClearHandler();
+    navigation.goBack();
+  };
 
   return (
     <>
       <Box width="80%">
-        <TodoTitleInput />
+        <UnderlinedTextForm
+          placeholder="タイトル"
+          autoFocus
+          err={error}
+          onChangeText={titleInputHandler}
+          value={title}
+        />
       </Box>
       <Box mt={3}>
-        <TodoWorkloadSelect />
+        <TodoWorkloadSelect
+          workload={workload}
+          workloadSelectHandler={workloadSelectHandler}
+        />
       </Box>
       <Box mt={3}>
-        <TodoUrgencySelect />
+        <TodoUrgencySelect
+          urgency={urgency}
+          urgencySelectHandler={urgencySelectHandler}
+        />
       </Box>
       <Box>
-        <CategoriesPicker categories={categories} />
+        <CategoriesPicker
+          categories={categories}
+          category_id={category_id}
+          categorySelectHandler={categorySelectHandler}
+        />
       </Box>
       <Box mt={4} flexDirection="row">
         <PrimaryButton
           variant="outlined"
           width="30%"
           stretch
-          onPress={navigation.goBack}
+          onPress={cancelAndNavigateHandler}
           text="キャンセル"
         />
         <Box mr={3} />
@@ -53,7 +103,7 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
           width="30%"
           stretch
           text="追加"
-          onPress={() => onPress({ title, urgency, workload })}
+          onPress={insertAndNavigateHandler}
         />
       </Box>
     </>

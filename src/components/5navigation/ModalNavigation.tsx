@@ -5,32 +5,32 @@ import { TodosSort, CategoryFilter } from '../4pages';
 
 type ModalNavigationProps = {
   isSortModalVisible: boolean;
-  onPressSort: () => void;
+  sortModalToggler: () => void;
   isFilterModalVisible: boolean;
-  onPressFilter: () => void;
+  filterModalToggler: () => void;
 };
 
 export const ModalNavigation: FC<ModalNavigationProps> = ({
   isSortModalVisible,
-  onPressSort,
+  sortModalToggler,
   isFilterModalVisible,
-  onPressFilter,
+  filterModalToggler,
 }) => {
   return (
     <>
       <Modal
         isVisible={isSortModalVisible}
-        onBackdropPress={onPressSort}
-        onSwipeComplete={onPressSort}
+        onBackdropPress={sortModalToggler}
+        onSwipeComplete={sortModalToggler}
         swipeDirection={['down', 'up']}>
-        <TodosSort />
+        <TodosSort sortModalToggler={sortModalToggler} />
       </Modal>
       <Modal
         isVisible={isFilterModalVisible}
-        onSwipeComplete={onPressFilter}
-        onBackdropPress={onPressFilter}
+        onSwipeComplete={filterModalToggler}
+        onBackdropPress={filterModalToggler}
         swipeDirection={['down', 'up']}>
-        <CategoryFilter onPress={onPressFilter} />
+        <CategoryFilter filterModalToggler={filterModalToggler} />
       </Modal>
       <DrawerNavigation />
     </>

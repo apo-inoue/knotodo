@@ -7,6 +7,7 @@ import { Container } from '../layout/Container';
 export const Loader = styled.ActivityIndicator<ActivityIndicatorProps>`
   display: flex;
   align-self: center;
+  margin: 24px;
   ${flex}
 `;
 

@@ -2501,60 +2501,6 @@
             "deprecationReason": null
           },
           {
-            "name": "delete_users",
-            "description": "delete data from the table: \"users\"",
-            "args": [
-              {
-                "name": "where",
-                "description": "filter the rows which have to be deleted",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "users_bool_exp",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "users_mutation_response",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "delete_users_by_pk",
-            "description": "delete single row from the table: \"users\"",
-            "args": [
-              {
-                "name": "id",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "users",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "insert_accomplishment",
             "description": "insert data into the table: \"accomplishment\"",
             "args": [
@@ -6719,6 +6665,16 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "category_id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "completed_at",
             "description": null,
             "type": {
@@ -6774,16 +6730,6 @@
             "type": {
               "kind": "ENUM",
               "name": "urgency_enum",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user_id",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -6988,6 +6934,12 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "category_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "completed_at",
             "description": "column name",
             "isDeprecated": false,
@@ -7019,12 +6971,6 @@
           },
           {
             "name": "urgency",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "user_id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -7864,6 +7810,22 @@
             "deprecationReason": null
           },
           {
+            "name": "color_type_enum",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "colorTypes",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -7875,6 +7837,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "message",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -8264,7 +8238,27 @@
             "defaultValue": null
           },
           {
+            "name": "color_type_enum",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "colorTypes_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "message",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -8343,6 +8337,16 @@
           },
           {
             "name": "id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "message",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8546,7 +8550,27 @@
             "defaultValue": null
           },
           {
+            "name": "color_type_enum",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "colorTypes_order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "message",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -8626,6 +8650,12 @@
             "deprecationReason": null
           },
           {
+            "name": "message",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "nickname",
             "description": "column name",
             "isDeprecated": false,
@@ -8652,6 +8682,16 @@
           },
           {
             "name": "id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "message",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8691,6 +8731,12 @@
           },
           {
             "name": "id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "message",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

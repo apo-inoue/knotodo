@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 
 export const HeaderIconLeft: FC = () => {
   const navigation = useNavigation();
@@ -31,6 +32,9 @@ export const HeaderIconsRight: FC<HeaderIconsRightProps> = ({
   onPressFilter,
 }) => {
   const theme = useTheme();
+  const {
+    filter: { isAll },
+  } = useSortFilterCtx();
 
   return (
     <Box flexDirection="row" mr={3}>
@@ -42,7 +46,7 @@ export const HeaderIconsRight: FC<HeaderIconsRightProps> = ({
       />
       <Box mr={3} />
       <MaterialCommunityIcons
-        name="filter"
+        name={isAll ? 'filter' : 'filter-plus'}
         size={24}
         color={theme.colors.white}
         onPress={onPressFilter}
