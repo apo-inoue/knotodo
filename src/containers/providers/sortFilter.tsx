@@ -1,48 +1,65 @@
-import React, { FC, useState, useCallback } from 'react';
+import React, { FC, useState, useMemo, useRef } from 'react';
 import { SortFilterCtxProvider } from '../contexts/sortFilter';
-import { SortFilterState, SortState } from '../types/sortFilter';
+import { SortState, FilterState } from '../types/sortFilter';
 import { TodayTodosQueryVariables, Order_By } from '../../types/graphql';
 
 export const SortFilterProvider: FC = ({ children }) => {
-  const [state, setState] = useState<SortFilterState>({
-    sortBy: { createdAt: false, workload: false, urgency: false },
-    filterBy: { category: null },
-  });
-  const [sort, setSort] = useState<SortState>({
+  const [sortState, setSortState] = useState<SortState>({
     key: 'created_at',
     order: 'asc',
   });
+  const [filterState, setFilterState] = useState<FilterState>({
+    categoryIds: [],
+  });
+  const [filterStateCopy, setFilterStateCopy] = useState<FilterState>({
+    categoryIds: [],
+  });
+  const [isAll, setIsAll] = useState<boolean>(true);
 
-  const sortPressHandler = ({
+  const selectSortHandler = ({
     key,
     order,
   }: {
     key: keyof TodayTodosQueryVariables;
     order: Order_By;
   }) => {
-    setSort({ key, order });
+    setSortState({ key, order });
   };
 
-  const sortInputHandler = useCallback(
-    (e: string) => {
-      console.log(e);
-      setState({ ...state });
-    },
-    [state],
-  );
-  const filterSelectHandler = useCallback(
-    (category: null | string) => {
-      setState({ ...state, filterBy: { category: category } });
-    },
-    [state],
-  );
+  const mountFilterHandler = () => {
+    setFilterStateCopy(filterState);
+  };
+  const cancelFilterHandler = () => {
+    setFilterState(filterStateCopy);
+  };
+  const isAllToggler = () => {
+    setIsAll(!isAll);
+  };
+  const checkOnHandler = (categoryId: string) => {
+    setFilterState({ categoryIds: [...filterState.categoryIds, categoryId] });
+  };
+  const checkOffHandler = (categoryId: string) => {
+    const { categoryIds } = filterState;
+    const newCategoryIds = categoryIds.filter(
+      stateCategoryId => stateCategoryId !== categoryId,
+    );
+    setFilterState({ categoryIds: newCategoryIds });
+  };
 
   const value = {
-    state,
-    sort,
-    sortPressHandler,
-    sortInputHandler,
-    filterSelectHandler,
+    sort: {
+      sortState,
+      selectSortHandler,
+    },
+    filter: {
+      filterState,
+      mountFilterHandler,
+      cancelFilterHandler,
+      isAll,
+      isAllToggler,
+      checkOnHandler,
+      checkOffHandler,
+    },
   };
 
   return (

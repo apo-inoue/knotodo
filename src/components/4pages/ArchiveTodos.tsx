@@ -17,22 +17,24 @@ import {
 } from '../../types/graphql';
 
 export const ArchiveTodos: FC = () => {
-  const { sort } = useSortFilterCtx();
+  const {
+    sort: { sortState },
+  } = useSortFilterCtx();
   const { loading, error, data, refetch } = useCompletedTodosQuery({
-    variables: { [sort.key]: sort.order },
+    variables: { [sortState.key]: sortState.order },
   });
   const [deleteToDo] = useDeleteToDoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -45,14 +47,14 @@ export const ArchiveTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -65,14 +67,14 @@ export const ArchiveTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },

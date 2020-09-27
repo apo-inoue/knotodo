@@ -1742,6 +1742,7 @@ export type TodayTodosQueryVariables = Exact<{
   created_at?: Maybe<Order_By>;
   urgency?: Maybe<Order_By>;
   workload?: Maybe<Order_By>;
+  _in: Maybe<Array<Scalars['uuid']>>;
 }>;
 
 
@@ -2297,8 +2298,8 @@ export type AllCategoryQueryHookResult = ReturnType<typeof useAllCategoryQuery>;
 export type AllCategoryLazyQueryHookResult = ReturnType<typeof useAllCategoryLazyQuery>;
 export type AllCategoryQueryResult = Apollo.QueryResult<AllCategoryQuery, AllCategoryQueryVariables>;
 export const TodayTodosDocument = gql`
-    query todayTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null) {
-  todos(where: {isToday: {_eq: true}, isCompleted: {_eq: false}, deleted_at: {_is_null: true}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
+    query todayTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null, $_in: [uuid!]) {
+  todos(where: {_and: {isToday: {_eq: true}, isCompleted: {_eq: false}, deleted_at: {_is_null: true}, category_id: {_in: $_in}}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
     id
     title
     urgency
@@ -2327,6 +2328,7 @@ export const TodayTodosDocument = gql`
  *      created_at: // value for 'created_at'
  *      urgency: // value for 'urgency'
  *      workload: // value for 'workload'
+ *      _in: // value for '_in'
  *   },
  * });
  */

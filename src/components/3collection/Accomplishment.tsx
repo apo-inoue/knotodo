@@ -31,7 +31,6 @@ export const Accomplishment: FC<AccomplishmentProps> = ({ accomplishment }) => {
         return <Text textAlign="center">Let's start it today</Text>;
     }
   };
-  console.log(prizeScore, 'prize', weeklyAccomplishment);
   const accomplishmentIntervals = [
     {
       interval: '今週',

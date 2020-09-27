@@ -38,7 +38,6 @@ export const TodoListItem: FC<TodoListItem> = ({ todo, buttonAction }) => {
     todoMountHandler(mountTodo);
     navigation.navigate(STACK_ROUTE_NAMES.編集);
   };
-  console.log(navigation, 'nav', route);
 
   return (
     <SlideUpView>

@@ -13,23 +13,32 @@ import { TODAY_TODOS } from '../../graphql/query/todos';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 
 export const TodayTodos: FC = () => {
-  const { sort } = useSortFilterCtx();
+  const {
+    sort: { sortState },
+    filter: {
+      filterState: { categoryIds },
+    },
+  } = useSortFilterCtx();
+  const categoryIdsVariables = categoryIds.length === 0 ? null : categoryIds;
   const { loading, error, data, refetch } = useTodayTodosQuery({
-    variables: { [sort.key]: sort.order },
+    variables: {
+      [sortState.key]: sortState.order,
+      _in: categoryIdsVariables,
+    },
   });
   // ---------- complete ----------
   const [completeTodo] = useCompleteToDoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -42,14 +51,14 @@ export const TodayTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
-        variables: { [sort.key]: sort.order },
+        variables: { [sortState.key]: sortState.order },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -57,6 +66,8 @@ export const TodayTodos: FC = () => {
   const setNotTodayHandler = (id: string) => {
     setToday({ variables: { _eq: id } });
   };
+
+  console.log(categoryIds);
 
   useFocusEffect(
     useCallback(() => {

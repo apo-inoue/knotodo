@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect, useMemo } from 'react';
 import { Switch } from 'react-native';
 import { useTheme } from 'styled-components';
 import { PrimaryButton, Box, Text, FlatList, Divider } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { CategorySelectItem } from '../2single';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
+import { useNavigation } from '@react-navigation/native';
 
 type CategoryType = { __typename: 'categories' } & Pick<
   Categories,
@@ -21,9 +22,22 @@ export const CategoryFilter: FC<CategoryProps> = ({
   filterModalToggler,
 }) => {
   const theme = useTheme();
-  const { filterSelectHandler } = useSortFilterCtx();
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const {
+    filter: {
+      filterState,
+      mountFilterHandler,
+      cancelFilterHandler,
+      isAll,
+      isAllToggler,
+    },
+  } = useSortFilterCtx();
+  const onPressCancelHandler = () => {
+    cancelFilterHandler();
+    filterModalToggler();
+  };
+  useEffect(() => mountFilterHandler, [mountFilterHandler]);
+
+  console.log(filterState, isAll);
 
   return (
     <>
@@ -38,8 +52,8 @@ export const CategoryFilter: FC<CategoryProps> = ({
           trackColor={{ false: theme.colors.white, true: theme.colors.main }}
           thumbColor={theme.colors.white}
           ios_backgroundColor={theme.colors.blacks[8]}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
+          onValueChange={isAllToggler}
+          value={isAll}
         />
       </Box>
       <Box height="200px">
@@ -59,7 +73,7 @@ export const CategoryFilter: FC<CategoryProps> = ({
           variant="outlined"
           width="40%"
           stretch
-          onPress={filterModalToggler}
+          onPress={onPressCancelHandler}
           text="キャンセル"
         />
         <Box mr={3} />
@@ -67,7 +81,7 @@ export const CategoryFilter: FC<CategoryProps> = ({
           variant="contained"
           width="40%"
           stretch
-          onPress={() => filterSelectHandler(categories[0].id)}
+          onPress={filterModalToggler}
           text="絞り込み"
         />
       </Box>
