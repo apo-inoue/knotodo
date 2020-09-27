@@ -35,6 +35,14 @@ export const authReducer = (
           isNewUser: false,
         },
       };
+    case 'STANDBY':
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          isNewUser: false,
+        },
+      };
     default:
       return state;
   }

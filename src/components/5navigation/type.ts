@@ -3,6 +3,7 @@ export const DRAWER_ROUTE_NAMES = {
   カラー設定: 'カラー設定',
   カテゴリ設定: 'カテゴリ設定',
   ヒトコト設定: 'ヒトコト設定',
+  ログアウト: 'ログアウト',
 } as const;
 
 export type DrawerRouteName = typeof DRAWER_ROUTE_NAMES[keyof typeof DRAWER_ROUTE_NAMES];

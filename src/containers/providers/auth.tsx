@@ -10,6 +10,7 @@ import {
   AUTH_DOMAIN,
   ID_TOKEN_KEY,
   NONCE_KEY,
+  AUTH_NAMESPACE,
 } from '../../../config';
 import * as AuthSession from 'expo-auth-session';
 import { decodedToken as DecodedToken } from '../types/auth';
@@ -67,8 +68,8 @@ export const AuthProvider: FC = ({ children }) => {
             exp,
             token,
           }),
-        ).then(() => handleSession());
-        // ).then(() => handleSession(decodedToken[AUTH_NAMESPACE].isNewUser));
+        ).then(() => handleSession(decodedToken[AUTH_NAMESPACE].isNewUser));
+        console.log(decodedToken[AUTH_NAMESPACE].isNewUser);
       } else {
         console.log('error');
 
@@ -77,9 +78,7 @@ export const AuthProvider: FC = ({ children }) => {
     });
   };
 
-  const handleSession = () => {
-    // TODO: 新しいユーザーに対するチュートリアル機能を作成する
-    const isNewUser = false;
+  const handleSession = (isNewUser: boolean) => {
     SecureStore.getItemAsync(ID_TOKEN_KEY)
       .then(session => {
         if (session) {
@@ -102,13 +101,21 @@ export const AuthProvider: FC = ({ children }) => {
       });
   };
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
+    // await WebBrowser.openBrowserAsync(
+    //   `${AUTH_DOMAIN}/v2/logout?client_id=${AUTH_CLIENT_ID}`,
+    // );
     SecureStore.deleteItemAsync(ID_TOKEN_KEY);
     dispatch({ actionType: 'LOGOUT' });
   };
 
+  const seedDataStandByHandler = () => {
+    dispatch({ actionType: 'STANDBY' });
+  };
+
   const value = {
     state,
+    seedDataStandByHandler,
     handleLogIn,
     handleLogOut,
   };
