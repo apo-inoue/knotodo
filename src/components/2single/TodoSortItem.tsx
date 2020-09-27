@@ -10,15 +10,23 @@ type TodoSortItemProps = {
     desc: string;
     asc: string;
   };
+  sortModalToggler: () => void;
 };
 
-export const TodoSortItem: FC<TodoSortItemProps> = ({ sortItem }) => {
-  const { sortPressHandler } = useSortFilterCtx();
+export const TodoSortItem: FC<TodoSortItemProps> = ({
+  sortItem,
+  sortModalToggler,
+}) => {
+  const {
+    sort: { selectSortHandler },
+  } = useSortFilterCtx();
   const onPressDesc = () => {
-    sortPressHandler({ key: sortItem.value, order: 'desc' });
+    selectSortHandler({ key: sortItem.value, order: 'desc' });
+    sortModalToggler();
   };
   const onPressAsc = () => {
-    sortPressHandler({ key: sortItem.value, order: 'asc' });
+    selectSortHandler({ key: sortItem.value, order: 'asc' });
+    sortModalToggler();
   };
 
   return (

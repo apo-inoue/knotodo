@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
@@ -19,6 +19,7 @@ type NewTodoProps = {
 
 export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   const navigation = useNavigation();
+  const [error, setError] = useState<string>('');
   const {
     newTodo: {
       state: { title, urgency, workload, isToday, isCompleted },
@@ -29,8 +30,12 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
     },
   } = useTodoCtx();
   const insertAndNavigateHandler = () => {
-    onPress({ title, urgency, workload, isToday, isCompleted });
-    navigation.goBack();
+    if (title === '') {
+      setError('入力してください');
+    } else {
+      onPress({ title, urgency, workload, isToday, isCompleted });
+      navigation.goBack();
+    }
   };
   const cancelAndNavigateHandler = () => {
     todoClearHandler();
@@ -42,7 +47,7 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
       <Box width="80%">
         <UnderlinedTextForm
           placeholder="タイトル"
-          error={null}
+          err={error}
           onChangeText={titleInputHandler}
           value={title}
         />

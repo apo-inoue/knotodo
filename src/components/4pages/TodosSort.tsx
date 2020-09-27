@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
-import { Box, PrimaryButton } from '../../ui';
+import { Box } from '../../ui';
 import { TodosSortCollection } from '../3collection';
 
-export const TodosSort: FC<{ sortModalToggler: () => void }> = ({
-  sortModalToggler,
-}) => {
+type TodosSortProps = {
+  sortModalToggler: () => void;
+};
+
+export const TodosSort: FC<TodosSortProps> = ({ sortModalToggler }) => {
   return (
     <Box bg="white" py={4} px={3}>
-      <TodosSortCollection />
+      <TodosSortCollection sortModalToggler={sortModalToggler} />
     </Box>
   );
 };

@@ -1,8 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { FlatList } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { PrimaryButton, Box, Divider } from '../../ui';
 import { Categories } from '../../types/graphql';
-import { CategoryAdd, CategoryListItem } from '../2single';
+import { CategoryListItem } from '../2single';
+import { UnderlinedTextForm } from '../../ui/input/TextForm';
+import { useCategoryCtx } from '../../containers/contexts/category';
 
 type CategoryType = { __typename: 'categories' } & Pick<
   Categories,
@@ -22,7 +25,21 @@ export const CategorySetting: FC<CategorySettingProps> = ({
   onDelete,
   onUpdate,
 }) => {
+  const {
+    state: { category },
+    categoryInputHandler,
+  } = useCategoryCtx();
   const isDeleteAllowed = categories.length > 0;
+  const [error, setError] = useState<string>('');
+  const onPressWithValidation = () => {
+    if (category === '') {
+      setError('入力してください');
+    } else {
+      onPress();
+    }
+  };
+
+  useFocusEffect(useCallback(() => setError(''), []));
 
   return (
     <Box width="100%" height="100%">
@@ -52,7 +69,12 @@ export const CategorySetting: FC<CategorySettingProps> = ({
         alignItems="center">
         <Box width="100%">
           <Box justifyContent="center" width="100%" px={4}>
-            <CategoryAdd />
+            <UnderlinedTextForm
+              placeholder="カテゴリの名前"
+              err={error}
+              onChangeText={categoryInputHandler}
+              value={category}
+            />
           </Box>
           <Box mt={3} justifyContent="center" width="100%" px={4}>
             <PrimaryButton
@@ -61,7 +83,7 @@ export const CategorySetting: FC<CategorySettingProps> = ({
               width="100%"
               stretch
               text="追加"
-              onPress={onPress}
+              onPress={onPressWithValidation}
             />
           </Box>
         </Box>

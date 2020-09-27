@@ -10,4 +10,5 @@ export { TodayTodos } from './TodayTodos';
 export { TodoDetails } from './TodoDetails';
 export { Color } from './Color';
 export { TodosSort } from './TodosSort';
-export { Accomplishment } from './Accomplishment';
+export { AccomplishmentAndMessage } from './AccomplishmentAndMessage';
+export { MessageSetting } from './MessageSetting';

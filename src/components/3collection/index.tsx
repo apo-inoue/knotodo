@@ -10,4 +10,5 @@ export { TodosSort as TodosSortCollection } from './TodosSort';
 export { CategoryFilter as CategoryFilterCollection } from './CategoryFilter';
 export { CategorySetting as CategorySettingCollection } from './CategorySetting';
 export { Color as ColorCollection } from './Color';
-export { Accomplishment as AccomplishmentCollection } from './Accomplishment';
+export { AccomplishmentAndMessage as AccomplishmentAndMessageCollection } from './AccomplishmentAndMessage';
+export { MessageSetting as MessageSettingCollection } from './MessageSetting';

@@ -1,14 +1,19 @@
 import React, { FC, useMemo } from 'react';
 import { Box, Text } from '../../ui';
-import { GetAccomplishmentQuery } from '../../types/graphql';
+import { GetAccomplishmentAndMessageQuery } from '../../types/graphql';
 import { prizeReckoner } from '../../helpers/prizeReckoner';
+import { useTheme } from 'styled-components';
 
-type AccomplishmentProps = {
-  accomplishment: GetAccomplishmentQuery;
+type AccomplishmentAndMessageProps = {
+  accomplishmentAndMessage: GetAccomplishmentAndMessageQuery;
 };
 
-export const Accomplishment: FC<AccomplishmentProps> = ({ accomplishment }) => {
-  const { year, month, week } = accomplishment;
+export const AccomplishmentAndMessage: FC<AccomplishmentAndMessageProps> = ({
+  accomplishmentAndMessage,
+}) => {
+  const theme = useTheme();
+  const { year, month, week } = accomplishmentAndMessage;
+  const { message } = accomplishmentAndMessage.users[0];
   const weeklyAccomplishment = week.aggregate?.count ?? 0;
   const prizeScore = useMemo(() => prizeReckoner(weeklyAccomplishment), [
     weeklyAccomplishment,
@@ -54,6 +59,12 @@ export const Accomplishment: FC<AccomplishmentProps> = ({ accomplishment }) => {
       })}
       <Box mt={2}>
         <Prize />
+      </Box>
+      <Box mt={4}>
+        <Text textAlign="center" color={theme.colors.blacks[7]}>
+          ヒトコト
+        </Text>
+        <Text textAlign="center">{message}</Text>
       </Box>
     </Box>
   );

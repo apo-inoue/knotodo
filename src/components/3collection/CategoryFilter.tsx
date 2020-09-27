@@ -56,7 +56,7 @@ export const CategoryFilter: FC<CategoryProps> = ({
           value={isAll}
         />
       </Box>
-      <Box height="200px">
+      <Box height="500px">
         <FlatList<CategoryType>
           data={categories}
           keyExtractor={(item: CategoryType) => `${item.id}`}

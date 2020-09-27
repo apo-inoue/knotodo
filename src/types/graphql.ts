@@ -381,10 +381,6 @@ export type Mutation_Root = {
   delete_urgency: Maybe<Urgency_Mutation_Response>;
   /** delete single row from the table: "urgency" */
   delete_urgency_by_pk: Maybe<Urgency>;
-  /** delete data from the table: "users" */
-  delete_users: Maybe<Users_Mutation_Response>;
-  /** delete single row from the table: "users" */
-  delete_users_by_pk: Maybe<Users>;
   /** insert data into the table: "accomplishment" */
   insert_accomplishment: Maybe<Accomplishment_Mutation_Response>;
   /** insert a single row into the table: "accomplishment" */
@@ -469,18 +465,6 @@ export type Mutation_RootDelete_UrgencyArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Urgency_By_PkArgs = {
   urgency_type: Scalars['String'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_UsersArgs = {
-  where: Users_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_Users_By_PkArgs = {
-  id: Scalars['String'];
 };
 
 
@@ -1380,7 +1364,10 @@ export type Urgency_Update_Column =
 export type Users = {
   __typename: 'users';
   color_type: ColorTypes_Enum;
+  /** An object relationship */
+  color_type_enum: ColorTypes;
   id: Scalars['String'];
+  message: Maybe<Scalars['String']>;
   nickname: Scalars['String'];
   /** An array relationship */
   todos_by_user: Array<Todos>;
@@ -1432,7 +1419,9 @@ export type Users_Bool_Exp = {
   _not: Maybe<Users_Bool_Exp>;
   _or: Maybe<Array<Maybe<Users_Bool_Exp>>>;
   color_type: Maybe<ColorTypes_Enum_Comparison_Exp>;
+  color_type_enum: Maybe<ColorTypes_Bool_Exp>;
   id: Maybe<String_Comparison_Exp>;
+  message: Maybe<String_Comparison_Exp>;
   nickname: Maybe<String_Comparison_Exp>;
   todos_by_user: Maybe<Todos_Bool_Exp>;
   user_by_id: Maybe<Categories_Bool_Exp>;
@@ -1447,6 +1436,7 @@ export type Users_Constraint =
 export type Users_Insert_Input = {
   color_type: Maybe<ColorTypes_Enum>;
   id: Maybe<Scalars['String']>;
+  message: Maybe<Scalars['String']>;
   nickname: Maybe<Scalars['String']>;
   todos_by_user: Maybe<Todos_Arr_Rel_Insert_Input>;
   user_by_id: Maybe<Categories_Arr_Rel_Insert_Input>;
@@ -1477,7 +1467,9 @@ export type Users_On_Conflict = {
 /** ordering options when selecting data from "users" */
 export type Users_Order_By = {
   color_type: Maybe<Order_By>;
+  color_type_enum: Maybe<ColorTypes_Order_By>;
   id: Maybe<Order_By>;
+  message: Maybe<Order_By>;
   nickname: Maybe<Order_By>;
   todos_by_user_aggregate: Maybe<Todos_Aggregate_Order_By>;
 };
@@ -1494,12 +1486,15 @@ export type Users_Select_Column =
   /** column name */
   | 'id'
   /** column name */
+  | 'message'
+  /** column name */
   | 'nickname';
 
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
   color_type: Maybe<ColorTypes_Enum>;
   id: Maybe<Scalars['String']>;
+  message: Maybe<Scalars['String']>;
   nickname: Maybe<Scalars['String']>;
 };
 
@@ -1509,6 +1504,8 @@ export type Users_Update_Column =
   | 'color_type'
   /** column name */
   | 'id'
+  /** column name */
+  | 'message'
   /** column name */
   | 'nickname';
 
@@ -1727,6 +1724,24 @@ export type UpdateColorTypeMutation = (
   )> }
 );
 
+export type UpdateUserMessageMutationVariables = Exact<{
+  message: Maybe<Scalars['String']>;
+  _eq: Maybe<Scalars['String']>;
+}>;
+
+
+export type UpdateUserMessageMutation = (
+  { __typename: 'mutation_root' }
+  & { update_users: Maybe<(
+    { __typename: 'users_mutation_response' }
+    & Pick<Users_Mutation_Response, 'affected_rows'>
+    & { returning: Array<(
+      { __typename: 'users' }
+      & Pick<Users, 'id' | 'message'>
+    )> }
+  )> }
+);
+
 export type AllCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1753,7 +1768,7 @@ export type TodayTodosQuery = (
     & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isCompleted' | 'isToday'>
     & { category_by_id: Maybe<(
       { __typename: 'categories' }
-      & Pick<Categories, 'category'>
+      & Pick<Categories, 'id' | 'category'>
     )> }
   )> }
 );
@@ -1796,14 +1811,14 @@ export type CompletedTodosQuery = (
   )> }
 );
 
-export type GetAccomplishmentQueryVariables = Exact<{
+export type GetAccomplishmentAndMessageQueryVariables = Exact<{
   _gte1: Maybe<Scalars['timestamptz']>;
   _gte2: Maybe<Scalars['timestamptz']>;
   _gte3: Maybe<Scalars['timestamptz']>;
 }>;
 
 
-export type GetAccomplishmentQuery = (
+export type GetAccomplishmentAndMessageQuery = (
   { __typename: 'query_root' }
   & { week: (
     { __typename: 'todos_aggregate' }
@@ -1823,7 +1838,10 @@ export type GetAccomplishmentQuery = (
       { __typename: 'todos_aggregate_fields' }
       & Pick<Todos_Aggregate_Fields, 'count'>
     )> }
-  ) }
+  ), users: Array<(
+    { __typename: 'users' }
+    & Pick<Users, 'message'>
+  )> }
 );
 
 export type GetColorTypeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1833,7 +1851,18 @@ export type GetColorTypeQuery = (
   { __typename: 'query_root' }
   & { users: Array<(
     { __typename: 'users' }
-    & Pick<Users, 'id' | 'color_type'>
+    & Pick<Users, 'id' | 'color_type' | 'message'>
+  )> }
+);
+
+export type GetUserMessageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserMessageQuery = (
+  { __typename: 'query_root' }
+  & { users: Array<(
+    { __typename: 'users' }
+    & Pick<Users, 'id' | 'message'>
   )> }
 );
 
@@ -2263,6 +2292,43 @@ export function useUpdateColorTypeMutation(baseOptions?: Apollo.MutationHookOpti
 export type UpdateColorTypeMutationHookResult = ReturnType<typeof useUpdateColorTypeMutation>;
 export type UpdateColorTypeMutationResult = Apollo.MutationResult<UpdateColorTypeMutation>;
 export type UpdateColorTypeMutationOptions = Apollo.BaseMutationOptions<UpdateColorTypeMutation, UpdateColorTypeMutationVariables>;
+export const UpdateUserMessageDocument = gql`
+    mutation UpdateUserMessage($message: String, $_eq: String) {
+  update_users(_set: {message: $message}, where: {id: {_eq: $_eq}}) {
+    affected_rows
+    returning {
+      id
+      message
+    }
+  }
+}
+    `;
+export type UpdateUserMessageMutationFn = Apollo.MutationFunction<UpdateUserMessageMutation, UpdateUserMessageMutationVariables>;
+
+/**
+ * __useUpdateUserMessageMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMessageMutation, { data, loading, error }] = useUpdateUserMessageMutation({
+ *   variables: {
+ *      message: // value for 'message'
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useUpdateUserMessageMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMessageMutation, UpdateUserMessageMutationVariables>) {
+        return Apollo.useMutation<UpdateUserMessageMutation, UpdateUserMessageMutationVariables>(UpdateUserMessageDocument, baseOptions);
+      }
+export type UpdateUserMessageMutationHookResult = ReturnType<typeof useUpdateUserMessageMutation>;
+export type UpdateUserMessageMutationResult = Apollo.MutationResult<UpdateUserMessageMutation>;
+export type UpdateUserMessageMutationOptions = Apollo.BaseMutationOptions<UpdateUserMessageMutation, UpdateUserMessageMutationVariables>;
 export const AllCategoryDocument = gql`
     query AllCategory {
   categories {
@@ -2307,6 +2373,7 @@ export const TodayTodosDocument = gql`
     isCompleted
     isToday
     category_by_id {
+      id
       category
     }
   }
@@ -2427,8 +2494,8 @@ export function useCompletedTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type CompletedTodosQueryHookResult = ReturnType<typeof useCompletedTodosQuery>;
 export type CompletedTodosLazyQueryHookResult = ReturnType<typeof useCompletedTodosLazyQuery>;
 export type CompletedTodosQueryResult = Apollo.QueryResult<CompletedTodosQuery, CompletedTodosQueryVariables>;
-export const GetAccomplishmentDocument = gql`
-    query GetAccomplishment($_gte1: timestamptz, $_gte2: timestamptz, $_gte3: timestamptz) {
+export const GetAccomplishmentAndMessageDocument = gql`
+    query GetAccomplishmentAndMessage($_gte1: timestamptz, $_gte2: timestamptz, $_gte3: timestamptz) {
   week: todos_aggregate(where: {completed_at: {_gte: $_gte1}}) {
     aggregate {
       count
@@ -2444,20 +2511,23 @@ export const GetAccomplishmentDocument = gql`
       count
     }
   }
+  users {
+    message
+  }
 }
     `;
 
 /**
- * __useGetAccomplishmentQuery__
+ * __useGetAccomplishmentAndMessageQuery__
  *
- * To run a query within a React component, call `useGetAccomplishmentQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAccomplishmentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAccomplishmentAndMessageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccomplishmentAndMessageQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAccomplishmentQuery({
+ * const { data, loading, error } = useGetAccomplishmentAndMessageQuery({
  *   variables: {
  *      _gte1: // value for '_gte1'
  *      _gte2: // value for '_gte2'
@@ -2465,20 +2535,21 @@ export const GetAccomplishmentDocument = gql`
  *   },
  * });
  */
-export function useGetAccomplishmentQuery(baseOptions?: Apollo.QueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
-        return Apollo.useQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+export function useGetAccomplishmentAndMessageQuery(baseOptions?: Apollo.QueryHookOptions<GetAccomplishmentAndMessageQuery, GetAccomplishmentAndMessageQueryVariables>) {
+        return Apollo.useQuery<GetAccomplishmentAndMessageQuery, GetAccomplishmentAndMessageQueryVariables>(GetAccomplishmentAndMessageDocument, baseOptions);
       }
-export function useGetAccomplishmentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>) {
-          return Apollo.useLazyQuery<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>(GetAccomplishmentDocument, baseOptions);
+export function useGetAccomplishmentAndMessageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccomplishmentAndMessageQuery, GetAccomplishmentAndMessageQueryVariables>) {
+          return Apollo.useLazyQuery<GetAccomplishmentAndMessageQuery, GetAccomplishmentAndMessageQueryVariables>(GetAccomplishmentAndMessageDocument, baseOptions);
         }
-export type GetAccomplishmentQueryHookResult = ReturnType<typeof useGetAccomplishmentQuery>;
-export type GetAccomplishmentLazyQueryHookResult = ReturnType<typeof useGetAccomplishmentLazyQuery>;
-export type GetAccomplishmentQueryResult = Apollo.QueryResult<GetAccomplishmentQuery, GetAccomplishmentQueryVariables>;
+export type GetAccomplishmentAndMessageQueryHookResult = ReturnType<typeof useGetAccomplishmentAndMessageQuery>;
+export type GetAccomplishmentAndMessageLazyQueryHookResult = ReturnType<typeof useGetAccomplishmentAndMessageLazyQuery>;
+export type GetAccomplishmentAndMessageQueryResult = Apollo.QueryResult<GetAccomplishmentAndMessageQuery, GetAccomplishmentAndMessageQueryVariables>;
 export const GetColorTypeDocument = gql`
     query GetColorType {
   users {
     id
     color_type
+    message
   }
 }
     `;
@@ -2507,3 +2578,36 @@ export function useGetColorTypeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetColorTypeQueryHookResult = ReturnType<typeof useGetColorTypeQuery>;
 export type GetColorTypeLazyQueryHookResult = ReturnType<typeof useGetColorTypeLazyQuery>;
 export type GetColorTypeQueryResult = Apollo.QueryResult<GetColorTypeQuery, GetColorTypeQueryVariables>;
+export const GetUserMessageDocument = gql`
+    query GetUserMessage {
+  users {
+    id
+    message
+  }
+}
+    `;
+
+/**
+ * __useGetUserMessageQuery__
+ *
+ * To run a query within a React component, call `useGetUserMessageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserMessageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserMessageQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUserMessageQuery(baseOptions?: Apollo.QueryHookOptions<GetUserMessageQuery, GetUserMessageQueryVariables>) {
+        return Apollo.useQuery<GetUserMessageQuery, GetUserMessageQueryVariables>(GetUserMessageDocument, baseOptions);
+      }
+export function useGetUserMessageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserMessageQuery, GetUserMessageQueryVariables>) {
+          return Apollo.useLazyQuery<GetUserMessageQuery, GetUserMessageQueryVariables>(GetUserMessageDocument, baseOptions);
+        }
+export type GetUserMessageQueryHookResult = ReturnType<typeof useGetUserMessageQuery>;
+export type GetUserMessageLazyQueryHookResult = ReturnType<typeof useGetUserMessageLazyQuery>;
+export type GetUserMessageQueryResult = Apollo.QueryResult<GetUserMessageQuery, GetUserMessageQueryVariables>;

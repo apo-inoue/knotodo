@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
 import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
@@ -19,6 +19,7 @@ type EditTodoProps = {
 
 export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
   const navigation = useNavigation();
+  const [error, setError] = useState<string>('');
   const {
     editTodo: {
       state: { title, urgency, workload },
@@ -33,7 +34,7 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
       <Box width="80%">
         <UnderlinedTextForm
           placeholder="タイトル"
-          error={null}
+          err={error}
           onChangeText={titleInputHandler}
           value={title}
         />

@@ -94,8 +94,8 @@ export const COMPLETED_TODOS = gql`
   }
 `;
 
-export const GET_ACCOMPLISHMENT = gql`
-  query GetAccomplishment(
+export const GET_ACCOMPLISHMENT_AND_MESSAGE = gql`
+  query GetAccomplishmentAndMessage(
     $_gte1: timestamptz
     $_gte2: timestamptz
     $_gte3: timestamptz
@@ -114,6 +114,9 @@ export const GET_ACCOMPLISHMENT = gql`
       aggregate {
         count
       }
+    }
+    users {
+      message
     }
   }
 `;

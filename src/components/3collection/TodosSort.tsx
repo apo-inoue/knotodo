@@ -10,7 +10,11 @@ type SortItem = {
   asc: string;
 };
 
-export const TodosSort: FC = () => {
+type TodosSortProps = {
+  sortModalToggler: () => void;
+};
+
+export const TodosSort: FC<TodosSortProps> = ({ sortModalToggler }) => {
   const sortItems: SortItem[] = [
     {
       name: '作成日',
@@ -36,7 +40,10 @@ export const TodosSort: FC = () => {
     <>
       {sortItems.map(sortItem => (
         <Box width="100%" key={sortItem.name}>
-          <TodoSortItem sortItem={sortItem} />
+          <TodoSortItem
+            sortItem={sortItem}
+            sortModalToggler={sortModalToggler}
+          />
         </Box>
       ))}
     </>
