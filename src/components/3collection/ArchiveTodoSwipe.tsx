@@ -6,7 +6,13 @@ import { TodoListItem, SwipeArchiveTodo } from '../2single';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'
+  | 'title'
+  | 'id'
+  | 'urgency'
+  | 'workload'
+  | 'isToday'
+  | 'isCompleted'
+  | 'category_id'
 >;
 type ArchiveTodoSwipeProps = {
   todo: TodoType;

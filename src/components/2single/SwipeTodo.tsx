@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Box, PrimaryButton, SlideOutView } from '../../ui';
 import { Todos } from '../../types/graphql';
-import { View } from 'react-native';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,

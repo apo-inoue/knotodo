@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useRef } from 'react';
+import React, { FC, useState } from 'react';
 import { SortFilterCtxProvider } from '../contexts/sortFilter';
 import { SortState, FilterState } from '../types/sortFilter';
 import { TodayTodosQueryVariables, Order_By } from '../../types/graphql';

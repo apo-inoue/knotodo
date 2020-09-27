@@ -1,8 +1,6 @@
-import React, { FC, useState, useEffect } from 'react';
-import { Box, PrimaryButton, SlideOutView, SlideUpView } from '../../ui';
+import React, { FC } from 'react';
+import { Box, PrimaryButton } from '../../ui';
 import { Todos } from '../../types/graphql';
-import { useTheme } from 'styled-components';
-import { Text } from '../../ui/typography/Text';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
@@ -20,22 +18,14 @@ export const SwipeArchiveTodo: FC<SwipeArchiveTodoType> = ({
   onRestoreToday,
   onRestoreNotToday,
 }) => {
-  const [isPressed, setIsPressed] = useState(false);
   const onRestoreTodayHandler = () => {
     onRestoreToday(todo.id);
-    setIsPressed(true);
   };
   const onRestoreNotTodayHandler = () => {
     onRestoreNotToday(todo.id);
-    setIsPressed(true);
   };
 
-  useEffect(() => {
-    setIsPressed(false);
-  }, []);
-
   return (
-    // <SlideOutView isOut={false}>
     <Box flexDirection="row">
       <PrimaryButton
         variant="outlined"
@@ -48,6 +38,5 @@ export const SwipeArchiveTodo: FC<SwipeArchiveTodoType> = ({
         onPress={onRestoreNotTodayHandler}
       />
     </Box>
-    // </SlideOutView>
   );
 };

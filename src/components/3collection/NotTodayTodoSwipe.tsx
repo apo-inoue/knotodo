@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { TodoListItem, SwipeArchiveTodo } from '../2single';
+import { TodoListItem } from '../2single';
 import { Todos } from '../../types/graphql';
 import { Box, SlideUpOutView } from '../../ui';
 import { SwipeRow } from 'react-native-swipe-list-view';
@@ -7,7 +7,13 @@ import { SwipeTodo } from '../2single/SwipeTodo';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'
+  | 'title'
+  | 'id'
+  | 'urgency'
+  | 'workload'
+  | 'isToday'
+  | 'isCompleted'
+  | 'category_id'
 >;
 type NotTodayTodoSwipeProps = {
   todo: TodoType;

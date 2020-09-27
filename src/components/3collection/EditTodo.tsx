@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { PrimaryButton, Box, UnderlinedTextForm, Picker } from '../../ui';
+import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
 import { Categories, UpdateTodoMutationVariables } from '../../types/graphql';
 import {
   CategoriesPicker,
@@ -50,7 +50,6 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
       navigation.goBack();
     }
   };
-  console.log(workload, 'load', id, title);
 
   return (
     <>

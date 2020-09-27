@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, ViewProps } from 'react-native';
-import { interpolate } from 'react-native-reanimated';
 
 type SlideOutViewProps = {
   isOut: boolean;

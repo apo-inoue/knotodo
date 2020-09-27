@@ -1,7 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Picker } from '../../ui';
 import { Categories } from '../../types/graphql';
-import { ReactText } from 'react';
 
 type CategoriesProps = {
   categories: ({ __typename: 'categories' } & Pick<
@@ -17,11 +16,6 @@ export const CategoriesPicker: FC<CategoriesProps> = ({
   category_id,
   categorySelectHandler,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<ReactText>('');
-  const valueChangeHandler = (itemValue: ReactText) => {
-    return setSelectedValue(itemValue);
-  };
-
   return (
     <Picker
       width={200}

@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Box, RadioButton, Text } from '../../ui';
-import { useTodoCtx } from '../../containers/contexts/todo';
 import { Urgency_Enum } from '../../types/graphql';
 
 type TodoUrgencySelectProps = {

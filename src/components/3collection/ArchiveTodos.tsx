@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { useNavigation } from '@react-navigation/native';
 import { Box, Divider } from '../../ui';
 import { Todos } from '../../types/graphql';
 import { ArchiveTodoSwipe } from './ArchiveTodoSwipe';
@@ -29,8 +28,6 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({
   onRestoreToday,
   onRestoreNotToday,
 }) => {
-  const navigation = useNavigation();
-
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
     const isLastRow = todos.length - 1 === rowData.index;
     const todo = rowData.item;

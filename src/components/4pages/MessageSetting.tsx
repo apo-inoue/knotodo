@@ -14,7 +14,6 @@ export const MessageSetting: FC = () => {
   const [updateUserMessage] = useUpdateUserMessageMutation({
     update(cache, { data: updateData }) {
       const newUser = updateData!.update_users!.returning[0];
-      console.log(newUser, 'us');
       cache.writeQuery<GetUserMessageQuery>({
         query: GET_USER_MESSAGE,
         data: {

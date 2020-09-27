@@ -5,7 +5,6 @@ import { ThemeProvider } from 'styled-components/native';
 import { baseTheme } from '../../theme/theme';
 import { useUpdateColorTypeMutation } from '../../types/graphql';
 import { GET_COLOR_TYPE } from '../../graphql/query/users';
-import { Box } from '../../ui/layout/Box';
 import { colorConstants } from '../../theme/color';
 import { useAuthContext } from '../contexts/auth';
 import { ScreenLoader } from '../../ui/utils/Loader';
