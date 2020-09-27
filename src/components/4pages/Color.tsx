@@ -1,8 +1,8 @@
-import React from 'react';
-import { Container } from '../../ui/layout/Container';
+import React, { FC } from 'react';
+import { Container } from '../../ui';
 import { ColorCollection } from '../3collection';
 
-export const Color = () => {
+export const Color: FC = () => {
   return (
     <Container>
       <ColorCollection />

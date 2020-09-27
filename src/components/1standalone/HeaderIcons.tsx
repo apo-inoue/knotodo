@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { DrawerActions } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 
-export const HeaderIconLeft = () => {
+export const HeaderIconLeft: FC = () => {
   const navigation = useNavigation();
   const theme = useTheme();
 
@@ -21,9 +22,19 @@ export const HeaderIconLeft = () => {
   );
 };
 
-export const HeaderIconsRight = () => {
-  const navigation = useNavigation();
+type HeaderIconsRightProps = {
+  onPressSort: () => void;
+  onPressFilter: () => void;
+};
+
+export const HeaderIconsRight: FC<HeaderIconsRightProps> = ({
+  onPressSort,
+  onPressFilter,
+}) => {
   const theme = useTheme();
+  const {
+    filter: { isAll },
+  } = useSortFilterCtx();
 
   return (
     <Box flexDirection="row" mr={3}>
@@ -31,14 +42,14 @@ export const HeaderIconsRight = () => {
         name="sort"
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.navigate('Sort')}
+        onPress={onPressSort}
       />
       <Box mr={3} />
       <MaterialCommunityIcons
-        name="settings"
+        name={isAll ? 'filter' : 'filter-plus'}
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.navigate('Setting')}
+        onPress={onPressFilter}
       />
     </Box>
   );

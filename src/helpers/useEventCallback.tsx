@@ -1,5 +1,6 @@
 import { useCallback, useRef, useLayoutEffect } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useEventCallback<A extends any[], R>(
   callback: (...args: A) => R,
 ): (...args: A) => R {

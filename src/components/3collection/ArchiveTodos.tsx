@@ -1,40 +1,61 @@
 import React, { FC } from 'react';
-import { FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { ListRenderItemInfo } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { Box, Divider } from '../../ui';
 import { Todos } from '../../types/graphql';
-import { TodoListItem } from '../2single';
-import { useTheme } from 'styled-components';
-import { AddFab } from '../1standalone/AddFab';
-import { Box } from '../../ui';
+import { ArchiveTodoSwipe } from './ArchiveTodoSwipe';
 
+type TodoType = { __typename: 'todos' } & Pick<
+  Todos,
+  | 'title'
+  | 'id'
+  | 'urgency'
+  | 'workload'
+  | 'isToday'
+  | 'isCompleted'
+  | 'category_id'
+>;
 type ArchiveTodosType = {
-  todos: ({ __typename: 'todos' } & Pick<
-    Todos,
-    'title' | 'id' | 'isToday' | 'isCompleted'
-  >)[];
+  todos: TodoType[];
   onPress: (id: string) => void;
+  onRestoreToday: (id: string) => void;
+  onRestoreNotToday: (id: string) => void;
 };
 
-export const ArchiveTodos: FC<ArchiveTodosType> = ({ todos, onPress }) => {
-  const navigation = useNavigation();
+export const ArchiveTodos: FC<ArchiveTodosType> = ({
+  todos,
+  onPress,
+  onRestoreToday,
+  onRestoreNotToday,
+}) => {
+  const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
+    const isLastRow = todos.length - 1 === rowData.index;
+    const todo = rowData.item;
+    return (
+      <Box>
+        <ArchiveTodoSwipe
+          todo={todo}
+          onPress={onPress}
+          onRestoreToday={onRestoreToday}
+          onRestoreNotToday={onRestoreNotToday}
+        />
+        <Divider width="100%" />
+        {isLastRow && <Box mb={5} />}
+      </Box>
+    );
+  };
 
   return (
     <>
       <Box mt={2} width="100%">
-        <FlatList
+        <SwipeListView<TodoType>
           data={todos}
-          keyExtractor={item => item.id}
-          style={{ width: '100%' }}
-          renderItem={({ item, index }) => (
-            <TodoListItem
-              todo={item}
-              index={index}
-              buttonAction={{ onPress, label: 'delete' }}
-            />
-          )}
+          keyExtractor={(item: TodoType) => item.id}
+          renderItem={renderItem}
+          leftOpenValue={75}
+          rightOpenValue={-250}
         />
       </Box>
-      <AddFab onPress={() => navigation.navigate('NewTodo')} />
     </>
   );
 };

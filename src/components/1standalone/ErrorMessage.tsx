@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Container, Text } from '../../ui';
 import { useTheme } from 'styled-components';
 
-export const ErrorMessage = () => {
+export const ErrorMessage: FC = () => {
   const theme = useTheme();
 
   return (
-    <Container>
-      <Text color={theme.colors.danger}>unhandled error occur!!</Text>
+    <Container centerContent>
+      <Text color={theme.colors.danger}>エラーが発生しました。</Text>
     </Container>
   );
 };

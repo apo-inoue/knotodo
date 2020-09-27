@@ -1,51 +1,68 @@
 import React, { FC } from 'react';
-import { useWindowDimensions } from 'react-native';
 import { Todos } from '../../types/graphql';
-import { Touchable, PrimaryButton, Box, Text, Divider } from '../../ui';
-import { useNavigation } from '@react-navigation/native';
-import { useTheme } from 'styled-components';
+import { Touchable, PrimaryButton, Box, Text, SlideUpView } from '../../ui';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
+import { useTodoCtx } from '../../containers/contexts/todo';
+import { TodoState } from '../../containers/types/todo';
 
 type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<
     Todos,
-    'title' | 'id' | 'isToday' | 'isCompleted'
+    | 'title'
+    | 'id'
+    | 'isToday'
+    | 'isCompleted'
+    | 'urgency'
+    | 'workload'
+    | 'category_id'
   >;
-  index: number;
   buttonAction: {
     label: string;
     onPress: (id: string) => void;
   };
 };
 
-export const TodoListItem: FC<TodoListItem> = ({
-  todo,
-  index,
-  buttonAction,
-}) => {
+export const TodoListItem: FC<TodoListItem> = ({ todo, buttonAction }) => {
   const navigation = useNavigation();
-  const params = todo;
-  const vw = useWindowDimensions().width;
+  const route = useRoute();
+  const {
+    editTodo: { todoMountHandler },
+  } = useTodoCtx();
+  const isToday = route.name === 'Today' ? true : false;
+  const isCompleted = route.name === 'Archive' ? true : false;
+  const mountAndNavigateHandler = () => {
+    const mountTodo: { id: string } & TodoState = {
+      id: todo.id,
+      title: todo.title,
+      category_id: todo.category_id,
+      urgency: todo.urgency,
+      workload: todo.workload,
+      isToday,
+      isCompleted,
+    };
+    todoMountHandler(mountTodo);
+    navigation.navigate(STACK_ROUTE_NAMES.編集);
+  };
 
   return (
-    <Box>
-      {index > 0 && <Divider />}
-      <Box flexDirection="row" height={48}>
-        <Box flexDirection="column" flexGrow={1}>
+    <SlideUpView>
+      <Box flexDirection="row" height={50}>
+        <Box flex="1 1" justifyContent="center">
           <Touchable
             p={0}
-            height={48}
-            onPress={() => navigation.navigate('TodoDetails', params)}>
-            <Box
-              width={0.6 * vw}
-              alignItems="flex-start"
-              justifyContent="center">
-              <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
-                {todo.title}
-              </Text>
-            </Box>
+            justifyContent="center"
+            onPress={mountAndNavigateHandler}>
+            <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
+              {todo.title}
+            </Text>
           </Touchable>
         </Box>
-        <Box width={100} flexDirection="column" my="auto" alignItems="center">
+        <Box
+          width={100}
+          flexDirection="row"
+          my="auto"
+          justifyContent="flex-end">
           <PrimaryButton
             variant="outlined"
             onPress={() => buttonAction.onPress(todo.id)}
@@ -53,6 +70,6 @@ export const TodoListItem: FC<TodoListItem> = ({
           />
         </Box>
       </Box>
-    </Box>
+    </SlideUpView>
   );
 };

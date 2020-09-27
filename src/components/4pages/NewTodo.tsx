@@ -1,46 +1,48 @@
-import React, { useState } from 'react';
-import { Container } from '../../ui';
-import { NewTodoCollection } from '../3collection';
-import { ScreenLoader } from '../../ui/utils/Loader';
-import { ErrorMessage } from '../1standalone/ErrorMessage';
-import { NoDataMessage } from '../1standalone/NoDataMessage';
-import { Urgency_Enum, InsertToDoMutationVariables } from '../../types/graphql';
+import React, { FC } from 'react';
+import { Container, ScreenLoader } from '../../ui';
 import {
+  InsertToDoMutationVariables,
   useAllCategoryQuery,
   useInsertToDoMutation,
 } from '../../types/graphql';
+import { ErrorMessage, NoDataMessage } from '../1standalone';
+import { NewTodoCollection } from '../3collection';
 
-export type InsertTodoVariables = {
-  title: string;
-  urgency: Urgency_Enum;
-  workload: number;
-};
-
-export const NewTodo = () => {
+export const NewTodo: FC = () => {
   const { data, loading, error } = useAllCategoryQuery();
   const [insertTodo] = useInsertToDoMutation();
   const insertTodoHandler = ({
     title,
     urgency,
     workload,
+    isToday,
+    isCompleted,
+    category_id,
   }: InsertToDoMutationVariables) => {
     insertTodo({
       variables: {
-        isCompleted: false,
-        urgency,
-        isToday: false,
         title,
+        urgency,
         workload,
+        isToday,
+        isCompleted,
+        category_id,
       },
     });
   };
 
-  if (loading) return <ScreenLoader />;
-  if (error) return <ErrorMessage />;
-  if (!data) return <NoDataMessage />;
+  if (loading) {
+    return <ScreenLoader />;
+  }
+  if (error || !data) {
+    return <ErrorMessage />;
+  }
+  if (data?.categories.length === 0) {
+    return <NoDataMessage />;
+  }
 
   return (
-    <Container>
+    <Container centerContent>
       <NewTodoCollection
         onPress={insertTodoHandler}
         categories={data.categories}

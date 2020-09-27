@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
 import { Box, Text, PrimaryButton, Image, Divider } from '../../ui';
+import { useTheme } from 'styled-components';
 
 type LogIn = {
   onLogIn: () => void;
 };
 
 export const LogIn: FC<LogIn> = ({ onLogIn }) => {
+  const theme = useTheme();
+
   return (
     <>
       <Box flexDirection="row" alignItems="flex-end">
@@ -13,11 +16,11 @@ export const LogIn: FC<LogIn> = ({ onLogIn }) => {
           <Image
             height={36}
             width={36}
-            source={require('../../../assets/knot.png')}
+            source={require('../../../assets/knot-color.png')}
           />
         </Box>
-        <Box mb="-8px">
-          <Text fontSize={40} fontWeight="bold" color="main">
+        <Box height={40}>
+          <Text fontSize={40} lineHeight="50px" fontWeight="bold" color="main">
             KnoToDo
           </Text>
         </Box>
@@ -25,11 +28,12 @@ export const LogIn: FC<LogIn> = ({ onLogIn }) => {
       <Box width="100%">
         <Divider />
       </Box>
-      <Text color="grey">Tomorrow never comes, it is alway today</Text>
+      <Text color={theme.colors.blacks[5]}>
+        Tomorrow never comes, it is alway today
+      </Text>
       <Box mt={4}>
         <PrimaryButton
           variant="contained"
-          btnSize="lg"
           onPress={onLogIn}
           text="ログイン/新規登録"
         />

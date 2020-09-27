@@ -1,52 +1,44 @@
 import React, { FC } from 'react';
-import { PrimaryButton, Divider, Box } from '../../ui';
 import { useNavigation } from '@react-navigation/native';
-import styled from 'styled-components/native';
-import { RadioButton } from '../../ui/input/RadioButton';
-import { useColorCtx } from '../../containers/color/useCtx';
-import { colorPalettes } from '../../containers/color/provider';
+import { colorConstants, ColorType } from '../../theme/color';
+import { PrimaryButton, Box, FlatList } from '../../ui';
+import { ColorSelectItem } from '../2single';
+import { useColorCtx } from '../../containers/contexts/color';
 
 export const Color: FC = () => {
   const navigation = useNavigation();
-  const { color, colorSelectHandler, updateColorTypeHandler } = useColorCtx();
+  const { updateColorTypeHandler } = useColorCtx();
   const handlePress = () => {
     updateColorTypeHandler();
     navigation.goBack();
   };
 
   return (
-    <>
-      {colorPalettes.map(colorType => {
-        return (
-          <Box
-            mt={3}
-            key={colorType.id}
-            flexDirection="row"
-            alignItems="center">
-            <RadioButton
-              radioColor={colorType.hex.main}
-              onPress={() => colorSelectHandler(colorType.color)}
-              checked={colorType.color === color}
-              text=""
-            />
-            <ColorTip color={colorType.hex.main} />
-          </Box>
-        );
-      })}
-      <Box mt={5} width="60%" mx="auto">
+    <Box width="100%" height="100%">
+      <Box flexDirection="column" flexBasis="400px">
+        <FlatList<ColorType>
+          data={colorConstants}
+          keyExtractor={(item: ColorType) => `${item.id}`}
+          renderItem={({ item }: { item: ColorType }) => (
+            <ColorSelectItem itemColor={item.color} hex={item.hex} />
+          )}
+        />
+      </Box>
+      <Box
+        flexDirection="column"
+        width="100%"
+        flex="1 1"
+        justifyContent="center"
+        alignItems="center">
         <PrimaryButton
           variant="contained"
+          stretch
           btnSize="lg"
+          width="100%"
           text="設定"
           onPress={handlePress}
         />
       </Box>
-    </>
+    </Box>
   );
 };
-
-const ColorTip = styled.View<{ color: string }>`
-  background-color: ${props => props.color};
-  height: 32px;
-  width: 80%;
-`;

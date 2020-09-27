@@ -1,21 +1,34 @@
-import styled from 'styled-components/native';
-import { CheckBoxProps } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 import React, { FC } from 'react';
-import { Box } from '..';
+import { Box } from '../layout/Box';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Touchable, TouchableProps } from '../button/Touchable';
+import { useTheme } from 'styled-components';
 
 type CheckBox = {
   checked: boolean;
-};
+  checkColor?: string;
+} & TouchableProps;
 
-export const CheckBox: FC<CheckBox> = ({ checked }) => {
+export const CheckBox: FC<CheckBox> = props => {
+  const theme = useTheme();
+
   return (
-    <Box>
-      {checked ? (
-        <FontAwesome name="check-circle-o" size={24} color="black" />
-      ) : (
-        <FontAwesome name="circle-o" size={24} color="black" />
-      )}
-    </Box>
+    <Touchable p={0} {...props}>
+      <Box>
+        {props.checked ? (
+          <MaterialCommunityIcons
+            name="checkbox-marked"
+            size={24}
+            color={props.checkColor ? props.checkColor : theme.colors.main}
+          />
+        ) : (
+          <MaterialCommunityIcons
+            name="checkbox-blank-outline"
+            size={24}
+            color={theme.colors.blacks[5]}
+          />
+        )}
+      </Box>
+    </Touchable>
   );
 };

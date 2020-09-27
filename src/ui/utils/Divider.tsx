@@ -4,6 +4,7 @@ import { ViewProps, StyleSheet } from 'react-native';
 
 type DividerProps = {
   dashed?: boolean;
+  width?: number | string;
 } & BorderProps &
   ViewProps;
 
@@ -12,4 +13,5 @@ export const Divider = styled.View<DividerProps>`
   background-color: ${props => props.theme.colors.blacks[5]};
   ${props => props.dashed && { borderStyle: 'dashed' }};
   ${border};
+  width: ${props => props.width || '100%'};
 `;

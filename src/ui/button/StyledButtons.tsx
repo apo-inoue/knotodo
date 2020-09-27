@@ -1,21 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 import { TouchableProps, Touchable } from './Touchable';
 import { Text } from '../typography/Text';
 
-export const PrimaryButton = (props: TouchableProps & { text: string }) => {
+export const PrimaryButton: FC<
+  TouchableProps & { text: string; stretch?: boolean }
+> = props => {
   const theme = useTheme();
 
   return (
-    <Touchable {...props} color="primary">
+    <Touchable {...props} color="primary" m="1px">
       <Text
+        textAlign="center"
+        stretch={props.stretch}
         color={
           props.variant === 'outlined' ? theme.colors.main : theme.colors.white
-        }
-        fontSize={
-          props.btnSize && props.btnSize === 'lg'
-            ? theme.fontSizes[2]
-            : theme.fontSizes[1]
         }>
         {props.text}
       </Text>
@@ -23,11 +22,11 @@ export const PrimaryButton = (props: TouchableProps & { text: string }) => {
   );
 };
 
-export const DangerButton = (props: TouchableProps & { text: string }) => {
+export const DangerButton: FC<TouchableProps & { text: string }> = props => {
   const theme = useTheme();
 
   return (
-    <Touchable {...props} color="danger">
+    <Touchable {...props} color="danger" m="1px">
       <Text
         color={
           props.variant === 'contained'
@@ -40,11 +39,11 @@ export const DangerButton = (props: TouchableProps & { text: string }) => {
   );
 };
 
-export const DisabledButton = (props: TouchableProps & { text: string }) => {
+export const DisabledButton: FC<TouchableProps & { text: string }> = props => {
   const theme = useTheme();
 
   return (
-    <Touchable {...props} color="muted">
+    <Touchable {...props} color="muted" m="1px">
       <Text
         color={
           props.variant === 'contained'

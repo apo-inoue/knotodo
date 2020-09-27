@@ -1,4 +1,4 @@
-import styled, { DefaultTheme } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { color, ColorProps } from 'styled-system';
 import { ReactNode } from 'react';
 import { ImageBackgroundProps } from 'react-native';

@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TodoDetails, Setting, NewTodo, Sort } from '../4pages';
+import { TodoDetails, NewTodo, EditTodo } from '../4pages';
 import { useTheme } from 'styled-components';
-import { HeaderIconLeft, HeaderIconsRight, Logo } from '../1standalone';
-import { TabNavigation } from './TabNavigation';
-import { DrawerNavigation } from './DrawerNavigation';
-import { Box, Text } from '../../ui';
+import { HeaderIconLeft, HeaderIconsRight, HeaderTitle } from '../1standalone';
+import { Text } from '../../ui';
+import { RouteProp } from '@react-navigation/native';
+import { STACK_ROUTE_NAMES } from './type';
+import { ModalNavigation } from './ModalNavigation';
 
-export const StackNavigation = () => {
+export const StackNavigation: FC = () => {
   const Stack = createStackNavigator();
   const theme = useTheme();
+  const [isSortModalVisible, setSortModalVisible] = useState(false);
+  const [isFilterModalVisible, setFilterModalVisible] = useState(false);
+  const sortModalToggler = () => {
+    setSortModalVisible(!isSortModalVisible);
+  };
+  const filterModalToggler = () => {
+    setFilterModalVisible(!isFilterModalVisible);
+  };
+  const renderItem = () => (
+    <ModalNavigation
+      isSortModalVisible={isSortModalVisible}
+      sortModalToggler={sortModalToggler}
+      isFilterModalVisible={isFilterModalVisible}
+      filterModalToggler={filterModalToggler}
+    />
+  );
 
   return (
     <Stack.Navigator
@@ -23,49 +40,58 @@ export const StackNavigation = () => {
         },
       }}>
       <Stack.Screen
-        name="Root"
-        component={DrawerNavigation}
-        options={{
-          headerRight: () => <HeaderIconsRight />,
-          headerTitle: () => (
-            <Box flexDirection="row" alignItems="center">
-              <Box mr={2}>
-                <Logo />
-              </Box>
-              <Text span color={theme.colors.white} fontWeight="bold">
-                knoTodo
-              </Text>
-            </Box>
+        name={STACK_ROUTE_NAMES.Root}
+        component={renderItem}
+        options={({
+          route,
+        }: {
+          // eslint-disable-next-line @typescript-eslint/ban-types
+          route: RouteProp<Record<string, object | undefined>, 'Root'>;
+        }) => ({
+          headerRight: () => (
+            <HeaderIconsRight
+              onPressSort={sortModalToggler}
+              onPressFilter={filterModalToggler}
+            />
           ),
+          headerTitle: () => <HeaderTitle route={route} />,
           headerLeft: () => <HeaderIconLeft />,
-        }}
+        })}
       />
       <Stack.Screen
-        name="NewTodo"
+        name={STACK_ROUTE_NAMES.新規作成}
         component={NewTodo}
         options={{
-          headerTitle: '新規',
+          headerTitle: () => (
+            <Text span color={theme.colors.white} fontWeight="bold">
+              新規作成
+            </Text>
+          ),
+          headerBackTitle: 'knoTodo',
         }}
       />
       <Stack.Screen
-        name="TodoDetails"
+        name={STACK_ROUTE_NAMES.編集}
+        component={EditTodo}
+        options={{
+          headerTitle: () => (
+            <Text span color={theme.colors.white} fontWeight="bold">
+              編集
+            </Text>
+          ),
+          headerBackTitle: 'knoTodo',
+        }}
+      />
+      <Stack.Screen
+        name={STACK_ROUTE_NAMES.詳細}
         component={TodoDetails}
         options={{
-          headerTitle: '詳細',
-        }}
-      />
-      <Stack.Screen
-        name="Sort"
-        component={Sort}
-        options={{
-          headerTitle: '並べ替え',
-        }}
-      />
-      <Stack.Screen
-        name="Setting"
-        component={Setting}
-        options={{
-          headerTitle: '設定',
+          headerTitle: () => (
+            <Text span color={theme.colors.white} fontWeight="bold">
+              詳細
+            </Text>
+          ),
+          headerBackTitle: 'knoTodo',
         }}
       />
     </Stack.Navigator>

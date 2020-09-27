@@ -909,23 +909,7 @@
             "deprecationReason": null
           },
           {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "uuid",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "todos",
+            "name": "category_by_todo",
             "description": "An array relationship",
             "args": [
               {
@@ -1016,7 +1000,7 @@
             "deprecationReason": null
           },
           {
-            "name": "todos_aggregate",
+            "name": "category_by_todo_aggregate",
             "description": "An aggregated array relationship",
             "args": [
               {
@@ -1099,7 +1083,47 @@
             "deprecationReason": null
           },
           {
-            "name": "user",
+            "name": "created_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user_by_id",
             "description": "An object relationship",
             "args": [],
             "type": {
@@ -1108,22 +1132,6 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "users",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "user_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
                 "ofType": null
               }
             },
@@ -1234,6 +1242,36 @@
             "defaultValue": null
           },
           {
+            "name": "category_by_todo",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "todos_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timestamptz_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timestamptz_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "id",
             "description": null,
             "type": {
@@ -1244,31 +1282,11 @@
             "defaultValue": null
           },
           {
-            "name": "todos",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "todos_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user",
+            "name": "user_by_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "users_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -1312,7 +1330,7 @@
             "defaultValue": null
           },
           {
-            "name": "todos",
+            "name": "category_by_todo",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -1322,7 +1340,7 @@
             "defaultValue": null
           },
           {
-            "name": "user",
+            "name": "user_by_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -1496,6 +1514,36 @@
             "defaultValue": null
           },
           {
+            "name": "category_by_todo_aggregate",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "todos_aggregate_order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "id",
             "description": null,
             "type": {
@@ -1506,31 +1554,11 @@
             "defaultValue": null
           },
           {
-            "name": "todos_aggregate",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "todos_aggregate_order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user",
+            "name": "user_by_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "users_order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -1580,13 +1608,19 @@
             "deprecationReason": null
           },
           {
-            "name": "id",
+            "name": "created_at",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "user_id",
+            "name": "deleted_at",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -1609,6 +1643,16 @@
               "ofType": null
             },
             "defaultValue": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null
           }
         ],
         "interfaces": null,
@@ -1625,6 +1669,12 @@
         "enumValues": [
           {
             "name": "category",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleted_at",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -1648,6 +1698,97 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "color_type_enum",
+            "description": "An array relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "users_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "users_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "users_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "users",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -1721,6 +1862,16 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "color_type_enum",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_bool_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -2350,60 +2501,6 @@
             "deprecationReason": null
           },
           {
-            "name": "delete_users",
-            "description": "delete data from the table: \"users\"",
-            "args": [
-              {
-                "name": "where",
-                "description": "filter the rows which have to be deleted",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "users_bool_exp",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "users_mutation_response",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "delete_users_by_pk",
-            "description": "delete single row from the table: \"users\"",
-            "args": [
-              {
-                "name": "id",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "users",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "insert_accomplishment",
             "description": "insert data into the table: \"accomplishment\"",
             "args": [
@@ -2864,6 +2961,16 @@
             "description": "update data of the table: \"todos\"",
             "args": [
               {
+                "name": "_inc",
+                "description": "increments the integer columns with given value of the filtered values",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "todos_inc_input",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
                 "type": {
@@ -2900,6 +3007,16 @@
             "name": "update_todos_by_pk",
             "description": "update single row of the table: \"todos\"",
             "args": [
+              {
+                "name": "_inc",
+                "description": "increments the integer columns with given value of the filtered values",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "todos_inc_input",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
               {
                 "name": "_set",
                 "description": "sets the columns of the filtered rows to the given values",
@@ -4739,12 +4856,151 @@
         "possibleTypes": null
       },
       {
+        "kind": "SCALAR",
+        "name": "timestamptz",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "timestamptz_comparison_exp",
+        "description": "expression to compare columns of type timestamptz. All fields are combined with logical 'AND'.",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "_eq",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "_gt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "_gte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "_in",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "timestamptz",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "_is_null",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "_lt",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "_lte",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "_neq",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "_nin",
+            "description": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "timestamptz",
+                  "ofType": null
+                }
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "todos",
         "description": "urgency\n\n\ncolumns and relationships of \"todos\"",
         "fields": [
           {
-            "name": "category",
+            "name": "category_by_id",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "categories",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "category_id",
             "description": null,
             "args": [],
             "type": {
@@ -4756,12 +5012,36 @@
             "deprecationReason": null
           },
           {
-            "name": "categoryByCategory",
-            "description": "An object relationship",
+            "name": "completed_at",
+            "description": null,
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "categories",
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "created_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4848,7 +5128,7 @@
             "deprecationReason": null
           },
           {
-            "name": "urgencyByUrgency",
+            "name": "urgency_enum",
             "description": "An object relationship",
             "args": [],
             "type": {
@@ -4864,7 +5144,7 @@
             "deprecationReason": null
           },
           {
-            "name": "user",
+            "name": "user_by_id",
             "description": "An object relationship",
             "args": [],
             "type": {
@@ -4873,22 +5153,6 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "users",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "user_id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
                 "ofType": null
               }
             },
@@ -5399,7 +5663,17 @@
             "defaultValue": null
           },
           {
-            "name": "category",
+            "name": "category_by_id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "categories_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "category_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -5409,11 +5683,31 @@
             "defaultValue": null
           },
           {
-            "name": "categoryByCategory",
+            "name": "completed_at",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "categories_bool_exp",
+              "name": "timestamptz_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timestamptz_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timestamptz_comparison_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -5469,7 +5763,7 @@
             "defaultValue": null
           },
           {
-            "name": "urgencyByUrgency",
+            "name": "urgency_enum",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -5479,21 +5773,11 @@
             "defaultValue": null
           },
           {
-            "name": "user",
+            "name": "user_by_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "users_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user_id",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "String_comparison_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -5532,26 +5816,47 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "todos_inc_input",
+        "description": "input type for incrementing integer column in table \"todos\"",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "workload",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "todos_insert_input",
         "description": "input type for inserting data into table \"todos\"",
         "fields": null,
         "inputFields": [
           {
-            "name": "category",
+            "name": "category_by_id",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "uuid",
+              "kind": "INPUT_OBJECT",
+              "name": "categories_obj_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null
           },
           {
-            "name": "categoryByCategory",
+            "name": "category_id",
             "description": null,
             "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "categories_obj_rel_insert_input",
+              "kind": "SCALAR",
+              "name": "uuid",
               "ofType": null
             },
             "defaultValue": null
@@ -5597,7 +5902,7 @@
             "defaultValue": null
           },
           {
-            "name": "user",
+            "name": "user_by_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -5627,12 +5932,48 @@
         "description": "aggregate max on columns",
         "fields": [
           {
-            "name": "category",
+            "name": "category_id",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "completed_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "created_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5652,18 +5993,6 @@
           },
           {
             "name": "title",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "user_id",
             "description": null,
             "args": [],
             "type": {
@@ -5699,7 +6028,37 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "category",
+            "name": "category_id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "completed_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "deleted_at",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -5720,16 +6079,6 @@
           },
           {
             "name": "title",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -5759,12 +6108,48 @@
         "description": "aggregate min on columns",
         "fields": [
           {
-            "name": "category",
+            "name": "category_id",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "uuid",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "completed_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "created_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5784,18 +6169,6 @@
           },
           {
             "name": "title",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "user_id",
             "description": null,
             "args": [],
             "type": {
@@ -5831,7 +6204,37 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "category",
+            "name": "category_id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "completed_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "deleted_at",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -5852,16 +6255,6 @@
           },
           {
             "name": "title",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -6035,7 +6428,17 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "category",
+            "name": "category_by_id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "categories_order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "category_id",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -6045,11 +6448,31 @@
             "defaultValue": null
           },
           {
-            "name": "categoryByCategory",
+            "name": "completed_at",
             "description": null,
             "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "categories_order_by",
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "created_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -6105,7 +6528,7 @@
             "defaultValue": null
           },
           {
-            "name": "urgencyByUrgency",
+            "name": "urgency_enum",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -6115,21 +6538,11 @@
             "defaultValue": null
           },
           {
-            "name": "user",
+            "name": "user_by_id",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "users_order_by",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "user_id",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
               "ofType": null
             },
             "defaultValue": null
@@ -6183,7 +6596,25 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "category",
+            "name": "category_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "completed_at",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "created_at",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleted_at",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -6219,12 +6650,6 @@
             "deprecationReason": null
           },
           {
-            "name": "user_id",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "workload",
             "description": "column name",
             "isDeprecated": false,
@@ -6239,6 +6664,36 @@
         "description": "input type for updating data in table \"todos\"",
         "fields": null,
         "inputFields": [
+          {
+            "name": "category_id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "completed_at",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "deleted_at",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamptz",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
           {
             "name": "isCompleted",
             "description": null,
@@ -6275,6 +6730,16 @@
             "type": {
               "kind": "ENUM",
               "name": "urgency_enum",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "workload",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
               "ofType": null
             },
             "defaultValue": null
@@ -6469,6 +6934,24 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "category_id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "completed_at",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "deleted_at",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "isCompleted",
             "description": "column name",
             "isDeprecated": false,
@@ -6488,6 +6971,12 @@
           },
           {
             "name": "urgency",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "workload",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -6645,7 +7134,7 @@
             "deprecationReason": null
           },
           {
-            "name": "todos",
+            "name": "todos_by_urgency",
             "description": "An array relationship",
             "args": [
               {
@@ -6736,7 +7225,7 @@
             "deprecationReason": null
           },
           {
-            "name": "todos_aggregate",
+            "name": "todos_by_urgency_aggregate",
             "description": "An aggregated array relationship",
             "args": [
               {
@@ -6895,7 +7384,7 @@
             "defaultValue": null
           },
           {
-            "name": "todos",
+            "name": "todos_by_urgency",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -7173,7 +7662,7 @@
             "defaultValue": null
           },
           {
-            "name": "todos_aggregate",
+            "name": "todos_by_urgency_aggregate",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -7305,97 +7794,6 @@
         "description": "columns and relationships of \"users\"",
         "fields": [
           {
-            "name": "categories",
-            "description": "An array relationship",
-            "args": [
-              {
-                "name": "distinct_on",
-                "description": "distinct select on columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "ENUM",
-                      "name": "categories_select_column",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null
-              },
-              {
-                "name": "limit",
-                "description": "limit the number of rows returned",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null
-              },
-              {
-                "name": "offset",
-                "description": "skip the first n rows. Use only with order_by",
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                },
-                "defaultValue": null
-              },
-              {
-                "name": "order_by",
-                "description": "sort the rows by one or more columns",
-                "type": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "categories_order_by",
-                      "ofType": null
-                    }
-                  }
-                },
-                "defaultValue": null
-              },
-              {
-                "name": "where",
-                "description": "filter the rows returned",
-                "type": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "categories_bool_exp",
-                  "ofType": null
-                },
-                "defaultValue": null
-              }
-            ],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "categories",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "color_type",
             "description": null,
             "args": [],
@@ -7405,6 +7803,22 @@
               "ofType": {
                 "kind": "ENUM",
                 "name": "colorTypes_enum",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "color_type_enum",
+            "description": "An object relationship",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "colorTypes",
                 "ofType": null
               }
             },
@@ -7428,6 +7842,18 @@
             "deprecationReason": null
           },
           {
+            "name": "message",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "nickname",
             "description": null,
             "args": [],
@@ -7444,7 +7870,7 @@
             "deprecationReason": null
           },
           {
-            "name": "tousers",
+            "name": "todos_by_user",
             "description": "An array relationship",
             "args": [
               {
@@ -7535,7 +7961,7 @@
             "deprecationReason": null
           },
           {
-            "name": "tousers_aggregate",
+            "name": "todos_by_user_aggregate",
             "description": "An aggregated array relationship",
             "args": [
               {
@@ -7612,6 +8038,97 @@
                 "kind": "OBJECT",
                 "name": "todos_aggregate",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user_by_id",
+            "description": "An array relationship",
+            "args": [
+              {
+                "name": "distinct_on",
+                "description": "distinct select on columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "categories_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "limit",
+                "description": "limit the number of rows returned",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "offset",
+                "description": "skip the first n rows. Use only with order_by",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "order_by",
+                "description": "sort the rows by one or more columns",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "categories_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "where",
+                "description": "filter the rows returned",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "categories_bool_exp",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "categories",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -7711,16 +8228,6 @@
             "defaultValue": null
           },
           {
-            "name": "categories",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "categories_bool_exp",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
             "name": "color_type",
             "description": null,
             "type": {
@@ -7731,7 +8238,27 @@
             "defaultValue": null
           },
           {
+            "name": "color_type_enum",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "colorTypes_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "message",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -7751,11 +8278,21 @@
             "defaultValue": null
           },
           {
-            "name": "tousers",
+            "name": "todos_by_user",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "todos_bool_exp",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "user_by_id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "categories_bool_exp",
               "ofType": null
             },
             "defaultValue": null
@@ -7789,16 +8326,6 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "categories",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "categories_arr_rel_insert_input",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
             "name": "color_type",
             "description": null,
             "type": {
@@ -7819,6 +8346,16 @@
             "defaultValue": null
           },
           {
+            "name": "message",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "nickname",
             "description": null,
             "type": {
@@ -7829,11 +8366,21 @@
             "defaultValue": null
           },
           {
-            "name": "tousers",
+            "name": "todos_by_user",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "todos_arr_rel_insert_input",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "user_by_id",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "categories_arr_rel_insert_input",
               "ofType": null
             },
             "defaultValue": null
@@ -8003,7 +8550,27 @@
             "defaultValue": null
           },
           {
+            "name": "color_type_enum",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "colorTypes_order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "id",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "message",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -8023,7 +8590,7 @@
             "defaultValue": null
           },
           {
-            "name": "tousers_aggregate",
+            "name": "todos_by_user_aggregate",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -8083,6 +8650,12 @@
             "deprecationReason": null
           },
           {
+            "name": "message",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "nickname",
             "description": "column name",
             "isDeprecated": false,
@@ -8109,6 +8682,16 @@
           },
           {
             "name": "id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "message",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -8148,6 +8731,12 @@
           },
           {
             "name": "id",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "message",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

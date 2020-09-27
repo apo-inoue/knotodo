@@ -1,5 +1,5 @@
-import React from 'react';
-import { ComposedProviders } from './src/containers/ComposedProviders';
+import React, { FC } from 'react';
+import { StoreProviders } from './src/store/StoreProviders';
 import {
   useFonts,
   NotoSansJP_100Thin,
@@ -12,7 +12,7 @@ import {
 import { AppLoading } from 'expo';
 import { AuthNavigation } from './src/components/5navigation/AuthNavigation';
 
-const App = () => {
+const App: FC = () => {
   const [fontsLoaded] = useFonts({
     NotoSansJP_100Thin,
     NotoSansJP_300Light,
@@ -27,9 +27,9 @@ const App = () => {
   }
 
   return (
-    <ComposedProviders>
+    <StoreProviders>
       <AuthNavigation />
-    </ComposedProviders>
+    </StoreProviders>
   );
 };
 

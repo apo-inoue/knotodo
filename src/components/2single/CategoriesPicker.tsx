@@ -1,31 +1,37 @@
-import React, { FC, useState } from 'react';
-import { Box } from '../../ui';
-import { Picker } from '@react-native-community/picker';
+import React, { FC } from 'react';
+import { Picker } from '../../ui';
 import { Categories } from '../../types/graphql';
-import { ReactText } from 'react';
 
 type CategoriesProps = {
   categories: ({ __typename: 'categories' } & Pick<
     Categories,
     'category' | 'id'
   >)[];
+  category_id: string;
+  categorySelectHandler: (category_id: string) => void;
 };
 
-export const CategoriesPicker: FC<CategoriesProps> = ({ categories }) => {
-  const [selectedValue, setSelectedValue] = useState<ReactText>('');
-  const valueChangeHandler = (itemValue: ReactText) => {
-    return setSelectedValue(itemValue);
-  };
-
+export const CategoriesPicker: FC<CategoriesProps> = ({
+  categories,
+  category_id,
+  categorySelectHandler,
+}) => {
   return (
-    <Box width="100%">
-      <Picker
-        style={{ width: 120 }}
-        selectedValue={selectedValue}
-        onValueChange={valueChangeHandler}>
-        <Picker.Item label="ホーム" value="home" />
-        <Picker.Item label="仕事" value="work" />
-      </Picker>
-    </Box>
+    <Picker
+      width={200}
+      height={100}
+      selectedValue={category_id}
+      mode="dropdown"
+      onValueChange={categorySelectHandler}>
+      {categories.map(category => {
+        return (
+          <Picker.Item
+            key={category.id}
+            label={category.category}
+            value={category.id}
+          />
+        );
+      })}
+    </Picker>
   );
 };

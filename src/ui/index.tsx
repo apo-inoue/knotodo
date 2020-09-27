@@ -15,8 +15,18 @@ export {
 export { Image } from './image/Image';
 export { ImageBackground } from './image/ImageBackground';
 export { TextInput } from './input/TextInput';
-export { OutlinedTextInput } from './input/OutlinedTextInput';
-export { TextForm } from './input/TextForm';
+export {
+  OutlinedTextInput,
+  UnderlinedTextInput,
+} from './input/StyledTextInput';
+export { OutlinedTextForm, UnderlinedTextForm } from './input/TextForm';
 export { RadioButton } from './input/RadioButton';
+export { CheckBox } from './input/CheckBox';
 export { Loader, ScreenLoader } from './utils/Loader';
 export { Divider } from './utils/Divider';
+export { FlatList } from './utils/FlatList';
+export { Picker } from './utils/Picker';
+export { SlideUpView } from './animation/SlideUpView';
+export { SlideOutView } from './animation/SlideOutView';
+export { SlideUpOutView } from './animation/SlideUpOutView';
+export { FadeInView } from './animation/FadeInView';

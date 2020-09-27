@@ -1,26 +1,81 @@
-import React, { useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import React, { FC, useCallback } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
   useNotTodayTodosQuery,
   useSetTodayTodoMutation,
+  useCompleteToDoMutation,
+  NotTodayTodosQuery,
 } from '../../types/graphql';
-import { Container } from '../../ui';
-import { ErrorMessage } from '../1standalone';
-import { NotTodayTodosCollection } from '../3collection';
-import { NoDataMessage } from '../1standalone/NoDataMessage';
-import { ScreenLoader } from '../../ui/utils/Loader';
 import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
+import { Container, ScreenLoader } from '../../ui';
+import { ErrorMessage, NoDataMessage, AddFab } from '../1standalone';
+import { NotTodayTodosCollection } from '../3collection';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
+import { useTodoCtx } from '../../containers/contexts/todo';
 
-export const NotTodayTodos = () => {
-  const { loading, error, data, refetch } = useNotTodayTodosQuery();
-  const [
-    setToday,
-    { loading: mutationLoading, error: mutationError },
-  ] = useSetTodayTodoMutation({
-    refetchQueries: [{ query: NOT_TODAY_TODOS }],
+export const NotTodayTodos: FC = () => {
+  const navigation = useNavigation();
+  const {
+    sort: { sortState },
+    filter: {
+      filterState: { categoryIds },
+    },
+  } = useSortFilterCtx();
+  const categoryIdsVariables = categoryIds.length === 0 ? null : categoryIds;
+  const { loading, error, data, refetch } = useNotTodayTodosQuery({
+    variables: { [sortState.key]: sortState.order, _in: categoryIdsVariables },
+  });
+  // ---------- setToday ----------
+  const [setToday] = useSetTodayTodoMutation({
+    update(cache, { data: updateData }) {
+      const existingTodos = cache.readQuery<NotTodayTodosQuery>({
+        query: NOT_TODAY_TODOS,
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
+      });
+      const newTodos = existingTodos!.todos.filter(
+        t => t.id !== updateData!.update_todos!.returning[0].id,
+      );
+      cache.writeQuery<NotTodayTodosQuery>({
+        query: NOT_TODAY_TODOS,
+        variables: { [sortState.key]: sortState.order },
+        data: { __typename: 'query_root', todos: newTodos },
+      });
+    },
   });
   const setTodayHandler = (id: string) => {
-    setToday({ variables: { id } });
+    setToday({ variables: { _eq: id } });
+  };
+  // ---------- complete ----------
+  const [completeTodo] = useCompleteToDoMutation({
+    update(cache, { data: updateData }) {
+      const existingTodos = cache.readQuery<NotTodayTodosQuery>({
+        query: NOT_TODAY_TODOS,
+        variables: { [sortState.key]: sortState.order },
+      });
+      const newTodos = existingTodos!.todos.filter(
+        t => t.id !== updateData!.update_todos!.returning[0].id,
+      );
+      cache.writeQuery<NotTodayTodosQuery>({
+        query: NOT_TODAY_TODOS,
+        variables: { [sortState.key]: sortState.order },
+        data: { __typename: 'query_root', todos: newTodos },
+      });
+    },
+  });
+  const completeTodoHandler = (id: string) => {
+    completeTodo({ variables: { _eq: id } });
+  };
+
+  const {
+    newTodo: { todoMountHandler },
+  } = useTodoCtx();
+  const mountAndNavigateHandler = () => {
+    todoMountHandler({ isToday: false, isCompleted: false });
+    navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
 
   useFocusEffect(
@@ -29,16 +84,28 @@ export const NotTodayTodos = () => {
     }, [refetch]),
   );
 
-  if (loading || mutationLoading) return <ScreenLoader />;
-  if (error || mutationError) return <ErrorMessage />;
-  if (!data) return <NoDataMessage />;
-
-  console.log(data, 'notToday');
-  console.log(error, mutationError, 'notTodayError');
+  if (loading) {
+    return <ScreenLoader />;
+  }
+  if (error || !data) {
+    return <ErrorMessage />;
+  }
+  if (data?.todos.length === 0) {
+    return (
+      <>
+        <NoDataMessage />
+        <AddFab onPress={mountAndNavigateHandler} />
+      </>
+    );
+  }
 
   return (
     <Container>
-      <NotTodayTodosCollection todos={data.todos} onPress={setTodayHandler} />
+      <NotTodayTodosCollection
+        todos={data.todos}
+        onPress={setTodayHandler}
+        onComplete={completeTodoHandler}
+      />
     </Container>
   );
 };

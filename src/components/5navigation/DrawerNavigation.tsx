@@ -1,53 +1,78 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
-import { CustomIcon } from '../1standalone';
-import { Color } from '../3collection/Color';
-import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerContentComponentProps,
+  DrawerContentOptions,
+} from '@react-navigation/drawer';
 import { TabNavigation } from './TabNavigation';
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import { useLinking, useLinkTo } from '@react-navigation/native';
-import { Accomplishment } from '../4pages';
+import { AccomplishmentAndMessage, CategorySetting, Color } from '../4pages';
+import { DrawerIcon } from '../1standalone';
+import { DRAWER_ROUTE_NAMES } from './type';
+import { MessageSetting } from '../4pages/MessageSetting';
 
-const CustomDrawerContent = (props: any) => {
-  const linkTo = useLinkTo();
+const CustomDrawerContent: FC<DrawerContentComponentProps<
+  DrawerContentOptions
+>> = props => {
   return (
     <DrawerContentScrollView {...props}>
-      <Accomplishment />
+      <AccomplishmentAndMessage />
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
   );
 };
 
-export const DrawerNavigation = () => {
+export const DrawerNavigation: FC = () => {
   const theme = useTheme();
   const Drawer = createDrawerNavigator();
 
   return (
     <Drawer.Navigator
       initialRouteName="Home"
-      drawerContent={props => <CustomDrawerContent {...props} />}
+      drawerContent={(
+        props: DrawerContentComponentProps<DrawerContentOptions>,
+      ) => <CustomDrawerContent {...props} />}
       drawerContentOptions={{
         activeTintColor: theme.colors.main,
         inactiveTintColor: theme.colors.blacks[4],
       }}>
       <Drawer.Screen
-        name="Home"
+        name={DRAWER_ROUTE_NAMES.ホーム}
         component={TabNavigation}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <CustomIcon name="home" color={color} />
+            <DrawerIcon drawerName="home" color={color} />
           ),
         }}
       />
       <Drawer.Screen
-        name="Color"
+        name={DRAWER_ROUTE_NAMES.カラー設定}
         component={Color}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <CustomIcon name="invert-colors" color={color} />
+            <DrawerIcon drawerName="color" color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={DRAWER_ROUTE_NAMES.カテゴリ設定}
+        component={CategorySetting}
+        options={{
+          drawerIcon: ({ color }: { color: string }) => (
+            <DrawerIcon drawerName="categorySetting" color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={DRAWER_ROUTE_NAMES.ヒトコト設定}
+        component={MessageSetting}
+        options={{
+          drawerIcon: ({ color }: { color: string }) => (
+            <DrawerIcon drawerName="messageSetting" color={color} />
           ),
         }}
       />

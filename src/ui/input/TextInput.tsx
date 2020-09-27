@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components/native';
 import { border, layout, BorderProps, LayoutProps } from 'styled-system';
-import { ReactNode } from 'react';
 import { TextInputProps } from 'react-native';
 
 export type CustomTextInputProps = {
@@ -14,7 +13,7 @@ export const TextInput = styled.TextInput<CustomTextInputProps>`
   width: 100%;
   border-color: ${props => props.theme.colors.main};
   padding-left: 4px;
-  font-size: ${props => `${props.theme.fontSizes[2]}px`};
+  font-size: 17px;
 
   ${props =>
     (props.variant === 'outlined' || !props.variant) &&
@@ -25,7 +24,7 @@ export const TextInput = styled.TextInput<CustomTextInputProps>`
   ${props =>
     props.variant === 'underlined' &&
     css`
-      border-bottoms-width: 1px;
+      border-bottom-width: 1px;
     `};
 
   ${border};

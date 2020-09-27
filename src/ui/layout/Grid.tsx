@@ -5,7 +5,7 @@ import { FlexboxProps } from 'styled-system';
 import {
   space,
   layout,
-  flex,
+  flexbox,
   grid,
   color,
   border,
@@ -33,7 +33,7 @@ export const Grid = styled.View<View>`
   min-width: 0;
   ${position}
   ${space}
-  ${flex}
+  ${flexbox}
   ${grid}
   ${border}
   ${layout}
