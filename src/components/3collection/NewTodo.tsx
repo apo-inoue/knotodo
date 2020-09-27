@@ -63,6 +63,7 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
       <Box width="80%">
         <UnderlinedTextForm
           placeholder="タイトル"
+          autoFocus
           err={error}
           onChangeText={titleInputHandler}
           value={title}

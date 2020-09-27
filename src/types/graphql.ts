@@ -1770,6 +1770,7 @@ export type NotTodayTodosQueryVariables = Exact<{
   created_at?: Maybe<Order_By>;
   urgency?: Maybe<Order_By>;
   workload?: Maybe<Order_By>;
+  _in: Maybe<Array<Scalars['uuid']>>;
 }>;
 
 
@@ -1785,6 +1786,7 @@ export type CompletedTodosQueryVariables = Exact<{
   created_at?: Maybe<Order_By>;
   urgency?: Maybe<Order_By>;
   workload?: Maybe<Order_By>;
+  _in: Maybe<Array<Scalars['uuid']>>;
 }>;
 
 
@@ -2389,8 +2391,8 @@ export type TodayTodosQueryHookResult = ReturnType<typeof useTodayTodosQuery>;
 export type TodayTodosLazyQueryHookResult = ReturnType<typeof useTodayTodosLazyQuery>;
 export type TodayTodosQueryResult = Apollo.QueryResult<TodayTodosQuery, TodayTodosQueryVariables>;
 export const NotTodayTodosDocument = gql`
-    query notTodayTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null) {
-  todos(where: {isToday: {_eq: false}, isCompleted: {_eq: false}, deleted_at: {_is_null: true}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
+    query notTodayTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null, $_in: [uuid!]) {
+  todos(where: {isToday: {_eq: false}, isCompleted: {_eq: false}, deleted_at: {_is_null: true}, category_id: {_in: $_in}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
     id
     title
     urgency
@@ -2417,6 +2419,7 @@ export const NotTodayTodosDocument = gql`
  *      created_at: // value for 'created_at'
  *      urgency: // value for 'urgency'
  *      workload: // value for 'workload'
+ *      _in: // value for '_in'
  *   },
  * });
  */
@@ -2430,8 +2433,8 @@ export type NotTodayTodosQueryHookResult = ReturnType<typeof useNotTodayTodosQue
 export type NotTodayTodosLazyQueryHookResult = ReturnType<typeof useNotTodayTodosLazyQuery>;
 export type NotTodayTodosQueryResult = Apollo.QueryResult<NotTodayTodosQuery, NotTodayTodosQueryVariables>;
 export const CompletedTodosDocument = gql`
-    query completedTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null) {
-  todos(where: {isCompleted: {_eq: true}, deleted_at: {_is_null: true}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
+    query completedTodos($created_at: order_by = null, $urgency: order_by = null, $workload: order_by = null, $_in: [uuid!]) {
+  todos(where: {isCompleted: {_eq: true}, deleted_at: {_is_null: true}, category_id: {_in: $_in}}, order_by: {created_at: $created_at, urgency: $urgency, workload: $workload}) {
     id
     title
     urgency
@@ -2458,6 +2461,7 @@ export const CompletedTodosDocument = gql`
  *      created_at: // value for 'created_at'
  *      urgency: // value for 'urgency'
  *      workload: // value for 'workload'
+ *      _in: // value for '_in'
  *   },
  * });
  */

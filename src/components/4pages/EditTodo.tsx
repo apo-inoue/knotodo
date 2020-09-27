@@ -11,7 +11,7 @@ import {
 
 export const EditTodo: FC = () => {
   const { data, loading, error } = useAllCategoryQuery();
-  const [updateTodo, { error: merr, called }] = useUpdateTodoMutation({
+  const [updateTodo] = useUpdateTodoMutation({
     refetchQueries: [{ query: TODAY_TODOS }, { query: NOT_TODAY_TODOS }],
   });
   const updateTodoHandler = ({
@@ -41,8 +41,6 @@ export const EditTodo: FC = () => {
   if (data.categories.length === 0) {
     return <NoDataMessage />;
   }
-
-  console.log(merr, called);
 
   return (
     <Container centerContent>

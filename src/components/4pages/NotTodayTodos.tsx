@@ -18,16 +18,23 @@ export const NotTodayTodos: FC = () => {
   const navigation = useNavigation();
   const {
     sort: { sortState },
+    filter: {
+      filterState: { categoryIds },
+    },
   } = useSortFilterCtx();
+  const categoryIdsVariables = categoryIds.length === 0 ? null : categoryIds;
   const { loading, error, data, refetch } = useNotTodayTodosQuery({
-    variables: { [sortState.key]: sortState.order },
+    variables: { [sortState.key]: sortState.order, _in: categoryIdsVariables },
   });
   // ---------- setToday ----------
   const [setToday] = useSetTodayTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
-        variables: { [sortState.key]: sortState.order },
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,

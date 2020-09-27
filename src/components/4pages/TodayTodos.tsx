@@ -34,14 +34,20 @@ export const TodayTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
-        variables: { [sortState.key]: sortState.order },
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
-        variables: { [sortState.key]: sortState.order },
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -54,14 +60,20 @@ export const TodayTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
-        variables: { [sortState.key]: sortState.order },
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
-        variables: { [sortState.key]: sortState.order },
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },

@@ -38,12 +38,14 @@ export const NOT_TODAY_TODOS = gql`
     $created_at: order_by = null
     $urgency: order_by = null
     $workload: order_by = null
+    $_in: [uuid!]
   ) {
     todos(
       where: {
         isToday: { _eq: false }
         isCompleted: { _eq: false }
         deleted_at: { _is_null: true }
+        category_id: { _in: $_in }
       }
       order_by: {
         created_at: $created_at
@@ -67,9 +69,14 @@ export const COMPLETED_TODOS = gql`
     $created_at: order_by = null
     $urgency: order_by = null
     $workload: order_by = null
+    $_in: [uuid!]
   ) {
     todos(
-      where: { isCompleted: { _eq: true }, deleted_at: { _is_null: true } }
+      where: {
+        isCompleted: { _eq: true }
+        deleted_at: { _is_null: true }
+        category_id: { _in: $_in }
+      }
       order_by: {
         created_at: $created_at
         urgency: $urgency
