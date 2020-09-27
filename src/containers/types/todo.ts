@@ -3,7 +3,7 @@ import { Urgency_Enum } from '../../types/graphql';
 export type TodoState = {
   title: string;
   urgency: Urgency_Enum;
-  category: string;
+  category_id: string;
   workload: number;
   isCompleted: boolean;
   isToday: boolean;
@@ -22,7 +22,7 @@ export type TodoCtxType = {
     todoClearHandler: () => void;
     titleInputHandler: (title: string) => void;
     urgencySelectHandler: (urgency: Urgency_Enum) => void;
-    categorySelectHandler: (category: string) => void;
+    categorySelectHandler: (category_id: string) => void;
     workloadSelectHandler: (workload: number) => void;
   };
   editTodo: {
@@ -30,7 +30,7 @@ export type TodoCtxType = {
     todoMountHandler: (todo: { id: string } & TodoState) => void;
     titleInputHandler: (title: string) => void;
     urgencySelectHandler: (urgency: Urgency_Enum) => void;
-    categorySelectHandler: (category: string) => void;
+    categorySelectHandler: (category_id: string) => void;
     workloadSelectHandler: (workload: number) => void;
   };
 };

@@ -5,7 +5,6 @@ import {
   useGetUserMessageQuery,
   useUpdateUserMessageMutation,
   GetUserMessageQuery,
-  UpdateUserMessageMutation,
 } from '../../types/graphql';
 import { MessageSettingCollection } from '../3collection';
 import { GET_USER_MESSAGE } from '../../graphql/query/users';

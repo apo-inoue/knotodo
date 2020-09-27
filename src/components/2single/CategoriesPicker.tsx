@@ -8,9 +8,15 @@ type CategoriesProps = {
     Categories,
     'category' | 'id'
   >)[];
+  category_id: string;
+  categorySelectHandler: (category_id: string) => void;
 };
 
-export const CategoriesPicker: FC<CategoriesProps> = ({ categories }) => {
+export const CategoriesPicker: FC<CategoriesProps> = ({
+  categories,
+  category_id,
+  categorySelectHandler,
+}) => {
   const [selectedValue, setSelectedValue] = useState<ReactText>('');
   const valueChangeHandler = (itemValue: ReactText) => {
     return setSelectedValue(itemValue);
@@ -20,15 +26,15 @@ export const CategoriesPicker: FC<CategoriesProps> = ({ categories }) => {
     <Picker
       width={200}
       height={100}
-      selectedValue={selectedValue}
+      selectedValue={category_id}
       mode="dropdown"
-      onValueChange={valueChangeHandler}>
+      onValueChange={categorySelectHandler}>
       {categories.map(category => {
         return (
           <Picker.Item
             key={category.id}
             label={category.category}
-            value={category.category}
+            value={category.id}
           />
         );
       })}

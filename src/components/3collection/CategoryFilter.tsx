@@ -1,11 +1,10 @@
-import React, { FC, useState, useEffect, useMemo } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Switch } from 'react-native';
 import { useTheme } from 'styled-components';
 import { PrimaryButton, Box, Text, FlatList, Divider } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { CategorySelectItem } from '../2single';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
-import { useNavigation } from '@react-navigation/native';
 
 type CategoryType = { __typename: 'categories' } & Pick<
   Categories,
@@ -56,18 +55,16 @@ export const CategoryFilter: FC<CategoryProps> = ({
           value={isAll}
         />
       </Box>
-      <Box height="500px">
-        <FlatList<CategoryType>
-          data={categories}
-          keyExtractor={(item: CategoryType) => `${item.id}`}
-          renderItem={({ item }: { item: CategoryType }) => (
-            <Box width="100%">
-              <CategorySelectItem category={item} />
-              <Divider />
-            </Box>
-          )}
-        />
-      </Box>
+      <FlatList<CategoryType>
+        data={categories}
+        keyExtractor={(item: CategoryType) => `${item.id}`}
+        renderItem={({ item }: { item: CategoryType }) => (
+          <Box width="100%">
+            <CategorySelectItem category={item} />
+            <Divider />
+          </Box>
+        )}
+      />
       <Box flexDirection="row" width="100%" justifyContent="center" mt={4}>
         <PrimaryButton
           variant="outlined"

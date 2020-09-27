@@ -28,10 +28,7 @@ export const TODAY_TODOS = gql`
       workload
       isCompleted
       isToday
-      category_by_id {
-        id
-        category
-      }
+      category_id
     }
   }
 `;
@@ -60,9 +57,7 @@ export const NOT_TODAY_TODOS = gql`
       workload
       isToday
       isCompleted
-      category_by_id {
-        category
-      }
+      category_id
     }
   }
 `;
@@ -87,9 +82,7 @@ export const COMPLETED_TODOS = gql`
       workload
       isToday
       isCompleted
-      category_by_id {
-        category
-      }
+      category_id
     }
   }
 `;

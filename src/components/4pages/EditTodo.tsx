@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Container, ScreenLoader } from '../../ui';
 import { EditTodoCollection } from '../3collection';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
-import { useNavigation } from '@react-navigation/native';
+import { TODAY_TODOS, NOT_TODAY_TODOS } from '../../graphql/query/todos';
 import {
   UpdateTodoMutationVariables,
   useUpdateTodoMutation,
@@ -10,10 +10,12 @@ import {
 } from '../../types/graphql';
 
 export const EditTodo: FC = () => {
-  const navigation = useNavigation();
   const { data, loading, error } = useAllCategoryQuery();
-  const [updateTodo] = useUpdateTodoMutation();
+  const [updateTodo, { error: merr, called }] = useUpdateTodoMutation({
+    refetchQueries: [{ query: TODAY_TODOS }, { query: NOT_TODAY_TODOS }],
+  });
   const updateTodoHandler = ({
+    id,
     title,
     urgency,
     workload,
@@ -21,24 +23,26 @@ export const EditTodo: FC = () => {
   }: UpdateTodoMutationVariables) => {
     updateTodo({
       variables: {
+        id,
         title,
         urgency,
         workload,
         category_id,
       },
     });
-    navigation.goBack();
   };
 
   if (loading) {
     return <ScreenLoader />;
   }
-  if (error) {
+  if (error || !data) {
     return <ErrorMessage />;
   }
-  if (!data) {
+  if (data.categories.length === 0) {
     return <NoDataMessage />;
   }
+
+  console.log(merr, called);
 
   return (
     <Container centerContent>

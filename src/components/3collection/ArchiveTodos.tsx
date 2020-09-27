@@ -5,12 +5,16 @@ import { useNavigation } from '@react-navigation/native';
 import { Box, Divider } from '../../ui';
 import { Todos } from '../../types/graphql';
 import { ArchiveTodoSwipe } from './ArchiveTodoSwipe';
-import { AddFab } from '../1standalone';
-import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'
+  | 'title'
+  | 'id'
+  | 'urgency'
+  | 'workload'
+  | 'isToday'
+  | 'isCompleted'
+  | 'category_id'
 >;
 type ArchiveTodosType = {
   todos: TodoType[];
@@ -55,7 +59,6 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({
           rightOpenValue={-250}
         />
       </Box>
-      <AddFab onPress={() => navigation.navigate(STACK_ROUTE_NAMES.新規作成)} />
     </>
   );
 };

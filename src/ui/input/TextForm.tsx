@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { CustomTextInputProps } from './TextInput';
 import { Text } from '../typography/Text';
 import { useTheme } from 'styled-components';
-import { OutlinedTextInput, UnderlinedTextInput } from './OutlinedTextInput';
+import { OutlinedTextInput, UnderlinedTextInput } from './StyledTextInput';
 import { Box } from '../layout/Box';
 
 type TextForm = {

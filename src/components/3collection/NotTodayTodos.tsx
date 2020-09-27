@@ -10,7 +10,13 @@ import { NotTodayTodoSwipe } from './NotTodayTodoSwipe';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'isToday' | 'isCompleted' | 'urgency' | 'workload'
+  | 'title'
+  | 'id'
+  | 'isToday'
+  | 'isCompleted'
+  | 'urgency'
+  | 'workload'
+  | 'category_id'
 >;
 type NotTodayTodos = {
   todos: TodoType[];

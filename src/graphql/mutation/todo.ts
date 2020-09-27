@@ -7,6 +7,7 @@ export const INSERT_TODO = gql`
     $workload: Int = 1
     $isToday: Boolean = true
     $isCompleted: Boolean = false
+    $category_id: uuid
   ) {
     insert_todos_one(
       object: {
@@ -15,6 +16,7 @@ export const INSERT_TODO = gql`
         title: $title
         urgency: $urgency
         workload: $workload
+        category_id: $category_id
       }
     ) {
       __typename
@@ -25,25 +27,22 @@ export const INSERT_TODO = gql`
 
 export const UPDATE_TODO = gql`
   mutation UpdateTodo(
-    $_eq: String = ""
-    $title: String = ""
-    $urgency: urgency_enum = month
-    $workload: Int = 10
-    $category_id: uuid = ""
+    $id: String!
+    $title: String
+    $urgency: urgency_enum
+    $workload: Int
+    $category_id: uuid
   ) {
-    update_todos(
-      where: { id: { _eq: $_eq } }
+    update_todos_by_pk(
+      pk_columns: { id: $id }
       _set: {
-        title: $title
         urgency: $urgency
         workload: $workload
+        title: $title
         category_id: $category_id
       }
     ) {
-      affected_rows
-      returning {
-        id
-      }
+      id
     }
   }
 `;

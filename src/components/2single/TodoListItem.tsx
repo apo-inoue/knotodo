@@ -9,7 +9,13 @@ import { TodoState } from '../../containers/types/todo';
 type TodoListItem = {
   todo: { __typename: 'todos' } & Pick<
     Todos,
-    'title' | 'id' | 'isToday' | 'isCompleted' | 'urgency' | 'workload'
+    | 'title'
+    | 'id'
+    | 'isToday'
+    | 'isCompleted'
+    | 'urgency'
+    | 'workload'
+    | 'category_id'
   >;
   buttonAction: {
     label: string;
@@ -29,7 +35,7 @@ export const TodoListItem: FC<TodoListItem> = ({ todo, buttonAction }) => {
     const mountTodo: { id: string } & TodoState = {
       id: todo.id,
       title: todo.title,
-      category: '',
+      category_id: todo.category_id,
       urgency: todo.urgency,
       workload: todo.workload,
       isToday,

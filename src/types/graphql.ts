@@ -1572,6 +1572,7 @@ export type InsertToDoMutationVariables = Exact<{
   workload?: Maybe<Scalars['Int']>;
   isToday?: Maybe<Scalars['Boolean']>;
   isCompleted?: Maybe<Scalars['Boolean']>;
+  category_id: Maybe<Scalars['uuid']>;
 }>;
 
 
@@ -1584,23 +1585,19 @@ export type InsertToDoMutation = (
 );
 
 export type UpdateTodoMutationVariables = Exact<{
-  _eq?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  urgency?: Maybe<Urgency_Enum>;
-  workload?: Maybe<Scalars['Int']>;
-  category_id?: Maybe<Scalars['uuid']>;
+  id: Scalars['String'];
+  title: Maybe<Scalars['String']>;
+  urgency: Maybe<Urgency_Enum>;
+  workload: Maybe<Scalars['Int']>;
+  category_id: Maybe<Scalars['uuid']>;
 }>;
 
 
 export type UpdateTodoMutation = (
   { __typename: 'mutation_root' }
-  & { update_todos: Maybe<(
-    { __typename: 'todos_mutation_response' }
-    & Pick<Todos_Mutation_Response, 'affected_rows'>
-    & { returning: Array<(
-      { __typename: 'todos' }
-      & Pick<Todos, 'id'>
-    )> }
+  & { update_todos_by_pk: Maybe<(
+    { __typename: 'todos' }
+    & Pick<Todos, 'id'>
   )> }
 );
 
@@ -1765,11 +1762,7 @@ export type TodayTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isCompleted' | 'isToday'>
-    & { category_by_id: Maybe<(
-      { __typename: 'categories' }
-      & Pick<Categories, 'id' | 'category'>
-    )> }
+    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isCompleted' | 'isToday' | 'category_id'>
   )> }
 );
 
@@ -1784,11 +1777,7 @@ export type NotTodayTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'>
-    & { category_by_id: Maybe<(
-      { __typename: 'categories' }
-      & Pick<Categories, 'category'>
-    )> }
+    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isToday' | 'isCompleted' | 'category_id'>
   )> }
 );
 
@@ -1803,11 +1792,7 @@ export type CompletedTodosQuery = (
   { __typename: 'query_root' }
   & { todos: Array<(
     { __typename: 'todos' }
-    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'>
-    & { category_by_id: Maybe<(
-      { __typename: 'categories' }
-      & Pick<Categories, 'category'>
-    )> }
+    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'isToday' | 'isCompleted' | 'category_id'>
   )> }
 );
 
@@ -1970,8 +1955,8 @@ export type DeleteCategoryMutationHookResult = ReturnType<typeof useDeleteCatego
 export type DeleteCategoryMutationResult = Apollo.MutationResult<DeleteCategoryMutation>;
 export type DeleteCategoryMutationOptions = Apollo.BaseMutationOptions<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
 export const InsertToDoDocument = gql`
-    mutation InsertToDo($title: String = "", $urgency: urgency_enum = month, $workload: Int = 1, $isToday: Boolean = true, $isCompleted: Boolean = false) {
-  insert_todos_one(object: {isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency, workload: $workload}) {
+    mutation InsertToDo($title: String = "", $urgency: urgency_enum = month, $workload: Int = 1, $isToday: Boolean = true, $isCompleted: Boolean = false, $category_id: uuid) {
+  insert_todos_one(object: {isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency, workload: $workload, category_id: $category_id}) {
     __typename
     id
   }
@@ -1997,6 +1982,7 @@ export type InsertToDoMutationFn = Apollo.MutationFunction<InsertToDoMutation, I
  *      workload: // value for 'workload'
  *      isToday: // value for 'isToday'
  *      isCompleted: // value for 'isCompleted'
+ *      category_id: // value for 'category_id'
  *   },
  * });
  */
@@ -2007,12 +1993,9 @@ export type InsertToDoMutationHookResult = ReturnType<typeof useInsertToDoMutati
 export type InsertToDoMutationResult = Apollo.MutationResult<InsertToDoMutation>;
 export type InsertToDoMutationOptions = Apollo.BaseMutationOptions<InsertToDoMutation, InsertToDoMutationVariables>;
 export const UpdateTodoDocument = gql`
-    mutation UpdateTodo($_eq: String = "", $title: String = "", $urgency: urgency_enum = month, $workload: Int = 10, $category_id: uuid = "") {
-  update_todos(where: {id: {_eq: $_eq}}, _set: {title: $title, urgency: $urgency, workload: $workload, category_id: $category_id}) {
-    affected_rows
-    returning {
-      id
-    }
+    mutation UpdateTodo($id: String!, $title: String, $urgency: urgency_enum, $workload: Int, $category_id: uuid) {
+  update_todos_by_pk(pk_columns: {id: $id}, _set: {urgency: $urgency, workload: $workload, title: $title, category_id: $category_id}) {
+    id
   }
 }
     `;
@@ -2031,7 +2014,7 @@ export type UpdateTodoMutationFn = Apollo.MutationFunction<UpdateTodoMutation, U
  * @example
  * const [updateTodoMutation, { data, loading, error }] = useUpdateTodoMutation({
  *   variables: {
- *      _eq: // value for '_eq'
+ *      id: // value for 'id'
  *      title: // value for 'title'
  *      urgency: // value for 'urgency'
  *      workload: // value for 'workload'
@@ -2372,10 +2355,7 @@ export const TodayTodosDocument = gql`
     workload
     isCompleted
     isToday
-    category_by_id {
-      id
-      category
-    }
+    category_id
   }
 }
     `;
@@ -2417,9 +2397,7 @@ export const NotTodayTodosDocument = gql`
     workload
     isToday
     isCompleted
-    category_by_id {
-      category
-    }
+    category_id
   }
 }
     `;
@@ -2460,9 +2438,7 @@ export const CompletedTodosDocument = gql`
     workload
     isToday
     isCompleted
-    category_by_id {
-      category
-    }
+    category_id
   }
 }
     `;

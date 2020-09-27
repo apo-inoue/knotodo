@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react';
-import { useGetAccomplishmentAndMessageQuery } from '../../types/graphql';
 import { useIsDrawerOpen } from '@react-navigation/drawer';
-import { AccomplishmentAndMessageCollection } from '../3collection';
+import { startOfISOWeek, startOfMonth, startOfYear, formatISO } from 'date-fns';
+import { useGetAccomplishmentAndMessageQuery } from '../../types/graphql';
 import { Box, Loader } from '../../ui';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
-import { startOfISOWeek, startOfMonth, startOfYear, formatISO } from 'date-fns';
+import { AccomplishmentAndMessageCollection } from '../3collection';
 
 export const AccomplishmentAndMessage: FC = () => {
   const startWeek = formatISO(startOfISOWeek(new Date()));
@@ -29,10 +29,10 @@ export const AccomplishmentAndMessage: FC = () => {
   if (loading) {
     return <Loader />;
   }
-  if (error) {
+  if (error || !data) {
     return <ErrorMessage />;
   }
-  if (!data) {
+  if (data.users.length === 0) {
     return <NoDataMessage />;
   }
 

@@ -69,10 +69,10 @@ export const CategorySetting: FC = () => {
   if (loading) {
     return <ScreenLoader />;
   }
-  if (error) {
+  if (error || !data) {
     return <ErrorMessage />;
   }
-  if (!data) {
+  if (data.categories.length === 0) {
     return <NoDataMessage />;
   }
 

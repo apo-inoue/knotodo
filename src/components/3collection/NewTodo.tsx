@@ -14,7 +14,14 @@ type NewTodoProps = {
     Categories,
     'category' | 'id'
   >)[];
-  onPress: ({ title, urgency, workload }: InsertToDoMutationVariables) => void;
+  onPress: ({
+    title,
+    urgency,
+    workload,
+    isToday,
+    isCompleted,
+    category_id,
+  }: InsertToDoMutationVariables) => void;
 };
 
 export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
@@ -22,18 +29,27 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   const [error, setError] = useState<string>('');
   const {
     newTodo: {
-      state: { title, urgency, workload, isToday, isCompleted },
+      state: { title, urgency, workload, isToday, isCompleted, category_id },
       todoClearHandler,
       titleInputHandler,
       workloadSelectHandler,
       urgencySelectHandler,
+      categorySelectHandler,
     },
   } = useTodoCtx();
+  const category: string = category_id === '' ? categories[0].id : category_id;
   const insertAndNavigateHandler = () => {
     if (title === '') {
       setError('入力してください');
     } else {
-      onPress({ title, urgency, workload, isToday, isCompleted });
+      onPress({
+        title,
+        urgency,
+        workload,
+        isToday,
+        isCompleted,
+        category_id: category,
+      });
       navigation.goBack();
     }
   };
@@ -65,7 +81,11 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
         />
       </Box>
       <Box>
-        <CategoriesPicker categories={categories} />
+        <CategoriesPicker
+          categories={categories}
+          category_id={category_id}
+          categorySelectHandler={categorySelectHandler}
+        />
       </Box>
       <Box mt={4} flexDirection="row">
         <PrimaryButton

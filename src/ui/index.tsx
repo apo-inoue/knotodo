@@ -18,7 +18,7 @@ export { TextInput } from './input/TextInput';
 export {
   OutlinedTextInput,
   UnderlinedTextInput,
-} from './input/OutlinedTextInput';
+} from './input/StyledTextInput';
 export { OutlinedTextForm, UnderlinedTextForm } from './input/TextForm';
 export { RadioButton } from './input/RadioButton';
 export { CheckBox } from './input/CheckBox';

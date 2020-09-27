@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
-import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
+import { PrimaryButton, Box, UnderlinedTextForm, Picker } from '../../ui';
+import { Categories, UpdateTodoMutationVariables } from '../../types/graphql';
 import {
   CategoriesPicker,
   TodoUrgencySelect,
   TodoWorkloadSelect,
 } from '../2single';
+
 import { useTodoCtx } from '../../containers/contexts/todo';
 
 type EditTodoProps = {
@@ -14,7 +15,12 @@ type EditTodoProps = {
     Categories,
     'category' | 'id'
   >)[];
-  onPress: ({ title, urgency, workload }: InsertToDoMutationVariables) => void;
+  onPress: ({
+    id,
+    title,
+    urgency,
+    workload,
+  }: UpdateTodoMutationVariables) => void;
 };
 
 export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
@@ -22,12 +28,29 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
   const [error, setError] = useState<string>('');
   const {
     editTodo: {
-      state: { title, urgency, workload },
+      state: { id, title, urgency, workload, category_id },
       titleInputHandler,
       workloadSelectHandler,
       urgencySelectHandler,
+      categorySelectHandler,
     },
   } = useTodoCtx();
+  const category: string = category_id === '' ? categories[0].id : category_id;
+  const updateAndNavigateHandler = () => {
+    if (title === '') {
+      setError('入力してください');
+    } else {
+      onPress({
+        id: id,
+        title: title,
+        urgency: urgency,
+        workload: workload,
+        category_id: category,
+      });
+      navigation.goBack();
+    }
+  };
+  console.log(workload, 'load', id, title);
 
   return (
     <>
@@ -52,7 +75,11 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
         />
       </Box>
       <Box>
-        <CategoriesPicker categories={categories} />
+        <CategoriesPicker
+          categories={categories}
+          category_id={category_id}
+          categorySelectHandler={categorySelectHandler}
+        />
       </Box>
       <Box mt={4} flexDirection="row">
         <PrimaryButton
@@ -69,7 +96,7 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
           width="30%"
           stretch
           text="保存"
-          onPress={() => onPress({ title, urgency, workload })}
+          onPress={updateAndNavigateHandler}
         />
       </Box>
     </>

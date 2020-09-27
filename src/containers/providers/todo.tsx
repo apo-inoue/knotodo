@@ -7,7 +7,7 @@ export const TodoProvider: FC = ({ children }) => {
   const initialTodo: TodoState = {
     title: '',
     urgency: 'week',
-    category: '',
+    category_id: '',
     workload: 1,
     isToday: false,
     isCompleted: false,
@@ -25,7 +25,7 @@ export const TodoProvider: FC = ({ children }) => {
     isToday: boolean;
     isCompleted: boolean;
   }) => {
-    return setNewTodo({ ...newTodo, isToday, isCompleted });
+    return setNewTodo({ ...initialTodo, isToday, isCompleted });
   };
   const newTodoClearHandler = () => {
     setNewTodo(initialTodo);
@@ -36,8 +36,8 @@ export const TodoProvider: FC = ({ children }) => {
   const newTodoUrgencySelectHandler = (urgency: Urgency_Enum) => {
     return setNewTodo({ ...newTodo, urgency });
   };
-  const newTodoCategorySelectHandler = (category: string) => {
-    return setNewTodo({ ...newTodo, category });
+  const newTodoCategorySelectHandler = (category_id: string) => {
+    return setNewTodo({ ...newTodo, category_id });
   };
   const newTodoWorkloadSelectHandler = (workload: number) => {
     return setNewTodo({ ...newTodo, workload });
@@ -47,13 +47,13 @@ export const TodoProvider: FC = ({ children }) => {
     return setEditTodo(todo);
   };
   const editTodoTitleInputHandler = (title: string) => {
-    return setNewTodo({ ...editTodo, title });
+    return setEditTodo({ ...editTodo, title });
   };
   const editTodoUrgencySelectHandler = (urgency: Urgency_Enum) => {
     return setEditTodo({ ...editTodo, urgency });
   };
-  const editTodoCategorySelectHandler = (category: string) => {
-    return setEditTodo({ ...editTodo, category });
+  const editTodoCategorySelectHandler = (category_id: string) => {
+    return setEditTodo({ ...editTodo, category_id });
   };
   const editTodoWorkloadSelectHandler = (workload: number) => {
     return setEditTodo({ ...editTodo, workload });
