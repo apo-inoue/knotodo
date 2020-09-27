@@ -17,7 +17,7 @@ export const ColorProvider: FC = ({ children }) => {
   const [color, setColor] = useState<ColorTypes_Enum>('BRAND');
 
   const { data } = useGetColorTypeQuery();
-  const fetchedColorType = data?.users[0].color_type;
+  const fetchedColorType = data?.users[0]?.color_type ?? 'BRAND';
   const fetchedColorPalette =
     fetchedColorType &&
     colorConstants.find(colorConstant => {

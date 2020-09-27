@@ -1566,6 +1566,37 @@ export type DeleteCategoryMutation = (
   )> }
 );
 
+export type SeedDataCategoryMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SeedDataCategoryMutation = (
+  { __typename: 'mutation_root' }
+  & { insert_categories: Maybe<(
+    { __typename: 'categories_mutation_response' }
+    & { returning: Array<(
+      { __typename: 'categories' }
+      & Pick<Categories, 'id'>
+    )> }
+  )> }
+);
+
+export type SeedDataTodoMutationVariables = Exact<{
+  category_id_work: Maybe<Scalars['uuid']>;
+  category_id_private: Maybe<Scalars['uuid']>;
+}>;
+
+
+export type SeedDataTodoMutation = (
+  { __typename: 'mutation_root' }
+  & { insert_todos: Maybe<(
+    { __typename: 'todos_mutation_response' }
+    & { returning: Array<(
+      { __typename: 'todos' }
+      & Pick<Todos, 'id'>
+    )> }
+  )> }
+);
+
 export type InsertToDoMutationVariables = Exact<{
   title?: Maybe<Scalars['String']>;
   urgency?: Maybe<Urgency_Enum>;
@@ -1956,6 +1987,74 @@ export function useDeleteCategoryMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteCategoryMutationHookResult = ReturnType<typeof useDeleteCategoryMutation>;
 export type DeleteCategoryMutationResult = Apollo.MutationResult<DeleteCategoryMutation>;
 export type DeleteCategoryMutationOptions = Apollo.BaseMutationOptions<DeleteCategoryMutation, DeleteCategoryMutationVariables>;
+export const SeedDataCategoryDocument = gql`
+    mutation SeedDataCategory {
+  insert_categories(objects: [{category: "仕事"}, {category: "プライベート"}]) {
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type SeedDataCategoryMutationFn = Apollo.MutationFunction<SeedDataCategoryMutation, SeedDataCategoryMutationVariables>;
+
+/**
+ * __useSeedDataCategoryMutation__
+ *
+ * To run a mutation, you first call `useSeedDataCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSeedDataCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [seedDataCategoryMutation, { data, loading, error }] = useSeedDataCategoryMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSeedDataCategoryMutation(baseOptions?: Apollo.MutationHookOptions<SeedDataCategoryMutation, SeedDataCategoryMutationVariables>) {
+        return Apollo.useMutation<SeedDataCategoryMutation, SeedDataCategoryMutationVariables>(SeedDataCategoryDocument, baseOptions);
+      }
+export type SeedDataCategoryMutationHookResult = ReturnType<typeof useSeedDataCategoryMutation>;
+export type SeedDataCategoryMutationResult = Apollo.MutationResult<SeedDataCategoryMutation>;
+export type SeedDataCategoryMutationOptions = Apollo.BaseMutationOptions<SeedDataCategoryMutation, SeedDataCategoryMutationVariables>;
+export const SeedDataTodoDocument = gql`
+    mutation SeedDataTodo($category_id_work: uuid, $category_id_private: uuid) {
+  insert_todos(objects: [{title: "例) 第一四半期決算の締め処理", urgency: week, workload: 5, isToday: true, isCompleted: false, category_id: $category_id_work}, {title: "例) ケーキを買って帰る", urgency: week, workload: 1, isToday: true, isCompleted: false, category_id: $category_id_private}]) {
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type SeedDataTodoMutationFn = Apollo.MutationFunction<SeedDataTodoMutation, SeedDataTodoMutationVariables>;
+
+/**
+ * __useSeedDataTodoMutation__
+ *
+ * To run a mutation, you first call `useSeedDataTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSeedDataTodoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [seedDataTodoMutation, { data, loading, error }] = useSeedDataTodoMutation({
+ *   variables: {
+ *      category_id_work: // value for 'category_id_work'
+ *      category_id_private: // value for 'category_id_private'
+ *   },
+ * });
+ */
+export function useSeedDataTodoMutation(baseOptions?: Apollo.MutationHookOptions<SeedDataTodoMutation, SeedDataTodoMutationVariables>) {
+        return Apollo.useMutation<SeedDataTodoMutation, SeedDataTodoMutationVariables>(SeedDataTodoDocument, baseOptions);
+      }
+export type SeedDataTodoMutationHookResult = ReturnType<typeof useSeedDataTodoMutation>;
+export type SeedDataTodoMutationResult = Apollo.MutationResult<SeedDataTodoMutation>;
+export type SeedDataTodoMutationOptions = Apollo.BaseMutationOptions<SeedDataTodoMutation, SeedDataTodoMutationVariables>;
 export const InsertToDoDocument = gql`
     mutation InsertToDo($title: String = "", $urgency: urgency_enum = month, $workload: Int = 1, $isToday: Boolean = true, $isCompleted: Boolean = false, $category_id: uuid) {
   insert_todos_one(object: {isCompleted: $isCompleted, isToday: $isToday, title: $title, urgency: $urgency, workload: $workload, category_id: $category_id}) {
