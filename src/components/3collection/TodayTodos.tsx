@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useNavigation } from '@react-navigation/native';
@@ -23,9 +23,15 @@ type TodayTodos = {
   todos: TodoType[];
   onPress: (id: string) => void;
   onPostpone: (id: string) => void;
+  onDelete: (id: string) => void;
 };
 
-export const TodayTodos: FC<TodayTodos> = ({ todos, onPress, onPostpone }) => {
+export const TodayTodos: FC<TodayTodos> = ({
+  todos,
+  onPress,
+  onPostpone,
+  onDelete,
+}) => {
   const navigation = useNavigation();
   const {
     newTodo: { todoMountHandler },
@@ -34,12 +40,28 @@ export const TodayTodos: FC<TodayTodos> = ({ todos, onPress, onPostpone }) => {
     todoMountHandler({ isToday: true, isCompleted: false });
     navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
+
+  const [isScrollable, setIsScrollable] = useState<boolean>(true);
+  const disableScrollHandler = () => {
+    setIsScrollable(false);
+  };
+  const enableScrollHandler = () => {
+    setIsScrollable(true);
+  };
+
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
     const isLastRow = todos.length - 1 === rowData.index;
     const todo = rowData.item;
     return (
       <Box>
-        <TodayTodoSwipe todo={todo} onPress={onPress} onPostpone={onPostpone} />
+        <TodayTodoSwipe
+          todo={todo}
+          onPress={onPress}
+          onPostpone={onPostpone}
+          onDelete={onDelete}
+          disableScrollHandler={disableScrollHandler}
+          enableScrollHandler={enableScrollHandler}
+        />
         <Box width="100%" />
         <Divider width="100%" />
         {/* // NOTE: FABが重なって押しにくくなるのを避けるため余白を追加する */}
@@ -57,6 +79,7 @@ export const TodayTodos: FC<TodayTodos> = ({ todos, onPress, onPostpone }) => {
           renderItem={renderItem}
           leftOpenValue={75}
           rightOpenValue={-150}
+          scrollEnabled={isScrollable}
         />
       </Box>
       <AddFab onPress={mountAndNavigateHandler} />

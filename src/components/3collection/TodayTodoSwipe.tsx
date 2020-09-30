@@ -6,18 +6,30 @@ import { TodoListItem, SwipeTodo } from '../2single';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'
+  | 'title'
+  | 'id'
+  | 'urgency'
+  | 'workload'
+  | 'isToday'
+  | 'isCompleted'
+  | 'category_id'
 >;
 type TodayTodoSwipeProps = {
   todo: TodoType;
   onPress: (id: string) => void;
   onPostpone: (id: string) => void;
+  onDelete: (id: string) => void;
+  disableScrollHandler: () => void;
+  enableScrollHandler: () => void;
 };
 
 export const TodayTodoSwipe: FC<TodayTodoSwipeProps> = ({
   todo,
   onPress,
   onPostpone,
+  onDelete,
+  disableScrollHandler,
+  enableScrollHandler,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const onPressEffectHandler = () => {
@@ -31,13 +43,17 @@ export const TodayTodoSwipe: FC<TodayTodoSwipeProps> = ({
 
   return (
     <SlideUpOutView isOut={isPressed}>
-      <SwipeRow rightOpenValue={-100}>
+      <SwipeRow
+        rightOpenValue={-200}
+        onRowOpen={disableScrollHandler}
+        onRowDidClose={enableScrollHandler}>
         <Box pl={4} flexDirection="row" flex={1} alignItems="center">
           <Box flexDirection="column" alignItems="flex-end" width="100%">
             <SwipeTodo
               todo={todo}
               onPress={onPostponeEffectHandler}
               btnText="NotToday"
+              onDelete={onDelete}
             />
           </Box>
         </Box>

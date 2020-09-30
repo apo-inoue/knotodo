@@ -19,6 +19,7 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
   onUpdate,
 }) => {
   const theme = useTheme();
+  const [error, setError] = useState<string>('');
   const [editCategory, setEditCategory] = useState<string>(category.category);
   const editCategoryInputHandler = (text: string) => {
     setEditCategory(text);
@@ -28,8 +29,12 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
     setIsEditMode(!isEditMode);
   };
   const onUpdateHandler = () => {
-    onUpdate(category.id, editCategory);
-    isEditModeToggler();
+    if (editCategory === '') {
+      setError('入力してください');
+    } else {
+      onUpdate(category.id, editCategory);
+      isEditModeToggler();
+    }
   };
 
   return (
@@ -41,12 +46,15 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
               {category.category}
             </Text>
           ) : (
-            <UnderlinedTextForm
-              placeholder="タイトル"
-              error={null}
-              onChangeText={editCategoryInputHandler}
-              value={editCategory}
-            />
+            <Box flexDirection="column">
+              <UnderlinedTextForm
+                placeholder="タイトル"
+                err={error}
+                onChangeText={editCategoryInputHandler}
+                value={editCategory}
+              />
+              <Text>{error}</Text>
+            </Box>
           )}
         </Box>
         <Box

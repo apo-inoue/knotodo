@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { Text, Touchable, CheckBox } from '../../ui';
+import { Text, Touchable, CheckBox, Box } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
-import { Box } from '../../ui/layout/Box';
 
 type CategorySelectItemProps = {
   category: { __typename: 'categories' } & Pick<Categories, 'category' | 'id'>;
@@ -14,20 +13,14 @@ export const CategorySelectItem: FC<CategorySelectItemProps> = ({
   const {
     filter: {
       filterState,
-      isAll,
-      isAllToggler,
+      filterState: { isAll },
       checkOnHandler,
       checkOffHandler,
     },
   } = useSortFilterCtx();
   const isChecked = filterState.categoryIds.includes(category.id);
   const onToggleCheckBox = () => {
-    if (isAll) {
-      isAllToggler();
-      isChecked ? checkOffHandler(category.id) : checkOnHandler(category.id);
-    } else {
-      isChecked ? checkOffHandler(category.id) : checkOnHandler(category.id);
-    }
+    isChecked ? checkOffHandler(category.id) : checkOnHandler(category.id);
   };
 
   return (
@@ -39,7 +32,7 @@ export const CategorySelectItem: FC<CategorySelectItemProps> = ({
           </Text>
         </Box>
         <Box width={50} flexDirection="row" my="auto" justifyContent="flex-end">
-          <CheckBox checked={isChecked || isAll} onPress={onToggleCheckBox} />
+          <CheckBox checked={isAll || isChecked} onPress={onToggleCheckBox} />
         </Box>
       </Box>
     </Touchable>

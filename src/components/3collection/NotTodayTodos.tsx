@@ -1,12 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { ListRenderItemInfo } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { Box, Divider } from '../../ui';
 import { Todos } from '../../types/graphql';
 import { AddFab } from '../1standalone/AddFab';
-import { useNavigation } from '@react-navigation/native';
-import { Box, Divider } from '../../ui';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
-import { SwipeListView } from 'react-native-swipe-list-view';
-import { ListRenderItemInfo } from 'react-native';
 import { NotTodayTodoSwipe } from './NotTodayTodoSwipe';
+import { useTodoCtx } from '../../containers/contexts/todo';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
@@ -22,14 +23,32 @@ type NotTodayTodos = {
   todos: TodoType[];
   onPress: (id: string) => void;
   onComplete: (id: string) => void;
+  onDelete: (id: string) => void;
 };
 
 export const NotTodayTodos: FC<NotTodayTodos> = ({
   todos,
   onPress,
   onComplete,
+  onDelete,
 }) => {
   const navigation = useNavigation();
+  const {
+    newTodo: { todoMountHandler },
+  } = useTodoCtx();
+  const mountAndNavigateHandler = () => {
+    todoMountHandler({ isToday: false, isCompleted: false });
+    navigation.navigate(STACK_ROUTE_NAMES.新規作成);
+  };
+
+  const [isScrollable, setIsScrollable] = useState<boolean>(true);
+  const disableScrollHandler = () => {
+    setIsScrollable(false);
+  };
+  const enableScrollHandler = () => {
+    setIsScrollable(true);
+  };
+
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
     const isLastRow = todos.length - 1 === rowData.index;
     const todo = rowData.item;
@@ -39,6 +58,9 @@ export const NotTodayTodos: FC<NotTodayTodos> = ({
           todo={todo}
           onPress={onPress}
           onComplete={onComplete}
+          onDelete={onDelete}
+          disableScrollHandler={disableScrollHandler}
+          enableScrollHandler={enableScrollHandler}
         />
         <Box width="100%" />
         <Divider width="100%" />
@@ -57,9 +79,10 @@ export const NotTodayTodos: FC<NotTodayTodos> = ({
           renderItem={renderItem}
           leftOpenValue={75}
           rightOpenValue={-150}
+          scrollEnabled={isScrollable}
         />
       </Box>
-      <AddFab onPress={() => navigation.navigate(STACK_ROUTE_NAMES.新規作成)} />
+      <AddFab onPress={mountAndNavigateHandler} />
     </>
   );
 };

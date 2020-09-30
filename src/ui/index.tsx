@@ -1,6 +1,7 @@
 // react-nativeをStyledComponentsで拡張したもの
 export { Container } from './layout/Container';
 export { Box } from './layout/Box';
+export { KeyboardAvoid } from './layout/KeyboardAvoid';
 export { Grid } from './layout/Grid';
 export { Flex } from './layout/Flex';
 export { Card } from './layout/Card';

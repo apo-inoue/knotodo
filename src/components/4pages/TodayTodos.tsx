@@ -13,16 +13,17 @@ import { TODAY_TODOS } from '../../graphql/query/todos';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { useTodoCtx } from '../../containers/contexts/todo';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
+import { useDeleteToDoMutation } from '../../types/graphql';
 
 export const TodayTodos: FC = () => {
   const navigation = useNavigation();
   const {
     sort: { sortState },
     filter: {
-      filterState: { categoryIds },
+      filterState: { isAll, categoryIds },
     },
   } = useSortFilterCtx();
-  const categoryIdsVariables = categoryIds.length === 0 ? null : categoryIds;
+  const categoryIdsVariables = isAll ? null : categoryIds;
   const { loading, error, data, refetch } = useTodayTodosQuery({
     variables: {
       [sortState.key]: sortState.order,
@@ -89,6 +90,32 @@ export const TodayTodos: FC = () => {
     todoMountHandler({ isToday: true, isCompleted: false });
     navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
+  // ---------- delete ----------
+  const [deleteToDo] = useDeleteToDoMutation({
+    update(cache, { data: updateData }) {
+      const existingTodos = cache.readQuery<TodayTodosQuery>({
+        query: TODAY_TODOS,
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
+      });
+      const newTodos = existingTodos!.todos.filter(
+        t => t.id !== updateData!.update_todos!.returning[0].id,
+      );
+      cache.writeQuery<TodayTodosQuery>({
+        query: TODAY_TODOS,
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
+        data: { __typename: 'query_root', todos: newTodos },
+      });
+    },
+  });
+  const deleteToDoHandler = (id: string) => {
+    deleteToDo({ variables: { _eq: id } });
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -112,6 +139,7 @@ export const TodayTodos: FC = () => {
         todos={data.todos}
         onPress={completeTodoHandler}
         onPostpone={setNotTodayHandler}
+        onDelete={deleteToDoHandler}
       />
     </Container>
   );
