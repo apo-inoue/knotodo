@@ -1,5 +1,12 @@
 import React, { FC, useState } from 'react';
-import { Box, Text, UnderlinedTextForm, PrimaryButton } from '../../ui';
+import Constants from 'expo-constants';
+import {
+  Box,
+  Text,
+  UnderlinedTextForm,
+  PrimaryButton,
+  KeyboardAvoid,
+} from '../../ui';
 import { useTheme } from 'styled-components';
 
 type MessageSettingProps = {
@@ -26,7 +33,13 @@ export const MessageSetting: FC<MessageSettingProps> = ({
   };
 
   return (
-    <Box width="100%">
+    <KeyboardAvoid
+      width="100%"
+      behavior="padding"
+      flex="1 1"
+      justifyContent="center"
+      alignItems="center"
+      keyboardVerticalOffset={50 + Constants.statusBarHeight}>
       <Text textAlign="center" color={theme.colors.blacks[7]}>
         今のヒトコト
       </Text>
@@ -38,7 +51,13 @@ export const MessageSetting: FC<MessageSettingProps> = ({
         value={value}
       />
       <Text color={theme.colors.danger}>{error}</Text>
-      <PrimaryButton variant="contained" text="更新" onPress={onPressHandler} />
-    </Box>
+      <PrimaryButton
+        width="100%"
+        stretch
+        variant="contained"
+        text="更新"
+        onPress={onPressHandler}
+      />
+    </KeyboardAvoid>
   );
 };

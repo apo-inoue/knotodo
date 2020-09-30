@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Keyboard } from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Box } from '../../ui';
@@ -16,7 +17,10 @@ export const HeaderIconLeft: FC = () => {
         name="menu"
         size={24}
         color={theme.colors.white}
-        onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+        onPress={() => {
+          navigation.dispatch(DrawerActions.toggleDrawer());
+          Keyboard.dismiss();
+        }}
       />
     </Box>
   );
@@ -33,7 +37,7 @@ export const HeaderIconsRight: FC<HeaderIconsRightProps> = ({
 }) => {
   const theme = useTheme();
   const {
-    filter: { isAll },
+    filter: { filterState: isAll },
   } = useSortFilterCtx();
 
   return (
