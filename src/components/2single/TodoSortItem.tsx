@@ -21,11 +21,11 @@ export const TodoSortItem: FC<TodoSortItemProps> = ({
     sort: { selectSortHandler },
   } = useSortFilterCtx();
   const onPressDesc = () => {
-    selectSortHandler({ key: sortItem.value, order: 'desc' });
+    selectSortHandler(sortItem.value, 'desc');
     sortModalToggler();
   };
   const onPressAsc = () => {
-    selectSortHandler({ key: sortItem.value, order: 'asc' });
+    selectSortHandler(sortItem.value, 'asc');
     sortModalToggler();
   };
 

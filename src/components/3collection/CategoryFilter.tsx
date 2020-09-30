@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Switch } from 'react-native';
 import { useTheme } from 'styled-components';
 import { PrimaryButton, Box, Text, FlatList, Divider } from '../../ui';
@@ -22,13 +22,11 @@ export const CategoryFilter: FC<CategoryProps> = ({
 }) => {
   const theme = useTheme();
   const {
-    filter: { mountFilterHandler, cancelFilterHandler, isAll, isAllToggler },
+    filter: {
+      filterState: { isAll },
+      isAllToggler,
+    },
   } = useSortFilterCtx();
-  const onPressCancelHandler = () => {
-    cancelFilterHandler();
-    filterModalToggler();
-  };
-  useEffect(() => mountFilterHandler, [mountFilterHandler]);
 
   return (
     <>
@@ -57,23 +55,13 @@ export const CategoryFilter: FC<CategoryProps> = ({
           </Box>
         )}
       />
-      <Box flexDirection="row" width="100%" justifyContent="center" mt={4}>
-        <PrimaryButton
-          variant="outlined"
-          width="40%"
-          stretch
-          onPress={onPressCancelHandler}
-          text="キャンセル"
-        />
-        <Box mr={3} />
-        <PrimaryButton
-          variant="contained"
-          width="40%"
-          stretch
-          onPress={filterModalToggler}
-          text="絞り込み"
-        />
-      </Box>
+      <PrimaryButton
+        variant="contained"
+        width="100%"
+        stretch
+        onPress={filterModalToggler}
+        text="OK"
+      />
     </>
   );
 };

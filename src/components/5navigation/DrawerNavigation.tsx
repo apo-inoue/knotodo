@@ -9,20 +9,45 @@ import { TabNavigation } from './TabNavigation';
 import {
   DrawerContentScrollView,
   DrawerItemList,
+  DrawerItem,
 } from '@react-navigation/drawer';
-import { AccomplishmentAndMessage, CategorySetting, Color } from '../4pages';
+import {
+  AccomplishmentAndMessage,
+  CategorySetting,
+  Color,
+  MessageSetting,
+} from '../4pages';
 import { DrawerIcon } from '../1standalone';
 import { DRAWER_ROUTE_NAMES } from './type';
-import { MessageSetting } from '../4pages/MessageSetting';
+import { useAuthContext } from '../../containers/contexts/auth';
+import { Box } from '../../ui';
 
 const CustomDrawerContent: FC<DrawerContentComponentProps<
   DrawerContentOptions
 >> = props => {
+  const theme = useTheme();
+  const { handleLogOut } = useAuthContext();
+
   return (
-    <DrawerContentScrollView {...props}>
-      <AccomplishmentAndMessage />
-      <DrawerItemList {...props} />
-    </DrawerContentScrollView>
+    <Box width="100%" height="100%">
+      <Box flexDirection="column" flex={1} height="80%">
+        <DrawerContentScrollView {...props}>
+          <AccomplishmentAndMessage />
+          <DrawerItemList {...props} />
+        </DrawerContentScrollView>
+      </Box>
+      <Box>
+        <DrawerItem
+          label={DRAWER_ROUTE_NAMES.ログアウト}
+          onPress={handleLogOut}
+          activeTintColor={theme.colors.main}
+          inactiveTintColor={theme.colors.blacks[6]}
+          icon={({ color }: { color: string }) => (
+            <DrawerIcon drawerName="logout" color={color} />
+          )}
+        />
+      </Box>
+    </Box>
   );
 };
 
@@ -38,7 +63,7 @@ export const DrawerNavigation: FC = () => {
       ) => <CustomDrawerContent {...props} />}
       drawerContentOptions={{
         activeTintColor: theme.colors.main,
-        inactiveTintColor: theme.colors.blacks[4],
+        inactiveTintColor: theme.colors.blacks[6],
       }}>
       <Drawer.Screen
         name={DRAWER_ROUTE_NAMES.ホーム}

@@ -1,8 +1,8 @@
 import React, { FC, useMemo } from 'react';
+import { useTheme } from 'styled-components';
 import { Box, Text } from '../../ui';
 import { GetAccomplishmentAndMessageQuery } from '../../types/graphql';
 import { prizeReckoner } from '../../helpers/prizeReckoner';
-import { useTheme } from 'styled-components';
 
 type AccomplishmentAndMessageProps = {
   accomplishmentAndMessage: GetAccomplishmentAndMessageQuery;
@@ -64,7 +64,7 @@ export const AccomplishmentAndMessage: FC<AccomplishmentAndMessageProps> = ({
         <Text textAlign="center" color={theme.colors.blacks[7]}>
           ヒトコト
         </Text>
-        <Text textAlign="center">{message}</Text>
+        <Text textAlign="center">{message ? message : '未設定'}</Text>
       </Box>
     </Box>
   );

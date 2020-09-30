@@ -20,10 +20,10 @@ export const ArchiveTodos: FC = () => {
   const {
     sort: { sortState },
     filter: {
-      filterState: { categoryIds },
+      filterState: { isAll, categoryIds },
     },
   } = useSortFilterCtx();
-  const categoryIdsVariables = categoryIds.length === 0 ? null : categoryIds;
+  const categoryIdsVariables = isAll ? null : categoryIds;
   const { loading, error, data, refetch } = useCompletedTodosQuery({
     variables: { [sortState.key]: sortState.order, _in: categoryIdsVariables },
   });
