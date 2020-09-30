@@ -12,23 +12,12 @@ export const SortFilterProvider: FC = ({ children }) => {
     isAll: true,
     categoryIds: [],
   });
-  const [filterStateCopy, setFilterStateCopy] = useState<FilterState>({
-    ...filterState,
-    categoryIds: [],
-  });
 
   const selectSortHandler = (
     key: keyof TodayTodosQueryVariables,
     order: Order_By,
   ) => {
     setSortState({ key, order });
-  };
-
-  const mountFilterHandler = () => {
-    setFilterStateCopy(filterState);
-  };
-  const cancelFilterHandler = () => {
-    setFilterState(filterStateCopy);
   };
   const isAllToggler = () => {
     setFilterState({ isAll: !filterState.isAll, categoryIds: [] });
@@ -54,8 +43,6 @@ export const SortFilterProvider: FC = ({ children }) => {
     },
     filter: {
       filterState,
-      mountFilterHandler,
-      cancelFilterHandler,
       isAllToggler,
       checkOnHandler,
       checkOffHandler,

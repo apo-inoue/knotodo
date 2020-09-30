@@ -20,8 +20,6 @@ export type SortFilterCtxType = {
   };
   filter: {
     filterState: FilterState;
-    mountFilterHandler: () => void;
-    cancelFilterHandler: () => void;
     isAllToggler: () => void;
     checkOnHandler: (categoryId: string) => void;
     checkOffHandler: (categoryId: string) => void;

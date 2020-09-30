@@ -8,6 +8,7 @@ import {
   TodoWorkloadSelect,
 } from '../2single';
 import { useTodoCtx } from '../../containers/contexts/todo';
+import { useTheme } from 'styled-components';
 
 type NewTodoProps = {
   categories: ({ __typename: 'categories' } & Pick<
@@ -25,6 +26,7 @@ type NewTodoProps = {
 };
 
 export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
+  const theme = useTheme();
   const navigation = useNavigation();
   const [error, setError] = useState<string>('');
   const {

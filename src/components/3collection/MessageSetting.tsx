@@ -37,6 +37,7 @@ export const MessageSetting: FC<MessageSettingProps> = ({
         onChangeText={onChangeTextHandler}
         value={value}
       />
+      <Text color={theme.colors.danger}>{error}</Text>
       <PrimaryButton variant="contained" text="更新" onPress={onPressHandler} />
     </Box>
   );

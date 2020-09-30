@@ -24,16 +24,9 @@ export const CategoryFilter: FC<CategoryProps> = ({
   const {
     filter: {
       filterState: { isAll },
-      mountFilterHandler,
-      cancelFilterHandler,
       isAllToggler,
     },
   } = useSortFilterCtx();
-  const onPressCancelHandler = () => {
-    cancelFilterHandler();
-    filterModalToggler();
-  };
-  useEffect(() => mountFilterHandler, [mountFilterHandler]);
 
   return (
     <>
@@ -62,23 +55,13 @@ export const CategoryFilter: FC<CategoryProps> = ({
           </Box>
         )}
       />
-      <Box flexDirection="row" width="100%" justifyContent="center" mt={4}>
-        <PrimaryButton
-          variant="outlined"
-          width="40%"
-          stretch
-          onPress={onPressCancelHandler}
-          text="キャンセル"
-        />
-        <Box mr={3} />
-        <PrimaryButton
-          variant="contained"
-          width="40%"
-          stretch
-          onPress={filterModalToggler}
-          text="絞り込み"
-        />
-      </Box>
+      <PrimaryButton
+        variant="contained"
+        width="100%"
+        stretch
+        onPress={filterModalToggler}
+        text="OK"
+      />
     </>
   );
 };
