@@ -1,10 +1,9 @@
 import React, { FC, useState, useCallback } from 'react';
 import { FlatList } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { PrimaryButton, Box, Divider } from '../../ui';
+import { PrimaryButton, Box, Divider, UnderlinedTextForm } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { CategoryListItem } from '../2single';
-import { UnderlinedTextForm } from '../../ui/input/TextForm';
 import { useCategoryCtx } from '../../containers/contexts/category';
 
 type CategoryType = { __typename: 'categories' } & Pick<

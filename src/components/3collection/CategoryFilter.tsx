@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Switch } from 'react-native';
 import { useTheme } from 'styled-components';
 import { PrimaryButton, Box, Text, FlatList, Divider } from '../../ui';

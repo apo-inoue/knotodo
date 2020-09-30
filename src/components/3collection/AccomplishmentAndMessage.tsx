@@ -1,8 +1,8 @@
 import React, { FC, useMemo } from 'react';
+import { useTheme } from 'styled-components';
 import { Box, Text } from '../../ui';
 import { GetAccomplishmentAndMessageQuery } from '../../types/graphql';
 import { prizeReckoner } from '../../helpers/prizeReckoner';
-import { useTheme } from 'styled-components';
 
 type AccomplishmentAndMessageProps = {
   accomplishmentAndMessage: GetAccomplishmentAndMessageQuery;

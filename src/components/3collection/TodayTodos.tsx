@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useNavigation } from '@react-navigation/native';
@@ -40,6 +40,15 @@ export const TodayTodos: FC<TodayTodos> = ({
     todoMountHandler({ isToday: true, isCompleted: false });
     navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
+
+  const [isScrollable, setIsScrollable] = useState<boolean>(true);
+  const disableScrollHandler = () => {
+    setIsScrollable(false);
+  };
+  const enableScrollHandler = () => {
+    setIsScrollable(true);
+  };
+
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
     const isLastRow = todos.length - 1 === rowData.index;
     const todo = rowData.item;
@@ -50,6 +59,8 @@ export const TodayTodos: FC<TodayTodos> = ({
           onPress={onPress}
           onPostpone={onPostpone}
           onDelete={onDelete}
+          disableScrollHandler={disableScrollHandler}
+          enableScrollHandler={enableScrollHandler}
         />
         <Box width="100%" />
         <Divider width="100%" />
@@ -68,6 +79,7 @@ export const TodayTodos: FC<TodayTodos> = ({
           renderItem={renderItem}
           leftOpenValue={75}
           rightOpenValue={-150}
+          scrollEnabled={isScrollable}
         />
       </Box>
       <AddFab onPress={mountAndNavigateHandler} />

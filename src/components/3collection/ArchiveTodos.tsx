@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Box, Divider } from '../../ui';
@@ -28,6 +28,15 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({
   onRestoreToday,
   onRestoreNotToday,
 }) => {
+  const [isScrollable, setIsScrollable] = useState(true);
+  const enableScrollHandler = () => {
+    setIsScrollable(true);
+  };
+  const disableScrollHandler = () => {
+    setIsScrollable(false);
+  };
+  console.log(isScrollable);
+
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
     const isLastRow = todos.length - 1 === rowData.index;
     const todo = rowData.item;
@@ -38,6 +47,8 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({
           onPress={onPress}
           onRestoreToday={onRestoreToday}
           onRestoreNotToday={onRestoreNotToday}
+          enableScrollHandler={enableScrollHandler}
+          disableScrollHandler={disableScrollHandler}
         />
         <Divider width="100%" />
         {isLastRow && <Box mb={5} />}
@@ -54,6 +65,7 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({
           renderItem={renderItem}
           leftOpenValue={75}
           rightOpenValue={-250}
+          scrollEnabled={isScrollable}
         />
       </Box>
     </>

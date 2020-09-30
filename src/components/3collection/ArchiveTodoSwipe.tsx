@@ -19,6 +19,8 @@ type ArchiveTodoSwipeProps = {
   onPress: (id: string) => void;
   onRestoreToday: (id: string) => void;
   onRestoreNotToday: (id: string) => void;
+  enableScrollHandler: () => void;
+  disableScrollHandler: () => void;
 };
 
 export const ArchiveTodoSwipe: FC<ArchiveTodoSwipeProps> = ({
@@ -26,6 +28,8 @@ export const ArchiveTodoSwipe: FC<ArchiveTodoSwipeProps> = ({
   onPress,
   onRestoreToday,
   onRestoreNotToday,
+  enableScrollHandler,
+  disableScrollHandler,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const onPressEffectHandler = () => {
@@ -43,7 +47,10 @@ export const ArchiveTodoSwipe: FC<ArchiveTodoSwipeProps> = ({
 
   return (
     <SlideUpOutView isOut={isPressed}>
-      <SwipeRow rightOpenValue={-200}>
+      <SwipeRow
+        rightOpenValue={-200}
+        onRowOpen={disableScrollHandler}
+        onRowDidClose={enableScrollHandler}>
         <Box pl={4} flexDirection="row" flex={1} alignItems="center">
           <Box flexDirection="column" alignItems="flex-end" width="100%">
             <SwipeArchiveTodo

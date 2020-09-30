@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Box, PrimaryButton, SlideOutView } from '../../ui';
+import React, { FC } from 'react';
+import { Box, PrimaryButton } from '../../ui';
 import { Todos } from '../../types/graphql';
 
 type TodoType = { __typename: 'todos' } & Pick<
@@ -20,30 +20,25 @@ export const SwipeTodo: FC<SwipeTodoType> = ({
   btnText,
   onDelete,
 }) => {
-  const [isPressed, setIsPressed] = useState(false);
   const onDeleteHandler = () => {
     onDelete(todo.id);
-    setIsPressed(true);
   };
   const onPressHandler = () => {
     onPress(todo.id);
-    setIsPressed(true);
   };
 
   return (
-    <SlideOutView isOut={isPressed}>
-      <Box flexDirection="row">
-        <PrimaryButton
-          variant="outlined"
-          text="Today"
-          onPress={onDeleteHandler}
-        />
-        <PrimaryButton
-          variant="contained"
-          text={btnText}
-          onPress={onPressHandler}
-        />
-      </Box>
-    </SlideOutView>
+    <Box flexDirection="row">
+      <PrimaryButton
+        variant="outlined"
+        text="Delete"
+        onPress={onDeleteHandler}
+      />
+      <PrimaryButton
+        variant="contained"
+        text={btnText}
+        onPress={onPressHandler}
+      />
+    </Box>
   );
 };

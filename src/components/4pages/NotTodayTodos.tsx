@@ -23,10 +23,10 @@ export const NotTodayTodos: FC = () => {
   const {
     sort: { sortState },
     filter: {
-      filterState: { categoryIds },
+      filterState: { isAll, categoryIds },
     },
   } = useSortFilterCtx();
-  const categoryIdsVariables = categoryIds.length === 0 ? null : categoryIds;
+  const categoryIdsVariables = isAll ? null : categoryIds;
   const { loading, error, data, refetch } = useNotTodayTodosQuery({
     variables: { [sortState.key]: sortState.order, _in: categoryIdsVariables },
   });
@@ -45,7 +45,10 @@ export const NotTodayTodos: FC = () => {
       );
       cache.writeQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
-        variables: { [sortState.key]: sortState.order },
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
@@ -58,14 +61,20 @@ export const NotTodayTodos: FC = () => {
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
-        variables: { [sortState.key]: sortState.order },
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
       cache.writeQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
-        variables: { [sortState.key]: sortState.order },
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },

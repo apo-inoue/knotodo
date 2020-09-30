@@ -1,15 +1,13 @@
 import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { PrimaryButton, Box, UnderlinedTextForm, Text } from '../../ui';
+import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
 import { Categories, UpdateTodoMutationVariables } from '../../types/graphql';
 import {
   CategoriesPicker,
   TodoUrgencySelect,
   TodoWorkloadSelect,
 } from '../2single';
-
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { useTheme } from 'styled-components';
 
 type EditTodoProps = {
   categories: ({ __typename: 'categories' } & Pick<
@@ -25,7 +23,6 @@ type EditTodoProps = {
 };
 
 export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
-  const theme = useTheme();
   const navigation = useNavigation();
   const [error, setError] = useState<string>('');
   const {
@@ -62,7 +59,6 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
           onChangeText={titleInputHandler}
           value={title}
         />
-        <Text color={theme.colors.danger}>{error}</Text>
       </Box>
       <Box mt={3}>
         <TodoWorkloadSelect

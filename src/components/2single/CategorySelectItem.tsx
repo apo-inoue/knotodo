@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { Text, Touchable, CheckBox } from '../../ui';
+import { Text, Touchable, CheckBox, Box } from '../../ui';
 import { Categories } from '../../types/graphql';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
-import { Box } from '../../ui/layout/Box';
 
 type CategorySelectItemProps = {
   category: { __typename: 'categories' } & Pick<Categories, 'category' | 'id'>;
@@ -15,7 +14,6 @@ export const CategorySelectItem: FC<CategorySelectItemProps> = ({
     filter: {
       filterState,
       filterState: { isAll },
-      isAllToggler,
       checkOnHandler,
       checkOffHandler,
     },

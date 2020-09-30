@@ -19,6 +19,8 @@ type TodayTodoSwipeProps = {
   onPress: (id: string) => void;
   onPostpone: (id: string) => void;
   onDelete: (id: string) => void;
+  disableScrollHandler: () => void;
+  enableScrollHandler: () => void;
 };
 
 export const TodayTodoSwipe: FC<TodayTodoSwipeProps> = ({
@@ -26,6 +28,8 @@ export const TodayTodoSwipe: FC<TodayTodoSwipeProps> = ({
   onPress,
   onPostpone,
   onDelete,
+  disableScrollHandler,
+  enableScrollHandler,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const onPressEffectHandler = () => {
@@ -39,7 +43,10 @@ export const TodayTodoSwipe: FC<TodayTodoSwipeProps> = ({
 
   return (
     <SlideUpOutView isOut={isPressed}>
-      <SwipeRow rightOpenValue={-200}>
+      <SwipeRow
+        rightOpenValue={-200}
+        onRowOpen={disableScrollHandler}
+        onRowDidClose={enableScrollHandler}>
         <Box pl={4} flexDirection="row" flex={1} alignItems="center">
           <Box flexDirection="column" alignItems="flex-end" width="100%">
             <SwipeTodo
