@@ -13,6 +13,10 @@ import { NotTodayTodosCollection } from '../3collection';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { useTodoCtx } from '../../containers/contexts/todo';
+import {
+  useDeleteToDoMutation,
+  CompletedTodosQuery,
+} from '../../types/graphql';
 
 export const NotTodayTodos: FC = () => {
   const navigation = useNavigation();
@@ -77,6 +81,32 @@ export const NotTodayTodos: FC = () => {
     todoMountHandler({ isToday: false, isCompleted: false });
     navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
+  // ---------- delete ----------
+  const [deleteToDo] = useDeleteToDoMutation({
+    update(cache, { data: updateData }) {
+      const existingTodos = cache.readQuery<NotTodayTodosQuery>({
+        query: NOT_TODAY_TODOS,
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
+      });
+      const newTodos = existingTodos!.todos.filter(
+        t => t.id !== updateData!.update_todos!.returning[0].id,
+      );
+      cache.writeQuery<CompletedTodosQuery>({
+        query: NOT_TODAY_TODOS,
+        variables: {
+          [sortState.key]: sortState.order,
+          _in: categoryIdsVariables,
+        },
+        data: { __typename: 'query_root', todos: newTodos },
+      });
+    },
+  });
+  const deleteToDoHandler = (id: string) => {
+    deleteToDo({ variables: { _eq: id } });
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -105,6 +135,7 @@ export const NotTodayTodos: FC = () => {
         todos={data.todos}
         onPress={setTodayHandler}
         onComplete={completeTodoHandler}
+        onDelete={deleteToDoHandler}
       />
     </Container>
   );

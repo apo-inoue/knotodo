@@ -23,9 +23,15 @@ type TodayTodos = {
   todos: TodoType[];
   onPress: (id: string) => void;
   onPostpone: (id: string) => void;
+  onDelete: (id: string) => void;
 };
 
-export const TodayTodos: FC<TodayTodos> = ({ todos, onPress, onPostpone }) => {
+export const TodayTodos: FC<TodayTodos> = ({
+  todos,
+  onPress,
+  onPostpone,
+  onDelete,
+}) => {
   const navigation = useNavigation();
   const {
     newTodo: { todoMountHandler },
@@ -39,7 +45,12 @@ export const TodayTodos: FC<TodayTodos> = ({ todos, onPress, onPostpone }) => {
     const todo = rowData.item;
     return (
       <Box>
-        <TodayTodoSwipe todo={todo} onPress={onPress} onPostpone={onPostpone} />
+        <TodayTodoSwipe
+          todo={todo}
+          onPress={onPress}
+          onPostpone={onPostpone}
+          onDelete={onDelete}
+        />
         <Box width="100%" />
         <Divider width="100%" />
         {/* // NOTE: FABが重なって押しにくくなるのを避けるため余白を追加する */}

@@ -6,18 +6,26 @@ import { TodoListItem, SwipeTodo } from '../2single';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'urgency' | 'workload' | 'isToday' | 'isCompleted'
+  | 'title'
+  | 'id'
+  | 'urgency'
+  | 'workload'
+  | 'isToday'
+  | 'isCompleted'
+  | 'category_id'
 >;
 type TodayTodoSwipeProps = {
   todo: TodoType;
   onPress: (id: string) => void;
   onPostpone: (id: string) => void;
+  onDelete: (id: string) => void;
 };
 
 export const TodayTodoSwipe: FC<TodayTodoSwipeProps> = ({
   todo,
   onPress,
   onPostpone,
+  onDelete,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const onPressEffectHandler = () => {
@@ -38,6 +46,7 @@ export const TodayTodoSwipe: FC<TodayTodoSwipeProps> = ({
               todo={todo}
               onPress={onPostponeEffectHandler}
               btnText="NotToday"
+              onDelete={onDelete}
             />
           </Box>
         </Box>

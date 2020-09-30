@@ -19,12 +19,14 @@ type NotTodayTodoSwipeProps = {
   todo: TodoType;
   onPress: (id: string) => void;
   onComplete: (id: string) => void;
+  onDelete: (id: string) => void;
 };
 
 export const NotTodayTodoSwipe: FC<NotTodayTodoSwipeProps> = ({
   todo,
   onPress,
   onComplete,
+  onDelete,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const onPressEffectHandler = () => {
@@ -45,6 +47,7 @@ export const NotTodayTodoSwipe: FC<NotTodayTodoSwipeProps> = ({
               todo={todo}
               onPress={onCompleteEffectHandler}
               btnText="Complete"
+              onDelete={onDelete}
             />
           </Box>
         </Box>

@@ -6,7 +6,7 @@ import { TodayTodosQueryVariables, Order_By } from '../../types/graphql';
 export const SortFilterProvider: FC = ({ children }) => {
   const [sortState, setSortState] = useState<SortState>({
     key: 'created_at',
-    order: 'asc',
+    order: 'desc',
   });
   const [filterState, setFilterState] = useState<FilterState>({
     categoryIds: [],
