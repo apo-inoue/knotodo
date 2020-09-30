@@ -20,10 +20,10 @@ export const TodayTodos: FC = () => {
   const {
     sort: { sortState },
     filter: {
-      filterState: { categoryIds },
+      filterState: { isAll, categoryIds },
     },
   } = useSortFilterCtx();
-  const categoryIdsVariables = categoryIds.length === 0 ? null : categoryIds;
+  const categoryIdsVariables = isAll ? null : categoryIds;
   const { loading, error, data, refetch } = useTodayTodosQuery({
     variables: {
       [sortState.key]: sortState.order,

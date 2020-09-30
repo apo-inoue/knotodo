@@ -14,7 +14,7 @@ export const CategorySelectItem: FC<CategorySelectItemProps> = ({
   const {
     filter: {
       filterState,
-      isAll,
+      filterState: { isAll },
       isAllToggler,
       checkOnHandler,
       checkOffHandler,
@@ -22,12 +22,7 @@ export const CategorySelectItem: FC<CategorySelectItemProps> = ({
   } = useSortFilterCtx();
   const isChecked = filterState.categoryIds.includes(category.id);
   const onToggleCheckBox = () => {
-    if (isAll) {
-      isAllToggler();
-      isChecked ? checkOffHandler(category.id) : checkOnHandler(category.id);
-    } else {
-      isChecked ? checkOffHandler(category.id) : checkOnHandler(category.id);
-    }
+    isChecked ? checkOffHandler(category.id) : checkOnHandler(category.id);
   };
 
   return (
@@ -39,7 +34,7 @@ export const CategorySelectItem: FC<CategorySelectItemProps> = ({
           </Text>
         </Box>
         <Box width={50} flexDirection="row" my="auto" justifyContent="flex-end">
-          <CheckBox checked={isChecked || isAll} onPress={onToggleCheckBox} />
+          <CheckBox checked={isAll || isChecked} onPress={onToggleCheckBox} />
         </Box>
       </Box>
     </Touchable>

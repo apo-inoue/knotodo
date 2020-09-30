@@ -22,7 +22,12 @@ export const CategoryFilter: FC<CategoryProps> = ({
 }) => {
   const theme = useTheme();
   const {
-    filter: { mountFilterHandler, cancelFilterHandler, isAll, isAllToggler },
+    filter: {
+      filterState: { isAll },
+      mountFilterHandler,
+      cancelFilterHandler,
+      isAllToggler,
+    },
   } = useSortFilterCtx();
   const onPressCancelHandler = () => {
     cancelFilterHandler();

@@ -40,7 +40,7 @@ export const NotTodayTodoSwipe: FC<NotTodayTodoSwipeProps> = ({
 
   return (
     <SlideUpOutView isOut={isPressed}>
-      <SwipeRow rightOpenValue={-100}>
+      <SwipeRow rightOpenValue={-200}>
         <Box pl={4} flexDirection="row" flex={1} alignItems="center">
           <Box flexDirection="column" alignItems="flex-end" width="100%">
             <SwipeTodo
