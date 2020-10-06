@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Keyboard } from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -27,18 +27,26 @@ export const HeaderIconLeft: FC = () => {
 };
 
 type HeaderIconsRightProps = {
+  isFiltered: boolean;
   onPressSort: () => void;
   onPressFilter: () => void;
 };
 
 export const HeaderIconsRight: FC<HeaderIconsRightProps> = ({
+  isFiltered,
   onPressSort,
   onPressFilter,
 }) => {
   const theme = useTheme();
   const {
-    filter: { filterState: isAll },
+    filter: {
+      filterState: { isAll },
+    },
   } = useSortFilterCtx();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const iconName = useMemo(() => (isAll ? 'filter' : 'filter-plus'), [
+    isFiltered,
+  ]);
 
   return (
     <Box flexDirection="row" mr={3}>
@@ -48,9 +56,10 @@ export const HeaderIconsRight: FC<HeaderIconsRightProps> = ({
         color={theme.colors.white}
         onPress={onPressSort}
       />
+      {console.log(isFiltered)}
       <Box mr={3} />
       <MaterialCommunityIcons
-        name={isAll ? 'filter' : 'filter-plus'}
+        name={iconName}
         size={24}
         color={theme.colors.white}
         onPress={onPressFilter}
