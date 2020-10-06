@@ -50,6 +50,7 @@ export const StackNavigation: FC = () => {
         }) => ({
           headerRight: () => (
             <HeaderIconsRight
+              isFiltered={!isFilterModalVisible}
               onPressSort={sortModalToggler}
               onPressFilter={filterModalToggler}
             />
