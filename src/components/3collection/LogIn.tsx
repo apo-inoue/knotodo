@@ -29,7 +29,7 @@ export const LogIn: FC<LogIn> = ({ onLogIn }) => {
         <Divider />
       </Box>
       <Text color={theme.colors.blacks[5]}>
-        Tomorrow never comes, it is alway today
+        Today or Not Today, this is a problem
       </Text>
       <Box mt={4}>
         <PrimaryButton

@@ -55,6 +55,7 @@ export const AuthProvider: FC = ({ children }) => {
   };
 
   const decodeToken = (token: string) => {
+    if (!token) return console.log('non!');
     const decodedToken: DecodedToken = jwtDecoder(token);
     const { nonce, sub, name, exp } = decodedToken;
 
