@@ -50,7 +50,6 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
         isCompleted,
         category_id: category,
       });
-      navigation.goBack();
     }
   };
   const cancelAndNavigateHandler = () => {

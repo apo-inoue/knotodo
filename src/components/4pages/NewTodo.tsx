@@ -7,10 +7,14 @@ import {
 } from '../../types/graphql';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { NewTodoCollection } from '../3collection';
+import { useNavigation } from '@react-navigation/native';
 
 export const NewTodo: FC = () => {
+  const navigation = useNavigation();
   const { data, loading, error } = useAllCategoryQuery();
-  const [insertTodo] = useInsertToDoMutation();
+  const [insertTodo] = useInsertToDoMutation({
+    onCompleted: () => navigation.goBack(),
+  });
   const insertTodoHandler = ({
     title,
     urgency,
