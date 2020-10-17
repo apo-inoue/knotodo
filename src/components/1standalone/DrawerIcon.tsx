@@ -1,25 +1,21 @@
 import React, { FC } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { DrawerRouteName, DRAWER_ROUTE_NAMES } from '../5navigation/type';
 
 type DrawerIconProps = {
-  drawerName:
-    | 'color'
-    | 'home'
-    | 'categorySetting'
-    | 'messageSetting'
-    | 'logout';
+  drawerName: DrawerRouteName;
   color: string;
 };
 
 export const DrawerIcon: FC<DrawerIconProps> = ({ drawerName, color }) => {
   const drawerNameToIconName = () => {
-    if (drawerName === 'color') {
+    if (drawerName === DRAWER_ROUTE_NAMES.カラー設定) {
       return 'invert-colors';
-    } else if (drawerName === 'categorySetting') {
+    } else if (drawerName === DRAWER_ROUTE_NAMES.カテゴリ設定) {
       return 'folder-open';
-    } else if (drawerName === 'messageSetting') {
+    } else if (drawerName === DRAWER_ROUTE_NAMES.ヒトコト設定) {
       return 'chat-outline';
-    } else if (drawerName === 'logout') {
+    } else if (drawerName === DRAWER_ROUTE_NAMES.ログアウト) {
       return 'logout';
     } else {
       return 'home';

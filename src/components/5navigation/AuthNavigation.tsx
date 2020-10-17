@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Navigation } from './Navigation';
-import { useAuthContext } from '../../containers/contexts/auth';
+import { useAuthCtx } from '../../containers/contexts/auth';
 import { LogIn } from '../4pages';
 import { NewUserWelcome } from '../4pages/NewUserWelcome';
 
@@ -10,7 +10,7 @@ export const AuthNavigation: FC = () => {
       token,
       userInfo: { isNewUser },
     },
-  } = useAuthContext();
+  } = useAuthCtx();
 
   if (!token) {
     return <LogIn />;

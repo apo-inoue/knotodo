@@ -5,12 +5,12 @@ import {
   ApolloProvider,
   HttpLink,
 } from '@apollo/client';
-import { useAuthContext } from '../containers/contexts/auth';
+import { useAuthCtx } from '../containers/contexts/auth';
 
 export const CustomApolloProvider: FC = ({ children }) => {
   const {
     state: { token },
-  } = useAuthContext();
+  } = useAuthCtx();
   const client = new ApolloClient({
     cache: new InMemoryCache({
       typePolicies: {

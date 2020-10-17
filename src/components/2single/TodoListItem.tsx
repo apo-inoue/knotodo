@@ -29,8 +29,8 @@ export const TodoListItem: FC<TodoListItem> = ({ todo, buttonAction }) => {
   const {
     editTodo: { todoMountHandler },
   } = useTodoCtx();
-  const isToday = route.name === 'Today' ? true : false;
-  const isCompleted = route.name === 'Archive' ? true : false;
+  const isToday = route.name === 'Today';
+  const isCompleted = route.name === 'Archive';
   const mountAndNavigateHandler = () => {
     const mountTodo: { id: string } & TodoState = {
       id: todo.id,

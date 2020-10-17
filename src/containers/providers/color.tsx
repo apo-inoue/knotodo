@@ -6,13 +6,13 @@ import { baseTheme } from '../../theme/theme';
 import { useUpdateColorTypeMutation } from '../../types/graphql';
 import { GET_COLOR_TYPE } from '../../graphql/query/users';
 import { colorConstants } from '../../theme/color';
-import { useAuthContext } from '../contexts/auth';
+import { useAuthCtx } from '../contexts/auth';
 import { ScreenLoader } from '../../ui/utils/Loader';
 
 export const ColorProvider: FC = ({ children }) => {
   const {
     state: { token },
-  } = useAuthContext();
+  } = useAuthCtx();
 
   const [color, setColor] = useState<ColorTypes_Enum>('BRAND');
 

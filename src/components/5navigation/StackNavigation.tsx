@@ -68,7 +68,7 @@ export const StackNavigation: FC = () => {
               新規作成
             </Text>
           ),
-          headerBackTitle: 'knoTodo',
+          headerBackTitle: 'knotodo',
         }}
       />
       <Stack.Screen
@@ -80,7 +80,7 @@ export const StackNavigation: FC = () => {
               編集
             </Text>
           ),
-          headerBackTitle: 'knoTodo',
+          headerBackTitle: 'knotodo',
         }}
       />
       <Stack.Screen
@@ -92,7 +92,7 @@ export const StackNavigation: FC = () => {
               詳細
             </Text>
           ),
-          headerBackTitle: 'knoTodo',
+          headerBackTitle: 'knotodo',
         }}
       />
     </Stack.Navigator>

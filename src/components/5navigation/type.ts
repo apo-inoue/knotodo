@@ -18,9 +18,9 @@ export const STACK_ROUTE_NAMES = {
 export type StackRouteName = typeof STACK_ROUTE_NAMES[keyof typeof STACK_ROUTE_NAMES];
 
 export const TAB_ROUTE_NAMES = {
-  Archive: 'Archive',
-  Today: 'Today',
-  NotToday: 'NotToday',
+  過去: '過去',
+  今日: '今日',
+  未来: '未来',
 } as const;
 
 export type TabRouteName = typeof TAB_ROUTE_NAMES[keyof typeof TAB_ROUTE_NAMES];

@@ -29,12 +29,12 @@ export const SwipeArchiveTodo: FC<SwipeArchiveTodoType> = ({
     <Box flexDirection="row">
       <PrimaryButton
         variant="outlined"
-        text="Today"
+        text="今日"
         onPress={onRestoreTodayHandler}
       />
       <PrimaryButton
         variant="contained"
-        text="NotToday"
+        text="リスケ"
         onPress={onRestoreNotTodayHandler}
       />
     </Box>
