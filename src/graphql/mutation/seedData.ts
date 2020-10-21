@@ -20,16 +20,16 @@ export const SEED_DATA_TODO = gql`
           title: "例) 第一四半期決算の締め処理"
           urgency: week
           workload: 5
-          isToday: true
-          isCompleted: false
+          is_today: true
+          is_completed: false
           category_id: $category_id_work
         }
         {
           title: "例) ケーキを買って帰る"
           urgency: week
           workload: 1
-          isToday: true
-          isCompleted: false
+          is_today: true
+          is_completed: false
           category_id: $category_id_private
         }
       ]

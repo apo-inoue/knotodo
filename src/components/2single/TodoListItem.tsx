@@ -11,8 +11,8 @@ type TodoListItem = {
     Todos,
     | 'title'
     | 'id'
-    | 'isToday'
-    | 'isCompleted'
+    | 'is_today'
+    | 'is_completed'
     | 'urgency'
     | 'workload'
     | 'category_id'

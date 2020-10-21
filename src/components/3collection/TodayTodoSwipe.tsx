@@ -10,8 +10,8 @@ type TodoType = { __typename: 'todos' } & Pick<
   | 'id'
   | 'urgency'
   | 'workload'
-  | 'isToday'
-  | 'isCompleted'
+  | 'is_today'
+  | 'is_completed'
   | 'category_id'
 >;
 type TodayTodoSwipeProps = {

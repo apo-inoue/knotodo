@@ -4,7 +4,7 @@ import { Todos } from '../../types/graphql';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'isToday' | 'isCompleted'
+  'title' | 'id' | 'is_today' | 'is_completed'
 >;
 
 type SwipeTodoType = {

@@ -5,14 +5,14 @@ export const INSERT_TODO = gql`
     $title: String = ""
     $urgency: urgency_enum = month
     $workload: Int = 1
-    $isToday: Boolean = true
-    $isCompleted: Boolean = false
+    $is_today: Boolean = true
+    $is_completed: Boolean = false
     $category_id: uuid
   ) {
     insert_todos_one(
       object: {
-        isCompleted: $isCompleted
-        isToday: $isToday
+        is_completed: $is_completed
+        is_today: $is_today
         title: $title
         urgency: $urgency
         workload: $workload
@@ -51,7 +51,7 @@ export const COMPLETE_TODO = gql`
   mutation CompleteToDo($_eq: String!) {
     update_todos(
       where: { id: { _eq: $_eq } }
-      _set: { isCompleted: true, completed_at: "now()" }
+      _set: { is_completed: true, completed_at: "now()" }
     ) {
       affected_rows
       returning {
@@ -74,7 +74,7 @@ export const DELETE_TODO = gql`
 
 export const SET_TODAY_TODO = gql`
   mutation SetTodayTodo($_eq: String!) {
-    update_todos(where: { id: { _eq: $_eq } }, _set: { isToday: true }) {
+    update_todos(where: { id: { _eq: $_eq } }, _set: { is_today: true }) {
       affected_rows
       returning {
         id
@@ -85,7 +85,7 @@ export const SET_TODAY_TODO = gql`
 
 export const SET_NOT_TODAY_TODO = gql`
   mutation SetNotTodayTodo($_eq: String!) {
-    update_todos(where: { id: { _eq: $_eq } }, _set: { isToday: false }) {
+    update_todos(where: { id: { _eq: $_eq } }, _set: { is_today: false }) {
       affected_rows
       returning {
         id
@@ -99,9 +99,9 @@ export const RESTORE_NOT_TODAY = gql`
     update_todos(
       where: { id: { _eq: $_eq } }
       _set: {
-        isCompleted: false
+        is_completed: false
         completed_at: null
-        isToday: false
+        is_today: false
         deleted_at: null
       }
     ) {
@@ -118,9 +118,9 @@ export const RESTORE_TODAY = gql`
     update_todos(
       where: { id: { _eq: $_eq } }
       _set: {
-        isCompleted: false
+        is_completed: false
         completed_at: null
-        isToday: true
+        is_today: true
         deleted_at: null
       }
     ) {
