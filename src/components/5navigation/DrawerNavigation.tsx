@@ -19,14 +19,14 @@ import {
 } from '../4pages';
 import { DrawerIcon } from '../1standalone';
 import { DRAWER_ROUTE_NAMES } from './type';
-import { useAuthContext } from '../../containers/contexts/auth';
+import { useAuthCtx } from '../../containers/contexts/auth';
 import { Box } from '../../ui';
 
 const CustomDrawerContent: FC<DrawerContentComponentProps<
   DrawerContentOptions
 >> = props => {
   const theme = useTheme();
-  const { handleLogOut } = useAuthContext();
+  const { handleLogOut } = useAuthCtx();
 
   return (
     <Box width="100%" height="100%">
@@ -43,7 +43,10 @@ const CustomDrawerContent: FC<DrawerContentComponentProps<
           activeTintColor={theme.colors.main}
           inactiveTintColor={theme.colors.blacks[6]}
           icon={({ color }: { color: string }) => (
-            <DrawerIcon drawerName="logout" color={color} />
+            <DrawerIcon
+              drawerName={DRAWER_ROUTE_NAMES.ログアウト}
+              color={color}
+            />
           )}
         />
       </Box>
@@ -57,7 +60,7 @@ export const DrawerNavigation: FC = () => {
 
   return (
     <Drawer.Navigator
-      initialRouteName="Home"
+      initialRouteName={DRAWER_ROUTE_NAMES.ホーム}
       drawerContent={(
         props: DrawerContentComponentProps<DrawerContentOptions>,
       ) => <CustomDrawerContent {...props} />}
@@ -70,7 +73,7 @@ export const DrawerNavigation: FC = () => {
         component={TabNavigation}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <DrawerIcon drawerName="home" color={color} />
+            <DrawerIcon drawerName={DRAWER_ROUTE_NAMES.ホーム} color={color} />
           ),
         }}
       />
@@ -79,7 +82,10 @@ export const DrawerNavigation: FC = () => {
         component={Color}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <DrawerIcon drawerName="color" color={color} />
+            <DrawerIcon
+              drawerName={DRAWER_ROUTE_NAMES.カラー設定}
+              color={color}
+            />
           ),
         }}
       />
@@ -88,7 +94,10 @@ export const DrawerNavigation: FC = () => {
         component={CategorySetting}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <DrawerIcon drawerName="categorySetting" color={color} />
+            <DrawerIcon
+              drawerName={DRAWER_ROUTE_NAMES.カテゴリ設定}
+              color={color}
+            />
           ),
         }}
       />
@@ -97,7 +106,10 @@ export const DrawerNavigation: FC = () => {
         component={MessageSetting}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
-            <DrawerIcon drawerName="messageSetting" color={color} />
+            <DrawerIcon
+              drawerName={DRAWER_ROUTE_NAMES.ヒトコト設定}
+              color={color}
+            />
           ),
         }}
       />

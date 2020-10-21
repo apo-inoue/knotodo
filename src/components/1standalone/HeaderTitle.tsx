@@ -23,7 +23,7 @@ export const HeaderTitle: FC<{
             <Logo />
           </Box>
           <Text span color={theme.colors.white} fontWeight="bold">
-            knoTodo
+            knotodo
           </Text>
         </Box>
       );

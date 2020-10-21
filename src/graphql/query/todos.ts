@@ -10,8 +10,8 @@ export const TODAY_TODOS = gql`
     todos(
       where: {
         _and: {
-          isToday: { _eq: true }
-          isCompleted: { _eq: false }
+          is_today: { _eq: true }
+          is_completed: { _eq: false }
           deleted_at: { _is_null: true }
           category_id: { _in: $_in }
         }
@@ -26,8 +26,8 @@ export const TODAY_TODOS = gql`
       title
       urgency
       workload
-      isCompleted
-      isToday
+      is_completed
+      is_today
       category_id
     }
   }
@@ -42,8 +42,8 @@ export const NOT_TODAY_TODOS = gql`
   ) {
     todos(
       where: {
-        isToday: { _eq: false }
-        isCompleted: { _eq: false }
+        is_today: { _eq: false }
+        is_completed: { _eq: false }
         deleted_at: { _is_null: true }
         category_id: { _in: $_in }
       }
@@ -57,8 +57,8 @@ export const NOT_TODAY_TODOS = gql`
       title
       urgency
       workload
-      isToday
-      isCompleted
+      is_today
+      is_completed
       category_id
     }
   }
@@ -73,7 +73,7 @@ export const COMPLETED_TODOS = gql`
   ) {
     todos(
       where: {
-        isCompleted: { _eq: true }
+        is_completed: { _eq: true }
         deleted_at: { _is_null: true }
         category_id: { _in: $_in }
       }
@@ -87,8 +87,8 @@ export const COMPLETED_TODOS = gql`
       title
       urgency
       workload
-      isToday
-      isCompleted
+      is_today
+      is_completed
       category_id
     }
   }

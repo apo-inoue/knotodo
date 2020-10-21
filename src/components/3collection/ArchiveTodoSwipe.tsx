@@ -10,8 +10,8 @@ type TodoType = { __typename: 'todos' } & Pick<
   | 'id'
   | 'urgency'
   | 'workload'
-  | 'isToday'
-  | 'isCompleted'
+  | 'is_today'
+  | 'is_completed'
   | 'category_id'
 >;
 type ArchiveTodoSwipeProps = {
@@ -63,7 +63,7 @@ export const ArchiveTodoSwipe: FC<ArchiveTodoSwipeProps> = ({
         <Box width="100%" bg="white">
           <TodoListItem
             todo={todo}
-            buttonAction={{ onPress: onPressEffectHandler, label: 'Delete' }}
+            buttonAction={{ onPress: onPressEffectHandler, label: '削除' }}
           />
         </Box>
       </SwipeRow>

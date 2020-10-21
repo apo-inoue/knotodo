@@ -18,8 +18,8 @@ type NewTodoProps = {
     title,
     urgency,
     workload,
-    isToday,
-    isCompleted,
+    is_today,
+    is_completed,
     category_id,
   }: InsertToDoMutationVariables) => void;
 };
@@ -46,8 +46,8 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
         title,
         urgency,
         workload,
-        isToday,
-        isCompleted,
+        is_today: isToday,
+        is_completed: isCompleted,
         category_id: category,
       });
     }

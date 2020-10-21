@@ -23,17 +23,17 @@ export const AccomplishmentAndMessage: FC<AccomplishmentAndMessageProps> = ({
       case 3:
         return (
           <Text textAlign="center" fontWeight="bold">
-            ✨✨Excellent work! ✨✨
+            ✨✨素晴らしい生産性です! ✨✨
           </Text>
         );
       case 2:
-        return <Text textAlign="center">✨Well done! ✨</Text>;
+        return <Text textAlign="center">✨非常に好い調子です! ✨</Text>;
       case 1:
-        return <Text textAlign="center">✨Good job! ✨</Text>;
+        return <Text textAlign="center">✨いい調子です✨</Text>;
       case 0:
-        return <Text textAlign="center">Let's start it today</Text>;
+        return <Text textAlign="center">今日からはじめよう</Text>;
       default:
-        return <Text textAlign="center">Let's start it today</Text>;
+        return <Text textAlign="center">今日からはじめよう</Text>;
     }
   };
   const accomplishmentIntervals = [

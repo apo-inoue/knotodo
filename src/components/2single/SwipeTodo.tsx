@@ -4,7 +4,7 @@ import { Todos } from '../../types/graphql';
 
 type TodoType = { __typename: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'isToday' | 'isCompleted'
+  'title' | 'id' | 'is_today' | 'is_completed'
 >;
 
 type SwipeTodoType = {
@@ -29,11 +29,7 @@ export const SwipeTodo: FC<SwipeTodoType> = ({
 
   return (
     <Box flexDirection="row">
-      <PrimaryButton
-        variant="outlined"
-        text="Delete"
-        onPress={onDeleteHandler}
-      />
+      <PrimaryButton variant="outlined" text="削除" onPress={onDeleteHandler} />
       <PrimaryButton
         variant="contained"
         text={btnText}

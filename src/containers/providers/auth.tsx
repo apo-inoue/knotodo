@@ -1,6 +1,6 @@
 import React, { FC, useReducer } from 'react';
 import { authReducer, initialState } from '../reducers/auth';
-import { AuthContextProvider } from '../contexts/auth';
+import { AuthCtxProvider } from '../contexts/auth';
 import * as Random from 'expo-random';
 import * as SecureStore from 'expo-secure-store';
 import jwtDecoder from 'jwt-decode';
@@ -98,6 +98,7 @@ export const AuthProvider: FC = ({ children }) => {
         }
       })
       .catch(error => {
+        console.log(error);
         return error;
       });
   };
@@ -118,8 +119,9 @@ export const AuthProvider: FC = ({ children }) => {
     state,
     seedDataStandByHandler,
     handleLogIn,
+    handleSession,
     handleLogOut,
   };
 
-  return <AuthContextProvider value={value}>{children}</AuthContextProvider>;
+  return <AuthCtxProvider value={value}>{children}</AuthCtxProvider>;
 };

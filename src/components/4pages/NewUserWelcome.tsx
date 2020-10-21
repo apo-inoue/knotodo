@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Container, Text, Loader } from '../../ui';
 import { useTheme } from 'styled-components';
-import { useAuthContext } from '../../containers/contexts/auth';
+import { useAuthCtx } from '../../containers/contexts/auth';
 import {
   useSeedDataCategoryMutation,
   useSeedDataTodoMutation,
@@ -10,7 +10,7 @@ import {
 export const NewUserWelcome: FC = () => {
   const theme = useTheme();
   const [isCategoryStandBy, setIsCategoryStandBy] = useState(false);
-  const { seedDataStandByHandler } = useAuthContext();
+  const { seedDataStandByHandler } = useAuthCtx();
   const [seedDataCategory, { data }] = useSeedDataCategoryMutation({
     onCompleted: () => setIsCategoryStandBy(true),
   });

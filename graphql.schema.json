@@ -5064,7 +5064,7 @@
             "deprecationReason": null
           },
           {
-            "name": "isCompleted",
+            "name": "is_completed",
             "description": null,
             "args": [],
             "type": {
@@ -5080,7 +5080,7 @@
             "deprecationReason": null
           },
           {
-            "name": "isToday",
+            "name": "is_today",
             "description": null,
             "args": [],
             "type": {
@@ -5723,7 +5723,7 @@
             "defaultValue": null
           },
           {
-            "name": "isCompleted",
+            "name": "is_completed",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -5733,7 +5733,7 @@
             "defaultValue": null
           },
           {
-            "name": "isToday",
+            "name": "is_today",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -5862,7 +5862,7 @@
             "defaultValue": null
           },
           {
-            "name": "isCompleted",
+            "name": "is_completed",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -5872,7 +5872,7 @@
             "defaultValue": null
           },
           {
-            "name": "isToday",
+            "name": "is_today",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -6488,7 +6488,7 @@
             "defaultValue": null
           },
           {
-            "name": "isCompleted",
+            "name": "is_completed",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -6498,7 +6498,7 @@
             "defaultValue": null
           },
           {
-            "name": "isToday",
+            "name": "is_today",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -6626,13 +6626,13 @@
             "deprecationReason": null
           },
           {
-            "name": "isCompleted",
+            "name": "is_completed",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "isToday",
+            "name": "is_today",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -6695,7 +6695,7 @@
             "defaultValue": null
           },
           {
-            "name": "isCompleted",
+            "name": "is_completed",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -6705,7 +6705,7 @@
             "defaultValue": null
           },
           {
-            "name": "isToday",
+            "name": "is_today",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -6952,13 +6952,13 @@
             "deprecationReason": null
           },
           {
-            "name": "isCompleted",
+            "name": "is_completed",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "isToday",
+            "name": "is_today",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

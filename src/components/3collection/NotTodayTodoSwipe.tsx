@@ -11,8 +11,8 @@ type TodoType = { __typename: 'todos' } & Pick<
   | 'id'
   | 'urgency'
   | 'workload'
-  | 'isToday'
-  | 'isCompleted'
+  | 'is_today'
+  | 'is_completed'
   | 'category_id'
 >;
 type NotTodayTodoSwipeProps = {
@@ -53,7 +53,7 @@ export const NotTodayTodoSwipe: FC<NotTodayTodoSwipeProps> = ({
             <SwipeTodo
               todo={todo}
               onPress={onCompleteEffectHandler}
-              btnText="Complete"
+              btnText="完了"
               onDelete={onDelete}
             />
           </Box>
@@ -61,7 +61,7 @@ export const NotTodayTodoSwipe: FC<NotTodayTodoSwipeProps> = ({
         <Box width="100%" bg="white">
           <TodoListItem
             todo={todo}
-            buttonAction={{ onPress: onPressEffectHandler, label: 'Today' }}
+            buttonAction={{ onPress: onPressEffectHandler, label: '今日' }}
           />
         </Box>
       </SwipeRow>
