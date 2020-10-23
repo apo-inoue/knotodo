@@ -4,21 +4,15 @@ import { Todos } from '../../types/graphql';
 import { Box, SlideUpOutView } from '../../ui';
 import { TodoListItem, SwipeTodo } from '../2single';
 
-type TodoType = { __typename: 'todos' } & Pick<
+type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
-  | 'title'
-  | 'id'
-  | 'urgency'
-  | 'workload'
-  | 'is_today'
-  | 'is_completed'
-  | 'category_id'
+  'id' | 'title' | 'urgency' | 'workload' | 'is_today' | 'category_id'
 >;
 type TodayTodoSwipeProps = {
   todo: TodoType;
-  onPress: (id: string) => void;
-  onPostpone: (id: string) => void;
-  onDelete: (id: string) => void;
+  onPress: (id: number) => void;
+  onPostpone: (id: number) => void;
+  onDelete: (id: number) => void;
   disableScrollHandler: () => void;
   enableScrollHandler: () => void;
 };

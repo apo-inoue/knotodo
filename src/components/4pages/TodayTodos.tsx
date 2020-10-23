@@ -5,15 +5,15 @@ import { ErrorMessage, NoDataMessage, AddFab } from '../1standalone';
 import { TodayTodosCollection } from '../3collection';
 import {
   useTodayTodosQuery,
-  useCompleteToDoMutation,
+  useCompleteTodoMutation,
   useSetNotTodayTodoMutation,
   TodayTodosQuery,
+  useDeleteTodoMutation,
 } from '../../types/graphql';
 import { TODAY_TODOS } from '../../graphql/query/todos';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { useTodoCtx } from '../../containers/contexts/todo';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
-import { useDeleteToDoMutation } from '../../types/graphql';
 
 export const TodayTodos: FC = () => {
   const navigation = useNavigation();
@@ -26,17 +26,17 @@ export const TodayTodos: FC = () => {
   const categoryIdsVariables = isAll ? null : categoryIds;
   const { loading, error, data, refetch } = useTodayTodosQuery({
     variables: {
-      [sortState.key]: sortState.order,
+      order_by: [{ completed_at: 'desc' }],
       _in: categoryIdsVariables,
     },
   });
   // ---------- complete ----------
-  const [completeTodo] = useCompleteToDoMutation({
+  const [completeTodo] = useCompleteTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -46,14 +46,14 @@ export const TodayTodos: FC = () => {
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const completeTodoHandler = (id: string) => {
+  const completeTodoHandler = (id: number) => {
     completeTodo({ variables: { _eq: id } });
   };
   // ----------- notToday ----------
@@ -62,7 +62,7 @@ export const TodayTodos: FC = () => {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -72,14 +72,14 @@ export const TodayTodos: FC = () => {
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const setNotTodayHandler = (id: string) => {
+  const setNotTodayHandler = (id: number) => {
     setToday({ variables: { _eq: id } });
   };
 
@@ -87,16 +87,16 @@ export const TodayTodos: FC = () => {
     newTodo: { todoMountHandler },
   } = useTodoCtx();
   const mountAndNavigateHandler = () => {
-    todoMountHandler({ isToday: true, isCompleted: false });
+    todoMountHandler(true);
     navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
   // ---------- delete ----------
-  const [deleteToDo] = useDeleteToDoMutation({
+  const [deleteToDo] = useDeleteTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -106,14 +106,17 @@ export const TodayTodos: FC = () => {
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
-        data: { __typename: 'query_root', todos: newTodos },
+        data: {
+          __typename: 'query_root',
+          todos: newTodos,
+        },
       });
     },
   });
-  const deleteToDoHandler = (id: string) => {
+  const deleteToDoHandler = (id: number) => {
     deleteToDo({ variables: { _eq: id } });
   };
 

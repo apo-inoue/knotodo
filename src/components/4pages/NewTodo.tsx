@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Container, ScreenLoader } from '../../ui';
 import {
-  InsertToDoMutationVariables,
-  useAllCategoryQuery,
-  useInsertToDoMutation,
+  InsertTodoMutationVariables,
+  useCategoriesQuery,
+  useInsertTodoMutation,
 } from '../../types/graphql';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { NewTodoCollection } from '../3collection';
@@ -11,25 +11,23 @@ import { useNavigation } from '@react-navigation/native';
 
 export const NewTodo: FC = () => {
   const navigation = useNavigation();
-  const { data, loading, error } = useAllCategoryQuery();
-  const [insertTodo] = useInsertToDoMutation({
+  const { data, loading, error } = useCategoriesQuery();
+  const [insertTodo] = useInsertTodoMutation({
     onCompleted: () => navigation.goBack(),
   });
   const insertTodoHandler = ({
     title,
     urgency,
     workload,
-    isToday,
-    isCompleted,
+    is_today,
     category_id,
-  }: InsertToDoMutationVariables) => {
+  }: InsertTodoMutationVariables) => {
     insertTodo({
       variables: {
         title,
         urgency,
         workload,
-        isToday,
-        isCompleted,
+        is_today,
         category_id,
       },
     });

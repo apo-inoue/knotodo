@@ -10,9 +10,9 @@ import {
 import { useTodoCtx } from '../../containers/contexts/todo';
 
 type EditTodoProps = {
-  categories: ({ __typename: 'categories' } & Pick<
+  categories: ({ __typename?: 'categories' } & Pick<
     Categories,
-    'category' | 'id'
+    'id' | 'title'
   >)[];
   onPress: ({
     id,
@@ -34,7 +34,6 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
       categorySelectHandler,
     },
   } = useTodoCtx();
-  const category: string = category_id === '' ? categories[0].id : category_id;
   const updateAndNavigateHandler = () => {
     if (title === '') {
       setError('入力してください');
@@ -44,7 +43,7 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
         title: title,
         urgency: urgency,
         workload: workload,
-        category_id: category,
+        category_id: category_id,
       });
       navigation.goBack();
     }

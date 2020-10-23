@@ -5,21 +5,15 @@ import { Box, Divider } from '../../ui';
 import { Todos } from '../../types/graphql';
 import { ArchiveTodoSwipe } from './ArchiveTodoSwipe';
 
-type TodoType = { __typename: 'todos' } & Pick<
+type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
-  | 'title'
-  | 'id'
-  | 'urgency'
-  | 'workload'
-  | 'is_today'
-  | 'is_completed'
-  | 'category_id'
+  'id' | 'title' | 'urgency' | 'workload' | 'is_today' | 'category_id'
 >;
 type ArchiveTodosType = {
   todos: TodoType[];
-  onPress: (id: string) => void;
-  onRestoreToday: (id: string) => void;
-  onRestoreNotToday: (id: string) => void;
+  onPress: (id: number) => void;
+  onRestoreToday: (id: number) => void;
+  onRestoreNotToday: (id: number) => void;
 };
 
 export const ArchiveTodos: FC<ArchiveTodosType> = ({
@@ -61,7 +55,7 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({
       <Box mt={2} width="100%">
         <SwipeListView<TodoType>
           data={todos}
-          keyExtractor={(item: TodoType) => item.id}
+          keyExtractor={(item: TodoType) => `${item.id}`}
           renderItem={renderItem}
           leftOpenValue={75}
           rightOpenValue={-250}

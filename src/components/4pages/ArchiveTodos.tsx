@@ -3,7 +3,7 @@ import { Container, Loader } from '../../ui';
 import { useFocusEffect } from '@react-navigation/native';
 import {
   useCompletedTodosQuery,
-  useDeleteToDoMutation,
+  useDeleteTodoMutation,
 } from '../../types/graphql';
 import { ArchiveTodosCollection } from '../3collection';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
@@ -25,14 +25,14 @@ export const ArchiveTodos: FC = () => {
   } = useSortFilterCtx();
   const categoryIdsVariables = isAll ? null : categoryIds;
   const { loading, error, data, refetch } = useCompletedTodosQuery({
-    variables: { [sortState.key]: sortState.order, _in: categoryIdsVariables },
+    variables: { order_by: sortState, _in: categoryIdsVariables },
   });
-  const [deleteToDo] = useDeleteToDoMutation({
+  const [deleteTodo] = useDeleteTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -42,15 +42,15 @@ export const ArchiveTodos: FC = () => {
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const deleteToDoHandler = (id: string) => {
-    deleteToDo({ variables: { _eq: id } });
+  const deleteTodoHandler = (id: number) => {
+    deleteTodo({ variables: { _eq: id } });
   };
   // ---------- restoreToday ----------
   const [restoreToday] = useRestoreTodayMutation({
@@ -58,7 +58,7 @@ export const ArchiveTodos: FC = () => {
       const existingTodos = cache.readQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -68,14 +68,14 @@ export const ArchiveTodos: FC = () => {
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const restoreTodayHandler = (id: string) => {
+  const restoreTodayHandler = (id: number) => {
     restoreToday({ variables: { _eq: id } });
   };
   // ---------- restoreNotToday ----------
@@ -84,7 +84,7 @@ export const ArchiveTodos: FC = () => {
       const existingTodos = cache.readQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -94,14 +94,14 @@ export const ArchiveTodos: FC = () => {
       cache.writeQuery<CompletedTodosQuery>({
         query: COMPLETED_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const restoreNotTodayHandler = (id: string) => {
+  const restoreNotTodayHandler = (id: number) => {
     restoreNotToday({ variables: { _eq: id } });
   };
 
@@ -125,7 +125,7 @@ export const ArchiveTodos: FC = () => {
     <Container>
       <ArchiveTodosCollection
         todos={data.todos}
-        onPress={deleteToDoHandler}
+        onPress={deleteTodoHandler}
         onRestoreToday={restoreTodayHandler}
         onRestoreNotToday={restoreNotTodayHandler}
       />

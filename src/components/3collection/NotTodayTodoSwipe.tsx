@@ -5,21 +5,16 @@ import { Box, SlideUpOutView } from '../../ui';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import { SwipeTodo } from '../2single/SwipeTodo';
 
-type TodoType = { __typename: 'todos' } & Pick<
+type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
-  | 'title'
-  | 'id'
-  | 'urgency'
-  | 'workload'
-  | 'is_today'
-  | 'is_completed'
-  | 'category_id'
+  'id' | 'title' | 'urgency' | 'workload' | 'is_today' | 'category_id'
 >;
+
 type NotTodayTodoSwipeProps = {
   todo: TodoType;
-  onPress: (id: string) => void;
-  onComplete: (id: string) => void;
-  onDelete: (id: string) => void;
+  onPress: (id: number) => void;
+  onComplete: (id: number) => void;
+  onDelete: (id: number) => void;
   disableScrollHandler: () => void;
   enableScrollHandler: () => void;
 };

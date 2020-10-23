@@ -1,23 +1,26 @@
 import React, { FC, useState, useCallback } from 'react';
 import { ColorCtxProvider } from '../contexts/color';
-import { useGetColorTypeQuery, ColorTypes_Enum } from '../../types/graphql';
+import { useUserColorQuery, Color_Enum } from '../../types/graphql';
 import { ThemeProvider } from 'styled-components/native';
 import { baseTheme } from '../../theme/theme';
-import { useUpdateColorTypeMutation } from '../../types/graphql';
-import { GET_COLOR_TYPE } from '../../graphql/query/users';
+import { useUpdateUserColorMutation } from '../../types/graphql';
+import { USER_COLOR } from '../../graphql/query/users';
 import { colorConstants } from '../../theme/color';
 import { useAuthCtx } from '../contexts/auth';
 import { ScreenLoader } from '../../ui/utils/Loader';
 
 export const ColorProvider: FC = ({ children }) => {
   const {
-    state: { token },
+    state: {
+      userInfo: { id },
+      token,
+    },
   } = useAuthCtx();
 
-  const [color, setColor] = useState<ColorTypes_Enum>('BRAND');
+  const [color, setColor] = useState<Color_Enum>('DEFAULT');
 
-  const { data } = useGetColorTypeQuery();
-  const fetchedColorType = data?.users[0]?.color_type ?? 'BRAND';
+  const { data } = useUserColorQuery();
+  const fetchedColorType = data?.users[0]?.color ?? 'DEFAULT';
   const fetchedColorPalette =
     fetchedColorType &&
     colorConstants.find(colorConstant => {
@@ -40,18 +43,22 @@ export const ColorProvider: FC = ({ children }) => {
     },
   };
 
-  const colorSelectHandler = useCallback((newColor: ColorTypes_Enum) => {
+  const colorSelectHandler = useCallback((newColor: Color_Enum) => {
     setColor(newColor);
   }, []);
 
-  const [updateColorType, { loading }] = useUpdateColorTypeMutation({
-    refetchQueries: [{ query: GET_COLOR_TYPE }],
+  const [
+    updateColorType,
+    { called, loading, error },
+  ] = useUpdateUserColorMutation({
+    refetchQueries: [{ query: USER_COLOR }],
   });
+  console.log(error, color, called, 'err');
   const updateColorTypeHandler = () => {
     return updateColorType({
       variables: {
-        color_type: color,
-        _eq: data?.users[0].id ?? '',
+        color: color,
+        _eq: id,
       },
     });
   };

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Container, ScreenLoader } from '../../ui';
 import {
-  useAllCategoryQuery,
+  useCategoriesQuery,
   useInsertCategoryMutation,
-  AllCategoryQuery,
+  CategoriesQuery,
 } from '../../types/graphql';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
 import { CategorySettingCollection } from '../3collection';
@@ -16,16 +16,16 @@ export const CategorySetting: FC = () => {
   const {
     state: { category },
   } = useCategoryCtx();
-  const { data, loading, error } = useAllCategoryQuery();
+  const { data, loading, error } = useCategoriesQuery();
   const [insertCategory] = useInsertCategoryMutation({
-    variables: { category },
+    variables: { title: category },
     update(cache, { data: updateData }) {
-      const existingCategories = cache.readQuery<AllCategoryQuery>({
+      const existingCategories = cache.readQuery<CategoriesQuery>({
         query: ALL_CATEGORY,
       });
-      const newCategory = updateData!.insert_categories!.returning[0];
+      const newCategory = updateData!.insert_categories_one!;
       const newCategories = [newCategory, ...existingCategories!.categories];
-      cache.writeQuery<AllCategoryQuery>({
+      cache.writeQuery<CategoriesQuery>({
         query: ALL_CATEGORY,
         data: { __typename: 'query_root', categories: newCategories },
       });
@@ -36,19 +36,19 @@ export const CategorySetting: FC = () => {
   };
   const [deleteCategory] = useDeleteCategoryMutation({
     update(cache, { data: updateData }) {
-      const existingCategories = cache.readQuery<AllCategoryQuery>({
+      const existingCategories = cache.readQuery<CategoriesQuery>({
         query: ALL_CATEGORY,
       });
       const newCategories = existingCategories!.categories.filter(
         c => c.id !== updateData!.update_categories_by_pk!.id,
       );
-      cache.writeQuery<AllCategoryQuery>({
+      cache.writeQuery<CategoriesQuery>({
         query: ALL_CATEGORY,
         data: { __typename: 'query_root', categories: newCategories },
       });
     },
   });
-  const deleteCategoryHandler = (id: string) => {
+  const deleteCategoryHandler = (id: number) => {
     deleteCategory({
       variables: { id },
       optimisticResponse: {
@@ -56,14 +56,14 @@ export const CategorySetting: FC = () => {
         update_categories_by_pk: {
           __typename: 'categories',
           id: id,
-          category: '',
+          title: '',
         },
       },
     });
   };
   const [updateCategory] = useUpdateCategoryMutation();
-  const updateCategoryHandler = (id: string, c: string) => {
-    updateCategory({ variables: { id: id, category: c } });
+  const updateCategoryHandler = (id: number, title: string) => {
+    updateCategory({ variables: { id: id, title: title } });
   };
 
   if (loading) {

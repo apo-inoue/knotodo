@@ -3,8 +3,10 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
   useNotTodayTodosQuery,
   useSetTodayTodoMutation,
-  useCompleteToDoMutation,
+  useCompleteTodoMutation,
   NotTodayTodosQuery,
+  useDeleteTodoMutation,
+  CompletedTodosQuery,
 } from '../../types/graphql';
 import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
 import { Container, ScreenLoader } from '../../ui';
@@ -13,10 +15,6 @@ import { NotTodayTodosCollection } from '../3collection';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import {
-  useDeleteToDoMutation,
-  CompletedTodosQuery,
-} from '../../types/graphql';
 
 export const NotTodayTodos: FC = () => {
   const navigation = useNavigation();
@@ -28,7 +26,7 @@ export const NotTodayTodos: FC = () => {
   } = useSortFilterCtx();
   const categoryIdsVariables = isAll ? null : categoryIds;
   const { loading, error, data, refetch } = useNotTodayTodosQuery({
-    variables: { [sortState.key]: sortState.order, _in: categoryIdsVariables },
+    variables: { order_by: sortState, _in: categoryIdsVariables },
   });
   // ---------- setToday ----------
   const [setToday] = useSetTodayTodoMutation({
@@ -36,7 +34,7 @@ export const NotTodayTodos: FC = () => {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          orderBy: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -46,23 +44,23 @@ export const NotTodayTodos: FC = () => {
       cache.writeQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          orderBy: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const setTodayHandler = (id: string) => {
+  const setTodayHandler = (id: number) => {
     setToday({ variables: { _eq: id } });
   };
   // ---------- complete ----------
-  const [completeTodo] = useCompleteToDoMutation({
+  const [completeTodo] = useCompleteTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          orderBy: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -72,14 +70,14 @@ export const NotTodayTodos: FC = () => {
       cache.writeQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          orderBy: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const completeTodoHandler = (id: string) => {
+  const completeTodoHandler = (id: number) => {
     completeTodo({ variables: { _eq: id } });
   };
 
@@ -87,16 +85,16 @@ export const NotTodayTodos: FC = () => {
     newTodo: { todoMountHandler },
   } = useTodoCtx();
   const mountAndNavigateHandler = () => {
-    todoMountHandler({ isToday: false, isCompleted: false });
+    todoMountHandler(false);
     navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
   // ---------- delete ----------
-  const [deleteToDo] = useDeleteToDoMutation({
+  const [deleteToDo] = useDeleteTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<NotTodayTodosQuery>({
         query: NOT_TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          orderBy: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -106,14 +104,14 @@ export const NotTodayTodos: FC = () => {
       cache.writeQuery<CompletedTodosQuery>({
         query: NOT_TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          orderBy: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const deleteToDoHandler = (id: string) => {
+  const deleteToDoHandler = (id: number) => {
     deleteToDo({ variables: { _eq: id } });
   };
 

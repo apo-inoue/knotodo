@@ -1,20 +1,19 @@
 import { gql } from '@apollo/client';
 
-export const GET_COLOR_TYPE = gql`
-  query GetColorType {
+export const USER_COLOR = gql`
+  query UserColor {
     users {
       id
-      color_type
-      message
+      color
     }
   }
 `;
 
-export const GET_USER_MESSAGE = gql`
-  query GetUserMessage {
+export const USER_GOAL = gql`
+  query UserGoal {
     users {
       id
-      message
+      goal
     }
   }
 `;

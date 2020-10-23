@@ -2,15 +2,15 @@ import React, { FC } from 'react';
 import { Box, PrimaryButton } from '../../ui';
 import { Todos } from '../../types/graphql';
 
-type TodoType = { __typename: 'todos' } & Pick<
+type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'is_today' | 'is_completed'
+  'id' | 'title' | 'is_today'
 >;
 
 type SwipeArchiveTodoType = {
   todo: TodoType;
-  onRestoreToday: (id: string) => void;
-  onRestoreNotToday: (id: string) => void;
+  onRestoreToday: (id: number) => void;
+  onRestoreNotToday: (id: number) => void;
 };
 
 export const SwipeArchiveTodo: FC<SwipeArchiveTodoType> = ({

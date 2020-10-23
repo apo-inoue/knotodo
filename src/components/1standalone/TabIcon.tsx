@@ -10,9 +10,9 @@ type TabIconProps = {
 export const TabIcon: FC<TabIconProps> = ({ tabName, color }) => {
   const tabNameToIconName = () => {
     if (tabName === TAB_ROUTE_NAMES.今日) {
-      return 'calendar-blank';
-    } else if (tabName === TAB_ROUTE_NAMES.未来) {
       return 'calendar-today';
+    } else if (tabName === TAB_ROUTE_NAMES.未来) {
+      return 'calendar-blank';
     } else {
       return 'calendar-clock';
     }

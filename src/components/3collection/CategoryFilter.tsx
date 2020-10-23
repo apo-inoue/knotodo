@@ -6,9 +6,9 @@ import { Categories } from '../../types/graphql';
 import { CategorySelectItem } from '../2single';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 
-type CategoryType = { __typename: 'categories' } & Pick<
+type CategoryType = { __typename?: 'categories' } & Pick<
   Categories,
-  'category' | 'id'
+  'id' | 'title'
 >;
 
 type CategoryProps = {

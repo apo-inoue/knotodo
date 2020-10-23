@@ -1,11 +1,10 @@
 import { gql } from '@apollo/client';
 
 export const ALL_CATEGORY = gql`
-  query AllCategory {
+  query Categories {
     categories {
-      __typename
-      category
       id
+      title
     }
   }
 `;

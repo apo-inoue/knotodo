@@ -1,4 +1,4 @@
 export type CategoryCtxType = {
   state: { category: string };
-  categoryInputHandler: (e: string) => void;
+  categoryInputHandler: (title: string) => void;
 };

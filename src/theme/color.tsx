@@ -1,8 +1,8 @@
-import { ColorTypes_Enum } from '../types/graphql';
+import { Color_Enum } from '../types/graphql';
 
 export type ColorType = {
   id: number;
-  color: ColorTypes_Enum;
+  color: Color_Enum;
   hex: {
     light: string;
     main: string;
@@ -13,7 +13,7 @@ export type ColorType = {
 export const colorConstants: ColorType[] = [
   {
     id: 1,
-    color: 'BRAND',
+    color: 'DEFAULT',
     hex: {
       light: '#636ca0',
       main: '#354171',

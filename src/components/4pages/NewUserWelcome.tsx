@@ -16,8 +16,8 @@ export const NewUserWelcome: FC = () => {
   });
   const [seedDataTodo] = useSeedDataTodoMutation({
     variables: {
-      category_id_work: data?.insert_categories?.returning[0].id ?? '',
-      category_id_private: data?.insert_categories?.returning[1].id ?? '',
+      category_id_work: data?.insert_categories?.returning[0].id ?? 1,
+      category_id_private: data?.insert_categories?.returning[1].id ?? 1,
     },
     onCompleted: seedDataStandByHandler,
   });

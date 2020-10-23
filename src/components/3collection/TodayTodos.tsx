@@ -9,21 +9,15 @@ import { AddFab } from '../1standalone';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import { useTodoCtx } from '../../containers/contexts/todo';
 
-type TodoType = { __typename: 'todos' } & Pick<
+type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
-  | 'title'
-  | 'id'
-  | 'is_today'
-  | 'is_completed'
-  | 'urgency'
-  | 'workload'
-  | 'category_id'
+  'id' | 'title' | 'is_today' | 'urgency' | 'workload' | 'category_id'
 >;
 type TodayTodos = {
   todos: TodoType[];
-  onPress: (id: string) => void;
-  onPostpone: (id: string) => void;
-  onDelete: (id: string) => void;
+  onPress: (id: number) => void;
+  onPostpone: (id: number) => void;
+  onDelete: (id: number) => void;
 };
 
 export const TodayTodos: FC<TodayTodos> = ({
@@ -37,7 +31,7 @@ export const TodayTodos: FC<TodayTodos> = ({
     newTodo: { todoMountHandler },
   } = useTodoCtx();
   const mountAndNavigateHandler = () => {
-    todoMountHandler({ isToday: true, isCompleted: false });
+    todoMountHandler(true);
     navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
 
@@ -75,7 +69,7 @@ export const TodayTodos: FC<TodayTodos> = ({
       <Box mt={2} width="100%" flex={1}>
         <SwipeListView<TodoType>
           data={todos}
-          keyExtractor={(item: TodoType) => item.id}
+          keyExtractor={(item: TodoType) => `${item.id}`}
           renderItem={renderItem}
           leftOpenValue={75}
           rightOpenValue={-150}

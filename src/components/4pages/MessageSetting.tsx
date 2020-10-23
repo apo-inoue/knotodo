@@ -2,20 +2,26 @@ import React, { FC } from 'react';
 import { ScreenLoader, Container } from '../../ui';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
 import {
-  useGetUserMessageQuery,
-  useUpdateUserMessageMutation,
-  GetUserMessageQuery,
+  useUserGoalQuery,
+  useUpdateUserGoalMutation,
+  UserGoalQuery,
 } from '../../types/graphql';
 import { MessageSettingCollection } from '../3collection';
-import { GET_USER_MESSAGE } from '../../graphql/query/users';
+import { USER_GOAL } from '../../graphql/query/users';
+import { useAuthCtx } from '../../containers/contexts/auth';
 
 export const MessageSetting: FC = () => {
-  const { data, loading, error } = useGetUserMessageQuery();
-  const [updateUserMessage] = useUpdateUserMessageMutation({
+  const {
+    state: {
+      userInfo: { id },
+    },
+  } = useAuthCtx();
+  const { data, loading, error } = useUserGoalQuery();
+  const [updateUserGoal] = useUpdateUserGoalMutation({
     update(cache, { data: updateData }) {
       const newUser = updateData!.update_users!.returning[0];
-      cache.writeQuery<GetUserMessageQuery>({
-        query: GET_USER_MESSAGE,
+      cache.writeQuery<UserGoalQuery>({
+        query: USER_GOAL,
         data: {
           __typename: 'query_root',
           users: [newUser],
@@ -23,9 +29,9 @@ export const MessageSetting: FC = () => {
       });
     },
   });
-  const updateUserMessageHandler = (message: string) => {
-    updateUserMessage({
-      variables: { message: message, _eq: data?.users[0].id ?? '' },
+  const updateUserMessageHandler = (goal: string) => {
+    updateUserGoal({
+      variables: { goal, _eq: id },
       optimisticResponse: {
         __typename: 'mutation_root',
         update_users: {
@@ -35,12 +41,12 @@ export const MessageSetting: FC = () => {
             {
               __typename: 'users',
               id: data!.users[0].id,
-              message: message,
+              goal: goal,
             },
           ],
         },
       },
-      refetchQueries: [{ query: GET_USER_MESSAGE }],
+      refetchQueries: [{ query: USER_GOAL }],
     });
   };
 
@@ -57,7 +63,7 @@ export const MessageSetting: FC = () => {
   return (
     <Container centerContent>
       <MessageSettingCollection
-        message={data.users[0].message}
+        message={data.users[0].goal ?? ''}
         onPress={updateUserMessageHandler}
       />
     </Container>

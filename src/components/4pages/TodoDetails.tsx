@@ -7,7 +7,7 @@ import { TodoDetailsCollection } from '../3collection';
 
 export const TodoDetails: FC = () => {
   const route = useRoute();
-  const todo = (route.params as Todos) ?? undefined;
+  const todo = route.params as Todos;
 
   if (!todo) return <ErrorMessage />;
 

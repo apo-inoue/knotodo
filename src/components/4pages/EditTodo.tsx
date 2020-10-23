@@ -6,11 +6,11 @@ import { TODAY_TODOS, NOT_TODAY_TODOS } from '../../graphql/query/todos';
 import {
   UpdateTodoMutationVariables,
   useUpdateTodoMutation,
-  useAllCategoryQuery,
+  useCategoriesQuery,
 } from '../../types/graphql';
 
 export const EditTodo: FC = () => {
-  const { data, loading, error } = useAllCategoryQuery();
+  const { data, loading, error } = useCategoriesQuery();
   const [updateTodo] = useUpdateTodoMutation({
     refetchQueries: [{ query: TODAY_TODOS }, { query: NOT_TODAY_TODOS }],
   });
