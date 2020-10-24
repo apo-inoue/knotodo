@@ -69,9 +69,9 @@ export const colorConstants: ColorType[] = [
     id: 7,
     color: 'NULL',
     hex: {
-      light: '#cccccc',
-      main: '#cccccc',
-      dark: '#cccccc',
+      light: '#dddddd',
+      main: '#dddddd',
+      dark: '#dddddd',
     },
   },
 ];

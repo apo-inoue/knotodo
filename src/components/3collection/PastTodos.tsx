@@ -4,10 +4,18 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import { Box, Divider } from '../../ui';
 import { Todos } from '../../types/graphql';
 import { PastTodoSwipe } from './PastTodoSwipe';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
+import { PastTodosChronological } from './PastTodosChronological';
 
 type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
-  'id' | 'title' | 'urgency' | 'workload' | 'is_today' | 'category_id'
+  | 'id'
+  | 'title'
+  | 'urgency'
+  | 'workload'
+  | 'is_today'
+  | 'category_id'
+  | 'completed_at'
 >;
 type PastTodosProps = {
   todos: TodoType[];
@@ -22,6 +30,9 @@ export const PastTodos: FC<PastTodosProps> = ({
   onRestoreToday,
   onRestoreNotToday,
 }) => {
+  const {
+    sort: { isDefault },
+  } = useSortFilterCtx();
   const [isScrollable, setIsScrollable] = useState(true);
   const enableScrollHandler = () => {
     setIsScrollable(true);
@@ -31,7 +42,6 @@ export const PastTodos: FC<PastTodosProps> = ({
   };
 
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
-    const isLastRow = todos.length - 1 === rowData.index;
     const todo = rowData.item;
     return (
       <Box>
@@ -44,13 +54,22 @@ export const PastTodos: FC<PastTodosProps> = ({
           disableScrollHandler={disableScrollHandler}
         />
         <Divider width="100%" />
-        {isLastRow && <Box mb={5} />}
       </Box>
     );
   };
 
-  return (
-    <>
+  if (isDefault) {
+    return (
+      <Box mt={2} width="100%">
+        <PastTodosChronological
+          todos={todos}
+          renderItem={renderItem}
+          isScrollable={isScrollable}
+        />
+      </Box>
+    );
+  } else {
+    return (
       <Box mt={2} width="100%">
         <SwipeListView<TodoType>
           data={todos}
@@ -61,6 +80,6 @@ export const PastTodos: FC<PastTodosProps> = ({
           scrollEnabled={isScrollable}
         />
       </Box>
-    </>
-  );
+    );
+  }
 };

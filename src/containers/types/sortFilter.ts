@@ -11,6 +11,7 @@ export type FilterState = {
 export type SortFilterCtxType = {
   sort: {
     sortState: SortState;
+    isDefault: boolean;
     selectSortHandler: (key: keyof Todos_Order_By, order: Order_By) => void;
     clearSortHandler: () => void;
   };
