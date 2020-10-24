@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../4pages';
+import { TodayTodos, FutureTodos, PastTodos } from '../4pages';
 import { useTheme } from 'styled-components';
 import { TabIcon } from '../1standalone';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -15,7 +15,7 @@ export const TabNavigation: FC = () => {
       barStyle={{ backgroundColor: theme.colors.main }}>
       <Tab.Screen
         name={TAB_ROUTE_NAMES.過去}
-        component={ArchiveTodos}
+        component={PastTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
             <TabIcon tabName={TAB_ROUTE_NAMES.過去} color={color} />
@@ -33,7 +33,7 @@ export const TabNavigation: FC = () => {
       />
       <Tab.Screen
         name={TAB_ROUTE_NAMES.未来}
-        component={NotTodayTodos}
+        component={FutureTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
             <TabIcon tabName={TAB_ROUTE_NAMES.未来} color={color} />

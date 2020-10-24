@@ -9,7 +9,7 @@ export const TodoProvider: FC = ({ children }) => {
     urgency: 'WEEK',
     workload: 1,
     is_today: false,
-    category_id: 1,
+    category_id: 0,
   };
   const [newTodo, setNewTodo] = useState<TodoState>(initialTodo);
   const [editTodo, setEditTodo] = useState<{ id: number } & TodoState>({

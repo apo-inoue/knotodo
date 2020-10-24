@@ -11,12 +11,12 @@ type CategoryType = { __typename?: 'categories' } & Pick<
   'id' | 'title'
 >;
 
-type CategoryProps = {
+type ModalFilterProps = {
   categories: CategoryType[];
   filterModalToggler: () => void;
 };
 
-export const CategoryFilter: FC<CategoryProps> = ({
+export const ModalFilter: FC<ModalFilterProps> = ({
   categories,
   filterModalToggler,
 }) => {

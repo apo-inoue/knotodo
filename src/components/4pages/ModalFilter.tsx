@@ -3,15 +3,13 @@ import { Box } from '../../ui';
 import { useCategoriesQuery } from '../../types/graphql';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
 import { ScreenLoader } from '../../ui';
-import { CategoryFilterCollection } from '../3collection';
+import { ModalFilterCollection } from '../3collection';
 
-type CategoryFilterProps = {
+type ModalFilterProps = {
   filterModalToggler: () => void;
 };
 
-export const CategoryFilter: FC<CategoryFilterProps> = ({
-  filterModalToggler,
-}) => {
+export const ModalFilter: FC<ModalFilterProps> = ({ filterModalToggler }) => {
   const { data, loading, error } = useCategoriesQuery();
 
   if (loading) {
@@ -26,7 +24,7 @@ export const CategoryFilter: FC<CategoryFilterProps> = ({
 
   return (
     <Box bg="white" py={4} px={3}>
-      <CategoryFilterCollection
+      <ModalFilterCollection
         categories={data.categories}
         filterModalToggler={filterModalToggler}
       />

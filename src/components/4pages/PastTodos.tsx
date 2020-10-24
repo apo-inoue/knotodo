@@ -1,22 +1,16 @@
 import React, { FC, useCallback } from 'react';
 import { Container, Loader } from '../../ui';
 import { useFocusEffect } from '@react-navigation/native';
-import {
-  useCompletedTodosQuery,
-  useDeleteTodoMutation,
-} from '../../types/graphql';
-import { ArchiveTodosCollection } from '../3collection';
+import { usePastTodosQuery, useDeleteTodoMutation } from '../../types/graphql';
+import { PastTodosCollection } from '../3collection';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
-import { COMPLETED_TODOS } from '../../graphql/query/todos';
+import { PAST_TODOS } from '../../graphql/query/todos';
 import { useRestoreNotTodayMutation } from '../../types/graphql';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
-import {
-  CompletedTodosQuery,
-  useRestoreTodayMutation,
-} from '../../types/graphql';
+import { PastTodosQuery, useRestoreTodayMutation } from '../../types/graphql';
 
-export const ArchiveTodos: FC = () => {
+export const PastTodos: FC = () => {
   const {
     sort: { sortState },
     filter: {
@@ -24,13 +18,17 @@ export const ArchiveTodos: FC = () => {
     },
   } = useSortFilterCtx();
   const categoryIdsVariables = isAll ? null : categoryIds;
-  const { loading, error, data, refetch } = useCompletedTodosQuery({
+
+  // ---------- query ----------
+  const { loading, error, data, refetch } = usePastTodosQuery({
     variables: { order_by: sortState, _in: categoryIdsVariables },
   });
+
+  // ---------- delete ----------
   const [deleteTodo] = useDeleteTodoMutation({
     update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      const existingTodos = cache.readQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
           order_by: sortState,
           _in: categoryIdsVariables,
@@ -39,8 +37,8 @@ export const ArchiveTodos: FC = () => {
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
-      cache.writeQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      cache.writeQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
           order_by: sortState,
           _in: categoryIdsVariables,
@@ -55,8 +53,8 @@ export const ArchiveTodos: FC = () => {
   // ---------- restoreToday ----------
   const [restoreToday] = useRestoreTodayMutation({
     update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      const existingTodos = cache.readQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
           order_by: sortState,
           _in: categoryIdsVariables,
@@ -65,8 +63,8 @@ export const ArchiveTodos: FC = () => {
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
-      cache.writeQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      cache.writeQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
           order_by: sortState,
           _in: categoryIdsVariables,
@@ -81,8 +79,8 @@ export const ArchiveTodos: FC = () => {
   // ---------- restoreNotToday ----------
   const [restoreNotToday] = useRestoreNotTodayMutation({
     update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      const existingTodos = cache.readQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
           order_by: sortState,
           _in: categoryIdsVariables,
@@ -91,8 +89,8 @@ export const ArchiveTodos: FC = () => {
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
-      cache.writeQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      cache.writeQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
           order_by: sortState,
           _in: categoryIdsVariables,
@@ -123,7 +121,7 @@ export const ArchiveTodos: FC = () => {
 
   return (
     <Container>
-      <ArchiveTodosCollection
+      <PastTodosCollection
         todos={data.todos}
         onPress={deleteTodoHandler}
         onRestoreToday={restoreTodayHandler}

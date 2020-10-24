@@ -23,8 +23,8 @@ export const TODAY_TODOS = gql`
   }
 `;
 
-export const NOT_TODAY_TODOS = gql`
-  query NotTodayTodos($_in: [Int!], $order_by: [todos_order_by!]) {
+export const FUTURE_TODOS = gql`
+  query FutureTodos($_in: [Int!], $order_by: [todos_order_by!]) {
     todos(
       where: {
         is_today: { _eq: false }
@@ -44,8 +44,8 @@ export const NOT_TODAY_TODOS = gql`
   }
 `;
 
-export const COMPLETED_TODOS = gql`
-  query CompletedTodos($_in: [Int!], $order_by: [todos_order_by!]) {
+export const PAST_TODOS = gql`
+  query PastTodos($_in: [Int!], $order_by: [todos_order_by!]) {
     todos(
       where: {
         category_id: { _in: $_in }
@@ -64,8 +64,8 @@ export const COMPLETED_TODOS = gql`
   }
 `;
 
-export const ACCOMPLISHMENT_AND_MESSAGE = gql`
-  query AccomplishmentAndMessage(
+export const ACCOMPLISHMENT_AND_GOAL = gql`
+  query AccomplishmentAndGoal(
     $_gte1: timestamptz!
     $_gte2: timestamptz!
     $_gte3: timestamptz!

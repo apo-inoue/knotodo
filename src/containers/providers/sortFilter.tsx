@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react';
 import { SortFilterCtxProvider } from '../contexts/sortFilter';
 import { SortState, FilterState } from '../types/sortFilter';
-import { TodayTodosQueryVariables, Order_By } from '../../types/graphql';
+import { Order_By, Todos_Order_By } from '../../types/graphql';
 
 export const SortFilterProvider: FC = ({ children }) => {
   const [sortState, setSortState] = useState<SortState>([
     {
-      completed_at: 'desc',
+      category_id: 'desc',
+      created_at: 'desc',
     },
   ]);
   const [filterState, setFilterState] = useState<FilterState>({
@@ -14,7 +15,7 @@ export const SortFilterProvider: FC = ({ children }) => {
     categoryIds: [],
   });
 
-  const selectSortHandler = (key: string, order: Order_By) => {
+  const selectSortHandler = (key: keyof Todos_Order_By, order: Order_By) => {
     setSortState([{ [key]: order }]);
   };
   const isAllToggler = () => {
@@ -34,10 +35,20 @@ export const SortFilterProvider: FC = ({ children }) => {
     setFilterState({ isAll: false, categoryIds: newCategoryIds });
   };
 
+  const clearSortHandler = () => {
+    setSortState([
+      {
+        category_id: 'desc',
+        created_at: 'desc',
+      },
+    ]);
+  };
+
   const value = {
     sort: {
       sortState,
       selectSortHandler,
+      clearSortHandler,
     },
     filter: {
       filterState,

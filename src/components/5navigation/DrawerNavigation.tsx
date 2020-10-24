@@ -12,10 +12,10 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {
-  AccomplishmentAndMessage,
+  AccomplishmentAndGoal,
   CategorySetting,
   Color,
-  MessageSetting,
+  GoalSetting,
 } from '../4pages';
 import { DrawerIcon } from '../1standalone';
 import { DRAWER_ROUTE_NAMES } from './type';
@@ -32,7 +32,7 @@ const CustomDrawerContent: FC<DrawerContentComponentProps<
     <Box width="100%" height="100%">
       <Box flexDirection="column" flex={1} height="80%">
         <DrawerContentScrollView {...props}>
-          <AccomplishmentAndMessage />
+          <AccomplishmentAndGoal />
           <DrawerItemList {...props} />
         </DrawerContentScrollView>
       </Box>
@@ -102,12 +102,12 @@ export const DrawerNavigation: FC = () => {
         }}
       />
       <Drawer.Screen
-        name={DRAWER_ROUTE_NAMES.ヒトコト設定}
-        component={MessageSetting}
+        name={DRAWER_ROUTE_NAMES.目標設定}
+        component={GoalSetting}
         options={{
           drawerIcon: ({ color }: { color: string }) => (
             <DrawerIcon
-              drawerName={DRAWER_ROUTE_NAMES.ヒトコト設定}
+              drawerName={DRAWER_ROUTE_NAMES.目標設定}
               color={color}
             />
           ),

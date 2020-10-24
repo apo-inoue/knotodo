@@ -6,21 +6,21 @@ import { Box, Divider } from '../../ui';
 import { Todos } from '../../types/graphql';
 import { AddFab } from '../1standalone/AddFab';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
-import { NotTodayTodoSwipe } from './NotTodayTodoSwipe';
+import { FutureTodoSwipe } from './FutureTodoSwipe';
 import { useTodoCtx } from '../../containers/contexts/todo';
 
 type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
   'id' | 'title' | 'is_today' | 'urgency' | 'workload' | 'category_id'
 >;
-type NotTodayTodos = {
+type FutureTodosProps = {
   todos: TodoType[];
   onPress: (id: number) => void;
   onComplete: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-export const NotTodayTodos: FC<NotTodayTodos> = ({
+export const FutureTodos: FC<FutureTodosProps> = ({
   todos,
   onPress,
   onComplete,
@@ -48,7 +48,7 @@ export const NotTodayTodos: FC<NotTodayTodos> = ({
     const todo = rowData.item;
     return (
       <Box>
-        <NotTodayTodoSwipe
+        <FutureTodoSwipe
           todo={todo}
           onPress={onPress}
           onComplete={onComplete}

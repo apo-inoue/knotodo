@@ -1,20 +1,27 @@
 import React, { FC } from 'react';
-import { Box } from '../../ui';
+import { useTheme } from 'styled-components';
+import { Box, Text } from '../../ui';
 import { TodoSortItem } from '../2single';
-import { TodayTodosQueryVariables } from '../../types/graphql';
+import { Todos_Order_By } from '../../types/graphql';
+import { Touchable } from '../../ui/button/Touchable';
+import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 
 type SortItem = {
   name: string;
-  value: keyof TodayTodosQueryVariables;
+  value: keyof Todos_Order_By;
   desc: string;
   asc: string;
 };
 
-type TodosSortProps = {
+type ModalSortProps = {
   sortModalToggler: () => void;
 };
 
-export const TodosSort: FC<TodosSortProps> = ({ sortModalToggler }) => {
+export const ModalSort: FC<ModalSortProps> = ({ sortModalToggler }) => {
+  const theme = useTheme();
+  const {
+    sort: { clearSortHandler },
+  } = useSortFilterCtx();
   const sortItems: SortItem[] = [
     {
       name: '作成日',
@@ -46,6 +53,11 @@ export const TodosSort: FC<TodosSortProps> = ({ sortModalToggler }) => {
           />
         </Box>
       ))}
+      <Box mt={3} width="100%" alignItems="center">
+        <Touchable onPress={clearSortHandler}>
+          <Text color={theme.colors.main}>デフォルト</Text>
+        </Touchable>
+      </Box>
     </>
   );
 };

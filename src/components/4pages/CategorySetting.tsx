@@ -17,6 +17,8 @@ export const CategorySetting: FC = () => {
     state: { category },
   } = useCategoryCtx();
   const { data, loading, error } = useCategoriesQuery();
+
+  // ------------ insert ------------
   const [insertCategory] = useInsertCategoryMutation({
     variables: { title: category },
     update(cache, { data: updateData }) {
@@ -34,6 +36,8 @@ export const CategorySetting: FC = () => {
   const insertCategoryHandler = () => {
     insertCategory();
   };
+
+  // ------------ delete ------------
   const [deleteCategory] = useDeleteCategoryMutation({
     update(cache, { data: updateData }) {
       const existingCategories = cache.readQuery<CategoriesQuery>({

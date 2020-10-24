@@ -6,11 +6,11 @@ import {
   useUpdateUserGoalMutation,
   UserGoalQuery,
 } from '../../types/graphql';
-import { MessageSettingCollection } from '../3collection';
+import { GoalSettingCollection } from '../3collection';
 import { USER_GOAL } from '../../graphql/query/users';
 import { useAuthCtx } from '../../containers/contexts/auth';
 
-export const MessageSetting: FC = () => {
+export const GoalSetting: FC = () => {
   const {
     state: {
       userInfo: { id },
@@ -62,8 +62,8 @@ export const MessageSetting: FC = () => {
 
   return (
     <Container centerContent>
-      <MessageSettingCollection
-        message={data.users[0].goal ?? ''}
+      <GoalSettingCollection
+        goal={data.users[0].goal ?? ''}
         onPress={updateUserMessageHandler}
       />
     </Container>

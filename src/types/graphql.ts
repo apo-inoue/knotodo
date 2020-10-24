@@ -181,10 +181,6 @@ export type Mutation_Root = {
   delete_todos?: Maybe<Todos_Mutation_Response>;
   /** delete single row from the table: "todos" */
   delete_todos_by_pk?: Maybe<Todos>;
-  /** delete data from the table: "user_configs" */
-  delete_user_configs?: Maybe<User_Configs_Mutation_Response>;
-  /** delete single row from the table: "user_configs" */
-  delete_user_configs_by_pk?: Maybe<User_Configs>;
   /** insert data into the table: "categories" */
   insert_categories?: Maybe<Categories_Mutation_Response>;
   /** insert a single row into the table: "categories" */
@@ -193,10 +189,6 @@ export type Mutation_Root = {
   insert_todos?: Maybe<Todos_Mutation_Response>;
   /** insert a single row into the table: "todos" */
   insert_todos_one?: Maybe<Todos>;
-  /** insert data into the table: "user_configs" */
-  insert_user_configs?: Maybe<User_Configs_Mutation_Response>;
-  /** insert a single row into the table: "user_configs" */
-  insert_user_configs_one?: Maybe<User_Configs>;
   /** insert data into the table: "users" */
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
@@ -209,10 +201,6 @@ export type Mutation_Root = {
   update_todos?: Maybe<Todos_Mutation_Response>;
   /** update single row of the table: "todos" */
   update_todos_by_pk?: Maybe<Todos>;
-  /** update data of the table: "user_configs" */
-  update_user_configs?: Maybe<User_Configs_Mutation_Response>;
-  /** update single row of the table: "user_configs" */
-  update_user_configs_by_pk?: Maybe<User_Configs>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
@@ -245,18 +233,6 @@ export type Mutation_RootDelete_Todos_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_User_ConfigsArgs = {
-  where: User_Configs_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_User_Configs_By_PkArgs = {
-  id: Scalars['Int'];
-};
-
-
-/** mutation root */
 export type Mutation_RootInsert_CategoriesArgs = {
   objects: Array<Categories_Insert_Input>;
   on_conflict?: Maybe<Categories_On_Conflict>;
@@ -281,20 +257,6 @@ export type Mutation_RootInsert_TodosArgs = {
 export type Mutation_RootInsert_Todos_OneArgs = {
   object: Todos_Insert_Input;
   on_conflict?: Maybe<Todos_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_User_ConfigsArgs = {
-  objects: Array<User_Configs_Insert_Input>;
-  on_conflict?: Maybe<User_Configs_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_User_Configs_OneArgs = {
-  object: User_Configs_Insert_Input;
-  on_conflict?: Maybe<User_Configs_On_Conflict>;
 };
 
 
@@ -343,20 +305,6 @@ export type Mutation_RootUpdate_Todos_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_User_ConfigsArgs = {
-  _set?: Maybe<User_Configs_Set_Input>;
-  where: User_Configs_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_User_Configs_By_PkArgs = {
-  _set?: Maybe<User_Configs_Set_Input>;
-  pk_columns: User_Configs_Pk_Columns_Input;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_UsersArgs = {
   _set?: Maybe<Users_Set_Input>;
   where: Users_Bool_Exp;
@@ -397,10 +345,6 @@ export type Query_Root = {
   todos_aggregate: Todos_Aggregate;
   /** fetch data from the table: "todos" using primary key columns */
   todos_by_pk?: Maybe<Todos>;
-  /** fetch data from the table: "user_configs" */
-  user_configs: Array<User_Configs>;
-  /** fetch data from the table: "user_configs" using primary key columns */
-  user_configs_by_pk?: Maybe<User_Configs>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
@@ -451,22 +395,6 @@ export type Query_RootTodos_By_PkArgs = {
 
 
 /** query root */
-export type Query_RootUser_ConfigsArgs = {
-  distinct_on?: Maybe<Array<User_Configs_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<User_Configs_Order_By>>;
-  where?: Maybe<User_Configs_Bool_Exp>;
-};
-
-
-/** query root */
-export type Query_RootUser_Configs_By_PkArgs = {
-  id: Scalars['Int'];
-};
-
-
-/** query root */
 export type Query_RootUsersArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
@@ -494,10 +422,6 @@ export type Subscription_Root = {
   todos_aggregate: Todos_Aggregate;
   /** fetch data from the table: "todos" using primary key columns */
   todos_by_pk?: Maybe<Todos>;
-  /** fetch data from the table: "user_configs" */
-  user_configs: Array<User_Configs>;
-  /** fetch data from the table: "user_configs" using primary key columns */
-  user_configs_by_pk?: Maybe<User_Configs>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
@@ -548,22 +472,6 @@ export type Subscription_RootTodos_By_PkArgs = {
 
 
 /** subscription root */
-export type Subscription_RootUser_ConfigsArgs = {
-  distinct_on?: Maybe<Array<User_Configs_Select_Column>>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
-  order_by?: Maybe<Array<User_Configs_Order_By>>;
-  where?: Maybe<User_Configs_Bool_Exp>;
-};
-
-
-/** subscription root */
-export type Subscription_RootUser_Configs_By_PkArgs = {
-  id: Scalars['Int'];
-};
-
-
-/** subscription root */
 export type Subscription_RootUsersArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
@@ -597,6 +505,7 @@ export type Todos = {
   __typename?: 'todos';
   category_id: Scalars['Int'];
   completed_at?: Maybe<Scalars['timestamptz']>;
+  created_at: Scalars['timestamptz'];
   deleted_at?: Maybe<Scalars['timestamptz']>;
   id: Scalars['Int'];
   is_today: Scalars['Boolean'];
@@ -678,6 +587,7 @@ export type Todos_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Todos_Bool_Exp>>>;
   category_id?: Maybe<Int_Comparison_Exp>;
   completed_at?: Maybe<Timestamptz_Comparison_Exp>;
+  created_at?: Maybe<Timestamptz_Comparison_Exp>;
   deleted_at?: Maybe<Timestamptz_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   is_today?: Maybe<Boolean_Comparison_Exp>;
@@ -711,6 +621,7 @@ export type Todos_Max_Fields = {
   __typename?: 'todos_max_fields';
   category_id?: Maybe<Scalars['Int']>;
   completed_at?: Maybe<Scalars['timestamptz']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   deleted_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
@@ -721,6 +632,7 @@ export type Todos_Max_Fields = {
 export type Todos_Max_Order_By = {
   category_id?: Maybe<Order_By>;
   completed_at?: Maybe<Order_By>;
+  created_at?: Maybe<Order_By>;
   deleted_at?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
@@ -732,6 +644,7 @@ export type Todos_Min_Fields = {
   __typename?: 'todos_min_fields';
   category_id?: Maybe<Scalars['Int']>;
   completed_at?: Maybe<Scalars['timestamptz']>;
+  created_at?: Maybe<Scalars['timestamptz']>;
   deleted_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
@@ -742,6 +655,7 @@ export type Todos_Min_Fields = {
 export type Todos_Min_Order_By = {
   category_id?: Maybe<Order_By>;
   completed_at?: Maybe<Order_By>;
+  created_at?: Maybe<Order_By>;
   deleted_at?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
@@ -774,6 +688,7 @@ export type Todos_On_Conflict = {
 export type Todos_Order_By = {
   category_id?: Maybe<Order_By>;
   completed_at?: Maybe<Order_By>;
+  created_at?: Maybe<Order_By>;
   deleted_at?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   is_today?: Maybe<Order_By>;
@@ -793,6 +708,8 @@ export type Todos_Select_Column =
   | 'category_id'
   /** column name */
   | 'completed_at'
+  /** column name */
+  | 'created_at'
   /** column name */
   | 'deleted_at'
   /** column name */
@@ -956,99 +873,6 @@ export type Urgency_Enum_Comparison_Exp = {
   _nin?: Maybe<Array<Urgency_Enum>>;
 };
 
-/** columns and relationships of "user_configs" */
-export type User_Configs = {
-  __typename?: 'user_configs';
-  color?: Maybe<Color_Enum>;
-  goal?: Maybe<Scalars['String']>;
-  id: Scalars['Int'];
-};
-
-/** input type for inserting array relation for remote table "user_configs" */
-export type User_Configs_Arr_Rel_Insert_Input = {
-  data: Array<User_Configs_Insert_Input>;
-  on_conflict?: Maybe<User_Configs_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "user_configs". All fields are combined with a logical 'AND'. */
-export type User_Configs_Bool_Exp = {
-  _and?: Maybe<Array<Maybe<User_Configs_Bool_Exp>>>;
-  _not?: Maybe<User_Configs_Bool_Exp>;
-  _or?: Maybe<Array<Maybe<User_Configs_Bool_Exp>>>;
-  color?: Maybe<Color_Enum_Comparison_Exp>;
-  goal?: Maybe<String_Comparison_Exp>;
-  id?: Maybe<Int_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "user_configs" */
-export type User_Configs_Constraint = 
-  /** unique or primary key constraint */
-  | 'user_configs_pkey'
-  /** unique or primary key constraint */
-  | 'user_configs_user_id_key';
-
-/** input type for inserting data into table "user_configs" */
-export type User_Configs_Insert_Input = {
-  color?: Maybe<Color_Enum>;
-  goal?: Maybe<Scalars['String']>;
-};
-
-/** response of any mutation on the table "user_configs" */
-export type User_Configs_Mutation_Response = {
-  __typename?: 'user_configs_mutation_response';
-  /** number of affected rows by the mutation */
-  affected_rows: Scalars['Int'];
-  /** data of the affected rows by the mutation */
-  returning: Array<User_Configs>;
-};
-
-/** input type for inserting object relation for remote table "user_configs" */
-export type User_Configs_Obj_Rel_Insert_Input = {
-  data: User_Configs_Insert_Input;
-  on_conflict?: Maybe<User_Configs_On_Conflict>;
-};
-
-/** on conflict condition type for table "user_configs" */
-export type User_Configs_On_Conflict = {
-  constraint: User_Configs_Constraint;
-  update_columns: Array<User_Configs_Update_Column>;
-  where?: Maybe<User_Configs_Bool_Exp>;
-};
-
-/** ordering options when selecting data from "user_configs" */
-export type User_Configs_Order_By = {
-  color?: Maybe<Order_By>;
-  goal?: Maybe<Order_By>;
-  id?: Maybe<Order_By>;
-};
-
-/** primary key columns input for table: "user_configs" */
-export type User_Configs_Pk_Columns_Input = {
-  id: Scalars['Int'];
-};
-
-/** select columns of table "user_configs" */
-export type User_Configs_Select_Column = 
-  /** column name */
-  | 'color'
-  /** column name */
-  | 'goal'
-  /** column name */
-  | 'id';
-
-/** input type for updating data in table "user_configs" */
-export type User_Configs_Set_Input = {
-  color?: Maybe<Color_Enum>;
-  goal?: Maybe<Scalars['String']>;
-};
-
-/** update columns of table "user_configs" */
-export type User_Configs_Update_Column = 
-  /** column name */
-  | 'color'
-  /** column name */
-  | 'goal';
-
 /** columns and relationships of "users" */
 export type Users = {
   __typename?: 'users';
@@ -1084,9 +908,9 @@ export type Users_Constraint =
 
 /** input type for inserting data into table "users" */
 export type Users_Insert_Input = {
-  auth_id?: Maybe<Scalars['String']>;
   color?: Maybe<Color_Enum>;
   goal?: Maybe<Scalars['String']>;
+  nickname?: Maybe<Scalars['String']>;
 };
 
 /** response of any mutation on the table "users" */
@@ -1140,6 +964,7 @@ export type Users_Set_Input = {
   auth_id?: Maybe<Scalars['String']>;
   color?: Maybe<Color_Enum>;
   goal?: Maybe<Scalars['String']>;
+  nickname?: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "users" */
@@ -1149,7 +974,9 @@ export type Users_Update_Column =
   /** column name */
   | 'color'
   /** column name */
-  | 'goal';
+  | 'goal'
+  /** column name */
+  | 'nickname';
 
 export type InsertCategoryMutationVariables = Exact<{
   title: Scalars['String'];
@@ -1234,7 +1061,7 @@ export type InsertTodoMutationVariables = Exact<{
 export type InsertTodoMutation = (
   { __typename?: 'mutation_root' }
   & { insert_todos_one?: Maybe<(
-    { __typename: 'todos' }
+    { __typename?: 'todos' }
     & Pick<Todos, 'id'>
   )> }
 );
@@ -1307,12 +1134,12 @@ export type SetTodayTodoMutation = (
   )> }
 );
 
-export type SetNotTodayTodoMutationVariables = Exact<{
+export type RescheduleTodoMutationVariables = Exact<{
   _eq: Scalars['Int'];
 }>;
 
 
-export type SetNotTodayTodoMutation = (
+export type RescheduleTodoMutation = (
   { __typename?: 'mutation_root' }
   & { update_todos?: Maybe<(
     { __typename?: 'todos_mutation_response' }
@@ -1419,13 +1246,13 @@ export type TodayTodosQuery = (
   )> }
 );
 
-export type NotTodayTodosQueryVariables = Exact<{
+export type FutureTodosQueryVariables = Exact<{
   _in?: Maybe<Array<Scalars['Int']>>;
   order_by?: Maybe<Array<Todos_Order_By>>;
 }>;
 
 
-export type NotTodayTodosQuery = (
+export type FutureTodosQuery = (
   { __typename?: 'query_root' }
   & { todos: Array<(
     { __typename?: 'todos' }
@@ -1433,13 +1260,13 @@ export type NotTodayTodosQuery = (
   )> }
 );
 
-export type CompletedTodosQueryVariables = Exact<{
+export type PastTodosQueryVariables = Exact<{
   _in?: Maybe<Array<Scalars['Int']>>;
   order_by?: Maybe<Array<Todos_Order_By>>;
 }>;
 
 
-export type CompletedTodosQuery = (
+export type PastTodosQuery = (
   { __typename?: 'query_root' }
   & { todos: Array<(
     { __typename?: 'todos' }
@@ -1447,14 +1274,14 @@ export type CompletedTodosQuery = (
   )> }
 );
 
-export type AccomplishmentAndMessageQueryVariables = Exact<{
+export type AccomplishmentAndGoalQueryVariables = Exact<{
   _gte1: Scalars['timestamptz'];
   _gte2: Scalars['timestamptz'];
   _gte3: Scalars['timestamptz'];
 }>;
 
 
-export type AccomplishmentAndMessageQuery = (
+export type AccomplishmentAndGoalQuery = (
   { __typename?: 'query_root' }
   & { week: (
     { __typename?: 'todos_aggregate' }
@@ -1674,8 +1501,7 @@ export type SeedDataTodoMutationResult = Apollo.MutationResult<SeedDataTodoMutat
 export type SeedDataTodoMutationOptions = Apollo.BaseMutationOptions<SeedDataTodoMutation, SeedDataTodoMutationVariables>;
 export const InsertTodoDocument = gql`
     mutation InsertTodo($title: String!, $urgency: urgency_enum!, $workload: Int!, $is_today: Boolean!, $category_id: Int!) {
-  insert_todos_one(object: {is_today: $is_today, title: $title, urgency: $urgency, workload: $workload, category_id: $category_id}) {
-    __typename
+  insert_todos_one(object: {title: $title, urgency: $urgency, workload: $workload, is_today: $is_today, category_id: $category_id}) {
     id
   }
 }
@@ -1850,8 +1676,8 @@ export function useSetTodayTodoMutation(baseOptions?: Apollo.MutationHookOptions
 export type SetTodayTodoMutationHookResult = ReturnType<typeof useSetTodayTodoMutation>;
 export type SetTodayTodoMutationResult = Apollo.MutationResult<SetTodayTodoMutation>;
 export type SetTodayTodoMutationOptions = Apollo.BaseMutationOptions<SetTodayTodoMutation, SetTodayTodoMutationVariables>;
-export const SetNotTodayTodoDocument = gql`
-    mutation SetNotTodayTodo($_eq: Int!) {
+export const RescheduleTodoDocument = gql`
+    mutation rescheduleTodo($_eq: Int!) {
   update_todos(where: {id: {_eq: $_eq}}, _set: {is_today: false}) {
     affected_rows
     returning {
@@ -1860,34 +1686,34 @@ export const SetNotTodayTodoDocument = gql`
   }
 }
     `;
-export type SetNotTodayTodoMutationFn = Apollo.MutationFunction<SetNotTodayTodoMutation, SetNotTodayTodoMutationVariables>;
+export type RescheduleTodoMutationFn = Apollo.MutationFunction<RescheduleTodoMutation, RescheduleTodoMutationVariables>;
 
 /**
- * __useSetNotTodayTodoMutation__
+ * __useRescheduleTodoMutation__
  *
- * To run a mutation, you first call `useSetNotTodayTodoMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useSetNotTodayTodoMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useRescheduleTodoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRescheduleTodoMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [setNotTodayTodoMutation, { data, loading, error }] = useSetNotTodayTodoMutation({
+ * const [rescheduleTodoMutation, { data, loading, error }] = useRescheduleTodoMutation({
  *   variables: {
  *      _eq: // value for '_eq'
  *   },
  * });
  */
-export function useSetNotTodayTodoMutation(baseOptions?: Apollo.MutationHookOptions<SetNotTodayTodoMutation, SetNotTodayTodoMutationVariables>) {
-        return Apollo.useMutation<SetNotTodayTodoMutation, SetNotTodayTodoMutationVariables>(SetNotTodayTodoDocument, baseOptions);
+export function useRescheduleTodoMutation(baseOptions?: Apollo.MutationHookOptions<RescheduleTodoMutation, RescheduleTodoMutationVariables>) {
+        return Apollo.useMutation<RescheduleTodoMutation, RescheduleTodoMutationVariables>(RescheduleTodoDocument, baseOptions);
       }
-export type SetNotTodayTodoMutationHookResult = ReturnType<typeof useSetNotTodayTodoMutation>;
-export type SetNotTodayTodoMutationResult = Apollo.MutationResult<SetNotTodayTodoMutation>;
-export type SetNotTodayTodoMutationOptions = Apollo.BaseMutationOptions<SetNotTodayTodoMutation, SetNotTodayTodoMutationVariables>;
+export type RescheduleTodoMutationHookResult = ReturnType<typeof useRescheduleTodoMutation>;
+export type RescheduleTodoMutationResult = Apollo.MutationResult<RescheduleTodoMutation>;
+export type RescheduleTodoMutationOptions = Apollo.BaseMutationOptions<RescheduleTodoMutation, RescheduleTodoMutationVariables>;
 export const RestoreNotTodayDocument = gql`
     mutation RestoreNotToday($_eq: Int!) {
-  update_todos(where: {id: {_eq: $_eq}}, _set: {completed_at: null, is_today: false, deleted_at: null}) {
+  update_todos(where: {id: {_eq: $_eq}}, _set: {is_today: false, completed_at: null, deleted_at: null}) {
     affected_rows
     returning {
       id
@@ -1922,7 +1748,7 @@ export type RestoreNotTodayMutationResult = Apollo.MutationResult<RestoreNotToda
 export type RestoreNotTodayMutationOptions = Apollo.BaseMutationOptions<RestoreNotTodayMutation, RestoreNotTodayMutationVariables>;
 export const RestoreTodayDocument = gql`
     mutation RestoreToday($_eq: Int!) {
-  update_todos(where: {id: {_eq: $_eq}}, _set: {completed_at: null, is_today: true, deleted_at: null}) {
+  update_todos(where: {id: {_eq: $_eq}}, _set: {is_today: true, completed_at: null, deleted_at: null}) {
     affected_rows
     returning {
       id
@@ -2101,8 +1927,8 @@ export function useTodayTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type TodayTodosQueryHookResult = ReturnType<typeof useTodayTodosQuery>;
 export type TodayTodosLazyQueryHookResult = ReturnType<typeof useTodayTodosLazyQuery>;
 export type TodayTodosQueryResult = Apollo.QueryResult<TodayTodosQuery, TodayTodosQueryVariables>;
-export const NotTodayTodosDocument = gql`
-    query NotTodayTodos($_in: [Int!], $order_by: [todos_order_by!]) {
+export const FutureTodosDocument = gql`
+    query FutureTodos($_in: [Int!], $order_by: [todos_order_by!]) {
   todos(where: {is_today: {_eq: false}, category_id: {_in: $_in}, completed_at: {_is_null: true}, deleted_at: {_is_null: true}}, order_by: $order_by) {
     id
     title
@@ -2115,33 +1941,33 @@ export const NotTodayTodosDocument = gql`
     `;
 
 /**
- * __useNotTodayTodosQuery__
+ * __useFutureTodosQuery__
  *
- * To run a query within a React component, call `useNotTodayTodosQuery` and pass it any options that fit your needs.
- * When your component renders, `useNotTodayTodosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFutureTodosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFutureTodosQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useNotTodayTodosQuery({
+ * const { data, loading, error } = useFutureTodosQuery({
  *   variables: {
  *      _in: // value for '_in'
  *      order_by: // value for 'order_by'
  *   },
  * });
  */
-export function useNotTodayTodosQuery(baseOptions?: Apollo.QueryHookOptions<NotTodayTodosQuery, NotTodayTodosQueryVariables>) {
-        return Apollo.useQuery<NotTodayTodosQuery, NotTodayTodosQueryVariables>(NotTodayTodosDocument, baseOptions);
+export function useFutureTodosQuery(baseOptions?: Apollo.QueryHookOptions<FutureTodosQuery, FutureTodosQueryVariables>) {
+        return Apollo.useQuery<FutureTodosQuery, FutureTodosQueryVariables>(FutureTodosDocument, baseOptions);
       }
-export function useNotTodayTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NotTodayTodosQuery, NotTodayTodosQueryVariables>) {
-          return Apollo.useLazyQuery<NotTodayTodosQuery, NotTodayTodosQueryVariables>(NotTodayTodosDocument, baseOptions);
+export function useFutureTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FutureTodosQuery, FutureTodosQueryVariables>) {
+          return Apollo.useLazyQuery<FutureTodosQuery, FutureTodosQueryVariables>(FutureTodosDocument, baseOptions);
         }
-export type NotTodayTodosQueryHookResult = ReturnType<typeof useNotTodayTodosQuery>;
-export type NotTodayTodosLazyQueryHookResult = ReturnType<typeof useNotTodayTodosLazyQuery>;
-export type NotTodayTodosQueryResult = Apollo.QueryResult<NotTodayTodosQuery, NotTodayTodosQueryVariables>;
-export const CompletedTodosDocument = gql`
-    query CompletedTodos($_in: [Int!], $order_by: [todos_order_by!]) {
+export type FutureTodosQueryHookResult = ReturnType<typeof useFutureTodosQuery>;
+export type FutureTodosLazyQueryHookResult = ReturnType<typeof useFutureTodosLazyQuery>;
+export type FutureTodosQueryResult = Apollo.QueryResult<FutureTodosQuery, FutureTodosQueryVariables>;
+export const PastTodosDocument = gql`
+    query PastTodos($_in: [Int!], $order_by: [todos_order_by!]) {
   todos(where: {category_id: {_in: $_in}, completed_at: {_is_null: false}, deleted_at: {_is_null: true}}, order_by: $order_by) {
     id
     title
@@ -2154,33 +1980,33 @@ export const CompletedTodosDocument = gql`
     `;
 
 /**
- * __useCompletedTodosQuery__
+ * __usePastTodosQuery__
  *
- * To run a query within a React component, call `useCompletedTodosQuery` and pass it any options that fit your needs.
- * When your component renders, `useCompletedTodosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `usePastTodosQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePastTodosQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useCompletedTodosQuery({
+ * const { data, loading, error } = usePastTodosQuery({
  *   variables: {
  *      _in: // value for '_in'
  *      order_by: // value for 'order_by'
  *   },
  * });
  */
-export function useCompletedTodosQuery(baseOptions?: Apollo.QueryHookOptions<CompletedTodosQuery, CompletedTodosQueryVariables>) {
-        return Apollo.useQuery<CompletedTodosQuery, CompletedTodosQueryVariables>(CompletedTodosDocument, baseOptions);
+export function usePastTodosQuery(baseOptions?: Apollo.QueryHookOptions<PastTodosQuery, PastTodosQueryVariables>) {
+        return Apollo.useQuery<PastTodosQuery, PastTodosQueryVariables>(PastTodosDocument, baseOptions);
       }
-export function useCompletedTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CompletedTodosQuery, CompletedTodosQueryVariables>) {
-          return Apollo.useLazyQuery<CompletedTodosQuery, CompletedTodosQueryVariables>(CompletedTodosDocument, baseOptions);
+export function usePastTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PastTodosQuery, PastTodosQueryVariables>) {
+          return Apollo.useLazyQuery<PastTodosQuery, PastTodosQueryVariables>(PastTodosDocument, baseOptions);
         }
-export type CompletedTodosQueryHookResult = ReturnType<typeof useCompletedTodosQuery>;
-export type CompletedTodosLazyQueryHookResult = ReturnType<typeof useCompletedTodosLazyQuery>;
-export type CompletedTodosQueryResult = Apollo.QueryResult<CompletedTodosQuery, CompletedTodosQueryVariables>;
-export const AccomplishmentAndMessageDocument = gql`
-    query AccomplishmentAndMessage($_gte1: timestamptz!, $_gte2: timestamptz!, $_gte3: timestamptz!) {
+export type PastTodosQueryHookResult = ReturnType<typeof usePastTodosQuery>;
+export type PastTodosLazyQueryHookResult = ReturnType<typeof usePastTodosLazyQuery>;
+export type PastTodosQueryResult = Apollo.QueryResult<PastTodosQuery, PastTodosQueryVariables>;
+export const AccomplishmentAndGoalDocument = gql`
+    query AccomplishmentAndGoal($_gte1: timestamptz!, $_gte2: timestamptz!, $_gte3: timestamptz!) {
   week: todos_aggregate(where: {completed_at: {_gte: $_gte1}}) {
     aggregate {
       count
@@ -2203,16 +2029,16 @@ export const AccomplishmentAndMessageDocument = gql`
     `;
 
 /**
- * __useAccomplishmentAndMessageQuery__
+ * __useAccomplishmentAndGoalQuery__
  *
- * To run a query within a React component, call `useAccomplishmentAndMessageQuery` and pass it any options that fit your needs.
- * When your component renders, `useAccomplishmentAndMessageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useAccomplishmentAndGoalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccomplishmentAndGoalQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useAccomplishmentAndMessageQuery({
+ * const { data, loading, error } = useAccomplishmentAndGoalQuery({
  *   variables: {
  *      _gte1: // value for '_gte1'
  *      _gte2: // value for '_gte2'
@@ -2220,15 +2046,15 @@ export const AccomplishmentAndMessageDocument = gql`
  *   },
  * });
  */
-export function useAccomplishmentAndMessageQuery(baseOptions?: Apollo.QueryHookOptions<AccomplishmentAndMessageQuery, AccomplishmentAndMessageQueryVariables>) {
-        return Apollo.useQuery<AccomplishmentAndMessageQuery, AccomplishmentAndMessageQueryVariables>(AccomplishmentAndMessageDocument, baseOptions);
+export function useAccomplishmentAndGoalQuery(baseOptions?: Apollo.QueryHookOptions<AccomplishmentAndGoalQuery, AccomplishmentAndGoalQueryVariables>) {
+        return Apollo.useQuery<AccomplishmentAndGoalQuery, AccomplishmentAndGoalQueryVariables>(AccomplishmentAndGoalDocument, baseOptions);
       }
-export function useAccomplishmentAndMessageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccomplishmentAndMessageQuery, AccomplishmentAndMessageQueryVariables>) {
-          return Apollo.useLazyQuery<AccomplishmentAndMessageQuery, AccomplishmentAndMessageQueryVariables>(AccomplishmentAndMessageDocument, baseOptions);
+export function useAccomplishmentAndGoalLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccomplishmentAndGoalQuery, AccomplishmentAndGoalQueryVariables>) {
+          return Apollo.useLazyQuery<AccomplishmentAndGoalQuery, AccomplishmentAndGoalQueryVariables>(AccomplishmentAndGoalDocument, baseOptions);
         }
-export type AccomplishmentAndMessageQueryHookResult = ReturnType<typeof useAccomplishmentAndMessageQuery>;
-export type AccomplishmentAndMessageLazyQueryHookResult = ReturnType<typeof useAccomplishmentAndMessageLazyQuery>;
-export type AccomplishmentAndMessageQueryResult = Apollo.QueryResult<AccomplishmentAndMessageQuery, AccomplishmentAndMessageQueryVariables>;
+export type AccomplishmentAndGoalQueryHookResult = ReturnType<typeof useAccomplishmentAndGoalQuery>;
+export type AccomplishmentAndGoalLazyQueryHookResult = ReturnType<typeof useAccomplishmentAndGoalLazyQuery>;
+export type AccomplishmentAndGoalQueryResult = Apollo.QueryResult<AccomplishmentAndGoalQuery, AccomplishmentAndGoalQueryVariables>;
 export const UserColorDocument = gql`
     query UserColor {
   users {

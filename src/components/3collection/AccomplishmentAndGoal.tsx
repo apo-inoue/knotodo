@@ -1,23 +1,28 @@
 import React, { FC, useMemo } from 'react';
 import { useTheme } from 'styled-components';
 import { Box, Text } from '../../ui';
-import { GetAccomplishmentAndMessageQuery } from '../../types/graphql';
-import { prizeReckoner } from '../../helpers/prizeReckoner';
+import { AccomplishmentAndGoalQuery } from '../../types/graphql';
+import { calcPrize } from '../../helpers/calcPrize';
 
-type AccomplishmentAndMessageProps = {
-  accomplishmentAndMessage: GetAccomplishmentAndMessageQuery;
+type AccomplishmentAndGoalProps = {
+  accomplishmentAndGoal: AccomplishmentAndGoalQuery;
 };
 
-export const AccomplishmentAndMessage: FC<AccomplishmentAndMessageProps> = ({
-  accomplishmentAndMessage,
+export const AccomplishmentAndGoal: FC<AccomplishmentAndGoalProps> = ({
+  accomplishmentAndGoal,
 }) => {
   const theme = useTheme();
-  const { year, month, week } = accomplishmentAndMessage;
-  const { message } = accomplishmentAndMessage.users[0];
+  const { year, month, week } = accomplishmentAndGoal;
+  // accomplishment
   const weeklyAccomplishment = week.aggregate?.count ?? 0;
-  const prizeScore = useMemo(() => prizeReckoner(weeklyAccomplishment), [
+  const monthlyAccomplishment = month.aggregate?.count ?? 0;
+  const annuallyAccomplishment = year.aggregate?.count ?? 0;
+  const { goal } = accomplishmentAndGoal.users[0];
+  // calcPrize
+  const prizeScore = useMemo(() => calcPrize(weeklyAccomplishment), [
     weeklyAccomplishment,
   ]);
+
   const Prize = () => {
     switch (prizeScore) {
       case 3:
@@ -31,7 +36,7 @@ export const AccomplishmentAndMessage: FC<AccomplishmentAndMessageProps> = ({
       case 1:
         return <Text textAlign="center">✨いい調子です✨</Text>;
       case 0:
-        return <Text textAlign="center">今日からはじめよう</Text>;
+        return <Text textAlign="center">今日からはじめよう💪</Text>;
       default:
         return <Text textAlign="center">今日からはじめよう</Text>;
     }
@@ -39,10 +44,10 @@ export const AccomplishmentAndMessage: FC<AccomplishmentAndMessageProps> = ({
   const accomplishmentIntervals = [
     {
       interval: '今週',
-      count: week.aggregate?.count ?? 0,
+      count: weeklyAccomplishment,
     },
-    { interval: '今月', count: month.aggregate?.count ?? 0 },
-    { interval: '今年', count: year.aggregate?.count ?? 0 },
+    { interval: '今月', count: monthlyAccomplishment },
+    { interval: '今年', count: annuallyAccomplishment },
   ];
 
   return (
@@ -62,9 +67,9 @@ export const AccomplishmentAndMessage: FC<AccomplishmentAndMessageProps> = ({
       </Box>
       <Box mt={4}>
         <Text textAlign="center" color={theme.colors.blacks[7]}>
-          ヒトコト
+          現在の目標
         </Text>
-        <Text textAlign="center">{message ? message : '未設定'}</Text>
+        <Text textAlign="center">{goal || '未設定'}</Text>
       </Box>
     </Box>
   );

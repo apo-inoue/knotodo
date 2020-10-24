@@ -12,6 +12,7 @@ export type SortFilterCtxType = {
   sort: {
     sortState: SortState;
     selectSortHandler: (key: keyof Todos_Order_By, order: Order_By) => void;
+    clearSortHandler: () => void;
   };
   filter: {
     filterState: FilterState;

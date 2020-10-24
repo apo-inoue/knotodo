@@ -3,20 +3,20 @@ import { ListRenderItemInfo } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Box, Divider } from '../../ui';
 import { Todos } from '../../types/graphql';
-import { ArchiveTodoSwipe } from './ArchiveTodoSwipe';
+import { PastTodoSwipe } from './PastTodoSwipe';
 
 type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
   'id' | 'title' | 'urgency' | 'workload' | 'is_today' | 'category_id'
 >;
-type ArchiveTodosType = {
+type PastTodosProps = {
   todos: TodoType[];
   onPress: (id: number) => void;
   onRestoreToday: (id: number) => void;
   onRestoreNotToday: (id: number) => void;
 };
 
-export const ArchiveTodos: FC<ArchiveTodosType> = ({
+export const PastTodos: FC<PastTodosProps> = ({
   todos,
   onPress,
   onRestoreToday,
@@ -29,14 +29,13 @@ export const ArchiveTodos: FC<ArchiveTodosType> = ({
   const disableScrollHandler = () => {
     setIsScrollable(false);
   };
-  console.log(isScrollable);
 
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
     const isLastRow = todos.length - 1 === rowData.index;
     const todo = rowData.item;
     return (
       <Box>
-        <ArchiveTodoSwipe
+        <PastTodoSwipe
           todo={todo}
           onPress={onPress}
           onRestoreToday={onRestoreToday}

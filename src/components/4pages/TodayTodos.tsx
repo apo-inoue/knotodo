@@ -6,7 +6,7 @@ import { TodayTodosCollection } from '../3collection';
 import {
   useTodayTodosQuery,
   useCompleteTodoMutation,
-  useSetNotTodayTodoMutation,
+  useRescheduleTodoMutation,
   TodayTodosQuery,
   useDeleteTodoMutation,
 } from '../../types/graphql';
@@ -15,6 +15,7 @@ import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { useTodoCtx } from '../../containers/contexts/todo';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 
+// NOTE: 今日
 export const TodayTodos: FC = () => {
   const navigation = useNavigation();
   const {
@@ -24,12 +25,15 @@ export const TodayTodos: FC = () => {
     },
   } = useSortFilterCtx();
   const categoryIdsVariables = isAll ? null : categoryIds;
+
+  // ---------- today ----------
   const { loading, error, data, refetch } = useTodayTodosQuery({
     variables: {
-      order_by: [{ completed_at: 'desc' }],
+      order_by: sortState,
       _in: categoryIdsVariables,
     },
   });
+
   // ---------- complete ----------
   const [completeTodo] = useCompleteTodoMutation({
     update(cache, { data: updateData }) {
@@ -57,7 +61,7 @@ export const TodayTodos: FC = () => {
     completeTodo({ variables: { _eq: id } });
   };
   // ----------- notToday ----------
-  const [setToday] = useSetNotTodayTodoMutation({
+  const [setToday] = useRescheduleTodoMutation({
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
@@ -83,13 +87,6 @@ export const TodayTodos: FC = () => {
     setToday({ variables: { _eq: id } });
   };
 
-  const {
-    newTodo: { todoMountHandler },
-  } = useTodoCtx();
-  const mountAndNavigateHandler = () => {
-    todoMountHandler(true);
-    navigation.navigate(STACK_ROUTE_NAMES.新規作成);
-  };
   // ---------- delete ----------
   const [deleteToDo] = useDeleteTodoMutation({
     update(cache, { data: updateData }) {
@@ -118,6 +115,15 @@ export const TodayTodos: FC = () => {
   });
   const deleteToDoHandler = (id: number) => {
     deleteToDo({ variables: { _eq: id } });
+  };
+
+  // ------------ mount ------------
+  const {
+    newTodo: { todoMountHandler },
+  } = useTodoCtx();
+  const mountAndNavigateHandler = () => {
+    todoMountHandler(true);
+    navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
 
   useFocusEffect(

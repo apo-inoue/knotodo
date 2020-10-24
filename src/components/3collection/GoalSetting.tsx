@@ -9,15 +9,12 @@ import {
 } from '../../ui';
 import { useTheme } from 'styled-components';
 
-type MessageSettingProps = {
-  message: string | null;
-  onPress: (message: string) => void;
+type GoalSettingProps = {
+  goal: string | null;
+  onPress: (goal: string) => void;
 };
 
-export const MessageSetting: FC<MessageSettingProps> = ({
-  message,
-  onPress,
-}) => {
+export const GoalSetting: FC<GoalSettingProps> = ({ goal, onPress }) => {
   const theme = useTheme();
   const [error, setError] = useState<string>('');
   const [value, setValue] = useState<string>('');
@@ -41,9 +38,9 @@ export const MessageSetting: FC<MessageSettingProps> = ({
       alignItems="center"
       keyboardVerticalOffset={50 + Constants.statusBarHeight}>
       <Text textAlign="center" color={theme.colors.blacks[7]}>
-        今のヒトコト
+        現在の目標
       </Text>
-      <Text textAlign="center">{message ? message : '未設定'}</Text>
+      <Text textAlign="center">{goal || '未設定'}</Text>
       <Box mt="24px" />
       <UnderlinedTextForm
         err={error}

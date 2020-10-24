@@ -1,22 +1,21 @@
 import React, { FC, useCallback } from 'react';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
-  useNotTodayTodosQuery,
+  useFutureTodosQuery,
   useSetTodayTodoMutation,
   useCompleteTodoMutation,
-  NotTodayTodosQuery,
+  FutureTodosQuery,
   useDeleteTodoMutation,
-  CompletedTodosQuery,
 } from '../../types/graphql';
-import { NOT_TODAY_TODOS } from '../../graphql/query/todos';
+import { FUTURE_TODOS } from '../../graphql/query/todos';
 import { Container, ScreenLoader } from '../../ui';
 import { ErrorMessage, NoDataMessage, AddFab } from '../1standalone';
-import { NotTodayTodosCollection } from '../3collection';
+import { FutureTodosCollection } from '../3collection';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { useTodoCtx } from '../../containers/contexts/todo';
 
-export const NotTodayTodos: FC = () => {
+export const FutureTodos: FC = () => {
   const navigation = useNavigation();
   const {
     sort: { sortState },
@@ -25,14 +24,14 @@ export const NotTodayTodos: FC = () => {
     },
   } = useSortFilterCtx();
   const categoryIdsVariables = isAll ? null : categoryIds;
-  const { loading, error, data, refetch } = useNotTodayTodosQuery({
+  const { loading, error, data, refetch } = useFutureTodosQuery({
     variables: { order_by: sortState, _in: categoryIdsVariables },
   });
   // ---------- setToday ----------
   const [setToday] = useSetTodayTodoMutation({
     update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<NotTodayTodosQuery>({
-        query: NOT_TODAY_TODOS,
+      const existingTodos = cache.readQuery<FutureTodosQuery>({
+        query: FUTURE_TODOS,
         variables: {
           orderBy: sortState,
           _in: categoryIdsVariables,
@@ -41,8 +40,8 @@ export const NotTodayTodos: FC = () => {
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
-      cache.writeQuery<NotTodayTodosQuery>({
-        query: NOT_TODAY_TODOS,
+      cache.writeQuery<FutureTodosQuery>({
+        query: FUTURE_TODOS,
         variables: {
           orderBy: sortState,
           _in: categoryIdsVariables,
@@ -57,8 +56,8 @@ export const NotTodayTodos: FC = () => {
   // ---------- complete ----------
   const [completeTodo] = useCompleteTodoMutation({
     update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<NotTodayTodosQuery>({
-        query: NOT_TODAY_TODOS,
+      const existingTodos = cache.readQuery<FutureTodosQuery>({
+        query: FUTURE_TODOS,
         variables: {
           orderBy: sortState,
           _in: categoryIdsVariables,
@@ -67,8 +66,8 @@ export const NotTodayTodos: FC = () => {
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
-      cache.writeQuery<NotTodayTodosQuery>({
-        query: NOT_TODAY_TODOS,
+      cache.writeQuery<FutureTodosQuery>({
+        query: FUTURE_TODOS,
         variables: {
           orderBy: sortState,
           _in: categoryIdsVariables,
@@ -91,8 +90,8 @@ export const NotTodayTodos: FC = () => {
   // ---------- delete ----------
   const [deleteToDo] = useDeleteTodoMutation({
     update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<NotTodayTodosQuery>({
-        query: NOT_TODAY_TODOS,
+      const existingTodos = cache.readQuery<FutureTodosQuery>({
+        query: FUTURE_TODOS,
         variables: {
           orderBy: sortState,
           _in: categoryIdsVariables,
@@ -101,8 +100,8 @@ export const NotTodayTodos: FC = () => {
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
-      cache.writeQuery<CompletedTodosQuery>({
-        query: NOT_TODAY_TODOS,
+      cache.writeQuery<FutureTodosQuery>({
+        query: FUTURE_TODOS,
         variables: {
           orderBy: sortState,
           _in: categoryIdsVariables,
@@ -138,7 +137,7 @@ export const NotTodayTodos: FC = () => {
 
   return (
     <Container>
-      <NotTodayTodosCollection
+      <FutureTodosCollection
         todos={data.todos}
         onPress={setTodayHandler}
         onComplete={completeTodoHandler}

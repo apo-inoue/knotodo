@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Container, ScreenLoader } from '../../ui';
 import { EditTodoCollection } from '../3collection';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
-import { TODAY_TODOS, NOT_TODAY_TODOS } from '../../graphql/query/todos';
+import { TODAY_TODOS, FUTURE_TODOS } from '../../graphql/query/todos';
 import {
   UpdateTodoMutationVariables,
   useUpdateTodoMutation,
@@ -12,7 +12,7 @@ import {
 export const EditTodo: FC = () => {
   const { data, loading, error } = useCategoriesQuery();
   const [updateTodo] = useUpdateTodoMutation({
-    refetchQueries: [{ query: TODAY_TODOS }, { query: NOT_TODAY_TODOS }],
+    refetchQueries: [{ query: TODAY_TODOS }, { query: FUTURE_TODOS }],
   });
   const updateTodoHandler = ({
     id,

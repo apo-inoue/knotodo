@@ -10,14 +10,13 @@ export const INSERT_TODO = gql`
   ) {
     insert_todos_one(
       object: {
-        is_today: $is_today
         title: $title
         urgency: $urgency
         workload: $workload
+        is_today: $is_today
         category_id: $category_id
       }
     ) {
-      __typename
       id
     }
   }
@@ -81,8 +80,8 @@ export const SET_TODAY_TODO = gql`
   }
 `;
 
-export const SET_NOT_TODAY_TODO = gql`
-  mutation SetNotTodayTodo($_eq: Int!) {
+export const RESCHEDULE_TODO = gql`
+  mutation rescheduleTodo($_eq: Int!) {
     update_todos(where: { id: { _eq: $_eq } }, _set: { is_today: false }) {
       affected_rows
       returning {
@@ -96,7 +95,7 @@ export const RESTORE_NOT_TODAY = gql`
   mutation RestoreNotToday($_eq: Int!) {
     update_todos(
       where: { id: { _eq: $_eq } }
-      _set: { completed_at: null, is_today: false, deleted_at: null }
+      _set: { is_today: false, completed_at: null, deleted_at: null }
     ) {
       affected_rows
       returning {
@@ -110,7 +109,7 @@ export const RESTORE_TODAY = gql`
   mutation RestoreToday($_eq: Int!) {
     update_todos(
       where: { id: { _eq: $_eq } }
-      _set: { completed_at: null, is_today: true, deleted_at: null }
+      _set: { is_today: true, completed_at: null, deleted_at: null }
     ) {
       affected_rows
       returning {

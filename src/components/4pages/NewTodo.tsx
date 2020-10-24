@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Container, ScreenLoader } from '../../ui';
 import {
   InsertTodoMutationVariables,
@@ -7,11 +8,21 @@ import {
 } from '../../types/graphql';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { NewTodoCollection } from '../3collection';
-import { useNavigation } from '@react-navigation/native';
+import { useTodoCtx } from '../../containers/contexts/todo';
 
 export const NewTodo: FC = () => {
   const navigation = useNavigation();
   const { data, loading, error } = useCategoriesQuery();
+  const {
+    newTodo: {
+      state: { category_id },
+      categorySelectHandler,
+    },
+  } = useTodoCtx();
+
+  // NOTE: categoryPickerにタッチがない場合の処理
+
+  // ---------- insert ----------
   const [insertTodo] = useInsertTodoMutation({
     onCompleted: () => navigation.goBack(),
   });
