@@ -37,9 +37,9 @@ export const ColorProvider: FC = ({ children }) => {
     ...baseTheme,
     colors: {
       ...baseTheme.colors,
-      light: '#cccccc',
-      main: '#cccccc',
-      dark: '#cccccc',
+      light: '#dddddd',
+      main: '#dddddd',
+      dark: '#dddddd',
     },
   };
 
