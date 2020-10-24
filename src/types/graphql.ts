@@ -1270,7 +1270,7 @@ export type PastTodosQuery = (
   { __typename?: 'query_root' }
   & { todos: Array<(
     { __typename?: 'todos' }
-    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'is_today' | 'category_id'>
+    & Pick<Todos, 'id' | 'title' | 'urgency' | 'workload' | 'is_today' | 'category_id' | 'completed_at'>
   )> }
 );
 
@@ -1992,6 +1992,7 @@ export const PastTodosDocument = gql`
     workload
     is_today
     category_id
+    completed_at
   }
 }
     `;

@@ -60,6 +60,7 @@ export const PAST_TODOS = gql`
       workload
       is_today
       category_id
+      completed_at
     }
   }
 `;
