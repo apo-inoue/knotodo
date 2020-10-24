@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
-import { Categories, InsertTodoMutationVariables } from '../../types/graphql';
+import { Categories } from '../../types/graphql';
 import {
   CategoriesPicker,
   TodoUrgencySelect,
@@ -22,7 +22,7 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   const [error, setError] = useState<string>('');
   const {
     newTodo: {
-      state: { title, urgency, workload, is_today, category_id },
+      state: { title, urgency, workload, category_id },
       todoClearHandler,
       titleInputHandler,
       workloadSelectHandler,

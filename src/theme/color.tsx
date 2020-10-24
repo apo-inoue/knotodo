@@ -2,7 +2,7 @@ import { Color_Enum } from '../types/graphql';
 
 export type ColorType = {
   id: number;
-  color: Color_Enum;
+  color: Color_Enum | 'NULL';
   hex: {
     light: string;
     main: string;
@@ -63,6 +63,15 @@ export const colorConstants: ColorType[] = [
       light: '#6d6d6d',
       main: '#424242',
       dark: '#1b1b1b',
+    },
+  },
+  {
+    id: 7,
+    color: 'NULL',
+    hex: {
+      light: '#cccccc',
+      main: '#cccccc',
+      dark: '#cccccc',
     },
   },
 ];

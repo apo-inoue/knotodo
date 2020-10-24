@@ -2,15 +2,12 @@ import React, { FC } from 'react';
 import { Container, ScreenLoader } from '../../ui';
 import { EditTodoCollection } from '../3collection';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
-import {
-  UpdateTodoMutationVariables,
-  useUpdateTodoMutation,
-  useCategoriesQuery,
-} from '../../types/graphql';
-import { TODAY_TODOS, FUTURE_TODOS } from '../../graphql/query/todos';
+import { useUpdateTodoMutation, useCategoriesQuery } from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
+import { useNavigation } from '@react-navigation/native';
 
 export const EditTodo: FC = () => {
+  const navigation = useNavigation();
   const { data, loading, error } = useCategoriesQuery();
   const {
     editTodo: {
@@ -20,7 +17,7 @@ export const EditTodo: FC = () => {
 
   // ---------- update ----------
   const [updateTodo] = useUpdateTodoMutation({
-    refetchQueries: [{ query: TODAY_TODOS }, { query: FUTURE_TODOS }],
+    onCompleted: () => navigation.goBack(),
   });
   const updateTodoHandler = () => {
     updateTodo({

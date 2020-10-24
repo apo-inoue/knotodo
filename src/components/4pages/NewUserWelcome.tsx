@@ -31,7 +31,6 @@ export const NewUserWelcome: FC = () => {
       seedDataTodo();
     }
   }, [seedDataTodo, isCategoryStandBy]);
-  console.log(data);
 
   return (
     <Container centerContent>

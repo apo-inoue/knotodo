@@ -10,10 +10,11 @@ import {
   TodayTodosQuery,
   useDeleteTodoMutation,
 } from '../../types/graphql';
-import { TODAY_TODOS } from '../../graphql/query/todos';
+import { TODAY_TODOS, TODAY_WORKLOAD_TOTAL } from '../../graphql/query/todos';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { useTodoCtx } from '../../containers/contexts/todo';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
+import { useTodayWorkloadTotalQuery } from '../../types/graphql';
 
 // NOTE: 今日
 export const TodayTodos: FC = () => {
@@ -34,8 +35,17 @@ export const TodayTodos: FC = () => {
     },
   });
 
+  // ---------- workloadTotal ----------
+  const {
+    data: workloadData,
+    refetch: workloadRefetch,
+  } = useTodayWorkloadTotalQuery();
+  const workloadTotal =
+    workloadData?.todos_aggregate.aggregate?.sum?.workload ?? 0;
+
   // ---------- complete ----------
   const [completeTodo] = useCompleteTodoMutation({
+    refetchQueries: [{ query: TODAY_WORKLOAD_TOTAL }],
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
@@ -60,8 +70,10 @@ export const TodayTodos: FC = () => {
   const completeTodoHandler = (id: number) => {
     completeTodo({ variables: { _eq: id } });
   };
+
   // ----------- notToday ----------
   const [setToday] = useRescheduleTodoMutation({
+    refetchQueries: [{ query: TODAY_WORKLOAD_TOTAL }],
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
@@ -89,6 +101,7 @@ export const TodayTodos: FC = () => {
 
   // ---------- delete ----------
   const [deleteToDo] = useDeleteTodoMutation({
+    refetchQueries: [{ query: TODAY_WORKLOAD_TOTAL }],
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
@@ -129,7 +142,8 @@ export const TodayTodos: FC = () => {
   useFocusEffect(
     useCallback(() => {
       refetch();
-    }, [refetch]),
+      workloadRefetch();
+    }, [refetch, workloadRefetch]),
   );
 
   if (loading) return <ScreenLoader />;
@@ -144,8 +158,10 @@ export const TodayTodos: FC = () => {
 
   return (
     <Container>
+      {console.log(workloadData, 'log')}
       <TodayTodosCollection
         todos={data.todos}
+        workloadTotal={workloadTotal}
         onPress={completeTodoHandler}
         onPostpone={setNotTodayHandler}
         onDelete={deleteToDoHandler}

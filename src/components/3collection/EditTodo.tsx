@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
-import { Categories, UpdateTodoMutationVariables } from '../../types/graphql';
+import { Categories } from '../../types/graphql';
 import {
   CategoriesPicker,
   TodoUrgencySelect,

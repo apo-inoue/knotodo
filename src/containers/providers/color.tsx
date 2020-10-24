@@ -20,7 +20,7 @@ export const ColorProvider: FC = ({ children }) => {
   const [color, setColor] = useState<Color_Enum>('DEFAULT');
 
   const { data } = useUserColorQuery();
-  const fetchedColorType = data?.users[0]?.color ?? 'DEFAULT';
+  const fetchedColorType = data?.users[0]?.color ?? 'NULL';
   const fetchedColorPalette =
     fetchedColorType &&
     colorConstants.find(colorConstant => {
@@ -38,8 +38,8 @@ export const ColorProvider: FC = ({ children }) => {
     colors: {
       ...baseTheme.colors,
       light: '#cccccc',
-      main: '#bbbbbb',
-      dark: '#aaaaaa',
+      main: '#cccccc',
+      dark: '#cccccc',
     },
   };
 
@@ -47,13 +47,9 @@ export const ColorProvider: FC = ({ children }) => {
     setColor(newColor);
   }, []);
 
-  const [
-    updateColorType,
-    { called, loading, error },
-  ] = useUpdateUserColorMutation({
+  const [updateColorType, { loading }] = useUpdateUserColorMutation({
     refetchQueries: [{ query: USER_COLOR }],
   });
-  console.log(error, color, called, 'err');
   const updateColorTypeHandler = () => {
     return updateColorType({
       variables: {

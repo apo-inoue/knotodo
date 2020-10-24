@@ -6,6 +6,7 @@ import { Box, Divider } from '../../ui';
 import { Todos } from '../../types/graphql';
 import { TodayTodoSwipe } from './TodayTodoSwipe';
 import { AddFab } from '../1standalone';
+import { WorkloadTotal } from '../2single';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import { useTodoCtx } from '../../containers/contexts/todo';
 
@@ -15,6 +16,7 @@ type TodoType = { __typename?: 'todos' } & Pick<
 >;
 type TodayTodos = {
   todos: TodoType[];
+  workloadTotal: number;
   onPress: (id: number) => void;
   onPostpone: (id: number) => void;
   onDelete: (id: number) => void;
@@ -22,6 +24,7 @@ type TodayTodos = {
 
 export const TodayTodos: FC<TodayTodos> = ({
   todos,
+  workloadTotal,
   onPress,
   onPostpone,
   onDelete,
@@ -76,6 +79,7 @@ export const TodayTodos: FC<TodayTodos> = ({
           scrollEnabled={isScrollable}
         />
       </Box>
+      <WorkloadTotal workloadTotal={workloadTotal} />
       <AddFab onPress={mountAndNavigateHandler} />
     </>
   );
