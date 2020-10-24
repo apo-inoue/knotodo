@@ -16,7 +16,8 @@ export const NewTodo: FC = () => {
   } = useTodoCtx();
 
   // NOTE: categoryPickerにタッチがない場合の処理
-  const categoryId = category_id !== 0 ? category_id : data!.categories[0].id;
+  const categoryId =
+    category_id !== 0 ? category_id : data?.categories[0].id ?? 0;
 
   // ---------- insert ----------
   const [insertTodo] = useInsertTodoMutation({

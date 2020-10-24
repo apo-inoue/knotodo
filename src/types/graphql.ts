@@ -1307,6 +1307,23 @@ export type AccomplishmentAndGoalQuery = (
   )> }
 );
 
+export type TodayWorkloadTotalQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TodayWorkloadTotalQuery = (
+  { __typename?: 'query_root' }
+  & { todos_aggregate: (
+    { __typename?: 'todos_aggregate' }
+    & { aggregate?: Maybe<(
+      { __typename?: 'todos_aggregate_fields' }
+      & { sum?: Maybe<(
+        { __typename?: 'todos_sum_fields' }
+        & Pick<Todos_Sum_Fields, 'workload'>
+      )> }
+    )> }
+  ) }
+);
+
 export type UserColorQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2055,6 +2072,42 @@ export function useAccomplishmentAndGoalLazyQuery(baseOptions?: Apollo.LazyQuery
 export type AccomplishmentAndGoalQueryHookResult = ReturnType<typeof useAccomplishmentAndGoalQuery>;
 export type AccomplishmentAndGoalLazyQueryHookResult = ReturnType<typeof useAccomplishmentAndGoalLazyQuery>;
 export type AccomplishmentAndGoalQueryResult = Apollo.QueryResult<AccomplishmentAndGoalQuery, AccomplishmentAndGoalQueryVariables>;
+export const TodayWorkloadTotalDocument = gql`
+    query TodayWorkloadTotal {
+  todos_aggregate(where: {is_today: {_eq: true}, completed_at: {_is_null: true}, deleted_at: {_is_null: true}}) {
+    aggregate {
+      sum {
+        workload
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useTodayWorkloadTotalQuery__
+ *
+ * To run a query within a React component, call `useTodayWorkloadTotalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTodayWorkloadTotalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTodayWorkloadTotalQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTodayWorkloadTotalQuery(baseOptions?: Apollo.QueryHookOptions<TodayWorkloadTotalQuery, TodayWorkloadTotalQueryVariables>) {
+        return Apollo.useQuery<TodayWorkloadTotalQuery, TodayWorkloadTotalQueryVariables>(TodayWorkloadTotalDocument, baseOptions);
+      }
+export function useTodayWorkloadTotalLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TodayWorkloadTotalQuery, TodayWorkloadTotalQueryVariables>) {
+          return Apollo.useLazyQuery<TodayWorkloadTotalQuery, TodayWorkloadTotalQueryVariables>(TodayWorkloadTotalDocument, baseOptions);
+        }
+export type TodayWorkloadTotalQueryHookResult = ReturnType<typeof useTodayWorkloadTotalQuery>;
+export type TodayWorkloadTotalLazyQueryHookResult = ReturnType<typeof useTodayWorkloadTotalLazyQuery>;
+export type TodayWorkloadTotalQueryResult = Apollo.QueryResult<TodayWorkloadTotalQuery, TodayWorkloadTotalQueryVariables>;
 export const UserColorDocument = gql`
     query UserColor {
   users {

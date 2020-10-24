@@ -90,3 +90,21 @@ export const ACCOMPLISHMENT_AND_GOAL = gql`
     }
   }
 `;
+
+export const TODAY_WORKLOAD_TOTAL = gql`
+  query TodayWorkloadTotal {
+    todos_aggregate(
+      where: {
+        is_today: { _eq: true }
+        completed_at: { _is_null: true }
+        deleted_at: { _is_null: true }
+      }
+    ) {
+      aggregate {
+        sum {
+          workload
+        }
+      }
+    }
+  }
+`;

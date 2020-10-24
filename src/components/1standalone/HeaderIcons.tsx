@@ -56,7 +56,6 @@ export const HeaderIconsRight: FC<HeaderIconsRightProps> = ({
         color={theme.colors.white}
         onPress={onPressSort}
       />
-      {console.log(isFiltered)}
       <Box mr={3} />
       <MaterialCommunityIcons
         name={iconName}
