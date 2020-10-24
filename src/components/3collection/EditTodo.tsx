@@ -14,12 +14,7 @@ type EditTodoProps = {
     Categories,
     'id' | 'title'
   >)[];
-  onPress: ({
-    id,
-    title,
-    urgency,
-    workload,
-  }: UpdateTodoMutationVariables) => void;
+  onPress: () => void;
 };
 
 export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
@@ -27,7 +22,7 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
   const [error, setError] = useState<string>('');
   const {
     editTodo: {
-      state: { id, title, urgency, workload, category_id },
+      state: { title, urgency, workload, category_id },
       titleInputHandler,
       workloadSelectHandler,
       urgencySelectHandler,
@@ -38,13 +33,7 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
     if (title === '') {
       setError('入力してください');
     } else {
-      onPress({
-        id: id,
-        title: title,
-        urgency: urgency,
-        workload: workload,
-        category_id: category_id,
-      });
+      onPress();
       navigation.goBack();
     }
   };

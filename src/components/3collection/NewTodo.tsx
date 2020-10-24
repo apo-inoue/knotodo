@@ -14,13 +14,7 @@ type NewTodoProps = {
     Categories,
     'id' | 'title'
   >)[];
-  onPress: ({
-    title,
-    urgency,
-    workload,
-    is_today,
-    category_id,
-  }: InsertTodoMutationVariables) => void;
+  onPress: () => void;
 };
 
 export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
@@ -40,13 +34,7 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
     if (title === '') {
       setError('入力してください');
     } else {
-      onPress({
-        title,
-        urgency,
-        workload,
-        is_today,
-        category_id,
-      });
+      onPress();
     }
   };
   const cancelAndNavigateHandler = () => {
