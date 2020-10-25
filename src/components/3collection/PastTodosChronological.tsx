@@ -121,5 +121,5 @@ const ChronologicalLabel = styled(Box)`
   margin-bottom: ${props => `${props.theme.space[1]}px`};
   padding-left: ${props => `${props.theme.space[2]}px`};
   width: 140px;
-  border-color: ${props => props.theme.colors.blacks[7]};
+  border-color: ${props => props.theme.colors.main};
 `;

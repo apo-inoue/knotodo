@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { colorConstants, ColorType } from '../../theme/color';
+import { colorConstant, ColorType } from '../../theme/color';
 import { PrimaryButton, Box, FlatList } from '../../ui';
 import { ColorSelectItem } from '../2single';
 import { useColorCtx } from '../../containers/contexts/color';
@@ -17,7 +17,7 @@ export const Color: FC = () => {
     <Box width="100%" height="100%">
       <Box flexDirection="column" flexBasis="400px">
         <FlatList<ColorType>
-          data={colorConstants}
+          data={colorConstant}
           keyExtractor={(item: ColorType) => `${item.id}`}
           renderItem={({ item }: { item: ColorType }) => (
             <ColorSelectItem itemColor={item.color} hex={item.hex} />
