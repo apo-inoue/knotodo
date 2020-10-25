@@ -19,9 +19,13 @@ export const CategorySetting: FC = () => {
   const {
     state: { category },
   } = useCategoryCtx();
-  const [fetchCategories, { loading, error, data }] = useCategoriesLazyQuery();
+  const [
+    fetchCategories,
+    { loading, error, data, called },
+  ] = useCategoriesLazyQuery();
 
   useFocusEffect(useCallback(() => fetchCategories(), [fetchCategories]));
+  console.log('calledlazy?', called);
 
   // ------------ insert ------------
   const [insertCategory] = useInsertCategoryMutation({
