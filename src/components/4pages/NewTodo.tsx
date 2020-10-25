@@ -1,36 +1,42 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Container, ScreenLoader } from '../../ui';
 import {
-  InsertToDoMutationVariables,
-  useAllCategoryQuery,
-  useInsertToDoMutation,
+  useInsertTodoMutation,
+  useCategoriesLazyQuery,
 } from '../../types/graphql';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { NewTodoCollection } from '../3collection';
-import { useNavigation } from '@react-navigation/native';
+import { useTodoCtx } from '../../containers/contexts/todo';
 
 export const NewTodo: FC = () => {
   const navigation = useNavigation();
-  const { data, loading, error } = useAllCategoryQuery();
-  const [insertTodo] = useInsertToDoMutation({
+  const [fetchCategories, { data, loading, error }] = useCategoriesLazyQuery();
+
+  useFocusEffect(useCallback(() => fetchCategories(), [fetchCategories]));
+
+  const {
+    newTodo: {
+      state: { title, urgency, workload, is_today, category_id },
+    },
+  } = useTodoCtx();
+
+  // NOTE: categoryPickerにタッチがない場合の処理
+  const categoryId =
+    category_id !== 0 ? category_id : data?.categories[0].id ?? 0;
+
+  // ---------- insert ----------
+  const [insertTodo] = useInsertTodoMutation({
     onCompleted: () => navigation.goBack(),
   });
-  const insertTodoHandler = ({
-    title,
-    urgency,
-    workload,
-    isToday,
-    isCompleted,
-    category_id,
-  }: InsertToDoMutationVariables) => {
+  const insertTodoHandler = () => {
     insertTodo({
       variables: {
         title,
         urgency,
         workload,
-        isToday,
-        isCompleted,
-        category_id,
+        is_today,
+        category_id: categoryId,
       },
     });
   };

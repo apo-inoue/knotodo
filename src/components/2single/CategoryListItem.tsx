@@ -6,10 +6,10 @@ import { useTheme } from 'styled-components';
 import { UnderlinedTextForm } from '../../ui/input/TextForm';
 
 type CategoryListItemProps = {
-  category: { __typename: 'categories' } & Pick<Categories, 'category' | 'id'>;
+  category: { __typename?: 'categories' } & Pick<Categories, 'id' | 'title'>;
   isDeleteAllowed: boolean;
-  onDelete: (id: string) => void;
-  onUpdate: (id: string, c: string) => void;
+  onDelete: (id: number) => void;
+  onUpdate: (id: number, title: string) => void;
 };
 
 export const CategoryListItem: FC<CategoryListItemProps> = ({
@@ -20,7 +20,7 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
 }) => {
   const theme = useTheme();
   const [error, setError] = useState<string>('');
-  const [editCategory, setEditCategory] = useState<string>(category.category);
+  const [editCategory, setEditCategory] = useState<string>(category.title);
   const editCategoryInputHandler = (text: string) => {
     setEditCategory(text);
   };
@@ -43,7 +43,7 @@ export const CategoryListItem: FC<CategoryListItemProps> = ({
         <Box flex="1 1" justifyContent="center" height="100%">
           {!isEditMode ? (
             <Text textAlign="left" numberOfLines={1} ellipsizeMode="tail">
-              {category.category}
+              {category.title}
             </Text>
           ) : (
             <Box flexDirection="column">

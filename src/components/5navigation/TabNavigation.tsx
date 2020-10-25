@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TodayTodos, NotTodayTodos, ArchiveTodos } from '../4pages';
+import { TodayTodos, FutureTodos, PastTodos } from '../4pages';
 import { useTheme } from 'styled-components';
 import { TabIcon } from '../1standalone';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -11,32 +11,32 @@ export const TabNavigation: FC = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={TAB_ROUTE_NAMES.Today}
+      initialRouteName={TAB_ROUTE_NAMES.今日}
       barStyle={{ backgroundColor: theme.colors.main }}>
       <Tab.Screen
-        name="Archive"
-        component={ArchiveTodos}
+        name={TAB_ROUTE_NAMES.過去}
+        component={PastTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
-            <TabIcon tabName="archive" color={color} />
+            <TabIcon tabName={TAB_ROUTE_NAMES.過去} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name={TAB_ROUTE_NAMES.Today}
+        name={TAB_ROUTE_NAMES.今日}
         component={TodayTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
-            <TabIcon tabName="today" color={color} />
+            <TabIcon tabName={TAB_ROUTE_NAMES.今日} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name={TAB_ROUTE_NAMES.NotToday}
-        component={NotTodayTodos}
+        name={TAB_ROUTE_NAMES.未来}
+        component={FutureTodos}
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
-            <TabIcon tabName="notToday" color={color} />
+            <TabIcon tabName={TAB_ROUTE_NAMES.未来} color={color} />
           ),
         }}
       />

@@ -21,16 +21,14 @@ export const LogIn: FC<LogIn> = ({ onLogIn }) => {
         </Box>
         <Box height={40}>
           <Text fontSize={40} lineHeight="50px" fontWeight="bold" color="main">
-            KnoToDo
+            knotodo
           </Text>
         </Box>
       </Box>
       <Box width="100%">
         <Divider />
       </Box>
-      <Text color={theme.colors.blacks[5]}>
-        Today or Not Today, this is a problem
-      </Text>
+      <Text color={theme.colors.blacks[5]}>毎日、今日にフォーカスするtodo</Text>
       <Box mt={4}>
         <PrimaryButton
           variant="contained"

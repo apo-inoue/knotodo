@@ -1,44 +1,41 @@
 import React, { FC, useState } from 'react';
-import { TodoListItem } from '../2single';
+import { SwipeRow } from 'react-native-swipe-list-view';
 import { Todos } from '../../types/graphql';
 import { Box, SlideUpOutView } from '../../ui';
-import { SwipeRow } from 'react-native-swipe-list-view';
-import { SwipeTodo } from '../2single/SwipeTodo';
+import { TodoListItem, SwipeArchiveTodo } from '../2single';
 
-type TodoType = { __typename: 'todos' } & Pick<
+type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
-  | 'title'
-  | 'id'
-  | 'urgency'
-  | 'workload'
-  | 'isToday'
-  | 'isCompleted'
-  | 'category_id'
+  'id' | 'title' | 'urgency' | 'workload' | 'is_today' | 'category_id'
 >;
-type NotTodayTodoSwipeProps = {
+type PastTodoSwipeProps = {
   todo: TodoType;
-  onPress: (id: string) => void;
-  onComplete: (id: string) => void;
-  onDelete: (id: string) => void;
-  disableScrollHandler: () => void;
+  onPress: (id: number) => void;
+  onRestoreToday: (id: number) => void;
+  onRestoreNotToday: (id: number) => void;
   enableScrollHandler: () => void;
+  disableScrollHandler: () => void;
 };
 
-export const NotTodayTodoSwipe: FC<NotTodayTodoSwipeProps> = ({
+export const PastTodoSwipe: FC<PastTodoSwipeProps> = ({
   todo,
   onPress,
-  onComplete,
-  onDelete,
-  disableScrollHandler,
+  onRestoreToday,
+  onRestoreNotToday,
   enableScrollHandler,
+  disableScrollHandler,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const onPressEffectHandler = () => {
     onPress(todo.id);
     setIsPressed(true);
   };
-  const onCompleteEffectHandler = () => {
-    onComplete(todo.id);
+  const onRestoreTodayEffectHandler = () => {
+    onRestoreToday(todo.id);
+    setIsPressed(true);
+  };
+  const onRestoreNotTodayEffectHandler = () => {
+    onRestoreNotToday(todo.id);
     setIsPressed(true);
   };
 
@@ -50,18 +47,17 @@ export const NotTodayTodoSwipe: FC<NotTodayTodoSwipeProps> = ({
         onRowDidClose={enableScrollHandler}>
         <Box pl={4} flexDirection="row" flex={1} alignItems="center">
           <Box flexDirection="column" alignItems="flex-end" width="100%">
-            <SwipeTodo
+            <SwipeArchiveTodo
               todo={todo}
-              onPress={onCompleteEffectHandler}
-              btnText="Complete"
-              onDelete={onDelete}
+              onRestoreToday={onRestoreTodayEffectHandler}
+              onRestoreNotToday={onRestoreNotTodayEffectHandler}
             />
           </Box>
         </Box>
         <Box width="100%" bg="white">
           <TodoListItem
             todo={todo}
-            buttonAction={{ onPress: onPressEffectHandler, label: 'Today' }}
+            buttonAction={{ onPress: onPressEffectHandler, label: '削除' }}
           />
         </Box>
       </SwipeRow>

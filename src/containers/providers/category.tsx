@@ -5,8 +5,8 @@ import { CategoryCtxProvider } from '../contexts/category';
 export const CategoryProvider: FC = ({ children }) => {
   const [state, setState] = useState({ category: '' });
 
-  const categoryInputHandler = useEventCallback((e: string) => {
-    setState({ category: e });
+  const categoryInputHandler = useEventCallback((title: string) => {
+    setState({ category: title });
   });
 
   const value = {

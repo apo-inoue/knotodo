@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { PrimaryButton, Divider, Box, Text } from '../../ui';
-import { TodayTodosQueryVariables } from '../../types/graphql';
+import { Todos_Order_By } from '../../types/graphql';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 
 type TodoSortItemProps = {
   sortItem: {
     name: string;
-    value: keyof TodayTodosQueryVariables;
+    value: keyof Todos_Order_By;
     desc: string;
     asc: string;
   };

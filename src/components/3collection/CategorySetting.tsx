@@ -13,16 +13,16 @@ import { Categories } from '../../types/graphql';
 import { CategoryListItem } from '../2single';
 import { useCategoryCtx } from '../../containers/contexts/category';
 
-type CategoryType = { __typename: 'categories' } & Pick<
+type CategoryType = { __typename?: 'categories' } & Pick<
   Categories,
-  'category' | 'id'
+  'id' | 'title'
 >;
 
 type CategorySettingProps = {
   categories: CategoryType[];
   onPress: () => void;
-  onDelete: (id: string) => void;
-  onUpdate: (id: string, c: string) => void;
+  onDelete: (id: number) => void;
+  onUpdate: (id: number, title: string) => void;
 };
 
 export const CategorySetting: FC<CategorySettingProps> = ({

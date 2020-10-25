@@ -2,106 +2,112 @@ import React, { FC, useCallback } from 'react';
 import { Container, Loader } from '../../ui';
 import { useFocusEffect } from '@react-navigation/native';
 import {
-  useCompletedTodosQuery,
-  useDeleteToDoMutation,
+  usePastTodosQuery,
+  useDeleteTodoMutation,
+  Todos_Order_By,
 } from '../../types/graphql';
-import { ArchiveTodosCollection } from '../3collection';
+import { PastTodosCollection } from '../3collection';
 import { ErrorMessage } from '../1standalone/ErrorMessage';
 import { NoDataMessage } from '../1standalone/NoDataMessage';
-import { COMPLETED_TODOS } from '../../graphql/query/todos';
+import { PAST_TODOS } from '../../graphql/query/todos';
 import { useRestoreNotTodayMutation } from '../../types/graphql';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
-import {
-  CompletedTodosQuery,
-  useRestoreTodayMutation,
-} from '../../types/graphql';
+import { PastTodosQuery, useRestoreTodayMutation } from '../../types/graphql';
 
-export const ArchiveTodos: FC = () => {
+export const PastTodos: FC = () => {
   const {
-    sort: { sortState },
+    sort: { sortState, isDefault },
     filter: {
       filterState: { isAll, categoryIds },
     },
   } = useSortFilterCtx();
+  // TODO: ここのロジックはもっと綺麗にできそう
+  const sortStateVariables = isDefault
+    ? ([{ completed_at: 'desc' }] as Todos_Order_By[])
+    : sortState;
   const categoryIdsVariables = isAll ? null : categoryIds;
-  const { loading, error, data, refetch } = useCompletedTodosQuery({
-    variables: { [sortState.key]: sortState.order, _in: categoryIdsVariables },
+
+  // ---------- query ----------
+  const { loading, error, data, refetch } = usePastTodosQuery({
+    variables: { order_by: sortStateVariables, _in: categoryIdsVariables },
   });
-  const [deleteToDo] = useDeleteToDoMutation({
+
+  // ---------- delete ----------
+  const [deleteTodo] = useDeleteTodoMutation({
     update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      const existingTodos = cache.readQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortStateVariables,
           _in: categoryIdsVariables,
         },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
-      cache.writeQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      cache.writeQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortStateVariables,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const deleteToDoHandler = (id: string) => {
-    deleteToDo({ variables: { _eq: id } });
+  const deleteTodoHandler = (id: number) => {
+    deleteTodo({ variables: { _eq: id } });
   };
   // ---------- restoreToday ----------
   const [restoreToday] = useRestoreTodayMutation({
     update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      const existingTodos = cache.readQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortStateVariables,
           _in: categoryIdsVariables,
         },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
-      cache.writeQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      cache.writeQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortStateVariables,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const restoreTodayHandler = (id: string) => {
+  const restoreTodayHandler = (id: number) => {
     restoreToday({ variables: { _eq: id } });
   };
   // ---------- restoreNotToday ----------
   const [restoreNotToday] = useRestoreNotTodayMutation({
     update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      const existingTodos = cache.readQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortStateVariables,
           _in: categoryIdsVariables,
         },
       });
       const newTodos = existingTodos!.todos.filter(
         t => t.id !== updateData!.update_todos!.returning[0].id,
       );
-      cache.writeQuery<CompletedTodosQuery>({
-        query: COMPLETED_TODOS,
+      cache.writeQuery<PastTodosQuery>({
+        query: PAST_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortStateVariables,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const restoreNotTodayHandler = (id: string) => {
+  const restoreNotTodayHandler = (id: number) => {
     restoreNotToday({ variables: { _eq: id } });
   };
 
@@ -123,9 +129,9 @@ export const ArchiveTodos: FC = () => {
 
   return (
     <Container>
-      <ArchiveTodosCollection
+      <PastTodosCollection
         todos={data.todos}
-        onPress={deleteToDoHandler}
+        onPress={deleteTodoHandler}
         onRestoreToday={restoreTodayHandler}
         onRestoreNotToday={restoreNotTodayHandler}
       />

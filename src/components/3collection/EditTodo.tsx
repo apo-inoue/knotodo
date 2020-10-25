@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
-import { Categories, UpdateTodoMutationVariables } from '../../types/graphql';
+import { Categories } from '../../types/graphql';
 import {
   CategoriesPicker,
   TodoUrgencySelect,
@@ -10,16 +10,11 @@ import {
 import { useTodoCtx } from '../../containers/contexts/todo';
 
 type EditTodoProps = {
-  categories: ({ __typename: 'categories' } & Pick<
+  categories: ({ __typename?: 'categories' } & Pick<
     Categories,
-    'category' | 'id'
+    'id' | 'title'
   >)[];
-  onPress: ({
-    id,
-    title,
-    urgency,
-    workload,
-  }: UpdateTodoMutationVariables) => void;
+  onPress: () => void;
 };
 
 export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
@@ -27,25 +22,18 @@ export const EditTodo: FC<EditTodoProps> = ({ categories, onPress }) => {
   const [error, setError] = useState<string>('');
   const {
     editTodo: {
-      state: { id, title, urgency, workload, category_id },
+      state: { title, urgency, workload, category_id },
       titleInputHandler,
       workloadSelectHandler,
       urgencySelectHandler,
       categorySelectHandler,
     },
   } = useTodoCtx();
-  const category: string = category_id === '' ? categories[0].id : category_id;
   const updateAndNavigateHandler = () => {
     if (title === '') {
       setError('入力してください');
     } else {
-      onPress({
-        id: id,
-        title: title,
-        urgency: urgency,
-        workload: workload,
-        category_id: category,
-      });
+      onPress();
       navigation.goBack();
     }
   };

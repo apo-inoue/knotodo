@@ -1,26 +1,30 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Container, ScreenLoader } from '../../ui';
 import { EditTodoCollection } from '../3collection';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
-import { TODAY_TODOS, NOT_TODAY_TODOS } from '../../graphql/query/todos';
 import {
-  UpdateTodoMutationVariables,
   useUpdateTodoMutation,
-  useAllCategoryQuery,
+  useCategoriesLazyQuery,
 } from '../../types/graphql';
+import { useTodoCtx } from '../../containers/contexts/todo';
 
 export const EditTodo: FC = () => {
-  const { data, loading, error } = useAllCategoryQuery();
+  const navigation = useNavigation();
+  const [fetchCategories, { data, loading, error }] = useCategoriesLazyQuery();
+  const {
+    editTodo: {
+      state: { id, title, urgency, workload, category_id },
+    },
+  } = useTodoCtx();
+
+  useFocusEffect(useCallback(() => fetchCategories(), [fetchCategories]));
+
+  // ---------- update ----------
   const [updateTodo] = useUpdateTodoMutation({
-    refetchQueries: [{ query: TODAY_TODOS }, { query: NOT_TODAY_TODOS }],
+    onCompleted: () => navigation.goBack(),
   });
-  const updateTodoHandler = ({
-    id,
-    title,
-    urgency,
-    workload,
-    category_id,
-  }: UpdateTodoMutationVariables) => {
+  const updateTodoHandler = () => {
     updateTodo({
       variables: {
         id,

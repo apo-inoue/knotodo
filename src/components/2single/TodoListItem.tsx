@@ -7,19 +7,13 @@ import { useTodoCtx } from '../../containers/contexts/todo';
 import { TodoState } from '../../containers/types/todo';
 
 type TodoListItem = {
-  todo: { __typename: 'todos' } & Pick<
+  todo: { __typename?: 'todos' } & Pick<
     Todos,
-    | 'title'
-    | 'id'
-    | 'isToday'
-    | 'isCompleted'
-    | 'urgency'
-    | 'workload'
-    | 'category_id'
+    'id' | 'title' | 'is_today' | 'urgency' | 'workload' | 'category_id'
   >;
   buttonAction: {
     label: string;
-    onPress: (id: string) => void;
+    onPress: (id: number) => void;
   };
 };
 
@@ -29,17 +23,15 @@ export const TodoListItem: FC<TodoListItem> = ({ todo, buttonAction }) => {
   const {
     editTodo: { todoMountHandler },
   } = useTodoCtx();
-  const isToday = route.name === 'Today' ? true : false;
-  const isCompleted = route.name === 'Archive' ? true : false;
+  const isToday = route.name === 'Today';
   const mountAndNavigateHandler = () => {
-    const mountTodo: { id: string } & TodoState = {
+    const mountTodo: { id: number } & TodoState = {
       id: todo.id,
       title: todo.title,
       category_id: todo.category_id,
       urgency: todo.urgency,
       workload: todo.workload,
-      isToday,
-      isCompleted,
+      is_today: isToday,
     };
     todoMountHandler(mountTodo);
     navigation.navigate(STACK_ROUTE_NAMES.編集);

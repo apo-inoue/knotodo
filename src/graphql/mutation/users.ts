@@ -1,27 +1,24 @@
 import { gql } from '@apollo/client';
 
-export const UPDATE_COLOR_TYPE = gql`
-  mutation UpdateColorType($color_type: colorTypes_enum, $_eq: String) {
-    update_users(
-      _set: { color_type: $color_type }
-      where: { id: { _eq: $_eq } }
-    ) {
+export const UPDATE_USER_COLOR = gql`
+  mutation UpdateUserColor($color: color_enum, $_eq: String) {
+    update_users(_set: { color: $color }, where: { auth_id: { _eq: $_eq } }) {
       affected_rows
       returning {
         id
-        color_type
+        color
       }
     }
   }
 `;
 
-export const UPDATE_USER_MESSAGE = gql`
-  mutation UpdateUserMessage($message: String, $_eq: String) {
-    update_users(_set: { message: $message }, where: { id: { _eq: $_eq } }) {
+export const UPDATE_USER_GOAL = gql`
+  mutation UpdateUserGoal($goal: String, $_eq: String) {
+    update_users(_set: { goal: $goal }, where: { auth_id: { _eq: $_eq } }) {
       affected_rows
       returning {
         id
-        message
+        goal
       }
     }
   }

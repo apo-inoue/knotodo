@@ -3,18 +3,20 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Container, ScreenLoader } from '../../ui';
 import { ErrorMessage, NoDataMessage, AddFab } from '../1standalone';
 import { TodayTodosCollection } from '../3collection';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import {
   useTodayTodosQuery,
-  useCompleteToDoMutation,
-  useSetNotTodayTodoMutation,
+  useCompleteTodoMutation,
+  useRescheduleTodoMutation,
+  useTodayWorkloadTotalQuery,
+  useDeleteTodoMutation,
   TodayTodosQuery,
 } from '../../types/graphql';
-import { TODAY_TODOS } from '../../graphql/query/todos';
+import { TODAY_TODOS, TODAY_WORKLOAD_TOTAL } from '../../graphql/query/todos';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { STACK_ROUTE_NAMES } from '../5navigation/type';
-import { useDeleteToDoMutation } from '../../types/graphql';
 
+// NOTE: 今日
 export const TodayTodos: FC = () => {
   const navigation = useNavigation();
   const {
@@ -24,19 +26,31 @@ export const TodayTodos: FC = () => {
     },
   } = useSortFilterCtx();
   const categoryIdsVariables = isAll ? null : categoryIds;
+
+  // ---------- today ----------
   const { loading, error, data, refetch } = useTodayTodosQuery({
     variables: {
-      [sortState.key]: sortState.order,
+      order_by: sortState,
       _in: categoryIdsVariables,
     },
   });
+
+  // ---------- workloadTotal ----------
+  const {
+    data: workloadData,
+    refetch: workloadRefetch,
+  } = useTodayWorkloadTotalQuery();
+  const workloadTotal =
+    workloadData?.todos_aggregate.aggregate?.sum?.workload ?? 0;
+
   // ---------- complete ----------
-  const [completeTodo] = useCompleteToDoMutation({
+  const [completeTodo] = useCompleteTodoMutation({
+    refetchQueries: [{ query: TODAY_WORKLOAD_TOTAL }],
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -46,23 +60,25 @@ export const TodayTodos: FC = () => {
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const completeTodoHandler = (id: string) => {
+  const completeTodoHandler = (id: number) => {
     completeTodo({ variables: { _eq: id } });
   };
+
   // ----------- notToday ----------
-  const [setToday] = useSetNotTodayTodoMutation({
+  const [setToday] = useRescheduleTodoMutation({
+    refetchQueries: [{ query: TODAY_WORKLOAD_TOTAL }],
     update(cache, { data: updateData }) {
       const existingTodos = cache.readQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
       });
@@ -72,55 +88,62 @@ export const TodayTodos: FC = () => {
       cache.writeQuery<TodayTodosQuery>({
         query: TODAY_TODOS,
         variables: {
-          [sortState.key]: sortState.order,
+          order_by: sortState,
           _in: categoryIdsVariables,
         },
         data: { __typename: 'query_root', todos: newTodos },
       });
     },
   });
-  const setNotTodayHandler = (id: string) => {
+  const setNotTodayHandler = (id: number) => {
     setToday({ variables: { _eq: id } });
   };
 
+  // ---------- delete ----------
+  const [deleteToDo] = useDeleteTodoMutation({
+    refetchQueries: [{ query: TODAY_WORKLOAD_TOTAL }],
+    update(cache, { data: updateData }) {
+      const existingTodos = cache.readQuery<TodayTodosQuery>({
+        query: TODAY_TODOS,
+        variables: {
+          order_by: sortState,
+          _in: categoryIdsVariables,
+        },
+      });
+      const newTodos = existingTodos!.todos.filter(
+        t => t.id !== updateData!.update_todos!.returning[0].id,
+      );
+      cache.writeQuery<TodayTodosQuery>({
+        query: TODAY_TODOS,
+        variables: {
+          order_by: sortState,
+          _in: categoryIdsVariables,
+        },
+        data: {
+          __typename: 'query_root',
+          todos: newTodos,
+        },
+      });
+    },
+  });
+  const deleteToDoHandler = (id: number) => {
+    deleteToDo({ variables: { _eq: id } });
+  };
+
+  // ------------ mount ------------
   const {
     newTodo: { todoMountHandler },
   } = useTodoCtx();
   const mountAndNavigateHandler = () => {
-    todoMountHandler({ isToday: true, isCompleted: false });
+    todoMountHandler(true);
     navigation.navigate(STACK_ROUTE_NAMES.新規作成);
-  };
-  // ---------- delete ----------
-  const [deleteToDo] = useDeleteToDoMutation({
-    update(cache, { data: updateData }) {
-      const existingTodos = cache.readQuery<TodayTodosQuery>({
-        query: TODAY_TODOS,
-        variables: {
-          [sortState.key]: sortState.order,
-          _in: categoryIdsVariables,
-        },
-      });
-      const newTodos = existingTodos!.todos.filter(
-        t => t.id !== updateData!.update_todos!.returning[0].id,
-      );
-      cache.writeQuery<TodayTodosQuery>({
-        query: TODAY_TODOS,
-        variables: {
-          [sortState.key]: sortState.order,
-          _in: categoryIdsVariables,
-        },
-        data: { __typename: 'query_root', todos: newTodos },
-      });
-    },
-  });
-  const deleteToDoHandler = (id: string) => {
-    deleteToDo({ variables: { _eq: id } });
   };
 
   useFocusEffect(
     useCallback(() => {
       refetch();
-    }, [refetch]),
+      workloadRefetch();
+    }, [refetch, workloadRefetch]),
   );
 
   if (loading) return <ScreenLoader />;
@@ -137,6 +160,7 @@ export const TodayTodos: FC = () => {
     <Container>
       <TodayTodosCollection
         todos={data.todos}
+        workloadTotal={workloadTotal}
         onPress={completeTodoHandler}
         onPostpone={setNotTodayHandler}
         onDelete={deleteToDoHandler}

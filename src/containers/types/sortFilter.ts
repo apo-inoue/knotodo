@@ -1,27 +1,24 @@
-import { TodayTodosQueryVariables, Order_By } from '../../types/graphql';
+import { Maybe } from '../../types/graphql';
+import { Order_By, Todos_Order_By } from '../../types/graphql';
 
-export type SortState = {
-  key: keyof TodayTodosQueryVariables;
-  order: Order_By;
-};
+export type SortState = Maybe<Array<Todos_Order_By>>;
 
 export type FilterState = {
   isAll: boolean;
-  categoryIds: string[];
+  categoryIds: number[];
 };
 
 export type SortFilterCtxType = {
   sort: {
     sortState: SortState;
-    selectSortHandler: (
-      key: keyof TodayTodosQueryVariables,
-      order: Order_By,
-    ) => void;
+    isDefault: boolean;
+    selectSortHandler: (key: keyof Todos_Order_By, order: Order_By) => void;
+    clearSortHandler: () => void;
   };
   filter: {
     filterState: FilterState;
     isAllToggler: () => void;
-    checkOnHandler: (categoryId: string) => void;
-    checkOffHandler: (categoryId: string) => void;
+    checkOnHandler: (categoryId: number) => void;
+    checkOffHandler: (categoryId: number) => void;
   };
 };

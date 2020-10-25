@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Touchable, RadioButton, Box } from '../../ui';
 import { useColorCtx } from '../../containers/contexts/color';
-import { ColorTypes_Enum } from '../../types/graphql';
+import { Color_Enum } from '../../types/graphql';
 import { useTheme } from 'styled-components';
 
 type ColorSelectItemProps = {
-  itemColor: ColorTypes_Enum;
+  itemColor: Color_Enum;
   hex: {
     light: string;
     main: string;

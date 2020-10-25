@@ -15,33 +15,38 @@ export const TodoUrgencySelect: FC<TodoUrgencySelectProps> = ({
   const urgencyIntervals: UrgencyIntervals[] = [
     {
       name: '今週',
-      value: 'week',
+      value: 'WEEK',
     },
     {
       name: '今月',
-      value: 'month',
+      value: 'MONTH',
     },
     {
       name: '今年',
-      value: 'year',
+      value: 'YEAR',
     },
   ];
 
   return (
-    <Box width="100%">
+    <Box
+      width="100%"
+      display="flex"
+      flexDirection="row"
+      justifyContent="space-evenly">
       {urgencyIntervals.map(urgencyInterval => {
         const handleSelect = () => {
           urgencySelectHandler(urgencyInterval.value);
         };
 
-        <Box key={urgencyInterval.name} flexDirection="row" mb={1}>
-          <RadioButton
-            onPress={handleSelect}
-            checked={urgency === urgencyInterval.value}
-          />
-          <Box mr={2} />
-          <Text>{urgencyInterval.name}</Text>
-        </Box>;
+        return (
+          <Box key={urgencyInterval.name} display="flex" flexDirection="row">
+            <RadioButton
+              onPress={handleSelect}
+              checked={urgency === urgencyInterval.value}
+            />
+            <Text>{urgencyInterval.name}</Text>
+          </Box>
+        );
       })}
     </Box>
   );

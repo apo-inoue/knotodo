@@ -1,15 +1,15 @@
 // コンポーネントにデータを流し込むコンポーネント
-export { ArchiveTodos } from './ArchiveTodos';
-export { LogIn } from './LogIn';
-export { NewTodo } from './NewTodo';
-export { EditTodo } from './EditTodo';
-export { CategoryFilter } from './CategoryFilter';
+export { AccomplishmentAndGoal } from './AccomplishmentAndGoal';
 export { CategorySetting } from './CategorySetting';
-export { NotTodayTodos } from './NotTodayTodos';
+export { Color } from './Color';
+export { EditTodo } from './EditTodo';
+export { FutureTodos } from './FutureTodos';
+export { GoalSetting } from './GoalSetting';
+export { LogIn } from './LogIn';
+export { ModalFilter } from './ModalFilter';
+export { ModalSort } from './ModalSort';
+export { NewTodo } from './NewTodo';
+export { NewUserWelcome } from './NewUserWelcome';
+export { PastTodos } from './PastTodos';
 export { TodayTodos } from './TodayTodos';
 export { TodoDetails } from './TodoDetails';
-export { Color } from './Color';
-export { TodosSort } from './TodosSort';
-export { AccomplishmentAndMessage } from './AccomplishmentAndMessage';
-export { MessageSetting } from './MessageSetting';
-export { NewUserWelcome } from './NewUserWelcome';

@@ -22,6 +22,7 @@ export type useAuthContextType = {
   state: AuthState;
   seedDataStandByHandler: () => void;
   handleLogIn: () => Promise<void>;
+  handleSession: (isNewUser: boolean) => void;
   handleLogOut: () => void;
 };
 

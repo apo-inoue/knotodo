@@ -3,12 +3,12 @@ import { Picker } from '../../ui';
 import { Categories } from '../../types/graphql';
 
 type CategoriesProps = {
-  categories: ({ __typename: 'categories' } & Pick<
+  categories: ({ __typename?: 'categories' } & Pick<
     Categories,
-    'category' | 'id'
+    'id' | 'title'
   >)[];
-  category_id: string;
-  categorySelectHandler: (category_id: string) => void;
+  category_id: number;
+  categorySelectHandler: (category_id: number) => void;
 };
 
 export const CategoriesPicker: FC<CategoriesProps> = ({
@@ -27,7 +27,7 @@ export const CategoriesPicker: FC<CategoriesProps> = ({
         return (
           <Picker.Item
             key={category.id}
-            label={category.category}
+            label={category.title}
             value={category.id}
           />
         );

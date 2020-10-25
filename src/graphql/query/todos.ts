@@ -1,104 +1,75 @@
 import { gql } from '@apollo/client';
 
 export const TODAY_TODOS = gql`
-  query todayTodos(
-    $created_at: order_by = null
-    $urgency: order_by = null
-    $workload: order_by = null
-    $_in: [uuid!]
-  ) {
+  query TodayTodos($_in: [Int!], $order_by: [todos_order_by!]) {
     todos(
       where: {
         _and: {
-          isToday: { _eq: true }
-          isCompleted: { _eq: false }
-          deleted_at: { _is_null: true }
+          is_today: { _eq: true }
           category_id: { _in: $_in }
+          completed_at: { _is_null: true }
+          deleted_at: { _is_null: true }
         }
       }
-      order_by: {
-        created_at: $created_at
-        urgency: $urgency
-        workload: $workload
-      }
+      order_by: $order_by
     ) {
       id
       title
       urgency
       workload
-      isCompleted
-      isToday
+      is_today
       category_id
     }
   }
 `;
 
-export const NOT_TODAY_TODOS = gql`
-  query notTodayTodos(
-    $created_at: order_by = null
-    $urgency: order_by = null
-    $workload: order_by = null
-    $_in: [uuid!]
-  ) {
+export const FUTURE_TODOS = gql`
+  query FutureTodos($_in: [Int!], $order_by: [todos_order_by!]) {
     todos(
       where: {
-        isToday: { _eq: false }
-        isCompleted: { _eq: false }
-        deleted_at: { _is_null: true }
+        is_today: { _eq: false }
         category_id: { _in: $_in }
+        completed_at: { _is_null: true }
+        deleted_at: { _is_null: true }
       }
-      order_by: {
-        created_at: $created_at
-        urgency: $urgency
-        workload: $workload
-      }
+      order_by: $order_by
     ) {
       id
       title
       urgency
       workload
-      isToday
-      isCompleted
+      is_today
       category_id
     }
   }
 `;
 
-export const COMPLETED_TODOS = gql`
-  query completedTodos(
-    $created_at: order_by = null
-    $urgency: order_by = null
-    $workload: order_by = null
-    $_in: [uuid!]
-  ) {
+export const PAST_TODOS = gql`
+  query PastTodos($_in: [Int!], $order_by: [todos_order_by!]) {
     todos(
       where: {
-        isCompleted: { _eq: true }
-        deleted_at: { _is_null: true }
         category_id: { _in: $_in }
+        completed_at: { _is_null: false }
+        deleted_at: { _is_null: true }
       }
-      order_by: {
-        created_at: $created_at
-        urgency: $urgency
-        workload: $workload
-      }
+      order_by: $order_by
     ) {
       id
       title
       urgency
       workload
-      isToday
-      isCompleted
+      is_today
       category_id
+      completed_at
     }
   }
 `;
 
-export const GET_ACCOMPLISHMENT_AND_MESSAGE = gql`
-  query GetAccomplishmentAndMessage(
-    $_gte1: timestamptz
-    $_gte2: timestamptz
-    $_gte3: timestamptz
+export const ACCOMPLISHMENT_AND_GOAL = gql`
+  query AccomplishmentAndGoal(
+    $_gte1: timestamptz!
+    $_gte2: timestamptz!
+    $_gte3: timestamptz!
   ) {
     week: todos_aggregate(where: { completed_at: { _gte: $_gte1 } }) {
       aggregate {
@@ -116,7 +87,25 @@ export const GET_ACCOMPLISHMENT_AND_MESSAGE = gql`
       }
     }
     users {
-      message
+      goal
+    }
+  }
+`;
+
+export const TODAY_WORKLOAD_TOTAL = gql`
+  query TodayWorkloadTotal {
+    todos_aggregate(
+      where: {
+        is_today: { _eq: true }
+        completed_at: { _is_null: true }
+        deleted_at: { _is_null: true }
+      }
+    ) {
+      aggregate {
+        sum {
+          workload
+        }
+      }
     }
   }
 `;

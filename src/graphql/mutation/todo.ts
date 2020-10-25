@@ -1,25 +1,22 @@
 import { gql } from '@apollo/client';
 
 export const INSERT_TODO = gql`
-  mutation InsertToDo(
-    $title: String = ""
-    $urgency: urgency_enum = month
-    $workload: Int = 1
-    $isToday: Boolean = true
-    $isCompleted: Boolean = false
-    $category_id: uuid
+  mutation InsertTodo(
+    $title: String!
+    $urgency: urgency_enum!
+    $workload: Int!
+    $is_today: Boolean!
+    $category_id: Int!
   ) {
     insert_todos_one(
       object: {
-        isCompleted: $isCompleted
-        isToday: $isToday
         title: $title
         urgency: $urgency
         workload: $workload
+        is_today: $is_today
         category_id: $category_id
       }
     ) {
-      __typename
       id
     }
   }
@@ -27,18 +24,18 @@ export const INSERT_TODO = gql`
 
 export const UPDATE_TODO = gql`
   mutation UpdateTodo(
-    $id: String!
-    $title: String
-    $urgency: urgency_enum
-    $workload: Int
-    $category_id: uuid
+    $id: Int!
+    $title: String!
+    $urgency: urgency_enum!
+    $workload: Int!
+    $category_id: Int!
   ) {
     update_todos_by_pk(
       pk_columns: { id: $id }
       _set: {
+        title: $title
         urgency: $urgency
         workload: $workload
-        title: $title
         category_id: $category_id
       }
     ) {
@@ -48,10 +45,10 @@ export const UPDATE_TODO = gql`
 `;
 
 export const COMPLETE_TODO = gql`
-  mutation CompleteToDo($_eq: String!) {
+  mutation CompleteTodo($_eq: Int!) {
     update_todos(
       where: { id: { _eq: $_eq } }
-      _set: { isCompleted: true, completed_at: "now()" }
+      _set: { completed_at: "now()" }
     ) {
       affected_rows
       returning {
@@ -62,7 +59,7 @@ export const COMPLETE_TODO = gql`
 `;
 
 export const DELETE_TODO = gql`
-  mutation DeleteToDo($_eq: String!) {
+  mutation DeleteTodo($_eq: Int!) {
     update_todos(where: { id: { _eq: $_eq } }, _set: { deleted_at: "now()" }) {
       affected_rows
       returning {
@@ -73,8 +70,8 @@ export const DELETE_TODO = gql`
 `;
 
 export const SET_TODAY_TODO = gql`
-  mutation SetTodayTodo($_eq: String!) {
-    update_todos(where: { id: { _eq: $_eq } }, _set: { isToday: true }) {
+  mutation SetTodayTodo($_eq: Int!) {
+    update_todos(where: { id: { _eq: $_eq } }, _set: { is_today: true }) {
       affected_rows
       returning {
         id
@@ -83,9 +80,9 @@ export const SET_TODAY_TODO = gql`
   }
 `;
 
-export const SET_NOT_TODAY_TODO = gql`
-  mutation SetNotTodayTodo($_eq: String!) {
-    update_todos(where: { id: { _eq: $_eq } }, _set: { isToday: false }) {
+export const RESCHEDULE_TODO = gql`
+  mutation rescheduleTodo($_eq: Int!) {
+    update_todos(where: { id: { _eq: $_eq } }, _set: { is_today: false }) {
       affected_rows
       returning {
         id
@@ -95,15 +92,10 @@ export const SET_NOT_TODAY_TODO = gql`
 `;
 
 export const RESTORE_NOT_TODAY = gql`
-  mutation RestoreNotToday($_eq: String!) {
+  mutation RestoreNotToday($_eq: Int!) {
     update_todos(
       where: { id: { _eq: $_eq } }
-      _set: {
-        isCompleted: false
-        completed_at: null
-        isToday: false
-        deleted_at: null
-      }
+      _set: { is_today: false, completed_at: null, deleted_at: null }
     ) {
       affected_rows
       returning {
@@ -114,15 +106,10 @@ export const RESTORE_NOT_TODAY = gql`
 `;
 
 export const RESTORE_TODAY = gql`
-  mutation RestoreToday($_eq: String!) {
+  mutation RestoreToday($_eq: Int!) {
     update_todos(
       where: { id: { _eq: $_eq } }
-      _set: {
-        isCompleted: false
-        completed_at: null
-        isToday: true
-        deleted_at: null
-      }
+      _set: { is_today: true, completed_at: null, deleted_at: null }
     ) {
       affected_rows
       returning {

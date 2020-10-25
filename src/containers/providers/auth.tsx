@@ -1,8 +1,9 @@
 import React, { FC, useReducer } from 'react';
 import { authReducer, initialState } from '../reducers/auth';
-import { AuthContextProvider } from '../contexts/auth';
+import { AuthCtxProvider } from '../contexts/auth';
 import * as Random from 'expo-random';
 import * as SecureStore from 'expo-secure-store';
+import * as WebBrowser from 'expo-web-browser';
 import jwtDecoder from 'jwt-decode';
 import queryString from 'query-string';
 import {
@@ -98,14 +99,15 @@ export const AuthProvider: FC = ({ children }) => {
         }
       })
       .catch(error => {
+        console.log(error);
         return error;
       });
   };
 
   const handleLogOut = async () => {
-    // await WebBrowser.openBrowserAsync(
-    //   `${AUTH_DOMAIN}/v2/logout?client_id=${AUTH_CLIENT_ID}`,
-    // );
+    await WebBrowser.openBrowserAsync(
+      `${AUTH_DOMAIN}/v2/logout?client_id=${AUTH_CLIENT_ID}`,
+    );
     SecureStore.deleteItemAsync(ID_TOKEN_KEY);
     dispatch({ actionType: 'LOGOUT' });
   };
@@ -118,8 +120,9 @@ export const AuthProvider: FC = ({ children }) => {
     state,
     seedDataStandByHandler,
     handleLogIn,
+    handleSession,
     handleLogOut,
   };
 
-  return <AuthContextProvider value={value}>{children}</AuthContextProvider>;
+  return <AuthCtxProvider value={value}>{children}</AuthCtxProvider>;
 };

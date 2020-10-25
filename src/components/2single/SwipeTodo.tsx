@@ -2,16 +2,16 @@ import React, { FC } from 'react';
 import { Box, PrimaryButton } from '../../ui';
 import { Todos } from '../../types/graphql';
 
-type TodoType = { __typename: 'todos' } & Pick<
+type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
-  'title' | 'id' | 'isToday' | 'isCompleted'
+  'id' | 'title' | 'is_today'
 >;
 
 type SwipeTodoType = {
   todo: TodoType;
-  onPress: (id: string) => void;
+  onPress: (id: number) => void;
   btnText: string;
-  onDelete: (id: string) => void;
+  onDelete: (id: number) => void;
 };
 
 export const SwipeTodo: FC<SwipeTodoType> = ({
@@ -29,11 +29,7 @@ export const SwipeTodo: FC<SwipeTodoType> = ({
 
   return (
     <Box flexDirection="row">
-      <PrimaryButton
-        variant="outlined"
-        text="Delete"
-        onPress={onDeleteHandler}
-      />
+      <PrimaryButton variant="outlined" text="削除" onPress={onDeleteHandler} />
       <PrimaryButton
         variant="contained"
         text={btnText}

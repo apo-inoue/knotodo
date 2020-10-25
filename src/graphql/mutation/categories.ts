@@ -1,36 +1,31 @@
 import { gql } from '@apollo/client';
 
 export const INSERT_CATEGORY = gql`
-  mutation InsertCategory($category: String = "") {
-    insert_categories(objects: { category: $category }) {
-      returning {
-        category
-        id
-      }
+  mutation InsertCategory($title: String!) {
+    insert_categories_one(object: { title: $title }) {
+      id
+      title
     }
   }
 `;
 
 export const UPDATE_CATEGORY = gql`
-  mutation UpdateCategory($id: uuid!, $category: String) {
-    update_categories_by_pk(
-      pk_columns: { id: $id }
-      _set: { category: $category }
-    ) {
+  mutation UpdateCategory($id: Int!, $title: String!) {
+    update_categories_by_pk(pk_columns: { id: $id }, _set: { title: $title }) {
       id
-      category
+      title
     }
   }
 `;
 
 export const DELETE_CATEGORY = gql`
-  mutation DeleteCategory($id: uuid!) {
+  mutation DeleteCategory($id: Int!) {
     update_categories_by_pk(
       pk_columns: { id: $id }
       _set: { deleted_at: "now()" }
     ) {
       id
-      category
+      title
     }
   }
 `;

@@ -1,8 +1,8 @@
 import { getISODay } from 'date-fns';
 
-type PrizeReckoner = (weeklyAccomplishment: number) => number;
+type CalcPrize = (weeklyAccomplishment: number) => number;
 
-export const prizeReckoner: PrizeReckoner = weeklyAccomplishment => {
+export const calcPrize: CalcPrize = weeklyAccomplishment => {
   const dayOfTheWeek = getISODay(new Date());
   const dailyGoal = {
     hard: dayOfTheWeek * 3,

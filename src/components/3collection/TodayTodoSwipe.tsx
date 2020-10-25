@@ -4,21 +4,15 @@ import { Todos } from '../../types/graphql';
 import { Box, SlideUpOutView } from '../../ui';
 import { TodoListItem, SwipeTodo } from '../2single';
 
-type TodoType = { __typename: 'todos' } & Pick<
+type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
-  | 'title'
-  | 'id'
-  | 'urgency'
-  | 'workload'
-  | 'isToday'
-  | 'isCompleted'
-  | 'category_id'
+  'id' | 'title' | 'urgency' | 'workload' | 'is_today' | 'category_id'
 >;
 type TodayTodoSwipeProps = {
   todo: TodoType;
-  onPress: (id: string) => void;
-  onPostpone: (id: string) => void;
-  onDelete: (id: string) => void;
+  onPress: (id: number) => void;
+  onPostpone: (id: number) => void;
+  onDelete: (id: number) => void;
   disableScrollHandler: () => void;
   enableScrollHandler: () => void;
 };
@@ -52,7 +46,7 @@ export const TodayTodoSwipe: FC<TodayTodoSwipeProps> = ({
             <SwipeTodo
               todo={todo}
               onPress={onPostponeEffectHandler}
-              btnText="NotToday"
+              btnText="リスケ"
               onDelete={onDelete}
             />
           </Box>
@@ -60,7 +54,7 @@ export const TodayTodoSwipe: FC<TodayTodoSwipeProps> = ({
         <Box width="100%" bg="white">
           <TodoListItem
             todo={todo}
-            buttonAction={{ onPress: onPressEffectHandler, label: 'Complete' }}
+            buttonAction={{ onPress: onPressEffectHandler, label: '完了' }}
           />
         </Box>
       </SwipeRow>

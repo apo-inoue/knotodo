@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { DrawerNavigation } from './DrawerNavigation';
 import Modal from 'react-native-modal';
-import { TodosSort, CategoryFilter } from '../4pages';
+import { ModalSort, ModalFilter } from '../4pages';
 
 type ModalNavigationProps = {
   isSortModalVisible: boolean;
@@ -23,14 +23,14 @@ export const ModalNavigation: FC<ModalNavigationProps> = ({
         onBackdropPress={sortModalToggler}
         onSwipeComplete={sortModalToggler}
         swipeDirection={['down', 'up']}>
-        <TodosSort sortModalToggler={sortModalToggler} />
+        <ModalSort sortModalToggler={sortModalToggler} />
       </Modal>
       <Modal
         isVisible={isFilterModalVisible}
         onSwipeComplete={filterModalToggler}
         onBackdropPress={filterModalToggler}
         swipeDirection={['down', 'up']}>
-        <CategoryFilter filterModalToggler={filterModalToggler} />
+        <ModalFilter filterModalToggler={filterModalToggler} />
       </Modal>
       <DrawerNavigation />
     </>

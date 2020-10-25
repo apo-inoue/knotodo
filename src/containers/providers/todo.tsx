@@ -6,26 +6,19 @@ import { TodoState } from '../types/todo';
 export const TodoProvider: FC = ({ children }) => {
   const initialTodo: TodoState = {
     title: '',
-    urgency: 'week',
-    category_id: '',
+    urgency: 'WEEK',
     workload: 1,
-    isToday: false,
-    isCompleted: false,
+    is_today: false,
+    category_id: 0,
   };
   const [newTodo, setNewTodo] = useState<TodoState>(initialTodo);
-  const [editTodo, setEditTodo] = useState<{ id: string } & TodoState>({
+  const [editTodo, setEditTodo] = useState<{ id: number } & TodoState>({
     ...initialTodo,
-    id: '',
+    id: 1,
   });
 
-  const newTodoMountHandler = ({
-    isToday,
-    isCompleted,
-  }: {
-    isToday: boolean;
-    isCompleted: boolean;
-  }) => {
-    return setNewTodo({ ...initialTodo, isToday, isCompleted });
+  const newTodoMountHandler = (is_today: boolean) => {
+    return setNewTodo({ ...initialTodo, is_today });
   };
   const newTodoClearHandler = () => {
     setNewTodo(initialTodo);
@@ -36,14 +29,14 @@ export const TodoProvider: FC = ({ children }) => {
   const newTodoUrgencySelectHandler = (urgency: Urgency_Enum) => {
     return setNewTodo({ ...newTodo, urgency });
   };
-  const newTodoCategorySelectHandler = (category_id: string) => {
+  const newTodoCategorySelectHandler = (category_id: number) => {
     return setNewTodo({ ...newTodo, category_id });
   };
   const newTodoWorkloadSelectHandler = (workload: number) => {
     return setNewTodo({ ...newTodo, workload });
   };
 
-  const editTodoMountHandler = (todo: { id: string } & TodoState) => {
+  const editTodoMountHandler = (todo: { id: number } & TodoState) => {
     return setEditTodo(todo);
   };
   const editTodoTitleInputHandler = (title: string) => {
@@ -52,7 +45,7 @@ export const TodoProvider: FC = ({ children }) => {
   const editTodoUrgencySelectHandler = (urgency: Urgency_Enum) => {
     return setEditTodo({ ...editTodo, urgency });
   };
-  const editTodoCategorySelectHandler = (category_id: string) => {
+  const editTodoCategorySelectHandler = (category_id: number) => {
     return setEditTodo({ ...editTodo, category_id });
   };
   const editTodoWorkloadSelectHandler = (workload: number) => {

@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { PrimaryButton, Box, UnderlinedTextForm } from '../../ui';
-import { Categories, InsertToDoMutationVariables } from '../../types/graphql';
+import { Categories } from '../../types/graphql';
 import {
   CategoriesPicker,
   TodoUrgencySelect,
@@ -10,18 +10,11 @@ import {
 import { useTodoCtx } from '../../containers/contexts/todo';
 
 type NewTodoProps = {
-  categories: ({ __typename: 'categories' } & Pick<
+  categories: ({ __typename?: 'categories' } & Pick<
     Categories,
-    'category' | 'id'
+    'id' | 'title'
   >)[];
-  onPress: ({
-    title,
-    urgency,
-    workload,
-    isToday,
-    isCompleted,
-    category_id,
-  }: InsertToDoMutationVariables) => void;
+  onPress: () => void;
 };
 
 export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
@@ -29,7 +22,7 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
   const [error, setError] = useState<string>('');
   const {
     newTodo: {
-      state: { title, urgency, workload, isToday, isCompleted, category_id },
+      state: { title, urgency, workload, category_id },
       todoClearHandler,
       titleInputHandler,
       workloadSelectHandler,
@@ -37,19 +30,11 @@ export const NewTodo: FC<NewTodoProps> = ({ categories, onPress }) => {
       categorySelectHandler,
     },
   } = useTodoCtx();
-  const category: string = category_id === '' ? categories[0].id : category_id;
   const insertAndNavigateHandler = () => {
     if (title === '') {
       setError('入力してください');
     } else {
-      onPress({
-        title,
-        urgency,
-        workload,
-        isToday,
-        isCompleted,
-        category_id: category,
-      });
+      onPress();
     }
   };
   const cancelAndNavigateHandler = () => {
