@@ -1,20 +1,17 @@
-import React, { FC, useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import React, { FC } from 'react';
 import { useIsDrawerOpen } from '@react-navigation/drawer';
 import { startOfISOWeek, startOfMonth, startOfYear, formatISO } from 'date-fns';
 import { useAccomplishmentAndGoalLazyQuery } from '../../types/graphql';
 import { Box } from '../../ui';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { AccomplishmentAndGoalCollection } from '../3collection';
+import { useIgnoreFirstRenderEffect } from '../../helpers/useIgnoreFirstRenderEffect';
 
 export const AccomplishmentAndGoal: FC = () => {
   const startWeek = formatISO(startOfISOWeek(new Date()));
   const startMonth = formatISO(startOfMonth(new Date()));
   const startYear = formatISO(startOfYear(new Date()));
-  const [
-    fetchAccomplishmentAndGoal,
-    { error, data },
-  ] = useAccomplishmentAndGoalLazyQuery({
+  const [fetch, { error, data }] = useAccomplishmentAndGoalLazyQuery({
     variables: {
       _gte1: startWeek,
       _gte2: startMonth,
@@ -22,11 +19,8 @@ export const AccomplishmentAndGoal: FC = () => {
     },
   });
   const isDrawerOpen = useIsDrawerOpen();
-  useFocusEffect(
-    useCallback(() => {
-      isDrawerOpen && fetchAccomplishmentAndGoal();
-    }, [fetchAccomplishmentAndGoal, isDrawerOpen]),
-  );
+  const fetchOpen = isDrawerOpen ? fetch : () => console.log('hello');
+  useIgnoreFirstRenderEffect(fetchOpen);
 
   if (error) {
     return <ErrorMessage />;

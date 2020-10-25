@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Box, Divider } from '../../ui';
@@ -6,6 +6,7 @@ import { Todos } from '../../types/graphql';
 import { PastTodoSwipe } from './PastTodoSwipe';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { PastTodosChronological } from './PastTodosChronological';
+import { useScrollable } from '../../helpers/useScrollable';
 
 type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
@@ -33,13 +34,11 @@ export const PastTodos: FC<PastTodosProps> = ({
   const {
     sort: { isDefault },
   } = useSortFilterCtx();
-  const [isScrollable, setIsScrollable] = useState(true);
-  const enableScrollHandler = () => {
-    setIsScrollable(true);
-  };
-  const disableScrollHandler = () => {
-    setIsScrollable(false);
-  };
+  const {
+    isScrollable,
+    enableScrollHandler,
+    disableScrollHandler,
+  } = useScrollable();
 
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
     const todo = rowData.item;

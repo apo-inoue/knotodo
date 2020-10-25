@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SwipeListView } from 'react-native-swipe-list-view';
@@ -8,6 +8,7 @@ import { AddFab } from '../1standalone/AddFab';
 import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import { FutureTodoSwipe } from './FutureTodoSwipe';
 import { useTodoCtx } from '../../containers/contexts/todo';
+import { useScrollable } from '../../helpers/useScrollable';
 
 type TodoType = { __typename?: 'todos' } & Pick<
   Todos,
@@ -35,13 +36,11 @@ export const FutureTodos: FC<FutureTodosProps> = ({
     navigation.navigate(STACK_ROUTE_NAMES.新規作成);
   };
 
-  const [isScrollable, setIsScrollable] = useState<boolean>(true);
-  const disableScrollHandler = () => {
-    setIsScrollable(false);
-  };
-  const enableScrollHandler = () => {
-    setIsScrollable(true);
-  };
+  const {
+    isScrollable,
+    enableScrollHandler,
+    disableScrollHandler,
+  } = useScrollable();
 
   const renderItem = (rowData: ListRenderItemInfo<TodoType>) => {
     const isLastRow = todos.length - 1 === rowData.index;
