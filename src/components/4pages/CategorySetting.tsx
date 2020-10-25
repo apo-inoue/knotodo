@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { Container, ScreenLoader } from '../../ui';
 import {
-  useCategoriesQuery,
   useInsertCategoryMutation,
   CategoriesQuery,
 } from '../../types/graphql';
@@ -9,14 +9,19 @@ import { NoDataMessage, ErrorMessage } from '../1standalone';
 import { CategorySettingCollection } from '../3collection';
 import { useCategoryCtx } from '../../containers/contexts/category';
 import { ALL_CATEGORY } from '../../graphql/query/categories';
-import { useUpdateCategoryMutation } from '../../types/graphql';
-import { useDeleteCategoryMutation } from '../../types/graphql';
+import {
+  useUpdateCategoryMutation,
+  useCategoriesLazyQuery,
+  useDeleteCategoryMutation,
+} from '../../types/graphql';
 
 export const CategorySetting: FC = () => {
   const {
     state: { category },
   } = useCategoryCtx();
-  const { data, loading, error } = useCategoriesQuery();
+  const [fetchCategories, { loading, error, data }] = useCategoriesLazyQuery();
+
+  useFocusEffect(useCallback(() => fetchCategories(), [fetchCategories]));
 
   // ------------ insert ------------
   const [insertCategory] = useInsertCategoryMutation({

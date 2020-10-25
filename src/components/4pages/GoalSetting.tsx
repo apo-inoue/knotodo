@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { ScreenLoader, Container } from '../../ui';
 import { NoDataMessage, ErrorMessage } from '../1standalone';
 import {
-  useUserGoalQuery,
   useUpdateUserGoalMutation,
   UserGoalQuery,
+  useUserGoalLazyQuery,
 } from '../../types/graphql';
 import { GoalSettingCollection } from '../3collection';
 import { USER_GOAL } from '../../graphql/query/users';
@@ -16,7 +17,10 @@ export const GoalSetting: FC = () => {
       userInfo: { id },
     },
   } = useAuthCtx();
-  const { data, loading, error } = useUserGoalQuery();
+  const [fetchUserGoal, { data, loading, error }] = useUserGoalLazyQuery();
+
+  useFocusEffect(useCallback(() => fetchUserGoal(), [fetchUserGoal]));
+
   const [updateUserGoal] = useUpdateUserGoalMutation({
     update(cache, { data: updateData }) {
       const newUser = updateData!.update_users!.returning[0];

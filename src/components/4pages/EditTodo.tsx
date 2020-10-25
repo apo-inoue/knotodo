@@ -1,19 +1,24 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Container, ScreenLoader } from '../../ui';
 import { EditTodoCollection } from '../3collection';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
-import { useUpdateTodoMutation, useCategoriesQuery } from '../../types/graphql';
+import {
+  useUpdateTodoMutation,
+  useCategoriesLazyQuery,
+} from '../../types/graphql';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { useNavigation } from '@react-navigation/native';
 
 export const EditTodo: FC = () => {
   const navigation = useNavigation();
-  const { data, loading, error } = useCategoriesQuery();
+  const [fetchCategories, { data, loading, error }] = useCategoriesLazyQuery();
   const {
     editTodo: {
       state: { id, title, urgency, workload, category_id },
     },
   } = useTodoCtx();
+
+  useFocusEffect(useCallback(() => fetchCategories(), [fetchCategories]));
 
   // ---------- update ----------
   const [updateTodo] = useUpdateTodoMutation({

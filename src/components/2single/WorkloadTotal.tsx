@@ -33,7 +33,7 @@ export const WorkloadTotal: FC<WorkloadTotalProps> = ({ workloadTotal }) => {
 
   return (
     <Box position="absolute" width="100%" bottom={2} left={3}>
-      <Box width="100%" my="10">
+      <Box width="100%" my={2}>
         <Box display="flex" flexDirection="row" alignItems="center">
           <Text fontSize={theme.fontSizes[2]} color={theme.colors.main}>
             工数合計:&nbsp;{workloadTotal !== 0 ? workloadTotal : ''}

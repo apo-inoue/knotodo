@@ -1,14 +1,20 @@
-import React, { FC } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { FC, useCallback } from 'react';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Container, ScreenLoader } from '../../ui';
-import { useCategoriesQuery, useInsertTodoMutation } from '../../types/graphql';
+import {
+  useInsertTodoMutation,
+  useCategoriesLazyQuery,
+} from '../../types/graphql';
 import { ErrorMessage, NoDataMessage } from '../1standalone';
 import { NewTodoCollection } from '../3collection';
 import { useTodoCtx } from '../../containers/contexts/todo';
 
 export const NewTodo: FC = () => {
   const navigation = useNavigation();
-  const { data, loading, error } = useCategoriesQuery();
+  const [fetchCategories, { data, loading, error }] = useCategoriesLazyQuery();
+
+  useFocusEffect(useCallback(() => fetchCategories(), [fetchCategories]));
+
   const {
     newTodo: {
       state: { title, urgency, workload, is_today, category_id },

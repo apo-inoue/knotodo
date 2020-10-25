@@ -3,18 +3,18 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Container, ScreenLoader } from '../../ui';
 import { ErrorMessage, NoDataMessage, AddFab } from '../1standalone';
 import { TodayTodosCollection } from '../3collection';
+import { STACK_ROUTE_NAMES } from '../5navigation/type';
 import {
   useTodayTodosQuery,
   useCompleteTodoMutation,
   useRescheduleTodoMutation,
-  TodayTodosQuery,
+  useTodayWorkloadTotalQuery,
   useDeleteTodoMutation,
+  TodayTodosQuery,
 } from '../../types/graphql';
 import { TODAY_TODOS, TODAY_WORKLOAD_TOTAL } from '../../graphql/query/todos';
 import { useSortFilterCtx } from '../../containers/contexts/sortFilter';
 import { useTodoCtx } from '../../containers/contexts/todo';
-import { STACK_ROUTE_NAMES } from '../5navigation/type';
-import { useTodayWorkloadTotalQuery } from '../../types/graphql';
 
 // NOTE: 今日
 export const TodayTodos: FC = () => {
@@ -158,7 +158,6 @@ export const TodayTodos: FC = () => {
 
   return (
     <Container>
-      {console.log(workloadData, 'log')}
       <TodayTodosCollection
         todos={data.todos}
         workloadTotal={workloadTotal}

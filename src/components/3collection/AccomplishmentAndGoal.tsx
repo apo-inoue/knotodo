@@ -5,23 +5,31 @@ import { AccomplishmentAndGoalQuery } from '../../types/graphql';
 import { calcPrize } from '../../helpers/calcPrize';
 
 type AccomplishmentAndGoalProps = {
-  accomplishmentAndGoal: AccomplishmentAndGoalQuery;
+  accomplishmentAndGoal?: AccomplishmentAndGoalQuery;
 };
 
 export const AccomplishmentAndGoal: FC<AccomplishmentAndGoalProps> = ({
   accomplishmentAndGoal,
 }) => {
   const theme = useTheme();
-  const { year, month, week } = accomplishmentAndGoal;
   // accomplishment
-  const weeklyAccomplishment = week.aggregate?.count ?? 0;
-  const monthlyAccomplishment = month.aggregate?.count ?? 0;
-  const annuallyAccomplishment = year.aggregate?.count ?? 0;
-  const { goal } = accomplishmentAndGoal.users[0];
+  const weeklyAccomplishment = accomplishmentAndGoal
+    ? accomplishmentAndGoal?.week.aggregate?.count
+    : '';
+  const monthlyAccomplishment = accomplishmentAndGoal
+    ? accomplishmentAndGoal?.month.aggregate?.count
+    : '';
+  const annuallyAccomplishment = accomplishmentAndGoal
+    ? accomplishmentAndGoal?.year.aggregate?.count
+    : '';
+  const goal = accomplishmentAndGoal ? accomplishmentAndGoal.users[0].goal : '';
   // calcPrize
-  const prizeScore = useMemo(() => calcPrize(weeklyAccomplishment), [
-    weeklyAccomplishment,
-  ]);
+  const prizeScore = useMemo(
+    () =>
+      typeof weeklyAccomplishment === 'number' &&
+      calcPrize(weeklyAccomplishment),
+    [weeklyAccomplishment],
+  );
 
   const Prize = () => {
     switch (prizeScore) {

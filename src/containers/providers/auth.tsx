@@ -3,6 +3,7 @@ import { authReducer, initialState } from '../reducers/auth';
 import { AuthCtxProvider } from '../contexts/auth';
 import * as Random from 'expo-random';
 import * as SecureStore from 'expo-secure-store';
+import * as WebBrowser from 'expo-web-browser';
 import jwtDecoder from 'jwt-decode';
 import queryString from 'query-string';
 import {
@@ -104,9 +105,9 @@ export const AuthProvider: FC = ({ children }) => {
   };
 
   const handleLogOut = async () => {
-    // await WebBrowser.openBrowserAsync(
-    //   `${AUTH_DOMAIN}/v2/logout?client_id=${AUTH_CLIENT_ID}`,
-    // );
+    await WebBrowser.openBrowserAsync(
+      `${AUTH_DOMAIN}/v2/logout?client_id=${AUTH_CLIENT_ID}`,
+    );
     SecureStore.deleteItemAsync(ID_TOKEN_KEY);
     dispatch({ actionType: 'LOGOUT' });
   };
